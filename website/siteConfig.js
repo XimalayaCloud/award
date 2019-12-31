@@ -30,7 +30,8 @@ const siteConfig = {
       doc: 'plugin/intro',
       label: '插件'
     },
-    { doc: 'api/start', label: 'API' }
+    { doc: 'api/start', label: 'API' },
+    { href: 'https://github.com/XimalayaCloud/award', label: 'GitHub' }
   ],
 
   blogSidebarCount: 'ALL',
