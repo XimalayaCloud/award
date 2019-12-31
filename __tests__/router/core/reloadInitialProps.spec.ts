@@ -38,66 +38,40 @@ describe('updateProps 和 reloadInitialProps测试', () => {
     }
   });
 
-  it('updateProps boolean true', done => {
+  it('reloadInitialProps 测试', done => {
     // 直接渲染home组件
     window.jestMock = jest.fn();
     mountStart(async wrapper => {
       await new Promise(resolve => setTimeout(resolve, 10));
-      wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
+      const warnd = jest.spyOn(console, 'warn');
+      wrapper
+        .find('p')
+        .at(0)
+        .simulate('click');
+      wrapper
+        .find('p')
+        .at(0)
+        .simulate('click');
       await new Promise(resolve => setTimeout(resolve, 30));
-      expect(window.jestMock).toHaveBeenCalledTimes(2);
-      done();
-    });
-    require('@/fixtures/basic-router/updateProps/main/a');
-  });
-
-  it('updateProps function true', done => {
-    // 直接渲染home组件
-    window.jestMock = jest.fn();
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
-
-      await new Promise(resolve => setTimeout(resolve, 30));
-      expect(window.jestMock).toHaveBeenCalledTimes(3);
+      expect(warnd).toHaveBeenCalledWith(
+        '当前根组件正在执行reloadInitialProps函数，请等待执行完毕！'
+      );
       done();
     });
     require('@/fixtures/basic-router/updateProps/main/b');
   });
 
-  it('updateProps function false', done => {
+  it('reloadInitialProps 测试', done => {
     // 直接渲染home组件
     window.jestMock = jest.fn();
-    mountStart(async wrapper => {
+    history.replaceState({}, '', '/?id=abc');
+    mountStart(async (wrapper, err) => {
       await new Promise(resolve => setTimeout(resolve, 10));
-      wrapper.update();
-      expect(wrapper.html()).toBe('<p>hello routes</p>');
-
-      await new Promise(resolve => setTimeout(resolve, 30));
-      expect(window.jestMock).toHaveBeenCalledTimes(2);
-      done();
-    });
-    require('@/fixtures/basic-router/updateProps/main/c');
-  });
-
-  it('updateProps function Error', done => {
-    // 直接渲染home组件
-    window.jestMock = jest.fn();
-    const URL = document.createElement('div');
-    URL.id = '__URL__';
-    URL.setAttribute('data-loadable', '1');
-    document.body.appendChild(URL);
-    history.replaceState({}, '', '/?id=123');
-    mountStart(async wrapper => {
-      expect(wrapper.html()).toBe('<p>hello </p>');
-
-      await new Promise(resolve => setTimeout(resolve, 30));
-      wrapper.update();
-      expect(wrapper.html()).toBe('<p>hello error</p>');
-      expect(window.jestMock).toHaveBeenCalledTimes(1);
+      expect(err.message).toEqual('reloadInitialProps这是系统关键字，请不要使用该名称作为key');
       done();
     });
     require('@/fixtures/basic-router/updateProps/main/b');
