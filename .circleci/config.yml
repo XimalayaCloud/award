@@ -47,4 +47,3 @@ workflows:
             branches:
               ignore:
                 - gh-pages
-               pull_request: true
