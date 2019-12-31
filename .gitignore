@@ -5,7 +5,7 @@
 *.lerna_backup
 lerna-debug.log
 package-lock.json
-yarn.lock
+!./yarn.lock
 yarn-error.log
 npm-debug.log*
 

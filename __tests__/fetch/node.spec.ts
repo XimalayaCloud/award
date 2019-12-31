@@ -7,7 +7,6 @@ let server: Server;
 
 describe('测试award-fetch  node', () => {
   beforeEach(done => {
-    process.chdir(__dirname);
     process.env.RUN_ENV = 'node';
     process.env.NODE_ENV = 'production';
     jest.resetModules();
