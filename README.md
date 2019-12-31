@@ -1,4 +1,4 @@
-# `Award` ∙ [![award versions](https://img.shields.io/npm/v/award.svg)](https://www.npmjs.com/package/award) [![CircleCI Status](https://circleci.com/gh/XimalayaCloud/award.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/XimalayaCloud/award) [![award mit](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/XimalayaCloud/award/blob/master/LICENSE)
+# `Award` ∙ [![award versions](https://img.shields.io/npm/v/award.svg)](https://www.npmjs.com/package/award) [![CircleCI Status](https://circleci.com/gh/XimalayaCloud/award.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/XimalayaCloud/award) [![award mit](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/XimalayaCloud/award/blob/master/LICENSE) [![build pass](https://img.shields.io/circleci/build/github/XimalayaCloud/award/master.svg)](https://circleci.com/gh/XimalayaCloud/award)
 
 [![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/awardhello-world-0y1fi?fontsize=14&hidenavigation=1&theme=dark)
 
