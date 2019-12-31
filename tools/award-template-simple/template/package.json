@@ -1,0 +1,28 @@
+{
+  "name": "<%-name%>",
+  "version": "1.0.0",
+  "description": "<%-description%>",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "award dev",
+    "debug": "award-debug dev",
+    <% if(projectType === 'ssr') {%>
+    "build": "award build",
+    "start": "node server.js",
+    <% }else{ %>
+    "build": "award export",
+    "start": "award export -b",
+    <% } %>
+  },
+  "author": "<%-author%>",
+  "dependencies": {
+    "award": "latest"
+  },
+  "devDependencies": {
+    "award-scripts": "latest"
+  },
+  "engines": {
+    "node": ">=8.11.1"
+  }
+}

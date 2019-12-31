@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "declaration": false,
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "lib": ["es2015", "dom"],
+    "moduleResolution": "node",
+    "rootDirs": ["src", "package.json"],
+    "baseUrl": "src",
+    "jsx": "react",
+    "noImplicitReturns": true,
+    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "removeComments": false,
+    "resolveJsonModule": true
+  },
+  "files": ["index.d.ts"],
+  "include": ["src", "index.d.ts"]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "create-award",
+  "description": "npm init award",
+  "version": "0.0.2",
+  "license": "MIT",
+  "bin": "./bin/create-award.js",
+  "dependencies": {
+    "award-init": "^0.0.1"
+  }
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="7821px" height="8768px" viewBox="0 0 7821 8768" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="-3.39673913%" x2="111.31976%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FF214B" offset="0%"></stop>
+            <stop stop-color="#FE6D47" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="6" fill="none" fill-rule="evenodd" opacity="0.187109375">
+        <g id="Artboard-2" transform="translate(-561.000000, -168.000000)" stroke="url(#linearGradient-1)" stroke-width="6">
+            <g id="Group" transform="translate(561.000000, 169.000000)">
+                <path d="M0,7382 C115.68241,7381.97319 233.901615,7355.78092 347.743606,7298.80441 L442.863825,7251.19568 L464.673369,7240.28447 L4783.69549,5091.51305 L4810.24957,5078.22351 L5840.50179,4562.61228 L6257.17886,4354.11584 L6617.03633,4173.99851 C7190.32122,3887.06697 7190.32122,3068.13248 6617.03633,2781.20477 L1629.21945,83.2070834 C1515.45016,26.2650363 1397.16974,0.065107264 1282.0077,0" id="shape-copy"></path>
+                <path d="M773,8766 C888.68241,8765.97319 1006.90161,8739.78092 1120.74361,8682.80441 L1215.86383,8635.19568 L1237.67337,8624.28447 L5556.69549,6475.51305 L5583.24957,6462.22351 L6613.50179,5946.61228 L7030.17886,5738.11584 L7390.03633,5557.99851 C7963.32122,5271.06697 7963.32122,4452.13248 7390.03633,4165.20477 L2402.21945,1467.20708 C2288.45016,1410.26504 2170.16974,1384.06511 2055.0077,1384" id="shape-copy-2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,23 @@
+# 日志文件
+.award
+.es-sprites
+.dll
+*.lerna_backup
+lerna-debug.log
+package-lock.json
+yarn.lock
+yarn-error.log
+npm-debug.log*
+
+# 依赖和导出
+node_modules
+out
+dist
+coverage
+packages/*/lib
+tools/*/lib
+
+# gc
+*.heapsnapshot
+*v8.log
+

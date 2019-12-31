@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "lib": ["es2015", "dom"],
+    "moduleResolution": "node",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "jsx": "react",
+    "noImplicitReturns": true,
+    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "paths": {
+      "award": ["packages/award/src"],
+      "award-fetch": ["packages/award-fetch/src"],
+      "award-plugin": ["packages/award-plugin"],
+      "award-plugin/node": ["packages/award-plugin/src/node"],
+      "award-plugin/client": ["packages/award-plugin/src/client"],
+      "award-render": ["packages/award-render/src"],
+      "award-router": ["packages/award-router/src"],
+      "award-server": ["packages/award-server/src/server"],
+      "award-utils": ["packages/award-utils/src"],
+      "award-utils/Exception": ["packages/award-utils/src/Exception"],
+      "award-utils/search": ["packages/award-utils/src/search"],
+      "award-utils/AwardContext": ["packages/award-utils/src/AwardContext"],
+      "award-utils/setAward": ["packages/award-utils/src/setAward"],
+      "award-utils/loadParams": ["packages/award-utils/src/loadParams"],
+      "award-utils/server": ["packages/award-utils/src/server"],
+      "award-types": ["packages/award-types"]
+    }
+  },
+  "files": ["common.d.ts"],
+  "include": ["packages/**/src"]
+}

@@ -1,0 +1,42 @@
+{
+  "undefined": [
+    {
+      "id": 0,
+      "name": "dll-reference __award_library__",
+      "file": "scripts/3d4c54.js",
+      "publicPath": "/static/scripts/3d4c54.js"
+    },
+    {
+      "id": 2,
+      "name": "../../../node_modules/@babel/runtime/regenerator/index.js",
+      "file": "scripts/3d4c54.js",
+      "publicPath": "/static/scripts/3d4c54.js"
+    },
+    {
+      "id": 3,
+      "name": "../../../node_modules/react/index.js",
+      "file": "scripts/3d4c54.js",
+      "publicPath": "/static/scripts/3d4c54.js"
+    },
+    {
+      "id": 4,
+      "name": "../../../packages/award/lib/index.js",
+      "file": "scripts/3d4c54.js",
+      "publicPath": "/static/scripts/3d4c54.js"
+    },
+    {
+      "id": 5,
+      "name": "../../../packages/award-fetch/lib/index.js",
+      "file": "scripts/3d4c54.js",
+      "publicPath": "/static/scripts/3d4c54.js"
+    }
+  ],
+  "/Users/top/work/award/core/award/fixtures/with-data/b/index.js": [
+    {
+      "id": 1,
+      "name": "./index.js",
+      "file": "scripts/3d4c54.js",
+      "publicPath": "/static/scripts/3d4c54.js"
+    }
+  ]
+}

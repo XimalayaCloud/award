@@ -1,0 +1,18 @@
+{
+  "name": "award-fetch",
+  "version": "0.0.18",
+  "description": "为服务端和客户端的数据请求提供了统一接口",
+  "main": "lib/index.js",
+  "types": "lib",
+  "repository": {
+    "type": "git"
+  },
+  "author": "award",
+  "license": "MIT",
+  "dependencies": {
+    "isomorphic-fetch": "2.2.1",
+    "node-thrift-pool": "1.3.0",
+    "node-zookeeper-client": "1.1.0",
+    "thrift": "0.12.0"
+  }
+}

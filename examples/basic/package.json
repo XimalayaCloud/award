@@ -1,0 +1,12 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "award dev"
+  },
+  "external": {
+    "a.js": "./static/jquery.js"
+  }
+}
