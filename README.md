@@ -12,6 +12,15 @@ Award框架是一个渐进式的web应用框架
 
 [Learn how to use Award in your own project](http://openact.ximalaya.com/award/docs/basic/intro/)
 
+# Explain
+
+- 借鉴了[next.js](https://github.com/zeit/next.js)的一小部分思想，以下功能都是区别于`next.js`，包括框架实现
+- 结合[react-router](https://github.com/ReactTraining/react-router)实现了路由逻辑[`award-router`](http://openact.ximalaya.com/award/docs/router/intro/)，对前端路由的变化进行了精细化控制，[参考生命周期](http://openact.ximalaya.com/award/docs/router/intro/#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+- 内置了样式scope和按需加载，开发者只需要引用样式即可，[点击了解更多](http://openact.ximalaya.com/award/docs/basic/static/#%E6%A0%B7%E5%BC%8F)
+- 提供了可自由扩展award功能的插件系统
+- 提出了运行包和工具包的思想，极大的减少了，在node环境运行时，所需安装依赖的体积
+- [更多功能，请查看文档进行探索](http://openact.ximalaya.com/award/docs/basic/intro/)
+
 # Installation
 
 ```bash
@@ -70,3 +79,5 @@ start(app, error);
 ## License
 
 Award is [MIT licensed](./LICENSE).
+
+
