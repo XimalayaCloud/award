@@ -78,7 +78,7 @@ start(app, error);
 
 > award和[next.js](https://github.com/zeit/next.js)都是一个基于react的服务端渲染框架，假设你已经了解next.js框架了，接下来我们来说明award和next.js的区别
 
-- 基于[react-router](https://github.com/ReactTraining/react-router)实现了更精细化的路由[`award-router`](http://openact.ximalaya.com/award/docs/router/intro/)
+- 基于[react-router](https://github.com/ReactTraining/react-router)实现了[`award-router`](http://openact.ximalaya.com/award/docs/router/intro/)，其提供了更精细化的路由控制
   
   - 比如你可以定义`path="/:id(\\d+)"`来匹配全是数字的路由，对于强SEO需求的项目很有用处。请查看[react-router](https://github.com/ReactTraining/react-router)来了解path定义的规则
 
@@ -90,7 +90,7 @@ start(app, error);
 
 - 关于 CSS-in-JS ，[可以点击了解更多](http://openact.ximalaya.com/award/docs/basic/static/#%E6%A0%B7%E5%BC%8F)
   
-  - 开发者只需要通过`import from './style.scss'`的形式引用，即可实现 CSS-in-JS，且自动实现了样式scope和开发阶段的样式缓存
+  - 开发者只需要通过`import './style.scss'`的形式引用，即可实现 CSS-in-JS，且自动实现了样式scope和开发阶段的样式缓存
   
   - 无需任何配置，编译后即可将样式提取到css文件，且在生产环境运行时可以根据路由按需加载，包括服务端渲染直出时
 
