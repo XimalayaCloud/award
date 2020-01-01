@@ -8,32 +8,17 @@
 
 - **插件:** 提供了丰富且强大的插件系统，让开发者在Award的生态里自由的翱翔
 
-[Learn how to use Award in your own project](http://openact.ximalaya.com/award/docs/basic/intro/)
+[点击查看文档，学习如何使用award](http://openact.ximalaya.com/award/docs/basic/intro/)
 
-# Installation
+# Example
+
+## Installation
 
 ```bash
-$ yarn add award
+$ yarn add award 
+$ yarn add award-scripts -D
 ```
-
-# Documentation
-
-详细文档介绍请[点击网站查看](http://openact.ximalaya.com/award/docs/basic/intro/)
-
-整个文档有如下几个部分：
-
-- [快速体验](http://openact.ximalaya.com/award/docs/basic/intro/)
-- [配置文件](http://openact.ximalaya.com/award/docs/basic/config/)
-- [命令介绍](http://openact.ximalaya.com/award/docs/basic/command/)
-- [路由](http://openact.ximalaya.com/award/docs/router/intro/)
-- [数据请求](http://openact.ximalaya.com/award/docs/router/intro/)
-- [自定义server](http://openact.ximalaya.com/award/docs/basic/server/)
-- [部署生产环境](http://openact.ximalaya.com/award/docs/basic/deploy/)
-- [API说明](http://openact.ximalaya.com/award/docs/api/start/)
-- [插件使用规则](http://openact.ximalaya.com/award/docs/plugin/intro/)
-- [贡献指南](http://openact.ximalaya.com/award/docs/more/CONTRIBUTING/)
-
-# Examples
+## Create `index.js`
 
 ```jsx
 // 根目录创建index.js
