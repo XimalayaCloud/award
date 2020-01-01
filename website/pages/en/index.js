@@ -136,19 +136,19 @@ class Index extends React.Component {
       <Block layout="fourColumn">
         {[
           {
-            content: '基于react框架，支持服务端渲染(SSR)和单页应用(SPA)',
+            content: '基于react框架，支持服务端渲染和单页应用',
             image: `${baseUrl}img/1.jpg`,
             imageAlign: 'top',
             title: '场景'
           },
           {
-            content: '渐进引用依赖及插件，内置构建工具、热更新、mock、proxy、CSS Modules等功能',
+            content: '开发者只需要关注组件和中间件的开发即可，其他就交给award吧',
             image: `${baseUrl}img/2.jpg`,
             imageAlign: 'top',
             title: '开箱即用'
           },
           {
-            content: '提供了场景丰富的钩子，可以在框架运行、构建等时机进行自定义处理',
+            content: '提供了丰富且强大的插件系统，让开发者在Award的生态里自由的翱翔',
             image: `${baseUrl}img/3.svg`,
             imageAlign: 'top',
             title: '插件'

@@ -2,12 +2,16 @@
  * 测试fetch，即配合getInitialProps函数进行测试
  */
 import { createServer, Server } from '../utils/server';
+import * as os from 'os';
 
 let server: Server;
 
+const isWin = os.type() === 'Windows_NT';
 describe('测试award-fetch  node', () => {
   beforeEach(done => {
-    const root = require.resolve('@/fixtures/with-data/a/server.js').replace(/\/server\.js$/, '');
+    const root = require
+      .resolve('@/fixtures/with-data/a/server.js')
+      .replace(isWin ? /\\server\.js$/ : /\/server\.js$/, '');
     process.chdir(root);
     process.env.RUN_ENV = 'node';
     process.env.NODE_ENV = 'development';
@@ -88,7 +92,7 @@ describe('测试award-fetch  node', () => {
   it('测试配置 fetchConfig的domainMap未找到', async () => {
     const root = require
       .resolve('@/fixtures/basic/examples/a/index.tsx')
-      .replace(/\/index\.tsx$/, '');
+      .replace(isWin ? /\\index\.tsx$/ : /\/index\.tsx$/, '');
     process.chdir(root);
     const fetch = require('award-fetch').default;
     if (server.close) {
@@ -116,7 +120,7 @@ describe('测试award-fetch  node', () => {
   it('测试未配置 fetchConfig的domainMap', async () => {
     const root = require
       .resolve('@/fixtures/basic/examples/b/index.tsx')
-      .replace(/\/index\.tsx$/, '');
+      .replace(isWin ? /\\index\.tsx$/ : /\/index\.tsx$/, '');
     process.chdir(root);
     const fetch = require('award-fetch').default;
     if (server.close) {

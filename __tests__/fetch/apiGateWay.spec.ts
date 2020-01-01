@@ -2,14 +2,17 @@
  * 测试fetch，即配合getInitialProps函数进行测试
  */
 import { createServer, Server } from '../utils/server';
+import * as os from 'os';
 
 let server: Server;
+
+const isWin = os.type() === 'Windows_NT';
 
 describe('测试award-fetch  node apiGateWay', () => {
   beforeEach(done => {
     const root = require
       .resolve('@/fixtures/basic/examples/c/index.tsx')
-      .replace(/\/index\.tsx$/, '');
+      .replace(isWin ? /\\index\.tsx$/ : /\/index\.tsx$/, '');
     process.chdir(root);
     process.env.RUN_ENV = 'node';
     process.env.NODE_ENV = 'development';
