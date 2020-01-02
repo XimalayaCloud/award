@@ -1,12 +1,12 @@
 {
-  "name": "award-template-simple",
-  "version": "0.0.3",
+  "name": "award-template-plugin",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "bugs": "https://github.com/XimalayaCloud/award/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/XimalayaCloud/award.git",
-    "directory": "tools/award-template-simple"
+    "directory": "tools/award-template-plugin"
   }
 }

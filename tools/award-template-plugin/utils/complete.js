@@ -36,38 +36,33 @@ async function installDependencies(cwd, executable = 'npm', color) {
 function printMessage(data, { green, yellow }) {
   // 移动gitignore
   const oldgitignore = path.join(data.destDirName, 'gitignore');
-  const newgitignore = path.join(data.destDirName, '.gitignore');
 
   if (fs.existsSync(oldgitignore)) {
-    fs.rename(oldgitignore, newgitignore, () => {});
+    fs.rename(oldgitignore, path.join(data.destDirName, '.gitignore'), () => {});
+  }
+
+  // 移动npmignore
+  const oldnpmignore = path.join(data.destDirName, 'src', 'npmignore');
+
+  if (fs.existsSync(oldnpmignore)) {
+    fs.rename(oldnpmignore, path.join(data.destDirName, 'src', '.npmignore'), () => {});
   }
 
   let message = `
-${green('项目初始化完成!')}
+${green('插件模板初始化完成!')}
 -------------------------------------------
+
 开发:
-  ${yellow(`${data.inPlace ? '' : `cd ${data.destDirName}\n  `}${installMsg(data)}npm run dev`)}
+    ${yellow(
+      `${data.inPlace ? '' : `cd ${data.destDirName}\n    `}${installMsg(data)}  npm run dev`
+    )}
 
-debug:
-  ${yellow(`npm run debug`)}
-  `;
-  if (data.projectType === 'ssr') {
-    message += `
-编译:
-  ${yellow(`npm run build`)}
+发布插件:
+    ${yellow('npm run build')}
 
-启动服务:
-  ${yellow(`npm run start`)}
+更多插件开发指南，请查阅当前项目的readme.md文档
+
 `;
-  } else {
-    message += `
-编译:
-  ${yellow(`npm run build`)}
-
-启动调试:
-  ${yellow(`npm run start`)}
-`;
-  }
   console.log(message);
   process.exit();
 }

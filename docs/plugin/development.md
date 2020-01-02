@@ -11,7 +11,7 @@ sidebar_label: 开发教程
 > 初始化插件开发模板
 
 ```bash
-npm init -t plugin <您插件的项目名称>
+npm init award -t plugin <你插件的项目名称，不指定就在当前目录创建>
 ```
 
 ## 必读规则
