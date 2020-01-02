@@ -2,7 +2,7 @@
 
 [![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/awardhello-world-0y1fi?fontsize=14&hidenavigation=1&theme=dark)
 
-- **场景:** 基于react框架，支持服务端渲染和单页应用
+- **场景:** 基于react框架，支撑[大型内容网站](#faq)的服务端渲染和单页应用
 
 - **开箱即用:** 开发者只需要关注组件和中间件的开发即可，其他就交给award吧
 
