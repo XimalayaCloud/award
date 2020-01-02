@@ -8,9 +8,7 @@
 
 - **插件:** 提供了丰富且强大的插件系统，让开发者在Award的生态里自由的翱翔
 
-[点击查看文档，学习如何使用award](http://openact.ximalaya.com/award/docs/basic/intro/)
-
-[Award视频专栏](https://space.bilibili.com/353384906/channel/detail?cid=97973)
+- **参考学习:** 提供了[文档](http://openact.ximalaya.com/award/docs/basic/intro/)和[视频](https://space.bilibili.com/353384906/channel/detail?cid=97973)
 
 # Example
 
