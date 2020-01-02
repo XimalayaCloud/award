@@ -12,11 +12,15 @@ export default () =>
     let isError = false;
 
     // 子进程退出
-    parseRoute.on('exit', () => {
+    parseRoute.on('exit', code => {
       if (isError) {
         process.exit(-1);
       } else {
-        resolve(false);
+        if (code === 100) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
       }
     });
 
@@ -28,8 +32,6 @@ export default () =>
       } else {
         if (isError) {
           process.exit(-1);
-        } else if (content === 'use-route') {
-          resolve(true);
         }
       }
     });

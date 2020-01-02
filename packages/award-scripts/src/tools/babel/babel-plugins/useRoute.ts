@@ -21,8 +21,7 @@ export default function() {
                 if (t.isJSXElement(item)) {
                   if (t.isJSXIdentifier(item.openingElement.name)) {
                     if (item.openingElement.name.name === 'Route') {
-                      console.info('use-route');
-                      process.exit(0);
+                      process.exit(100);
                     }
                   }
                 }
