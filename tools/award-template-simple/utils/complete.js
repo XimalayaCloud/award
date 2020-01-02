@@ -35,8 +35,8 @@ async function installDependencies(cwd, executable = 'npm', color) {
  */
 function printMessage(data, { green, yellow }) {
   // 移动gitignore
-  const oldgitignore = path.join(data.destDirName, 'gitignore');
-  const newgitignore = path.join(data.destDirName, '.gitignore');
+  const oldgitignore = path.join(data.destDir, 'gitignore');
+  const newgitignore = path.join(data.destDir, '.gitignore');
 
   if (fs.existsSync(oldgitignore)) {
     fs.rename(oldgitignore, newgitignore, () => {});

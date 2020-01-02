@@ -35,17 +35,15 @@ async function installDependencies(cwd, executable = 'npm', color) {
  */
 function printMessage(data, { green, yellow }) {
   // 移动gitignore
-  const oldgitignore = path.join(data.destDirName, 'gitignore');
-
+  const oldgitignore = path.join(data.destDir, 'gitignore');
   if (fs.existsSync(oldgitignore)) {
-    fs.rename(oldgitignore, path.join(data.destDirName, '.gitignore'), () => {});
+    fs.rename(oldgitignore, path.join(data.destDir, '.gitignore'), () => {});
   }
 
   // 移动npmignore
-  const oldnpmignore = path.join(data.destDirName, 'src', 'npmignore');
-
+  const oldnpmignore = path.join(data.destDir, 'src', 'npmignore');
   if (fs.existsSync(oldnpmignore)) {
-    fs.rename(oldnpmignore, path.join(data.destDirName, 'src', '.npmignore'), () => {});
+    fs.rename(oldnpmignore, path.join(data.destDir, 'src', '.npmignore'), () => {});
   }
 
   let message = `
@@ -53,9 +51,11 @@ ${green('插件模板初始化完成!')}
 -------------------------------------------
 
 开发:
-    ${yellow(
-      `${data.inPlace ? '' : `cd ${data.destDirName}\n    `}${installMsg(data)}  npm run dev`
-    )}
+    ${yellow(`${data.inPlace ? '' : `cd ${data.destDirName}\n    `}${installMsg(data)}npm run dev`)}
+
+运行示例:
+    ${yellow('cd example/basic')}
+    ${yellow('npm run dev')}
 
 发布插件:
     ${yellow('npm run build')}
@@ -71,7 +71,7 @@ ${green('插件模板初始化完成!')}
  * 提示开发者需要安装依赖
  */
 function installMsg(data) {
-  return !data.autoInstall ? 'npm install \n  ' : '';
+  return !data.autoInstall ? 'npm install \n    ' : '';
 }
 
 /**
