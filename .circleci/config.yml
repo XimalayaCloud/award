@@ -38,7 +38,7 @@ jobs:
       - run: npm run test:client
       - run: git branch
       - run:
-          name: report coverage stats for non-PRs
+          name: report coverage stats
           command: ./node_modules/.bin/codecov --token=$CI_CODECOV_TOKEN
 
 workflows:
