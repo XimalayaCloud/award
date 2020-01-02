@@ -4,10 +4,12 @@
   "description": "为服务端和客户端的数据请求提供了统一接口",
   "main": "lib/index.js",
   "types": "lib",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award-fetch"
   },
-  "author": "award",
   "license": "MIT",
   "dependencies": {
     "isomorphic-fetch": "2.2.1",

@@ -3,5 +3,11 @@
   "version": "0.0.18",
   "author": "award",
   "license": "MIT",
-  "types": "src"
+  "types": "src",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award-types"
+  }
 }

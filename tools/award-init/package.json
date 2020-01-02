@@ -7,7 +7,12 @@
     "dev": "rm -rf lib && tsc -w",
     "build": "rm -rf lib && tsc"
   },
-  "author": "award",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "tools/award-init"
+  },
   "license": "MIT",
   "bin": {
     "award-init": "./bin/index.js"
