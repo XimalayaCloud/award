@@ -25,7 +25,7 @@ export default class InitCommand {
   public constructor() {
     const args = require('minimist')(process.argv.slice(2));
     if (args.t || args.tpl) {
-      this.tpl = 'award-template-' + args.tpl || args.t;
+      this.tpl = 'award-template-' + (args.tpl || args.t);
     }
     this.httpClient = urllib.create();
     const name = args._[0];

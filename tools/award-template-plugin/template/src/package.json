@@ -1,0 +1,9 @@
+{
+  "name": "award-plugin-<%-name%>",
+  "version": "0.0.1",
+  "description": "<%-description%>",
+  "main": "./lib/index.js",
+  "license": "MIT",
+  "author": "<%-author%>",
+  "dependencies": {}
+}
