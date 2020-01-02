@@ -10,6 +10,8 @@
 
 [点击查看文档，学习如何使用award](http://openact.ximalaya.com/award/docs/basic/intro/)
 
+[Award视频专栏](https://space.bilibili.com/353384906/channel/detail?cid=97973)
+
 # Example
 
 ## Installation
