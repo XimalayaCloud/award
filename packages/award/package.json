@@ -15,8 +15,24 @@
     "award": "./bin/index.js",
     "award-debug": "./bin/debug.js"
   },
-  "files": ["lib", "bin", "index.js", "index.d.ts", "server.js", "server.d.ts"],
-  "keywords": ["react", "react-router", "nodejs", "webpack", "babel", "ssr", "spa", "plugin"],
+  "files": [
+    "lib",
+    "bin",
+    "index.js",
+    "index.d.ts",
+    "server.js",
+    "server.d.ts"
+  ],
+  "keywords": [
+    "react",
+    "react-router",
+    "nodejs",
+    "webpack",
+    "babel",
+    "ssr",
+    "spa",
+    "plugin"
+  ],
   "license": "MIT",
   "dependencies": {
     "award-fetch": "0.0.18",
