@@ -1,6 +1,6 @@
 {
   "name": "award-utils",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "提供Award项目运行的基础工具库",
   "main": "index.js",
   "types": "lib",
