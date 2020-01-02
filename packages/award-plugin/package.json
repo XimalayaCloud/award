@@ -4,9 +4,11 @@
   "description": "提供了插件的注册和运行功能，是Award框架插件的核心实现",
   "types": "index.d.ts",
   "main": "lib/index.js",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award-plugin"
   },
-  "author": "award",
   "license": "MIT"
 }

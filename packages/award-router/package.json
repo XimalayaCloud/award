@@ -4,10 +4,12 @@
   "description": "整合了react-router路由，提供了数据同步和缓存等功能",
   "main": "lib/index.js",
   "types": "index.d.ts",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award-router"
   },
-  "author": "award",
   "license": "MIT",
   "dependencies": {
     "react-router-config": "5.0.1",

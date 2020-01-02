@@ -3,34 +3,20 @@
   "version": "0.0.18",
   "description": "渐进式的web应用框架 (支持服务端渲染&单页应用)",
   "homepage": "http://openact.ximalaya.com/award/",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award"
+  },
   "main": "lib/index.js",
   "types": "index.d.ts",
-  "repository": {
-    "type": "git"
-  },
   "bin": {
     "award": "./bin/index.js",
     "award-debug": "./bin/debug.js"
   },
-  "files": [
-    "lib",
-    "bin",
-    "index.js",
-    "index.d.ts",
-    "server.js",
-    "server.d.ts"
-  ],
-  "keywords": [
-    "react",
-    "react-router",
-    "nodejs",
-    "webpack",
-    "babel",
-    "ssr",
-    "spa",
-    "plugin"
-  ],
-  "author": "award",
+  "files": ["lib", "bin", "index.js", "index.d.ts", "server.js", "server.d.ts"],
+  "keywords": ["react", "react-router", "nodejs", "webpack", "babel", "ssr", "spa", "plugin"],
   "license": "MIT",
   "dependencies": {
     "award-fetch": "0.0.18",

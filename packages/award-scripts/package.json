@@ -4,7 +4,12 @@
   "description": "Award项目开发、构建工具库",
   "main": "lib/index.js",
   "types": "lib",
-  "author": "award",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award-scripts"
+  },
   "license": "MIT",
   "dependencies": {
     "@babel/core": "7.7.5",

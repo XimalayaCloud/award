@@ -4,10 +4,12 @@
   "description": "基于koa的服务端实现",
   "main": "lib/index.js",
   "types": "lib",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award-server"
   },
-  "author": "award",
   "license": "MIT",
   "dependencies": {
     "fs-extra": "8.1.0",

@@ -4,6 +4,12 @@
   "version": "0.0.2",
   "license": "MIT",
   "bin": "./bin/create-award.js",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "tools/create-award"
+  },
   "dependencies": {
     "award-init": "^0.0.1"
   }

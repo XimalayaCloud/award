@@ -4,9 +4,11 @@
   "description": "服务端渲染的核心逻辑",
   "main": "lib/index.js",
   "types": "lib",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award-render"
   },
-  "author": "award",
   "license": "MIT"
 }
