@@ -1,3 +1,13 @@
 import { start } from 'award';
+import { RouterSwitch, Route } from 'award-router';
+import stateless from './pages/stateless';
+import statelessBig from './pages/stateless-big';
 
-start(<h1>hello world</h1>);
+start(() => (
+  <>
+    <RouterSwitch>
+      <Route path="/stateless" component={stateless} exact />
+      <Route path="/stateless-big" component={statelessBig} exact />
+    </RouterSwitch>
+  </>
+));

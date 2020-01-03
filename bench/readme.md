@@ -4,41 +4,30 @@ Both benchmarks use ab. So make sure you have that installed.
 
 # Usage
 
-## 压测Award项目
-
-- 压测无路由项目
+## 压测Award框架
 
 ```sh
 # 启动
-npm run start
+npm run start:award
 
-# 开个终端进行压测
-npm run bench > bench.award
+# 压测less页面
+npm run less:award
+
+# 压测big页面
+npm run big:award
 ```
 
-- 压测路由项目
-
-```sh
-# 启动
-npm run start:big
-
-# 开个终端进行压测
-npm run bench:big > bench.big.award
-```
-
-## 压测next项目
-
-- 压测无路由项目
+## 压测next框架
 
 ```sh
 # 启动
 npm run start:next
 
-# 开个终端进行压测
-npm run bench > bench.next
+# 压测less页面
+npm run less:next
 
-# 测试路由项目
-npm run bench:big > bench.big.next
+# 压测big页面
+npm run big:next
 ```
 
 # 对比
@@ -57,8 +46,8 @@ npm run bench:big > bench.big.next
 
 | 参数             | award      | next       |
 | :--------------- | :--------- | :--------- |
-| qps              | 2799.49    | 2729.75    |
-| Time per request | 0.357 [ms] | 0.366 [ms] |
+| qps              | 2311.26    | 2728.05    |
+| Time per request | 0.433 [ms] | 0.367 [ms] |
 
 ## big
 
@@ -66,5 +55,5 @@ npm run bench:big > bench.big.next
 
 | 参数             | award       | next        |
 | :--------------- | :---------- | :---------- |
-| qps              | 54.44       | 51.39       |
-| Time per request | 18.369 [ms] | 19.458 [ms] |
+| qps              | 65.52       | 50.56       |
+| Time per request | 15.263 [ms] | 19.777 [ms] |

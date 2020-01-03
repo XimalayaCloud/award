@@ -4,11 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production award build && NODE_ENV=production node server.js",
-    "start:big": "cd big && npm run start",
+    "start:award": "NODE_ENV=production award build && NODE_ENV=production node server.js",
     "start:next": "NODE_ENV=production next build && NODE_ENV=production next start",
-    "bench": "ab -c1 -n3000 http://0.0.0.0:3000/stateless",
-    "bench:big": "ab -c1 -n500 http://0.0.0.0:3000/stateless-big"
+    "bench:less": "ab -c1 -n3000 http://0.0.0.0:3000/stateless",
+    "bench:big": "ab -c1 -n500 http://0.0.0.0:3000/stateless-big",
+    "less:award": "npm run bench:less > bench.less.award",
+    "big:award": "npm run bench:big > bench.big.award",
+    "less:next": "npm run bench:less > bench.less.next",
+    "big:next": "npm run bench:big > bench.big.next"
   },
   "dependencies": {
     "next": "^9.1.6"
