@@ -19,18 +19,11 @@ export default function(this: IServer): Middleware<any, IContext> {
    */
   const self = this;
   return async function CoreInitMiddleware(ctx: IContext, next: any) {
-    const url = ctx.request.url;
-
-    // 所有请求必须是get请求
-    if (ctx.request.method !== 'GET') {
-      throw new Error(`[${url}] The award core accepts get requests only`);
-    }
-
-    // 请求的user-agent不能是node-fetch
+    // 请求的user-agent不能是node-fetch，防止循环引用
     if (/^node-fetch/.test(ctx.request.headers['user-agent'])) {
-      throw new Error(`[${url}] node-fetch requests are not accepted in award Core`);
+      throw new Error(`node-fetch requests are not accepted in award core`);
     }
-
+    const url = ctx.request.url;
     const _url = url.split('?');
     const map = self.map.toJS();
 
