@@ -119,6 +119,7 @@ const writeJsonToMap = (obj: any) => {
 
 export default () => {
   const maps = readMapToJson();
+  const newMaps: any = {};
   // 打乱ch数组
   const l = ch.length;
 
@@ -182,6 +183,7 @@ export default () => {
 
     // 存储
     maps[hash] = value;
+    newMaps[hash] = value;
     storeReference[filePath] = value;
 
     // 总长度减1
@@ -269,12 +271,12 @@ export default () => {
 
   // 写map
   if (isNeedMap) {
-    writeJsonToMap(maps);
+    writeJsonToMap(newMaps);
   }
 
   global.EventEmitter.on('close_compiler_process', () => {
     if (isNeedMap) {
-      writeJsonToMap(maps);
+      writeJsonToMap(newMaps);
     }
     watch.close();
   });
