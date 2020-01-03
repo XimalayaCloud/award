@@ -1,6 +1,6 @@
 {
   "name": "award-server",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "基于koa的服务端实现",
   "main": "lib/index.js",
   "types": "lib",
