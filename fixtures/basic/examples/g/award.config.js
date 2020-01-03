@@ -1,5 +1,5 @@
 module.exports = {
   fetch: {
-    domainMap: {}
+    domainMap: null
   }
 };
