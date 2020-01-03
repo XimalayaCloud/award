@@ -27,6 +27,7 @@ function mutiLog(msg: any) {
 export default (
   msg: IMsg | string | Error,
   eventType = 'system',
+  siteInfo: any,
   logIdentity = version,
   serviceId = 'award'
 ) => {
@@ -44,6 +45,7 @@ export default (
     logIdentity,
     eventType,
     level: 'ERROR',
+    siteInfo,
     logDetail: isError(msg) ? msg.stack : msg
   };
 };
