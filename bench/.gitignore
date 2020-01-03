@@ -1,0 +1,4 @@
+.benchmarks
+.next
+yarn.lock
+bench.*

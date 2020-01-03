@@ -1,0 +1,16 @@
+{
+  "name": "bench",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=production award build && NODE_ENV=production node server.js",
+    "start:big": "cd big && npm run start",
+    "start:next": "NODE_ENV=production next build && NODE_ENV=production next start",
+    "bench": "ab -c1 -n3000 http://0.0.0.0:3000/stateless",
+    "bench:big": "ab -c1 -n500 http://0.0.0.0:3000/stateless-big"
+  },
+  "dependencies": {
+    "next": "^9.1.6"
+  }
+}

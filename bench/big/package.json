@@ -1,0 +1,9 @@
+{
+  "name": "big",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=production award build && NODE_ENV=production node server.js"
+  }
+}
