@@ -10,6 +10,10 @@ describe('测试Award项目的开发启动服务', () => {
       .resolve('@/fixtures/with-data/b/index.js')
       .replace(isWin ? /\\index\.js$/ : /\/index\.js$/, '');
     process.chdir(root);
+
+    jest.mock('award-plugin-demo', () => ({}));
+    jest.mock('award-plugin-demo-test', () => ({}));
+
     process.argv[2] = 'dev';
     const Server = require('award/server');
     jest.mock('deasync', () => ({

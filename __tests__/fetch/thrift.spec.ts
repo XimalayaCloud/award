@@ -49,7 +49,7 @@ describe('测试thrift', () => {
     });
   });
 
-  it('测试thrift，但是配置没有指定', async () => {
+  it('测试thrift，配置指定', async () => {
     const fetch = require('award-fetch').default;
 
     server.use(async ctx => {
@@ -61,6 +61,71 @@ describe('测试thrift', () => {
         thrift: true,
         method: 'POST',
         dataType: 'text'
+      }).then((data: any) => {
+        expect(data).toBe(`hello world`);
+        resolve();
+      });
+    });
+  });
+
+  it('测试thrift，配置指定', async () => {
+    const fetch = require('award-fetch').default;
+
+    jest.mock('node-thrift-pool', () => {
+      return () => {
+        return {
+          list: (data: any, callback: any) => {
+            if (typeof data === 'function') {
+              callback = data;
+            }
+            callback(null, 'hello world');
+          },
+          listError: (data: any, callback: any) => {
+            if (typeof data === 'function') {
+              callback = data;
+            }
+            callback(new Error('null'));
+          }
+        };
+      };
+    });
+    server.use(async ctx => {
+      ctx.body = 'hello world';
+    });
+
+    await new Promise(resolve => {
+      fetch(server.url, {
+        thriftMethod: 'list',
+        thrift: true,
+        method: 'POST',
+        dataType: 'text'
+      }).then((data: any) => {
+        expect(data).toBe(`hello world`);
+        resolve();
+      });
+    });
+
+    await new Promise(resolve => {
+      fetch(server.url, {
+        thriftMethod: 'listError',
+        thrift: true,
+        method: 'POST',
+        dataType: 'text'
+      }).then((data: any) => {
+        expect(data).toBe(`hello world`);
+        resolve();
+      });
+    });
+
+    await new Promise(resolve => {
+      fetch(server.url, {
+        thriftMethod: 'listError',
+        thrift: true,
+        method: 'POST',
+        dataType: 'text',
+        data: {
+          id: 1
+        }
       }).then((data: any) => {
         expect(data).toBe(`hello world`);
         resolve();

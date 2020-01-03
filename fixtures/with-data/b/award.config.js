@@ -6,5 +6,6 @@ module.exports = {
     apiGateway: {
       API_RETRY_TIME: 2
     }
-  }
+  },
+  plugins: ['award-plugin-demo', ['award-plugin-test-demo', {}]]
 };
