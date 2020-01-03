@@ -55,5 +55,5 @@ npm run big:next
 
 | 参数             | award       | next        |
 | :--------------- | :---------- | :---------- |
-| qps              | 65.52       | 50.56       |
-| Time per request | 15.263 [ms] | 19.777 [ms] |
+| qps              | 54.46       | 50.56       |
+| Time per request | 18.361 [ms] | 19.777 [ms] |
