@@ -1,6 +1,6 @@
 import { getAwardConfig } from 'award-utils/server';
 import values = require('lodash/values');
-import thriftPool from 'node-thrift-pool';
+import thriftPool = require('node-thrift-pool');
 import isPlainObject = require('lodash/isPlainObject');
 import APIGateway from '../../utils/APIGateway';
 import * as DefaultfetchConfig from '../../config/thrift';

@@ -35,7 +35,7 @@ jobs:
       - run: npm run prettier
       - run: npm run eslint
       - run: npm run build
-      - run: npm run test:client
+      - run: npm run test:client -- -w 1
       - run: git branch
       - run:
           name: report coverage stats

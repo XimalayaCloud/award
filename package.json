@@ -9,7 +9,7 @@
     "start:boot": "lerna bootstrap && npm run clean && node scripts/notify.js bootstrap",
     "start:link": "node scripts/link",
     "test": "jest",
-    "test:coverage": "jest --coverage --silent -w 1",
+    "test:coverage": "jest --coverage --silent",
     "test:client": "yarn test:coverage --collectCoverageFrom='packages/{award,award-fetch,award-router,award-utils}/src/**/*.{ts,tsx}'",
     "test:server": "yarn test:coverage --collectCoverageFrom='packages/{award-plugin,award-render,award-server}/src/**/*.{ts,tsx}'",
     "test:tool": "yarn test:coverage --collectCoverageFrom='packages/award-scripts/src/**/*.{ts,tsx}'",
