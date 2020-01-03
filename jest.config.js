@@ -13,6 +13,7 @@ module.exports = {
   testPathIgnorePatterns: ['__snapshots__', 'node_modules', 'tools', 'dist'],
   testEnvironment: 'jsdom',
   moduleNameMapper: {
+    'award-plugin-demo': '<rootDir>/common.d.ts',
     '(.*)award.config.js': '$1award.config.js',
     '(.*)\\.award(.*)': '$1.award$2',
     '^@/fixtures(.*)': '<rootDir>/fixtures$1', // 针对@/fixtures
