@@ -34,6 +34,6 @@ export default {
       await web_server();
     }
     // 执行结束。立即中断node程序
-    process.exit();
+    process.exit(0);
   }
 };

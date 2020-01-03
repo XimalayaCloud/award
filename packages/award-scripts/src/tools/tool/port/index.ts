@@ -16,7 +16,7 @@ const checkPort = (port: number) => {
       if (data === 0) {
         resolve(true);
       } else {
-        process.exit();
+        process.exit(0);
       }
     });
   });

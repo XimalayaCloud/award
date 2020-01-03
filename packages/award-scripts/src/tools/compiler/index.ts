@@ -30,7 +30,7 @@ export default () => {
       killPortProcess(Number(process.env.CHILDPROCESS_COMPILER_PORT));
     } catch (error) {}
     if (isSIGINT) {
-      process.exit();
+      process.exit(0);
     }
   };
   global.EventEmitter.on('close_compiler_process', () => {

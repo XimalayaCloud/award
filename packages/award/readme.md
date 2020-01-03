@@ -10,4 +10,4 @@ $ cd example
 $ npm run dev
 ```
 
-[点击查看文档，学习如何使用award](http://openact.ximalaya.com/award/docs/basic/intro/)
+[文档](http://openact.ximalaya.com/award/docs/basic/intro/)、[视频](https://space.bilibili.com/353384906/channel/detail?cid=97973)
