@@ -1,3 +1,6 @@
+/**
+ * 样式随机两位数scope算法，在一定程度上保证了稳定随机
+ */
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as chokidar from 'chokidar';
@@ -60,12 +63,65 @@ const ch = [
 ];
 
 const storeReference: any = {};
-export const immerRandoms: any[] = [];
+const immerRandoms: any[] = [];
+const cwd = process.cwd();
+const mapFilepath = path.join(cwd, '.map');
+
+const readMapToJson = () => {
+  // 读写map
+  const obj: any = {};
+  if (fs.existsSync(mapFilepath)) {
+    const file = fs.readFileSync(mapFilepath, 'utf-8');
+    let i = 0;
+    let l = file.length;
+
+    let lineKey = '';
+    let lineValue = '';
+    let countValue = false;
+
+    while (i < l) {
+      const d = file[i];
+      if (d === '\n') {
+        if (lineKey) {
+          obj[lineKey] = lineValue;
+        }
+        // 进入下一行
+        lineKey = '';
+        lineValue = '';
+        countValue = false;
+      } else {
+        if (d === ' ') {
+          countValue = true;
+        } else {
+          if (countValue) {
+            lineValue += d;
+          } else {
+            lineKey += d;
+          }
+        }
+      }
+      i++;
+    }
+    if (lineKey) {
+      obj[lineKey] = lineValue;
+    }
+  }
+  return obj;
+};
+
+const writeJsonToMap = (obj: any) => {
+  const newFile = [];
+  for (const key in obj) {
+    newFile.push(`${key} ${obj[key]}`);
+  }
+  fs.writeFileSync(mapFilepath, newFile.join('\n'));
+};
 
 export default () => {
+  const maps = readMapToJson();
   // 打乱ch数组
   const l = ch.length;
-  const cwd = process.cwd();
+
   let scope: any[] = [];
   for (var i = 0; i < l + 10; i++) {
     var rdm = i % 3;
@@ -104,14 +160,25 @@ export default () => {
 
   const start = (filePath: string) => {
     // 取余得到序位
-    const index = Number(stringHash(filePath.replace(cwd, '').replace(/(\/|\\)/g, ''))) % rl;
-    // 数组直接取值
-    const result = randoms[index];
-    // 同时将原数组的该位置的移除
+    const hash = Number(stringHash(filePath.replace(cwd, '').replace(/(\/|\\)/g, '')));
+    let index: any = null;
+    let value: any = null;
+    if (maps[hash]) {
+      // 从缓存中取出固定随机数的值
+      value = maps[hash];
+      index = randoms.indexOf(value);
+    } else {
+      // 缓存没有，则通过取余的形式来获取
+      index = hash % rl;
+      value = randoms[index];
+    }
+
+    // 同时需要将原数据的位置从数组中移除
     randoms.splice(index, 1);
 
     // 存储
-    storeReference[filePath] = result;
+    maps[hash] = value;
+    storeReference[filePath] = value;
 
     // 总长度减1
     rl--;
@@ -196,7 +263,11 @@ export default () => {
 
   loopFile(cwd);
 
+  // 写map
+  writeJsonToMap(maps);
+
   global.EventEmitter.on('close_compiler_process', () => {
+    writeJsonToMap(maps);
     watch.close();
   });
 };

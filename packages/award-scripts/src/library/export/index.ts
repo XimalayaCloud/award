@@ -96,7 +96,7 @@ export default async (options: any) => {
     fs.moveSync(tmpDest, out);
     clean(tmpDest);
     if (!options.browser) {
-      process.exit();
+      process.exit(0);
     }
   } catch (error) {
     console.info('export error', error);

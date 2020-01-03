@@ -32,6 +32,6 @@ module.exports = () => {
     console.info(grey(' OR'));
     console.info(green(' yarn add'), pkg, green('-D'));
     console.info();
-    process.exit();
+    process.exit(-1);
   }
 };
