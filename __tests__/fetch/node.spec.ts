@@ -2,11 +2,17 @@
  * 测试fetch，即配合getInitialProps函数进行测试
  */
 import { createServer, Server } from '../utils/server';
+import * as os from 'os';
 
 let server: Server;
+const isWin = os.type() === 'Windows_NT';
 
 describe('测试award-fetch  node', () => {
   beforeEach(done => {
+    const root = require
+      .resolve('@/fixtures/with-data/a/server.js')
+      .replace(isWin ? /\\server\.js$/ : /\/server\.js$/, '');
+    process.chdir(root);
     process.env.RUN_ENV = 'node';
     process.env.NODE_ENV = 'production';
     jest.resetModules();

@@ -123,6 +123,7 @@ export default () => {
   const l = ch.length;
 
   let scope: any[] = [];
+  let isNeedMap = false;
   for (var i = 0; i < l + 10; i++) {
     var rdm = i % 3;
     ch.push(ch[rdm]);
@@ -131,7 +132,10 @@ export default () => {
 
   // package.json定义过滤字符串
   if (path.join(cwd, 'package.json')) {
-    scope = require(path.join(cwd, 'package.json')).scope || [];
+    const pkg = require(path.join(cwd, 'package.json'));
+    scope = pkg.scope || [];
+    // 需要项目package.json指定map才能使用，否则默认不开启
+    isNeedMap = pkg.map || false;
   }
 
   // l * l 个随机两位字符
@@ -264,10 +268,14 @@ export default () => {
   loopFile(cwd);
 
   // 写map
-  writeJsonToMap(maps);
+  if (isNeedMap) {
+    writeJsonToMap(maps);
+  }
 
   global.EventEmitter.on('close_compiler_process', () => {
-    writeJsonToMap(maps);
+    if (isNeedMap) {
+      writeJsonToMap(maps);
+    }
     watch.close();
   });
 };
