@@ -32,7 +32,7 @@ const serverName = [
 
 const renderName = ['beforeRender', 'render', 'document', 'afterRender'];
 
-const buildName = ['beforeBuild', 'source', 'afterBuild'];
+const buildName = ['beforeBuild', 'source', 'afterBuild', 'sync babelInclude'];
 
 const configName = ['webpackConfig', 'sync babelConfig'];
 
@@ -86,6 +86,9 @@ const hooks: {
 
   /** source */
   source: (params: Isource) => Promise<any>;
+
+  /** 处理babel插件include，该钩子只支持同步 */
+  babelInclude: (filePath: string) => any;
 } = node(names);
 
 export default {

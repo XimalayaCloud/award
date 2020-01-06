@@ -16,9 +16,10 @@ let _award_plugins_: any = {};
 
 const asyncStart = async (hookName: string, params: any) => {
   const nameL = storeApis[hookName].length;
+  let content = null;
+  let result = true;
   if (nameL) {
     let i = 0;
-    let content = null;
     while (i < nameL) {
       const { fn, name } = storeApis[hookName][i];
       try {
@@ -28,6 +29,10 @@ const asyncStart = async (hookName: string, params: any) => {
           },
           params
         );
+        if (typeof content === 'boolean' && !content) {
+          // 一旦其中某个插件执行结果是false，那么针对布尔类型的返回值都将是false
+          result = false;
+        }
         i++;
       } catch (error) {
         throw new Error(
@@ -36,13 +41,18 @@ const asyncStart = async (hookName: string, params: any) => {
       }
     }
   }
+  if (!result) {
+    return false;
+  }
+  return content;
 };
 
 const syncStart = (hookName: string, params: any) => {
   const nameL = storeApis[hookName].length;
+  let content = null;
+  let result = true;
   if (nameL) {
     let i = 0;
-    let content = null;
     while (i < nameL) {
       const { fn, name } = storeApis[hookName][i];
       try {
@@ -52,6 +62,10 @@ const syncStart = (hookName: string, params: any) => {
           },
           params
         );
+        if (typeof content === 'boolean' && !content) {
+          // 一旦其中某个插件执行结果是false，那么针对布尔类型的返回值都将是false
+          result = false;
+        }
         i++;
       } catch (error) {
         throw new Error(
@@ -60,6 +74,10 @@ const syncStart = (hookName: string, params: any) => {
       }
     }
   }
+  if (!result) {
+    return false;
+  }
+  return content;
 };
 
 export const register = (plugins: Array<any>) => {
@@ -104,13 +122,13 @@ export default (names: Array<any>) => {
     if (fnType === 'sync') {
       // 同步任务
       hooks[fnName] = (params?: any) => {
-        syncStart(fnName, params);
+        return syncStart(fnName, params);
       };
     }
     if (fnType === 'async') {
       // 异步任务
       hooks[fnName] = async (params?: any) => {
-        await asyncStart(fnName, params);
+        return await asyncStart(fnName, params);
       };
     }
   });
