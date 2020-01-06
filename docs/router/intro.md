@@ -141,7 +141,7 @@ import Routes from './routes';
   <Route path="/test" component={Test} />
   <Route path="/about" component={About} exact />
   <Route path="/home" component={Home} exact />
-  <RouterSwitch path="/404" component={() => <h1>404!</h1>} exact />
+  <Route path="/404" component={() => <h1>404!</h1>} exact />
   <Route redirect="/404" />
 </RouterSwitch>
 ```
