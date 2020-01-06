@@ -119,7 +119,7 @@ describe('测试award-fetch  node', () => {
 
   it('测试未配置 fetchConfig的domainMap', async () => {
     const root = require
-      .resolve('@/fixtures/basic/examples/b/index.tsx')
+      .resolve('@/fixtures/basic/examples/g/index.tsx')
       .replace(isWin ? /\\index\.tsx$/ : /\/index\.tsx$/, '');
     process.chdir(root);
     const fetch = require('award-fetch').default;

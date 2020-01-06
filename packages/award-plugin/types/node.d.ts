@@ -151,6 +151,8 @@ export interface Isource {
 }
 export type source = (callback: (params: Isource) => void) => void;
 
+/** 判断babel插件是否需要处理该文件，类似webpack include用法，该钩子只支持同步 */
+export type babelInclude = (callback: (filePath: string) => any) => void;
 export interface NodeHooks {
   modifyContextAward: modifyContextAward;
   modifyInitialPropsCtx: modifyInitialPropsCtx;
@@ -169,4 +171,5 @@ export interface NodeHooks {
   babelConfig: babelConfig;
   document: document;
   source: source;
+  babelInclude: babelInclude;
 }
