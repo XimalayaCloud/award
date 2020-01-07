@@ -1,6 +1,6 @@
 {
   "name": "award-plugin",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "提供了插件的注册和运行功能，是Award框架插件的核心实现",
   "types": "index.d.ts",
   "main": "lib/index.js",
