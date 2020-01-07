@@ -28,6 +28,7 @@ export default () => {
       }
     ];
     window.jestMock = jest.fn();
+    (window as any).routeDidUpdateArgs = jest.fn();
     mountStart(async wrapper => {
       const { history } = require('award-router');
       await new Promise(resolve => setTimeout(resolve, 10));
@@ -35,18 +36,24 @@ export default () => {
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello home</p></div>');
       expect(window.jestMock).toHaveBeenCalledTimes(1);
 
+      const warn = jest.spyOn(console, 'warn');
       history.push({ pathname: '/about' });
       await new Promise(resolve => setTimeout(resolve, 50));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello about1</p></div>');
       expect(window.jestMock).toHaveBeenCalledTimes(4);
+      expect(warn).toBeCalledWith('/about/1');
+      expect(warn).toBeCalledWith('');
 
       history.push({ pathname: '/about/13?id=14' });
       await new Promise(resolve => setTimeout(resolve, 100));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello about1314</p></div>');
       expect(window.jestMock).toHaveBeenCalledTimes(7);
+      expect(warn).toBeCalledWith('/about/13');
+      expect(warn).toBeCalledWith('?id=14');
 
+      expect((window as any).routeDidUpdateArgs).toHaveBeenCalledTimes(2);
       done();
     });
     require('@/fixtures/basic-router/b');

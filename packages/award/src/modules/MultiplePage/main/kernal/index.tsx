@@ -55,11 +55,9 @@ export default (
       this.emitter.on('routeDidUpdate', (info: any) => {
         if (pass) {
           const { fn, data } = info;
-          fn({
-            to: this.target,
-            from: this.lastTarget,
-            data
-          });
+          const to = this.target;
+          const from = this.lastTarget;
+          fn(to, from, data);
         } else {
           pass = true;
         }

@@ -47,6 +47,11 @@ export default class About extends React.Component<any> {
   }
 
   public static routeDidUpdate(to: any, from: any, data: any) {
+    console.warn(to.location.pathname);
+    console.warn(to.location.search);
+    if (arguments.length === 3) {
+      (window as any).routeDidUpdateArgs && (window as any).routeDidUpdateArgs();
+    }
     console.log('routeDidUpdate');
     (window as any).jestMock && (window as any).jestMock();
   }
