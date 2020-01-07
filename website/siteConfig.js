@@ -31,7 +31,8 @@ const siteConfig = {
       label: '插件'
     },
     { doc: 'api/start', label: 'API' },
-    { href: 'https://github.com/XimalayaCloud/award', label: 'GitHub' }
+    { href: 'https://github.com/XimalayaCloud/award', label: 'GitHub' },
+    { href: 'https://www.bilibili.com/video/av82146266', label: '视频' }
   ],
 
   blogSidebarCount: 'ALL',
