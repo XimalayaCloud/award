@@ -2,6 +2,7 @@
  * Server对象的基础类
  */
 import * as Koa from 'koa';
+import * as chalk from 'chalk';
 import { Seq, List, fromJS } from 'immutable';
 import * as fs from 'fs-extra';
 import * as Path from 'path';
@@ -164,9 +165,10 @@ export default class Base {
     this.map = Seq({});
 
     this.extensions(config);
-    this.ErrorCatchFunction = (log: any) => {
-      if (log) {
-        console.error(JSON.stringify(log));
+    this.ErrorCatchFunction = (info: any) => {
+      if (info && _.isObject(info)) {
+        // 向终端打印日志
+        console.error(JSON.stringify(info));
       }
     };
 
@@ -259,7 +261,11 @@ export default class Base {
   public log(cb: Function) {
     if (this.dev) {
       console.warn(
-        '[development] 请使用app.catch替换app.log，使用方式一致，在不久的将来会废除app.log'
+        chalk.red(
+          `${chalk.yellow('[development]')} 为了表意准确请使用${chalk.green(
+            'app.catch'
+          )}替换app.log，使用方式一致，未来我们会废除app.log`
+        )
       );
     }
     this.handleError(cb);
@@ -293,10 +299,12 @@ export default class Base {
 
   private handleError(cb: Function) {
     if (typeof cb === 'function') {
-      this.ErrorCatchFunction = (log: any) => {
-        const _log = cb(log);
-        if (_log && _.isObject(_log)) {
-          console.error(JSON.stringify(_log));
+      this.ErrorCatchFunction = (errLogs: any) => {
+        // 触发回调catch处理当前错误日志
+        const info = cb(errLogs);
+        if (info && _.isObject(info)) {
+          // 向终端打印日志
+          console.error(JSON.stringify(info));
         }
       };
     }
