@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { start, Consumer, basename } from 'award';
 import fetch from 'award-fetch';
 import Home from './home';
+import About from './about';
 import './common.scss!';
 import './app.scss';
 
@@ -22,6 +23,7 @@ function app(props) {
       >
         Hello {info.name}
       </h1>
+      <About />
       <Consumer>
         {award => {
           return <p onClick={props.reloadInitialProps}> 点击试试看: {award.num} </p>;

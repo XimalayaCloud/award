@@ -9,6 +9,7 @@ class DebugServer {
   listen() {}
   logFilter() {}
   log() {}
+  catch() {}
   router() {}
 }
 
@@ -31,7 +32,6 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
           });
         }
       }
-      // require('award-scripts/prepare')(true, true, port);
       Server = AwardServer;
     }
 

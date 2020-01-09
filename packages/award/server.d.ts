@@ -68,28 +68,23 @@ declare module 'award/server' {
     logFilter(): void;
 
     /**
-     * 决定是否将日志输出到文件中(即xdcs中)
      *
-     * - 开发阶段
+     * 开发者可以根据node产生的错误进行自定义过滤出来
      *
-     *   回调接受的参数为null
+     * 回调参数的error对象数据仅生产环境生效
      *
-     * - 非开发阶段
-     *
-     *  接受的参数就是整理好发给xdcs的数据格式
-     *
-     *  如果没有将logs返回，将不打印错误日志
+     * 如果没有将errLogs返回，那么将不会打印错误日志
      *
      * ```
-     * app.log(logs => {
-     *   // 开发阶段、logs为null
-     *   // 可以自行处理logs，决定是否将错误log发送到xdcs，即打印日志
-     *   return new_logs;
+     * app.catch(errLogs => {
+     *   // 开发阶段、errLogs为null
+     *   // 可以自行处理errLogs，决定是否将错误errLogs发送到终端，即打印日志
+     *   return newErrLogs;
      * })
      * ```
      *
      */
-    log(cb: Function): void;
+    catch(cb: Function): void;
 
     /**
      *
