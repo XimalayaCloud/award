@@ -115,7 +115,5 @@ export default (options: IOpt1) => {
     return xhr(opts);
   }
 
-  return fetch(`${encodeURI(url)}${params}`, opts)
-    .then(checkStatus)
-    .then(transformResponse);
+  return fetch(`${encodeURI(url)}${params}`, opts).then(transformResponse);
 };

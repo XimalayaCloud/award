@@ -2,6 +2,7 @@
  * Server对象的基础类
  */
 import * as Koa from 'koa';
+import * as chalk from 'chalk';
 import { Seq, List, fromJS } from 'immutable';
 import * as fs from 'fs-extra';
 import * as Path from 'path';
@@ -48,7 +49,7 @@ export default class Base {
   public RootDocumentComponent: AComponentType | null; /** 文档组件 */
   public map: Seq.Keyed<string, any>; /** map列表 */
   public logFilterInfo: any[] = []; /** log过滤关键词 */
-  public logHandleFunction: Function | null = null;
+  public ErrorCatchFunction: Function | null = null;
   public renderReactToString: Function | null = null;
 
   public manifestFile = ''; /** manifest文件 */
@@ -164,9 +165,10 @@ export default class Base {
     this.map = Seq({});
 
     this.extensions(config);
-    this.logHandleFunction = (log: any) => {
-      if (log) {
-        console.error(JSON.stringify(log));
+    this.ErrorCatchFunction = (info: any) => {
+      if (info && _.isObject(info)) {
+        // 向终端打印日志
+        console.error(JSON.stringify(info));
       }
     };
 
@@ -256,32 +258,55 @@ export default class Base {
     this.logFilterInfo = Array.from(arguments);
   }
 
+  public log(cb: Function) {
+    if (this.dev) {
+      console.warn(
+        chalk.red(
+          `${chalk.yellow('[development]')} 为了表意准确请使用${chalk.green(
+            'app.catch'
+          )}替换app.log，使用方式一致，未来我们会废除app.log`
+        )
+      );
+    }
+    this.handleError(cb);
+  }
+
   /**
-   * 处理日志
    *
-   * 开发阶段，回调接受的参数为null
+   * 开发者可以根据node产生的错误进行自定义过滤出来
    *
-   * 非开发阶段，接受的参数就是整理好发给xdcs的数据格式，如果返回null，将不打印错误日志
+   * 回调参数的error对象数据仅生产环境生效
+   *
+   * 如果没有将errLogs返回，那么将不会打印错误日志
+   *
    * ```
-   * app.log(logs=>{
-   *   // 开发阶段、logs为null
+   * app.catch(errLogs => {
+   *   // 开发阶段、errLogs为null
+   *   // 可以自行处理errLogs，决定是否将错误errLogs发送到终端，即打印日志
+   *   return newErrLogs;
    * })
    * ```
    *
    */
-  public log(cb: Function) {
-    if (typeof cb === 'function') {
-      this.logHandleFunction = (log: any) => {
-        const _log = cb(log);
-        if (_log && _.isObject(_log)) {
-          console.error(JSON.stringify(_log));
-        }
-      };
-    }
+  public catch(cb: Function) {
+    this.handleError(cb);
   }
 
   public router(root: string, routerFile: string) {
     this.routerRoot = root;
     this.routerFile = routerFile;
+  }
+
+  private handleError(cb: Function) {
+    if (typeof cb === 'function') {
+      this.ErrorCatchFunction = (errLogs: any) => {
+        // 触发回调catch处理当前错误日志
+        const info = cb(errLogs);
+        if (info && _.isObject(info)) {
+          // 向终端打印日志
+          console.error(JSON.stringify(info));
+        }
+      };
+    }
   }
 }

@@ -33,6 +33,6 @@ export interface IServer {
   logFilterInfo: any[];
   RootDocumentComponent: AComponentType;
   RootComponent: AComponentType;
-  logHandleFunction: Function;
+  ErrorCatchFunction: Function;
   renderReactToString: Function | null;
 }

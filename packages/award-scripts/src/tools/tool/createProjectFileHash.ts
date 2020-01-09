@@ -1,5 +1,6 @@
 /**
  * 样式随机两位数scope算法，在一定程度上保证了稳定随机
+ * 同时增加了map文件，默认没有，需要package.json指定
  */
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -184,7 +185,8 @@ export default () => {
     // 存储
     maps[hash] = value;
     newMaps[hash] = value;
-    storeReference[filePath] = value;
+    const lowerFilePath = filePath.toLocaleLowerCase();
+    storeReference[lowerFilePath] = value;
 
     // 总长度减1
     rl--;
@@ -246,10 +248,11 @@ export default () => {
     })
     .on('add', filepath => {
       const filePath = path.join(cwd, filepath);
-      if (!storeReference[filePath]) {
+      const lowerFilePath = filePath.toLocaleLowerCase();
+      if (!storeReference[lowerFilePath]) {
         // 添加不存在的文件
         if (deleteRandom) {
-          storeReference[filePath] = deleteRandom;
+          storeReference[lowerFilePath] = deleteRandom;
         } else {
           start(filePath);
         }
@@ -257,13 +260,14 @@ export default () => {
     })
     .on('unlink', filepath => {
       const filePath = path.join(cwd, filepath);
+      const lowerFilePath = filePath.toLocaleLowerCase();
       // 删除文件
-      if (storeReference[filePath]) {
-        deleteRandom = storeReference[filePath];
+      if (storeReference[lowerFilePath]) {
+        deleteRandom = storeReference[lowerFilePath];
         // 恢复到randoms数组中
         randoms.push(deleteRandom);
         rl++;
-        delete storeReference[filePath];
+        delete storeReference[lowerFilePath];
       }
     });
 
@@ -283,7 +287,8 @@ export default () => {
 };
 
 export const getHashByReference = (reference: string) => {
-  const hash = storeReference[reference];
+  const lowerReference = reference.toLocaleLowerCase();
+  const hash = storeReference[lowerReference];
   if (hash) {
     return hash;
   }
