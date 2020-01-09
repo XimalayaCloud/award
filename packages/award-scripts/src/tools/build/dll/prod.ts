@@ -16,10 +16,16 @@ import * as fs from 'fs-extra';
 import { complierInfo } from '../../tool';
 import ProdCompiler from '../utils/prod.compiler';
 import webpackCompiler from '../utils/webpack.compiler';
-import Config from './webpack.config';
+import WebpackConfig from './webpack.prod.config';
 
 export default (dir: string, assetPrefixs: string, useRoute: boolean) => {
-  const dllDir = path.join(dir, '.dll');
+  // 需要特殊区分生产环境和其他环境
+  let dllDir: any = null;
+  if (process.env.NODE_ENV === 'production') {
+    dllDir = path.join(dir, '.dll');
+  } else {
+    dllDir = path.join(dir, 'node_modules', '.cache', 'award', '.dll');
+  }
   const commonDll = path.join(dllDir, 'common.js');
   const manifestJson = path.join(dllDir, 'manifest.json');
   const dllLockFile = path.join(dllDir, '.lock');
@@ -107,7 +113,7 @@ export default (dir: string, assetPrefixs: string, useRoute: boolean) => {
         }
       }
 
-      const config: any = Config(entry, dir, assetPrefixs, envs);
+      const config: any = WebpackConfig(entry, dir, assetPrefixs, envs, dllDir);
       if (useRoute) {
         console.info(`检测发现当前项目${chalk.green(' 已使用 ')}路由，请确认！！！`);
       } else {

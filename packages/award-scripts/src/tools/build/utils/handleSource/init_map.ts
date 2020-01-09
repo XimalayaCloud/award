@@ -3,39 +3,20 @@
  */
 
 import * as fs from 'fs-extra';
-import * as MD5 from 'md5';
 import { join } from 'path';
 
 export default function initMap(dir: any, publicPath: any, exportConfig: any) {
-  const Common_js = join(dir, '.dll', 'common.js'); // dll导出的公共依赖文件
   const publicMapFile = join(dir, publicPath, 'map.json'); // webpack编译导出的map文件
   const exportMapFile = join(dir, exportConfig, 'map.json'); // 存储map文件的文件目录
 
-  const commonjs_exist = fs.existsSync(Common_js);
   const publicMap_exist = fs.existsSync(publicMapFile);
 
   if (publicMap_exist) {
     fs.moveSync(publicMapFile, exportMapFile);
   }
 
-  // 合并map内容，并对文件名称进行md5处理
-  const map = {
-    'common.js': commonjs_exist
-      ? process.env.HASHNAME === '1'
-        ? MD5(fs.readFileSync(Common_js, 'utf-8')).substr(0, 9) + '.js'
-        : 'common.js'
-      : null,
-    ...(publicMap_exist
-      ? {
-          ...JSON.parse(fs.readFileSync(exportMapFile, 'utf-8'))
-        }
-      : {})
-  };
-
-  // 拷贝common.js
-  if (commonjs_exist) {
-    fs.copySync(Common_js, join(dir, publicPath, 'scripts', map['common.js']));
-  }
+  // 初始化map数据
+  const map = publicMap_exist ? JSON.parse(fs.readFileSync(exportMapFile, 'utf-8')) : {};
 
   // 移动manifest文件位置
   const manifest = join(dir, publicPath, 'manifest.js');

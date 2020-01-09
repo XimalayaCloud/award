@@ -122,10 +122,17 @@ export default function webConfig({
     config.output.crossOriginLoading = 'anonymous';
   }
 
+  let manifestFile: any = null;
+  if (process.env.NODE_ENV === 'production') {
+    manifestFile = path.join(dir, '.dll/manifest.json');
+  } else {
+    manifestFile = path.join(dir, 'node_modules', '.cache', 'award', '.dll/manifest.json');
+  }
+
   config.plugins.push(
     new webpack.DllReferencePlugin({
       context: '.',
-      manifest: require(path.join(dir, '.dll/manifest.json'))
+      manifest: require(manifestFile)
     })
   );
 

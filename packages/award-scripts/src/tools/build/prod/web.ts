@@ -3,7 +3,7 @@ import { clean } from '../../tool';
 import { join } from 'path';
 
 import web from '../webpack/web.prod.config';
-import dll from '../dll';
+import dll from '../dll/prod';
 
 import ProdCompiler from '../utils/prod.compiler';
 import webpackCompiler from '../utils/webpack.compiler';

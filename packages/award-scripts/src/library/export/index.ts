@@ -27,7 +27,8 @@ const start = (options: any, port?: number) => {
       process.env.ROUTER = 'hash';
     }
     process.env.Browser = options.browser ? '1' : '0';
-    process.env.NODE_ENV = process.env.NODE_ENV || (options.browser ? 'test' : 'production');
+    process.env.NODE_ENV =
+      process.env.NODE_ENV || (options.browser || options.local ? 'test' : 'production');
     await web_spa(assetPrefixs);
     await render(assetPrefixs, port);
     resolve();

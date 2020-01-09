@@ -6,11 +6,28 @@ import * as MD5 from 'md5';
 import { join } from 'path';
 
 export default function dllSource(dir: any, map: any, publicPath: any) {
+  let dllDir: any = null;
+  if (process.env.NODE_ENV === 'production') {
+    dllDir = join(dir, '.dll');
+  } else {
+    dllDir = join(dir, 'node_modules', '.cache', 'award', '.dll');
+  }
   // 确认dll文件里面的静态资源，拷贝到client-dist目录
   // 主要拷贝图片和字体资源
-  const dllImages = join(dir, '.dll', 'images');
-  const dllFonts = join(dir, '.dll', 'fonts');
-  const dllStyles = join(dir, '.dll', 'styles', 'module.css');
+  // dll导出的公共依赖文件
+  const dllImages = join(dllDir, 'images');
+  const dllFonts = join(dllDir, 'fonts');
+  const dllStyles = join(dllDir, 'styles', 'module.css');
+  const Common_js = join(dllDir, 'common.js');
+
+  // 处理common.js文件
+  if (fs.existsSync(Common_js)) {
+    map['common.js'] =
+      process.env.HASHNAME === '1'
+        ? MD5(fs.readFileSync(Common_js, 'utf-8')).substr(0, 9) + '.js'
+        : 'common.js';
+    fs.copySync(Common_js, join(dir, publicPath, 'scripts', map['common.js']));
+  }
 
   // 处理map[0]的main.css
   if (fs.existsSync(dllStyles)) {
