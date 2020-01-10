@@ -7,7 +7,6 @@ import {
   loadBundles,
   Exception,
   redirect,
-  RedirectFunction,
   loadParams
 } from 'award-utils';
 import clientPlugin from 'award-plugin/client';
@@ -17,7 +16,7 @@ import { routerWillUpdate, routerDidUpdate } from './utils/routerLifecycle';
 
 import findDiff from './utils/routesDiff';
 import fetchInitialState from './utils/fetch';
-
+import RedirectFunction from './utils/redirect';
 /**
  * 客户端代码首次渲染执行
  */

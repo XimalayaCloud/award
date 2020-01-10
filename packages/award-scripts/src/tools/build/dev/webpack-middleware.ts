@@ -17,7 +17,14 @@ export default (app: any, compiler: any) => {
   app.use(async (ctx: any, next: any) => {
     // common.js
     if (/^\/common\.js/.test(ctx.request.url)) {
-      const commonJs = path.join(process.cwd(), 'node_modules', '.dll', 'common.js');
+      const commonJs = path.join(
+        process.cwd(),
+        'node_modules',
+        '.cache',
+        'award',
+        '.dll',
+        'common.js'
+      );
       if (fs.existsSync(commonJs)) {
         ctx.status = 200;
         ctx.type = '.js';

@@ -5,7 +5,7 @@ import { spawn } from 'child_process';
 import { join } from 'path';
 import { complierInfo } from '../../../tool';
 
-export default () =>
+export default (): Promise<boolean> =>
   new Promise(resolve => {
     complierInfo('正在分析是否使用路由......');
     const parseRoute = spawn('node', [join(__dirname, './useRoute.js')]);

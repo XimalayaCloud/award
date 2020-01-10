@@ -14,9 +14,6 @@ export { default as scrollParam } from './scrollParam';
 // Exception
 export { default as Exception } from './Exception';
 
-// redirect
-export { default as RedirectFunction } from './redirect';
-
 // AwardContext
 export { default as AwardContext } from './AwardContext';
 

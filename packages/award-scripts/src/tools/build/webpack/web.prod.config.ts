@@ -1,25 +1,31 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
-import { BabelConfig } from '../../babel';
+import { getAwardConfig } from 'award-utils/server';
 import LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 import FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+
 import { ProgressBarPlugin, ExtractStyle, ReactLoadablePlugin } from '../../webpack-plugins';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import webpackInclude from '../utils/include';
+import { BabelConfig } from '../../babel';
 
 export default function webConfig({
   entry,
   outPath,
   assetPrefixs,
   dir,
-  crossOrigin
+  crossOrigin,
+  useRoute
 }: {
   entry: string;
   outPath: string;
   assetPrefixs: string;
   dir: string;
   crossOrigin: boolean;
+  useRoute: boolean;
 }): any {
+  const { exportPath } = getAwardConfig();
+
   const config: any = {
     context: dir,
     entry,
@@ -100,7 +106,12 @@ export default function webConfig({
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          RUN_ENV: JSON.stringify('web')
+          RUN_ENV: JSON.stringify('web'),
+          WEB_TYPE: JSON.stringify(process.env.WEB_TYPE),
+          Browser: JSON.stringify(process.env.Browser),
+          ROUTER: JSON.stringify(process.env.ROUTER),
+          USE_ROUTE: JSON.stringify(useRoute ? '1' : '0'),
+          ...(process.env.EXPORTRUNHTML === '1' ? { EXPORTPATH: JSON.stringify(exportPath) } : {})
         }
       }),
       new ProgressBarPlugin({
@@ -122,17 +133,10 @@ export default function webConfig({
     config.output.crossOriginLoading = 'anonymous';
   }
 
-  let manifestFile: any = null;
-  if (process.env.NODE_ENV === 'production') {
-    manifestFile = path.join(dir, '.dll/manifest.json');
-  } else {
-    manifestFile = path.join(dir, 'node_modules', '.cache', 'award', '.dll/manifest.json');
-  }
-
   config.plugins.push(
     new webpack.DllReferencePlugin({
       context: '.',
-      manifest: require(manifestFile)
+      manifest: require(path.join(dir, '.dll/manifest.json'))
     })
   );
 

@@ -15,12 +15,13 @@ import * as fs from 'fs-extra';
 import ProdCompiler from '../utils/prod.compiler';
 import webpackCompiler from '../utils/webpack.compiler';
 import Config from './webpack.dev.config';
+import { countDllPkgHash } from './utils';
 
 export default (dir: string, assetPrefixs: string) => {
   if (!fs.existsSync(path.join(dir, 'node_modules/award/package.json'))) {
-    return Promise.resolve();
+    // return Promise.resolve();
   }
-  const dllDir = path.join(dir, 'node_modules', '.dll');
+  const dllDir = path.join(dir, 'node_modules', '.cache', 'award', '.dll');
   const pkg = path.join(dir, 'package.json');
   const awardConfig = path.join(dir, 'award.config.js');
   const commonDll = path.join(dllDir, 'common.js');
@@ -43,7 +44,6 @@ export default (dir: string, assetPrefixs: string) => {
        * 获取packages.json的dll参数
        */
       const dll = (require(pkg).dll || []).filter((item: any) => item !== 'award');
-      let entryHash = '';
       // 遍历每个entry的版本号
       const entry = [
         ...new Set([
@@ -67,24 +67,9 @@ export default (dir: string, assetPrefixs: string) => {
           'react-loadable',
           ...dll
         ])
-      ].map((item: any) => {
-        if (/\.\//.test(item)) {
-          const fullpath = path.resolve(dir, item);
-          entryHash += md5(item + fs.readFileSync(fullpath, 'utf-8'));
-          return fullpath;
-        } else {
-          let version = '';
-          try {
-            version = require(item + '/package.json').version;
-          } catch (error) {
-            try {
-              version = require(path.join(dir, 'node_modules', item, 'package.json')).version;
-            } catch (error) {}
-          }
-          entryHash += md5(item + version);
-          return item;
-        }
-      });
+      ].filter((item: any) => !/^[\.|\/]/.test(item));
+
+      const entryHash = countDllPkgHash(entry);
       const envs = {
         NODE_ENV: JSON.stringify('development'),
         RUN_ENV: JSON.stringify('web'),
@@ -120,7 +105,7 @@ export default (dir: string, assetPrefixs: string) => {
         }
       }
 
-      const config: any = Config(entry, dir, assetPrefixs, envs);
+      const config: any = Config(entry, dir, assetPrefixs, envs, dllDir);
       await ProdCompiler(
         await webpackCompiler(config.webpack, config, {
           isServer: false,

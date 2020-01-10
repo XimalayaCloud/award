@@ -9,7 +9,7 @@ import { ProgressBarPlugin } from '../../webpack-plugins';
 import { regNodeModules } from '../../help';
 import webpackInclude from '../utils/include';
 
-export default (entry: any, dir: string, assetPrefixs: string, envs: any) => {
+export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir: any) => {
   const config = {
     entry,
     context: dir,
@@ -18,7 +18,7 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any) => {
     },
     mode: 'development',
     output: {
-      path: path.join(dir, 'node_modules', '.dll'),
+      path: dllDir,
       filename: 'common.js',
       library: '__award_library__',
       publicPath: assetPrefixs
@@ -48,7 +48,7 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any) => {
         'process.env': envs
       }),
       new webpack.DllPlugin({
-        path: path.join(dir, 'node_modules', '.dll', 'manifest.json'),
+        path: path.join(dllDir, 'manifest.json'),
         name: '__award_library__'
       }),
       new ProgressBarPlugin({

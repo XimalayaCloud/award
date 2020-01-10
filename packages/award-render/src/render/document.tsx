@@ -26,7 +26,14 @@ const AwardScript = (props: any) => {
   const scriptData = [];
 
   if (dev) {
-    const commonJs = path.join(process.cwd(), 'node_modules', '.dll', 'common.js');
+    const commonJs = path.join(
+      process.cwd(),
+      'node_modules',
+      '.cache',
+      'award',
+      '.dll',
+      'common.js'
+    );
     if (fs.existsSync(commonJs)) {
       scriptData.push(<script {...cross} key="0" defer={true} src={`${assetPrefixs}common.js`} />);
     }
