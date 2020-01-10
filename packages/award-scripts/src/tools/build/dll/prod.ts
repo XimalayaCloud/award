@@ -65,13 +65,9 @@ export default (dir: string, isUseRoute: boolean) => {
         fs.existsSync(dllLockFile)
       ) {
         // 验证lock内容是否一致
-        const commonDllTime = fs.statSync(commonDll).ctimeMs;
-        const manifestJsonTime = fs.statSync(manifestJson).ctimeMs;
         const commonDllHash = md5(fs.readFileSync(commonDll, 'utf-8'));
         const manifestJsonHash = md5(fs.readFileSync(manifestJson, 'utf-8'));
-        const currentLock = md5(
-          entryHash + commonDllTime + manifestJsonTime + commonDllHash + manifestJsonHash
-        );
+        const currentLock = md5(entryHash + commonDllHash + manifestJsonHash);
         const oldLock = fs.readFileSync(dllLockFile, 'utf-8');
         if (currentLock === oldLock) {
           console.info(chalk.yellow(`检测发现当前dll资源未发生变更，将不再编译`));
@@ -93,13 +89,9 @@ export default (dir: string, isUseRoute: boolean) => {
 
       // 创建或者更新lock
       if (fs.existsSync(dllDir) && fs.existsSync(commonDll) && fs.existsSync(manifestJson)) {
-        const commonDllTime = fs.statSync(commonDll).ctimeMs;
-        const manifestJsonTime = fs.statSync(manifestJson).ctimeMs;
         const commonDllHash = md5(fs.readFileSync(commonDll, 'utf-8'));
         const manifestJsonHash = md5(fs.readFileSync(manifestJson, 'utf-8'));
-        const currentLock = md5(
-          entryHash + commonDllTime + manifestJsonTime + commonDllHash + manifestJsonHash
-        );
+        const currentLock = md5(entryHash + commonDllHash + manifestJsonHash);
         fs.writeFileSync(dllLockFile, currentLock);
       }
       resolve();
