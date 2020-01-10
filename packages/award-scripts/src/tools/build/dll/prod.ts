@@ -18,7 +18,7 @@ import webpackCompiler from '../utils/webpack.compiler';
 import WebpackConfig from './webpack.prod.config';
 import { countDllPkgHash } from './utils';
 
-export default (dir: string) => {
+export default (dir: string, isUseRoute: boolean) => {
   // 需要特殊区分生产环境和其他环境
   let dllDir: any = path.join(dir, '.dll');
   const commonDll = path.join(dllDir, 'common.js');
@@ -53,6 +53,9 @@ export default (dir: string) => {
           ...dll
         ])
       ].filter((item: any) => !/^[\.|\/]/.test(item) && !/^award/.test(item));
+      if (isUseRoute) {
+        entry.push('award-router');
+      }
       const entryHash = countDllPkgHash(entry);
 
       if (

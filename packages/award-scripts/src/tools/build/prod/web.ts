@@ -41,7 +41,7 @@ export default async ({ dir, publicPath, assetPrefixs, mapDir }: any) => {
     }
 
     // 判断是否需要编译dll文件
-    await dll(dir);
+    await dll(dir, isUseRoute);
 
     // 开始编译web资源
     // 获取配置，同时提取award.config.js里面的webpack配置信息
