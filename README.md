@@ -44,7 +44,7 @@ start(app, error);
 <details>
   <summary>目前有哪些项目在使用award呢，我可以放心使用么？</summary>
 
-> 喜马拉雅内部的服务端渲染项目都是使用award进行构建的，所以你不必担心框架的维护问题
+> 💅喜马拉雅内部的服务端渲染项目都是使用award进行构建的，所以你不必担心框架的维护问题
 
 - [喜马拉雅主站](https://www.ximalaya.com/)
 
@@ -71,7 +71,7 @@ start(app, error);
 
   - 支持自定义的嵌套路由，定义规则和`react-router`一致，使用上稍有差异，[点击查看](http://openact.ximalaya.com/award/docs/router/nestedRoute/)
 
-  - 当然`next.js`关于路由的所有功能，我们也都是支持的
+  - 👓当然`next.js`关于路由的所有功能，我们也都是支持的
 
 - 关于 CSS-in-JS ，[可以点击了解更多](http://openact.ximalaya.com/award/docs/basic/static/#%E6%A0%B7%E5%BC%8F)
   
@@ -79,7 +79,7 @@ start(app, error);
   
   - 无需任何配置，编译后即可将样式提取到css文件，且在生产环境运行时可以根据路由按需加载，包括服务端渲染直出时
 
-  - `next.js`目前还需要一些配置来实现
+  - 👓`next.js`目前还需要一些配置来实现，要实现CSS Modules还需要手动处理，而award只需import导入样式即可
 
 - award提供了丰富且强大的插件系统，可以不断的给Award注入活力。`next.js`暂未表态其插件市场
 
@@ -89,14 +89,14 @@ start(app, error);
 
   - 开发阶段，我们支持中间件的热更新功能
 
-  - `next.js`需要自行通过`koa`或者`express`再次封装一下，才能方便的使用中间件
+  - 👓`next.js`需要自行通过`koa`或者`express`再次封装一下，才能方便的使用中间件
 
 - [更多功能，欢迎查看文档进行探索](http://openact.ximalaya.com/award/docs/basic/intro/)
 
 </details>
 
 <details>
-  <summary>当开发服务端渲染项目时，我该选择award，还是next.js呢？</summary>
+  <summary>当开发服务端渲染项目时，针对award和next.js，我该如何选择呢？</summary>
 
 - 如果你的项目对SEO要求比较高，且是大型的服务端渲染项目，推荐使用`award`。其可以更好的帮你管理路由，管理中间件，管理样式的开发等
 
