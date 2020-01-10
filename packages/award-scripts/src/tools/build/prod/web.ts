@@ -35,9 +35,9 @@ export default async ({ dir, publicPath, assetPrefixs, mapDir }: any) => {
     const isUseRoute: boolean = await judgeIsUseRoute();
 
     if (isUseRoute) {
-      console.info(`检测发现当前项目${chalk.green.bold(' 已使用 ')}路由，请确认！！！`);
+      console.info(`检测发现当前项目【${chalk.green.bold(' 已使用 ')}】路由，请确认！！！`);
     } else {
-      console.info(`检测发现当前项目${chalk.red.bold(' 未使用 ')}路由，请确认！！！`);
+      console.info(`检测发现当前项目【${chalk.red.bold(' 未使用 ')}】路由，请确认！！！`);
     }
 
     // 判断是否需要编译dll文件
