@@ -6,6 +6,7 @@ import * as https from 'https';
 import { List } from 'immutable';
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import * as chalk from 'chalk';
 import { renderToString } from 'react-dom/server';
 import { Helmet as Head } from 'react-helmet';
 import { getBundles } from 'react-loadable/webpack';
@@ -269,5 +270,21 @@ export default class DevServer extends Server {
    */
   public createRouter() {
     super.createRouter(remove);
+  }
+
+  /**
+   * hook log
+   */
+  public log(cb: Function) {
+    if (this.dev) {
+      console.warn(
+        chalk.red(
+          `${chalk.yellow('[development]')} 为了表意准确请使用${chalk.green(
+            'app.catch'
+          )}替换app.log，使用方式一致，未来我们会废除app.log`
+        )
+      );
+    }
+    super.log(cb);
   }
 }
