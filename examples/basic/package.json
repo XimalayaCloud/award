@@ -10,5 +10,6 @@
   "external": {
     "a.js": "./static/jquery.js"
   },
+  "dll": ["./index.js"],
   "map": true
 }

@@ -123,7 +123,7 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
       new ForkTsCheckerNotifierWebpackPlugin({ title: 'TypeScript', excludeWarnings: false })
     );
   }
-  const dllManifest = path.join(cwd, 'node_modules', '.dll/manifest.json');
+  const dllManifest = path.join(cwd, 'node_modules', '.cache', 'award', '.dll/manifest.json');
   if (fs.existsSync(dllManifest) && config.plugins) {
     config.plugins.push(
       new webpack.DllReferencePlugin({

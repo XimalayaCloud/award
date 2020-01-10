@@ -9,20 +9,16 @@ import { ProgressBarPlugin } from '../../webpack-plugins';
 import { regNodeModules } from '../../help';
 import webpackInclude from '../utils/include';
 
-export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir: any) => {
+export default (entry: any, dir: string, dllDir: any) => {
   const config = {
     entry,
     context: dir,
     devtool: 'none',
-    performance: {
-      hints: false
-    },
-    mode: process.env.NODE_ENV === 'production' ? 'production' : 'none',
+    mode: 'production',
     output: {
       path: path.join(dllDir),
       filename: 'common.js',
-      library: '__award_library__',
-      publicPath: assetPrefixs
+      library: '__award_library__'
     },
     module: {
       rules: [
@@ -32,7 +28,6 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir
           loader: 'babel-loader',
           options: BabelConfig({
             write: false,
-            assetPrefixs,
             handleStyle: false
           })
         },
@@ -46,7 +41,9 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env': envs
+        'process.env': {
+          NODE_ENV: JSON.stringify('production')
+        }
       }),
       new webpack.DllPlugin({
         path: path.join(dllDir, 'manifest.json'),

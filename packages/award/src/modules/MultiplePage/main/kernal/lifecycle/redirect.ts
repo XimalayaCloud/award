@@ -2,7 +2,7 @@
  * 处理重定向逻辑
  */
 
-import { RedirectFunction } from 'award-utils';
+import RedirectFunction from '../../utils/redirect';
 import { ICtx, IKernal } from '../type';
 
 export default function redirect(this: IKernal) {

@@ -6,12 +6,7 @@ import * as MD5 from 'md5';
 import { join } from 'path';
 
 export default function dllSource(dir: any, map: any, publicPath: any) {
-  let dllDir: any = null;
-  if (process.env.NODE_ENV === 'production') {
-    dllDir = join(dir, '.dll');
-  } else {
-    dllDir = join(dir, 'node_modules', '.cache', 'award', '.dll');
-  }
+  let dllDir: any = join(dir, '.dll');
   // 确认dll文件里面的静态资源，拷贝到client-dist目录
   // 主要拷贝图片和字体资源
   // dll导出的公共依赖文件

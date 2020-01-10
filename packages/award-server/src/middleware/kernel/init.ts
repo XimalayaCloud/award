@@ -4,9 +4,10 @@
 import { IContext, Routes, IConfig, IServer } from 'award-types';
 import { matchRoutes } from 'react-router-config';
 import nodePlugin from 'award-plugin/node';
-import { RedirectFunction, routeComponents } from 'award-utils';
+import { routeComponents } from 'award-utils';
 import { Middleware } from 'koa';
 import CommonMiddleware from '../common';
+import RedirectFunction from '../../utils/redirect';
 
 export default function(this: IServer): Middleware<any, IContext> {
   if (this.apiServer) {

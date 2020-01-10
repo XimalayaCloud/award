@@ -1,7 +1,8 @@
 import { getAwardConfig } from 'award-utils/server';
-import { clean } from '../../tool';
+import chalk = require('chalk');
 import { join } from 'path';
 
+import { clean } from '../../tool';
 import web from '../webpack/web.prod.config';
 import dll from '../dll/prod';
 
@@ -31,10 +32,16 @@ export default async ({ dir, publicPath, assetPrefixs, mapDir }: any) => {
 
   // 解析判断是否使用路由
   try {
-    const isUseRoute: any = await judgeIsUseRoute();
+    const isUseRoute: boolean = await judgeIsUseRoute();
+
+    if (isUseRoute) {
+      console.info(`检测发现当前项目${chalk.green.bold(' 已使用 ')}路由，请确认！！！`);
+    } else {
+      console.info(`检测发现当前项目${chalk.red.bold(' 未使用 ')}路由，请确认！！！`);
+    }
 
     // 判断是否需要编译dll文件
-    await dll(dir, assetPrefixs, isUseRoute);
+    await dll(dir);
 
     // 开始编译web资源
     // 获取配置，同时提取award.config.js里面的webpack配置信息
@@ -46,7 +53,8 @@ export default async ({ dir, publicPath, assetPrefixs, mapDir }: any) => {
           outPath: join(dir, publicPath),
           assetPrefixs,
           dir,
-          crossOrigin: config.crossOrigin
+          crossOrigin: config.crossOrigin,
+          useRoute: isUseRoute
         }),
         {
           isServer: false,
