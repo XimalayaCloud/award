@@ -1,5 +1,3 @@
-import * as http from 'http';
-import * as https from 'https';
 import { Server } from '../tools/server';
 
 export default {
@@ -26,9 +24,7 @@ export default {
         ignore: options.ignore,
         isProxy: true
       })
-        .listen((_listen: http.Server | https.Server, url: string, open: Function) => {
-          open(url);
-        })
+        .listen()
         .catch((err: any) => {
           console.error(err);
           process.exit(0);

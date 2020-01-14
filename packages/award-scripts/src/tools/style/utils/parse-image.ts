@@ -18,8 +18,6 @@ export default ({
   publicPath,
   state
 }: any = {}) => {
-  imageOptions.path = imageOptions.path || 'dist/images';
-
   let new_src = url;
   // 不是外链地址 http:// 、https://、//
   if (!/^http(s)?:|^\/\//.test(url)) {
@@ -77,11 +75,10 @@ export default ({
             memoryFile.mkdirpSync(new_dir);
           }
 
-          new_src = new_dir + _filename;
-          outputFile = new_src;
-          memoryFile.writeFileSync(new_src, data);
-          state.images[new_src] = src;
-          new_src = '/award_dev_static' + new_src;
+          outputFile = new_dir + _filename;
+          memoryFile.writeFileSync(outputFile, data);
+          state.images[outputFile] = src;
+          new_src = '/award_dev_static' + outputFile;
         } else {
           new_src = [publicPath, imageOptions.path, _filename].join('');
           // 当前可写资源

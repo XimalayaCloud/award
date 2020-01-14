@@ -8,15 +8,14 @@ import { dev } from '../utils';
 
 export default postcss.plugin(
   'postcss-font',
-  ({ reference, publicPath, publicEntry, write, fontOptions, state }: any = {}) => {
-    fontOptions.path = fontOptions.path || 'dist/fonts';
-
+  ({ publicPath, publicEntry, write, fontOptions, state }: any = {}) => {
     return (root: any) => {
       root.walkAtRules((rule: any) => {
         if (rule.name === 'font-face') {
           rule.walkDecls((decl: any) => {
             if (decl.prop === 'src') {
               const match = decl.value.match(/url\((['|"|h|\/|.])([^)]*)\)/g);
+
               if (match) {
                 match.map((item: any) => {
                   const codeUrl = item
@@ -56,15 +55,9 @@ export default postcss.plugin(
 
                   // 新的文件名称
                   filename = filename.split('.').shift() + '_' + md5(item).substr(0, 7) + '.' + ext;
-
-                  const fontDir: any = join(publicEntry, fontOptions.path);
-                  const realPath = join(fontDir, filename);
-
-                  if (!fs.existsSync(fontDir)) {
-                    fs.mkdirpSync(fontDir);
-                  }
-
                   // 获取真实的本地资源地址
+                  const reference = decl.source.input.from;
+
                   const mod = requireResolve(url, resolve(reference));
                   if (!mod || !mod.src) {
                     throw new Error(`Path '${url}' could not be found for '${reference}'`);
@@ -74,7 +67,7 @@ export default postcss.plugin(
                   }
 
                   const data = fs.readFileSync(src);
-
+                  let outputFile: any = fontOptions.path + filename;
                   // 获取当前最新的静态资源地址
                   if (dev()) {
                     // 开发模式 memory 内存文件类型
@@ -82,26 +75,30 @@ export default postcss.plugin(
                     if (!memoryFile.existsSync(new_dir)) {
                       memoryFile.mkdirpSync(new_dir);
                     }
-                    new_src = new_dir + filename;
+
+                    outputFile = new_dir + filename;
+                    memoryFile.writeFileSync(outputFile, data);
+                    state.fonts[outputFile] = src;
+
+                    new_src = '/award_dev_static' + outputFile;
                   } else {
                     new_src = [
                       publicPath === './' ? '../' : publicPath,
                       fontOptions.path,
                       filename
                     ].join('');
-                  }
-
-                  // 本地文件转移
-                  if (dev()) {
-                    state.fonts[new_src] = src;
-                    memoryFile.writeFileSync(new_src, data);
-                  } else {
                     if (write) {
+                      const fontDir: any = join(publicEntry, fontOptions.path);
+                      const realPath = join(fontDir, filename);
+
+                      if (!fs.existsSync(fontDir)) {
+                        fs.mkdirpSync(fontDir);
+                      }
                       fs.copySync(src, realPath);
                     }
                   }
                   decl.value = decl.value.replace(codeUrl, new_src);
-                  global.staticSource[new_src] = data;
+                  global.staticSource[outputFile] = data;
                 });
               }
             }

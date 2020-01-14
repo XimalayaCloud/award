@@ -169,7 +169,6 @@ export default (state: any) => {
       state
     }),
     postcssFont({
-      reference,
       write,
       fontOptions,
       publicEntry,
