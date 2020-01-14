@@ -102,7 +102,7 @@ export default class DevServer extends Server {
       // 端口冲突处理
       if (typeof cb !== 'function' && this.dev) {
         cb = (_listen: http.Server | https.Server, url: string, open: Function) => {
-          open(url);
+          open(`http://127.0.0.1:` + this.port);
         };
       }
     }
