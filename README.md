@@ -123,4 +123,3 @@ start(app, error);
 
 Award is [MIT licensed](./LICENSE).
 
-
