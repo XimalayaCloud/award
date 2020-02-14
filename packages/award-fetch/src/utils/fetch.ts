@@ -7,33 +7,37 @@ import transformRequest from './transformRequest';
 import xhr, { checkStatus } from './xhr';
 
 function parseJSON(response: Response) {
-  return checkStatus(response).json();
+  try {
+    return checkStatus(response).json();
+  } catch (error) {
+    return response;
+  }
 }
 
 function parseText(response: Response) {
-  return checkStatus(response).text();
+  try {
+    return checkStatus(response).text();
+  } catch (error) {
+    return response;
+  }
 }
 
 function parseObject(response: Response) {
-  let data: any = response;
-  try {
-    data = JSON.parse(data);
-  } catch (error) {
-    null;
+  if (typeof response === 'string') {
+    try {
+      return JSON.parse(response);
+    } catch (error) {}
   }
-  return data;
+  return response;
 }
 
 function parseXhrJSON(data: Response) {
-  let _data = data;
   if (typeof data === 'string') {
     try {
-      _data = JSON.parse(data);
-    } catch (error) {
-      null;
-    }
+      return JSON.parse(data);
+    } catch (error) {}
   }
-  return _data;
+  return data;
 }
 
 const defaultOptions = {
