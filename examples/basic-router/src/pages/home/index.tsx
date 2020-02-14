@@ -18,7 +18,11 @@ home.getInitialProps = ctx => {
     })
   ];
 
-  return Promise.all(result);
+  return Promise.all(result).catch(() => {
+    ctx.setAward({
+      num: Math.random()
+    });
+  });
 };
 
 export default home;

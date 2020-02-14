@@ -37,12 +37,4 @@ describe('测试file', () => {
       done();
     });
   });
-
-  it('正常web调试', done => {
-    const fetch = require('award-fetch').default;
-    fetch(server.url).catch((err: any) => {
-      expect(err.message).toBe(`${server.url}: Not Found`);
-      done();
-    });
-  });
 });

@@ -54,7 +54,7 @@ export default (dir: string, isUseRoute: boolean) => {
         ])
       ].filter((item: any) => !/^[\.|\/]/.test(item) && !/^award/.test(item));
       if (isUseRoute) {
-        entry.push('award-router');
+        entry.push('react-router-dom', 'react-router-config');
       }
       const entryHash = countDllPkgHash(entry);
 

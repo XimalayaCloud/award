@@ -120,8 +120,8 @@ describe('测试award-fetch web', () => {
 
   it('测试无任何返回', done => {
     const fetch = require('award-fetch').default;
-    fetch(server.url).catch((err: any) => {
-      expect(err.message).toBe(`${server.url}: Not Found`);
+    fetch(server.url).then((response: any) => {
+      expect(response.status).toBe(404);
       done();
     });
   });

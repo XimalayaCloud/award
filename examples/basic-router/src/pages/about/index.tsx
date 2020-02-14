@@ -14,10 +14,17 @@ const about = props => {
 };
 
 about.getInitialProps = async ctx => {
-  const data = await fetch('/api/list');
+  let num;
+  try {
+    const data = await fetch('/api/list');
+    num = data.num;
+  } catch (error) {
+    num = Math.random();
+  }
+
   return {
     id: ctx.match.params.id,
-    num: data.num
+    num
   };
 };
 

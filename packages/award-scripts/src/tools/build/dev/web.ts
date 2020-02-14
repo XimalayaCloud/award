@@ -16,6 +16,7 @@ module.exports = function(app: Koa) {
   const dir = process.cwd();
   const config = getAwardConfig();
 
+  process.env.ROUTER = config.router;
   config.assetPrefixs = '/award_dev_static/';
   const doneFile = join(dir, 'node_modules', 'compiler.done');
 

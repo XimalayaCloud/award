@@ -41,6 +41,12 @@ class HttpClient {
           ...options,
           url: uri,
           timeout: this.timeout
+        }).then(response => {
+          if (response.status < 200 || response.status > 350) {
+            // 需要重试
+            throw new Error(`${response.url}: ${response.statusText}`);
+          }
+          return response;
         });
         const _time2 = Number(new Date());
         console.info(`[server-fetch-end]:${uri}(${_time2 - _time1}ms)`);
