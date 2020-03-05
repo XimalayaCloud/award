@@ -5,7 +5,7 @@ $fontURL: 'https://at.alicdn.com/t/font_881332_pabjeeioqzd';
   /* project id 881332 */
   src: url('#{$fontURL}.eot');
   src: url('#{$fontURL}.eot?#iefix') format('embedded-opentype'),
-  url('./fonts/font_881332_pabjeeioqzd.woff') format('woff'),
+  url('#{$fontURL}.woff') format('woff'),
   url('#{$fontURL}.ttf') format('truetype'),
   url('#{$fontURL}.svg#iconfont') format('svg');
 }

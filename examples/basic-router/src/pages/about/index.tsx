@@ -1,6 +1,6 @@
 import fetch from 'award-fetch';
 import './index.scss';
-import ting from './ting.png';
+import ting from '@/src/pages/about/ting.png';
 
 const about = props => {
   return (

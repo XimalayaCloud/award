@@ -2,7 +2,7 @@
 import * as postcss from 'postcss';
 import * as CleanCSS from 'clean-css';
 import * as del from 'del';
-import { join } from 'path';
+import { join, parse } from 'path';
 import DefaultHashString = require('string-hash');
 
 import Config from '../utils/config';
@@ -22,15 +22,19 @@ const config = Config();
 const cwd = process.cwd();
 
 // 通过node-sass解析并获取style字符串
-const contentByFilePath = (givenPath: any) =>
-  require('node-sass')
-    .renderSync({ file: givenPath })
+const contentByFilePath = (filepath: any) => {
+  const dir = parse(filepath).dir;
+  return require('node-sass')
+    .renderSync({ file: filepath, includePaths: [dir] })
     .css.toString();
+};
 
-const contentByString = (str: any) =>
-  require('node-sass')
-    .renderSync({ data: str })
+const contentByString = (str: any, filepath: any) => {
+  const dir = parse(filepath).dir;
+  return require('node-sass')
+    .renderSync({ data: str, includePaths: [dir] })
     .css.toString();
+};
 
 // postcss批量处理
 const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
@@ -188,13 +192,13 @@ export default (state: any) => {
       state.styles.jsx.map((item: any, index: number) => {
         state.styles.jsx[index].css = !/\.(j|t)sx?$/.test(item.from)
           ? contentByFilePath(item.from)
-          : contentByString(state.scopeCSS);
+          : contentByString(state.scopeCSS, item.from);
       });
 
       state.styles.global.map((item: any, index: number) => {
         state.styles.global[index].css = !/\.(j|t)sx?$/.test(item.from)
           ? contentByFilePath(item.from)
-          : contentByString(state.globalCSS);
+          : contentByString(state.globalCSS, item.from);
       });
 
       // 需要对全局样式的选择器进行过滤识别处理，即不能携带和scope一致的选择器
