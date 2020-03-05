@@ -1,4 +1,7 @@
 import * as chalk from 'chalk';
+import * as path from 'path';
+import * as fs from 'fs-extra';
+import clean from '../tools/tool/clean';
 import web_ssr from '../library/build/web_ssr';
 import web_server from '../library/build/web_server';
 import { clearConsole } from '../tools/tool';
@@ -30,6 +33,11 @@ export default {
     } else if (argv.node) {
       await web_server();
     } else {
+      const cache = path.join(process.cwd(), 'node_modules', '.cache', 'award');
+      if (fs.existsSync(cache)) {
+        clean(cache);
+      }
+      fs.mkdirpSync(cache);
       await web_ssr();
       await web_server();
     }

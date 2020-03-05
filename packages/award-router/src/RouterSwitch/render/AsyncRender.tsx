@@ -28,7 +28,7 @@ export default class AsyncRender extends React.Component<any, any> {
     this.path = props.path;
     this.state = {
       loading: true,
-      [props.data.location.pathname + props.data.location.search]: props.data
+      [props.data.match.url + props.data.location.search]: props.data
     };
   }
 
@@ -81,7 +81,7 @@ export default class AsyncRender extends React.Component<any, any> {
   }
 
   private renderdata() {
-    const pathname = this.props.data.location.pathname;
+    const pathname = this.props.data.match.url;
     const search = this.props.data.location.search;
     const data = {
       ...this.props.data,
@@ -230,7 +230,7 @@ export default class AsyncRender extends React.Component<any, any> {
           return;
         }
         // 渲染数据
-        const pathname = this.props.data.location.pathname;
+        const pathname = this.props.data.match.url;
         const search = this.props.data.location.search;
         this.setState(
           {
@@ -256,7 +256,7 @@ export default class AsyncRender extends React.Component<any, any> {
             }
             const _data = await (returnPromise as any)[key];
             // 渲染数据
-            const pathname = this.props.data.location.pathname;
+            const pathname = this.props.data.match.url;
             const search = this.props.data.location.search;
             this.setState({
               [pathname + search]: {

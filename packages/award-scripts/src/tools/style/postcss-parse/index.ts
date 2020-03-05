@@ -22,9 +22,14 @@ const config = Config();
 const cwd = process.cwd();
 
 // 通过node-sass解析并获取style字符串
-const content = (givenPath: any) =>
+const contentByFilePath = (givenPath: any) =>
   require('node-sass')
     .renderSync({ file: givenPath })
+    .css.toString();
+
+const contentByString = (str: any) =>
+  require('node-sass')
+    .renderSync({ data: str })
     .css.toString();
 
 // postcss批量处理
@@ -182,12 +187,14 @@ export default (state: any) => {
       // sass读取样式资源文件内容，并重新赋值state.styles的属性
       state.styles.jsx.map((item: any, index: number) => {
         state.styles.jsx[index].css = !/\.(j|t)sx?$/.test(item.from)
-          ? content(item.from)
-          : state.scopeCSS;
+          ? contentByFilePath(item.from)
+          : contentByString(state.scopeCSS);
       });
 
       state.styles.global.map((item: any, index: number) => {
-        state.styles.global[index].css = content(item.from);
+        state.styles.global[index].css = !/\.(j|t)sx?$/.test(item.from)
+          ? contentByFilePath(item.from)
+          : contentByString(state.globalCSS);
       });
 
       // 需要对全局样式的选择器进行过滤识别处理，即不能携带和scope一致的选择器
