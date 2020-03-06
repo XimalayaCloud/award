@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import isString = require('lodash/isString');
 import reduce = require('lodash/reduce');
-import { IOpt1 } from './interfaces/fetchOptions';
+import { IOpt1, IOptUserBase } from './interfaces/fetchOptions';
 import { set as _setLog } from './utils/log';
 import * as thriftUtils from './utils/thrift'; // 防止开发环境模块重新载入
 import { COMMONERROR, ABORTERROR } from './utils/constant';
@@ -21,7 +21,7 @@ const _interceptors: {
  * @param  {object} [otherOptions] 保持和apis一致的使用方式，二参数位option
  * @return {object}           An object containing either "data" or "err"
  */
-async function awardFetch(options: string | IOpt1, otherOptions?: object): Promise<any> {
+async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase): Promise<any> {
   if (isString(options)) {
     options = {
       url: options

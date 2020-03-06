@@ -19,9 +19,9 @@ import { countDllPkgHash } from './utils';
 
 export default (dir: string, assetPrefixs: string) => {
   if (!fs.existsSync(path.join(dir, 'node_modules/award/package.json'))) {
-    // return Promise.resolve();
+    return Promise.resolve();
   }
-  const dllDir = path.join(dir, 'node_modules', '.cache', 'award', '.dll');
+  const dllDir = path.join(dir, 'node_modules', '.award_dll');
   const pkg = path.join(dir, 'package.json');
   const awardConfig = path.join(dir, 'award.config.js');
   const commonDll = path.join(dllDir, 'common.js');

@@ -6,7 +6,7 @@ let setAward: Function | null = null;
 /**
  * 客户端全局store
  */
-export default (data?: {} | Function) => {
+export default (data?: { [key: string]: any } | Function) => {
   if (typeof data === 'function') {
     // 存储setAward方法
     setAward = data;

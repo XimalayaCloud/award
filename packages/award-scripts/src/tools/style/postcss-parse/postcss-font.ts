@@ -6,6 +6,8 @@ import { requireResolve, memoryFile } from '../../help';
 
 import { dev } from '../utils';
 
+const cwd = process.cwd();
+
 export default postcss.plugin(
   'postcss-font',
   ({ publicPath, publicEntry, write, fontOptions, state }: any = {}) => {
@@ -14,7 +16,7 @@ export default postcss.plugin(
         if (rule.name === 'font-face') {
           rule.walkDecls((decl: any) => {
             if (decl.prop === 'src') {
-              const match = decl.value.match(/url\((['|"|h|\/|.])([^)]*)\)/g);
+              const match = decl.value.match(/url\(([@|'|"|h|\/|.])([^)]*)\)/g);
 
               if (match) {
                 match.map((item: any) => {
@@ -37,7 +39,15 @@ export default postcss.plugin(
                     return;
                   }
 
-                  if (!/^[\.|\/]/.test(url)) {
+                  let isAt = false;
+
+                  if (/^@\//.test(url)) {
+                    // 如果以@开头，那么需要添加全路径
+                    isAt = true;
+                    url = join(cwd, url.replace(/^@\//, ''));
+                  }
+
+                  if (!/^[\.|\/]/.test(url) && !isAt) {
                     // 不以点开头，相对路径
                     // 不以斜杠开头，绝对路径
                     // 那么就是这种写法 url(a.jpg) 默认相对路径，需加上
@@ -56,14 +66,18 @@ export default postcss.plugin(
                   // 新的文件名称
                   filename = filename.split('.').shift() + '_' + md5(item).substr(0, 7) + '.' + ext;
                   // 获取真实的本地资源地址
-                  const reference = decl.source.input.from;
+                  if (!isAt) {
+                    const reference = decl.source.input.from;
 
-                  const mod = requireResolve(url, resolve(reference));
-                  if (!mod || !mod.src) {
-                    throw new Error(`Path '${url}' could not be found for '${reference}'`);
+                    const mod = requireResolve(url, resolve(reference));
+                    if (!mod || !mod.src) {
+                      throw new Error(`Path '${url}' could not be found for '${reference}'`);
+                    } else {
+                      // 解析到的全路径
+                      src = mod.src;
+                    }
                   } else {
-                    // 解析到的全路径
-                    src = mod.src;
+                    src = url;
                   }
 
                   const data = fs.readFileSync(src);

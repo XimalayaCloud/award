@@ -31,6 +31,9 @@ function app(props) {
         <li>
           <Link to="/about/2">about页面 - 2</Link>
         </li>
+        <li>
+          <Link to="/custom">custom页面</Link>
+        </li>
       </ul>
       <Routes />
     </>

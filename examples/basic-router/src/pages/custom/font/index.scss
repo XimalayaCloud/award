@@ -1,0 +1,24 @@
+$fontName: 'xm-icon';
+$fontURL: '@/src/pages/custom/font/fonts/test';
+@font-face {
+  font-family: $fontName;
+  /* project id 881332 */
+  src: url('#{$fontURL}.eot');
+  src: url('#{$fontURL}.eot?#iefix') format('embedded-opentype'),
+  url('#{$fontURL}.woff') format('woff'),
+  url('#{$fontURL}.ttf') format('truetype'),
+  url('#{$fontURL}.svg#iconfont') format('svg');
+}
+
+.#{$fontName} {
+  font-style: normal;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &:before {
+    font-family: $fontName !important;
+  }
+  &.icon-vip:before {
+    content: '\e6d9';
+  }
+}

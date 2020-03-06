@@ -2,7 +2,7 @@
  * 检测import内容,同时通过sass获取style内容
  */
 
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import { NodePath } from '@babel/core';
 import * as t from '@babel/types';
 import { shouldBeParseStyle, shouldBeParseImage } from '../utils';
@@ -11,6 +11,7 @@ import { requireResolve } from '../../help';
 import Config from '../utils/config';
 
 const config = Config();
+const cwd = process.cwd();
 
 export default (path: NodePath<t.ImportDeclaration>, state: any) => {
   let givenPath = path.node.source.value;
@@ -43,7 +44,12 @@ export default (path: NodePath<t.ImportDeclaration>, state: any) => {
       global.ImportSource.push(reference);
     }
 
-    givenPath = requireResolve(givenPath, resolve(reference)).src;
+    // @符号开头的样式资源引用
+    if (/^@\//.test(givenPath)) {
+      givenPath = join(cwd, givenPath.replace(/^@\//, ''));
+    } else {
+      givenPath = requireResolve(givenPath, resolve(reference)).src;
+    }
 
     if (!state.styleSourceMap[givenPath]) {
       state.styleSourceMap[givenPath] = [reference];

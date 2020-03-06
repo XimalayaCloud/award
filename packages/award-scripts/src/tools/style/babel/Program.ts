@@ -24,6 +24,7 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
   state.elementSelectors = [];
   state.css = '';
   state.scopeCSS = '';
+  state.globalCSS = '';
   state.styleId = 0;
   state.globalId = 0;
   state.fonts = {};
@@ -59,13 +60,28 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
       }
       const name = _path.node.openingElement.name.name;
       if (name === 'award-style') {
+        // 判断是否是global
+        let isGlobal = false;
+        _path.node.openingElement.attributes.map(item => {
+          if (t.isJSXAttribute(item) && t.isJSXIdentifier(item.name)) {
+            if (item.name.name === 'global') {
+              // 全局
+              isGlobal = true;
+            }
+          }
+        });
         _path.node.children.forEach(child => {
           if (t.isJSXExpressionContainer(child) && t.isTemplateLiteral(child.expression)) {
             const quasis = child.expression.quasis;
             if (quasis.length > 1) {
               throw new Error('award-style组件内的模板字符串不支持变量');
             } else {
-              state.scopeCSS += quasis[0].value.raw;
+              const v = quasis[0].value.raw;
+              if (isGlobal) {
+                state.globalCSS += v;
+              } else {
+                state.scopeCSS += v;
+              }
             }
           }
         });
@@ -78,9 +94,14 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
     state.styleCache = false;
   }
 
-  const scopeId = stringHash(state.scopeCSS);
+  const _scopeId = stringHash(state.scopeCSS);
+  const _globalId = stringHash(state.globalCSS);
+
   if (cache[reference]) {
-    if (scopeId !== cache[reference].scopeId) {
+    if (_scopeId !== cache[reference]._scopeId) {
+      state.styleCache = false;
+    }
+    if (_globalId !== cache[reference]._globalId) {
       state.styleCache = false;
     }
   }
@@ -92,11 +113,17 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
     }
   });
 
-  if (state.scopeCSS) {
+  // 存储award-style内容
+  if (state.scopeCSS || state.globalCSS) {
     if (global.ImportSource.indexOf(reference) === -1) {
       global.ImportSource.push(reference);
     }
-    state.styles.jsx.push(reference);
+    if (state.scopeCSS) {
+      state.styles.jsx.push(reference);
+    }
+    if (state.globalCSS) {
+      state.styles.global.push(reference);
+    }
   }
 
   // 解析并处理当前组件全部的样式资源

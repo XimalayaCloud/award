@@ -216,7 +216,8 @@ export default (cache: any, state: any) => {
         global.style_change_hmr = true;
         cache[reference] = {
           css: state.css,
-          scopeId: hashString(state.scopeCSS),
+          _scopeId: hashString(state.scopeCSS),
+          _globalId: hashString(state.globalCSS),
           styleId: state.styleId,
           globalId: state.globalId,
           elementSelectors: state.elementSelectors,

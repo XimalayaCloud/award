@@ -23,6 +23,7 @@ export default (register = true, showInfo = true, port?: number) => {
 
     // 创建cache文件夹
     const cache = path.join(process.cwd(), 'node_modules', '.cache', 'award');
+
     if (!fs.existsSync(cache)) {
       fs.mkdirpSync(cache);
     }

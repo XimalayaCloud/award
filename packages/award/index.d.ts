@@ -1,6 +1,4 @@
 declare namespace AwardPlugins {
-  const key: string;
-
   /**
    * 使用 Consumer 获得全局 store
   ```
@@ -38,14 +36,14 @@ declare namespace AwardPlugins {
    * setAward({ name: Math.random() });
    * ```
    */
-  export const setAward: (data: { key: any } | Function) => void;
+  export const setAward: (data: { [key: string]: any }) => void;
 
   /**
    * 删除 name 字段
    *
    * `removeAward('name');`
    */
-  export const removeAward: (data: string | Function) => void;
+  export const removeAward: (data: string) => void;
 
   /**
    * 获取basename
