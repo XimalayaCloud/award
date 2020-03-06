@@ -12,7 +12,6 @@ export interface IOptdefault {
 }
 
 export interface IOptbase {
-  url: string;
   xhr?: any;
   onDownloadProgress?: (data: ProgressEvent) => void;
   onUploadProgress?: Function;
@@ -24,10 +23,28 @@ export interface IOptbase {
   withCredentials?: boolean;
   headers?: any;
 }
+
 /**
- * 用户传入数据
+ * 数据转换后
  */
-export interface IOpt1 extends IOptbase {
+export interface IOpt2 extends IOptbase {
+  url: string;
+  method: string;
+  body?: any;
+  params?: string;
+  data?: object | string;
+  transformRequest: Function;
+  transformResponse: (data: Response) => void;
+  dataType: string;
+  credentials: RequestCredentials;
+  mode: RequestMode;
+}
+
+/**
+ * award-fetch
+ */
+// 参数二
+export interface IOptUserBase extends IOptbase {
   method?: 'GET' | 'POST' | 'DELETE' | 'OPTIONS' | 'HEAD' | 'PUT' | 'CONNECT' | 'PATCH' | 'TRACE';
   body?: object | string;
   params?: object | string;
@@ -41,22 +58,13 @@ export interface IOpt1 extends IOptbase {
   thriftRequestModel?: string;
 }
 
+// 参数一
+export interface IOpt1 extends IOptUserBase {
+  url: string;
+}
+
 export interface IOptthrift extends IOpt1 {
   thrift: string;
   thriftMethod: string;
   thriftRequestModel: string;
-}
-/**
- * 数据转换后
- */
-export interface IOpt2 extends IOptbase {
-  method: string;
-  body?: any;
-  params?: string;
-  data?: object | string;
-  transformRequest: Function;
-  transformResponse: (data: Response) => void;
-  dataType: string;
-  credentials: RequestCredentials;
-  mode: RequestMode;
 }

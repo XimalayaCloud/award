@@ -1,5 +1,5 @@
 import fetch from 'award-fetch';
-import './index.scss';
+import '@/src/pages/about/index.scss';
 import ting from '@/src/pages/about/ting.png';
 
 const about = props => {
@@ -21,7 +21,6 @@ about.getInitialProps = async ctx => {
   } catch (error) {
     num = Math.random();
   }
-
   return {
     id: ctx.match.params.id,
     num

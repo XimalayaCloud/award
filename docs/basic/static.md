@@ -74,11 +74,15 @@ class B extends React.Component{
 }
 ```
 
-### 类vue样式scope
+### 类vue样式scope之award-style
 
-> 针对`小组件`以及`样式内容较少`的js文件，如下示例
+> `award-style`内的样式支持sass语法
+>
+> `TypeScript`项目需要配置解析字段，[点击查看](/award/docs/more/tools#项目根目录创建indexdts文件)
+> 
+> 针对`小组件`以及`样式内容较少`的js文件，如下
 
-```js
+```j
 const Header = () => (
   <div>
     <h1>this is header</h1>
@@ -112,6 +116,18 @@ const Header = () => (
     <h1>this is header</h1>    
   </div>
 )
+```
+
+> 以上默认作用的样式针对当前的js文件，如果需要针对全局生效，你也可以这样使用
+>
+> `award-style`标签添加`global`属性即可
+
+```jsx
+<award-style global>{`
+ a{
+   color:#000;
+ }
+`}</award-style>
 ```
 
 ## 图片
@@ -259,4 +275,20 @@ const { assetPrefixs } = this.props;
 
 // 防止缓存，自行添加时间戳
 <script src={assetPrefixs + `external/a.js?v=${+new Date()}`} />
+```
+
+## @符号快速引用
+
+> `@/`表示当前项目的根目录，开发者可以这样使用
+
+```js
+...
+import "@/src/app.scss";
+import $ from "@/src/app.png";
+<award-style>{`
+i{
+  background:url('@/src/app.jpg');
+}
+`}</award-style>
+...
 ```
