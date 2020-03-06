@@ -32,6 +32,14 @@ export default class AsyncRender extends React.Component<any, any> {
     };
   }
 
+  // 同步更新history相关的location等信息
+  public static getDerivedStateFromProps(props: any, state: any) {
+    const key = props.data.match.url + props.data.location.search;
+    return {
+      [key]: { ...state[key], ...props.data }
+    };
+  }
+
   public async componentDidMount() {
     this.emitter = emitter.getEmitter();
     const { needInitiProps } = this.props.router.route;
