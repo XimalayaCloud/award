@@ -8,7 +8,7 @@ start(
         <>
           <h1
             onClick={() => {
-              setAward('abc');
+              (setAward as any)('abc');
             }}
           >
             hello {award.name}
