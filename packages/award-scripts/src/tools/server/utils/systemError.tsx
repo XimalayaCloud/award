@@ -84,17 +84,16 @@ const ErrorComponent = ({ error, error: { name, message, module } }: any) => (
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
     <h5 style={{ color: '#4d87ec', fontSize: '20px' }}>
-      开发模式才会出现该页面，进行如下设置将不会显示该页面，用来自定义开发错误提示页面！！！
+      在开发模式下才会出现该页面，需要进行如下设置，将会渲染您设置的自定义错误组件
       <br />
       <ul>
         <li>
-          在使用命令 &#39; award dev &#39; 启动时，添加&nbsp;&nbsp;
-          <b style={{ color: '#fff', fontSize: '22px' }}>-i</b>&nbsp;&nbsp; 将不再显示该页面，即
-          &#39;
+          通过 &#39; award dev &#39; 启动时，需要添加&nbsp;&nbsp;
+          <b style={{ color: '#fff', fontSize: '22px' }}>-i</b>&nbsp;&nbsp;即 &#39;
           <strong style={{ color: '#fff' }}> award dev -i </strong> &#39;
         </li>
         <li>
-          在使用api启动时，即通过类似 &#39; node server.js &#39; 启动时，进行如下设置
+          通过 &#39; node server.js dev &#39; 启动时，需要进行如下设置
           <code>
             <pre style={{ margin: '0 0 30px 0' }}>{`
 new Server({
@@ -103,7 +102,11 @@ new Server({
           </code>
         </li>
         <li>
-          <a style={{ color: '#fff' }} href="javascripts:;" target="__blank">
+          <a
+            style={{ color: '#fff' }}
+            href="http://openact.ximalaya.com/award/docs/basic/error/"
+            target="_blank"
+          >
             更多错误处理介绍，请点击查看文档
           </a>
         </li>

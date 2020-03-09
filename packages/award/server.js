@@ -28,7 +28,8 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
           require('award-scripts/prepare')(true, true, port);
           super({
             isProxy: Boolean(params.isProxy),
-            port
+            port,
+            ignore: Boolean(params.ignore)
           });
         }
       }
