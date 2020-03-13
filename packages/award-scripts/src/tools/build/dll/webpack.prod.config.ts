@@ -3,11 +3,12 @@
  */
 import * as webpack from 'webpack';
 import * as path from 'path';
-import { BabelConfig } from '../../babel';
 import FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 import { ProgressBarPlugin } from '../../webpack-plugins';
 import { regNodeModules } from '../../help';
 import webpackInclude from '../utils/include';
+import { BabelConfig } from '../../babel';
+import alias from '../utils/alias';
 
 export default (entry: any, dir: string, dllDir: any) => {
   const config = {
@@ -18,7 +19,10 @@ export default (entry: any, dir: string, dllDir: any) => {
     output: {
       path: path.join(dllDir),
       filename: 'common.js',
-      library: '__award_library__'
+      library: 'award_[hash:5]'
+    },
+    performance: {
+      hints: false
     },
     module: {
       rules: [
@@ -47,8 +51,9 @@ export default (entry: any, dir: string, dllDir: any) => {
         }
       }),
       new webpack.DllPlugin({
+        context: dir,
         path: path.join(dllDir, 'manifest.json'),
-        name: '__award_library__'
+        name: 'award_[hash:5]'
       }),
       new ProgressBarPlugin({
         format: 'dll Compiling... [:bar] :percent (:elapsed seconds)',
@@ -56,7 +61,10 @@ export default (entry: any, dir: string, dllDir: any) => {
         width: 60
       }),
       new FriendlyErrorsWebpackPlugin()
-    ]
+    ],
+    resolve: {
+      alias
+    }
   };
 
   if (process.env.NODE_ENV === 'production') {

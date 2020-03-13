@@ -8,6 +8,7 @@ import { ProgressBarPlugin, ExtractStyle, ReactLoadablePlugin } from '../../webp
 import * as TerserPlugin from 'terser-webpack-plugin';
 import webpackInclude from '../utils/include';
 import { BabelConfig } from '../../babel';
+import alias from '../utils/alias';
 
 export default function webConfig({
   entry,
@@ -36,6 +37,9 @@ export default function webConfig({
       chunkFilename: 'scripts/[chunkhash:6].js',
       jsonpFunction: '__award__',
       publicPath: assetPrefixs
+    },
+    performance: {
+      hints: false
     },
     optimization: {
       minimizer:
@@ -125,6 +129,7 @@ export default function webConfig({
       })
     ],
     resolve: {
+      alias,
       extensions: ['.js', '.jsx', '.ts', '.tsx']
     }
   };
