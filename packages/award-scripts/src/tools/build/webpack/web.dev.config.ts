@@ -7,6 +7,7 @@ import { constant, regNodeModules } from '../../help';
 import FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 import { HmrTimePlugin, ProgressBarPlugin, ReactLoadablePlugin } from '../../webpack-plugins';
 import webpackInclude from '../utils/include';
+import alias from '../utils/alias';
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin');
@@ -90,6 +91,7 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
       alias: {
+        ...alias,
         'react-dom': fs.existsSync(hotReactDOM) ? hotReactDOM : '@hot-loader/react-dom'
       }
     }

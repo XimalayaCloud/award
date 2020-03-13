@@ -8,6 +8,7 @@ import FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 import { ProgressBarPlugin } from '../../webpack-plugins';
 import { regNodeModules } from '../../help';
 import webpackInclude from '../utils/include';
+import alias from '../utils/alias';
 
 export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir: any) => {
   const config = {
@@ -20,7 +21,7 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir
     output: {
       path: dllDir,
       filename: 'common.js',
-      library: '__award_library__',
+      library: 'award_[hash:5]',
       publicPath: assetPrefixs
     },
     module: {
@@ -48,8 +49,9 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir
         'process.env': envs
       }),
       new webpack.DllPlugin({
+        context: dir,
         path: path.join(dllDir, 'manifest.json'),
-        name: '__award_library__'
+        name: 'award_[hash:5]'
       }),
       new ProgressBarPlugin({
         format: 'dll-dev Compiling... [:bar] :percent (:elapsed seconds)',
@@ -57,7 +59,10 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir
         width: 60
       }),
       new FriendlyErrorsWebpackPlugin()
-    ]
+    ],
+    resolve: {
+      alias
+    }
   };
 
   if (process.env.NODE_ENV === 'production') {
