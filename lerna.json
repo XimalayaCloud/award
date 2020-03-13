@@ -1,5 +1,5 @@
 {
-  "version": "0.0.34-alpha.7",
+  "version": "0.0.34",
   "versions": {
     "alpha": "0.0.34-alpha"
   },
@@ -12,5 +12,7 @@
     }
   },
   "lerna": "2.11.0",
-  "packages": ["packages/*"]
+  "packages": [
+    "packages/*"
+  ]
 }
