@@ -35,8 +35,16 @@ export default class AsyncRender extends React.Component<any, any> {
   // 同步更新history相关的location等信息
   public static getDerivedStateFromProps(props: any, state: any) {
     const key = props.data.match.url + props.data.location.search;
+    const removes = ['history', 'location', 'match', 'staticContext'];
+    const rests: { [key: string]: any } = {};
+    const stateData = state[key] || {};
+    for (let rest in stateData) {
+      if (removes.indexOf(rest) === -1) {
+        rests[rest] = stateData[rest];
+      }
+    }
     return {
-      [key]: { ...state[key], ...props.data }
+      [key]: { ...props.data, ...rests }
     };
   }
 
