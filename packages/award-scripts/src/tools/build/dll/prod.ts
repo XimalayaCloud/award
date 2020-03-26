@@ -40,7 +40,6 @@ export default (dir: string, isUseRoute: boolean) => {
           'react-loadable',
           'isomorphic-fetch',
           'hoist-non-react-statics',
-          'lodash/isString',
           'lodash/reduce',
           'lodash/defaultsDeep',
           'lodash/isString',

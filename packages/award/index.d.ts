@@ -36,7 +36,7 @@ declare namespace AwardPlugins {
    * setAward({ name: Math.random() });
    * ```
    */
-  export const setAward: (data: { [key: string]: any }) => void;
+  export const setAward: (data: { [key: string]: any }) => Promise<any>;
 
   /**
    * 删除 name 字段

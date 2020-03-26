@@ -63,8 +63,6 @@ export default postcss.plugin(
                     .split('.')
                     .pop();
 
-                  // 新的文件名称
-                  filename = filename.split('.').shift() + '_' + md5(item).substr(0, 7) + '.' + ext;
                   // 获取真实的本地资源地址
                   if (!isAt) {
                     const reference = decl.source.input.from;
@@ -81,6 +79,10 @@ export default postcss.plugin(
                   }
 
                   const data = fs.readFileSync(src);
+
+                  // 新的文件名称
+                  filename = filename.split('.').shift() + '_' + md5(data).substr(0, 7) + '.' + ext;
+
                   let outputFile: any = fontOptions.path + filename;
                   // 获取当前最新的静态资源地址
                   if (dev()) {
