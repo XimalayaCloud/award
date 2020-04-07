@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>介绍 · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="**使用之前，请务必阅读[`说明`](#说明)和[`注意`](#注意)**"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="介绍 · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/"/><meta property="og:description" content="**使用之前，请务必阅读[`说明`](#说明)和[`注意`](#注意)**"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/award/js/third/buttons.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1586229909659"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class=""><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>路由</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">基础<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/basic/intro">快速入门</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/config">配置文件</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/command">命令介绍</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/data">数据获取和管理</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/static">静态资源使用说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/error">友好错误解决方案</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/mock">本地数据模拟</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/document">DOM文档组件</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/server">自定义server服务</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/deploy">生产环境部署</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">路由<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem navListItemActive"><a class="navItem" href="/award/docs/router/intro">介绍</a></li><li class="navListItem"><a class="navItem" href="/award/docs/router/dynamicRoute">动态路由</a></li><li class="navListItem"><a class="navItem" href="/award/docs/router/nestedRoute">嵌套路由</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">更多<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/more/tools">开发工具说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/more/CONTRIBUTING">贡献指南</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">介绍</h1></header><article><div><span><p><strong>使用之前，请务必阅读<a href="#说明"><code>说明</code></a>和<a href="#注意"><code>注意</code></a></strong></p>
+<h2><a class="anchor" aria-hidden="true" id="说明"></a><a href="#说明" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>说明</h2>
+<blockquote>
+<p>框架已内置根据路由进行代码拆分，实现按需加载</p>
+<p>前提条件是，该路由的组件必须是单独<code>import</code>进来的</p>
+<p><strong><code>即每个路由对应一个import引用模块</code></strong></p>
+<h4><a class="anchor" aria-hidden="true" id="示例"></a><a href="#示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例</h4>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> Home <span class="token keyword">from</span> <span class="token string">'./page/home'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> About <span class="token keyword">from</span> <span class="token string">'./page/about'</span><span class="token punctuation">;</span>
+<span class="token operator">...</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Home<span class="token punctuation">}</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/about<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>About<span class="token punctuation">}</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span>
+<span class="token operator">...</span> 
+</code></pre>
+</blockquote>
+<blockquote>
+<h4><a class="anchor" aria-hidden="true" id="下面这个示例，将不能实现路由的按需加载"></a><a href="#下面这个示例，将不能实现路由的按需加载" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>下面这个示例，将不能实现路由的按需加载</h4>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Home<span class="token punctuation">,</span> About <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./page'</span><span class="token punctuation">;</span>
+
+<span class="token operator">...</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Home<span class="token punctuation">}</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/about<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>About<span class="token punctuation">}</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span>
+<span class="token operator">...</span> 
+</code></pre>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="注意"></a><a href="#注意" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注意</h2>
+<p>上面我们看到的<code>RouterSwitch</code>和<code>Route</code>组件都没有实际上的意义，意思就是他们是用来定义路由的一种规范</p>
+<p>当我们在使用<code>vue</code>定义路由时，需要提供路由的json配置，当需要配置父子路由嵌套时，json的表现不是很直观形象</p>
+<p>所以我们这边就用组件来代替了，如下示例规范</p>
+<pre><code class="hljs css language-jsx"><span class="token comment">// 为了统一管理站点路由信息，我们通常会把路由集中到一个js文件进行管理</span>
+<span class="token comment">// 即js组件，请注意这里的组件不支持拆分引用，具体请看下面路由导入注意细节</span>
+
+<span class="token comment">// 创建routes.js，不处理任何props以及内部的state</span>
+<span class="token comment">// 其是一个无状态的组件</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Index<span class="token punctuation">}</span></span> <span class="token attr-name">exact</span><span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Home<span class="token punctuation">}</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home/:id<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>HomeContent<span class="token punctuation">}</span></span> <span class="token attr-name">exact</span><span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Route</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 其实你可以理解为如下的json，但是为了便于理解组件嵌套和渲染关系，我们只提供组件的写法</span>
+<span class="token comment">// 如下示例进行对比参考</span>
+<span class="token punctuation">[</span><span class="token punctuation">{</span>
+  path<span class="token operator">:</span><span class="token string">"/"</span><span class="token punctuation">,</span>
+  component<span class="token operator">:</span>Index<span class="token punctuation">,</span>
+  exact<span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>  
+<span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+  path<span class="token operator">:</span><span class="token string">"/home"</span><span class="token punctuation">,</span>
+  component<span class="token operator">:</span>Home<span class="token punctuation">,</span>
+  children<span class="token operator">:</span><span class="token punctuation">[</span>
+    path<span class="token operator">:</span><span class="token string">"/home/:id"</span><span class="token punctuation">,</span>
+    component<span class="token operator">:</span> HomeContent<span class="token punctuation">,</span>
+    exact<span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span>
+</code></pre>
+<blockquote>
+<p>其实对于一个熟练使用react的开发者来说，使用组件来表达路由的意思会比较容易理解</p>
+<p>最后再申明一下，路由的定义组件不能拆分（即组件不能分离）、路由<code>routes.js</code>的组件内不支持任何数据处理</p>
+<p>其只是用来当做路由定义使用的，<strong><code>纯展示组件</code></strong></p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="路由导入"></a><a href="#路由导入" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>路由导入</h2>
+<pre><code class="hljs css language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span>
+  RouterSwitch<span class="token punctuation">,</span>
+  Route<span class="token punctuation">,</span>  
+  history
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'award-router'</span><span class="token punctuation">;</span>
+</code></pre>
+<p>其余API都要从<code>react-router-dom</code>获取</p>
+<p><strong>示例</strong></p>
+<pre><code class="hljs css language-js"><span class="token comment">// 常用API</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Link<span class="token punctuation">,</span> NavLink<span class="token punctuation">,</span> withRouter<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-router-dom'</span>
+</code></pre>
+<blockquote>
+<p>请不要使用<code>HashRouter</code>、<code>BrowserRouter</code>、<code>Switch</code>这些API</p>
+<p><code>Route</code>组件仅在<code>RouterSwitch</code>组件下有意义，示例</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="-有意义"></a><a href="#-有意义" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🎉 有意义</h3>
+<pre><code class="hljs css language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="️-无意义"></a><a href="#️-无意义" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>☠️ 无意义</h3>
+<pre><code class="hljs css language-jsx"><span class="token comment">// routes</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code class="hljs css language-jsx"><span class="token keyword">import</span> Routes <span class="token keyword">from</span> <span class="token string">'./routes'</span><span class="token punctuation">;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Routes</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token punctuation">;</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="路由定义"></a><a href="#路由定义" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>路由定义</h2>
+<pre><code class="hljs css language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">null</span><span class="token punctuation">}</span></span> <span class="token attr-name">redirect</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home<span class="token punctuation">"</span></span> <span class="token attr-name">exact</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/user/:id<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>User<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/user/:id/post/:postId<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>UserPost<span class="token punctuation">}</span></span> <span class="token attr-name">exact</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/user/:id/profile<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>UserProfile<span class="token punctuation">}</span></span> <span class="token attr-name">exact</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Route</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/test<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Test<span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/about<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>About<span class="token punctuation">}</span></span> <span class="token attr-name">exact</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Home<span class="token punctuation">}</span></span> <span class="token attr-name">exact</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/404<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">404!</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token punctuation">}</span></span> <span class="token attr-name">exact</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">redirect</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/404<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="路由匹配规则"></a><a href="#路由匹配规则" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>路由匹配规则</h2>
+<p>从上到下进行匹配, 如果 match 到就返回, 否则一直 match 下去, 直到遍历所有路由. 所以更具体的路由应该放到前面去</p>
+<blockquote>
+<p>空路由总是匹配 <code>&lt;Route /&gt;</code></p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="route-属性props"></a><a href="#route-属性props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Route 属性(props)</h2>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th><th>默认值</th></tr>
+</thead>
+<tbody>
+<tr><td>loading</td><td>关闭动画结束后触发的回调函数</td><td>ReactElement</td><td>-</td></tr>
+<tr><td>redirect</td><td>重定向</td><td>(() =&gt; string) or string</td><td>-</td></tr>
+<tr><td>sync</td><td>是否是同步组件,用同步的方式加载,否则默认异步</td><td>boolean</td><td>false</td></tr>
+<tr><td>client</td><td>表示该路由组件是否只在客户端渲染</td><td>boolean</td><td>false</td></tr>
+</tbody>
+</table>
+<blockquote>
+<p>其他 route 属性参考 <a href="https://reacttraining.com/react-router/web/api/Route">react-route 官方文档</a></p>
+<ul>
+<li><p><strong>loading</strong></p>
+<p>如果路由的props指定了loading组件, 那么在客户端路由切换时会发生如下事情</p>
+<p>如果目标路由的数据没有缓存，将优先加载loading组件；如果发现有缓存，将不再显示loading组件，而是直接使用缓存的数据进行路由组件的渲染</p>
+<p>路由切换完成再去执行<code>getInitialProps</code>来获取数据，接着更新缓存和渲染当前路由组件</p></li>
+</ul>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="路由数据"></a><a href="#路由数据" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>路由数据</h2>
+<blockquote>
+<p>Award会分析匹配到的路由所对应的组件，然后执行组件上的静态方法<code>getInitialProps</code>，将执行的返回值，作为该路由组件的props来进行渲染</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token comment">// 示例</span>
+<span class="token keyword">class</span> <span class="token class-name">Home</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span><span class="token punctuation">{</span>
+
+  <span class="token keyword">static</span> <span class="token function">getInitialProps</span><span class="token punctuation">(</span><span class="token parameter">ctx</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// 支持异步，接受ctx参数，具体参考api介绍</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      name<span class="token operator">:</span><span class="token string">'hello'</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// 这里的props值来自getInitialProps函数的返回值</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>name<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="loading-逻辑"></a><a href="#loading-逻辑" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>loading 逻辑</h2>
+<ol>
+<li>如果切换的目标路由设置了 loading 组件，那么此次切换，会执行 bundle.js 的获取和 loading 组件的渲染，最后再 DidMount 的时候获取数据</li>
+<li>如果切换的目录没有设置 loading 组件，那么此次切换，会执行 bundle.js 获取和目标页面的数据获取，最后切换过去的页面会完整渲染出来</li>
+<li>如果数据已经获取过（即已经缓存）, 或者路由组件光有 loading 没有 getInitialProps, 那么 loading 是不会出来的, 会直接渲染组件</li>
+<li>loading 出来的时间点 和 getInitialProps 执行完成的时长有关, 如果 getInitialProps 很快执行完了, 那 loading 可能都来不及肉眼发现</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="关于缓存说明"></a><a href="#关于缓存说明" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>关于缓存说明</h2>
+<blockquote>
+<p>Award内部会根据当前访问的详细地址进行缓存，目前会缓存最近的8个不同地址对应的数据</p>
+<p>通过该缓存机制，用户在返回上一次的访问页面时，体验将会非常棒</p>
+<p>特别是对于一些tab类型的页面，在用户点击多个tab后，再来回点击时，用户体验也是非常好的，请点击站点进行体验<a href="https://m.ximalaya.com/">https://m.ximalaya.com/</a></p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="嵌套路由"></a><a href="#嵌套路由" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>嵌套路由</h2>
+<blockquote>
+<p>嵌套路由的父子路由之间是数据是隔离的,即父组件的数据是无法传递给子组件的</p>
+<p>如果想进行通信可以使用状态管理工具，比如<a href="../basic/data#setaward"><code>setAward</code></a>、<code>React.createContext</code>等类似redux的工具</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="生命周期"></a><a href="#生命周期" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>生命周期</h2>
+<p><code>Award</code>提供了路由生命周期钩子，方便开发者在路由切换前、切换后做一些业务处理，先对生命周期钩子函数接收的参数进行说明</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>to</td><td>表示目标路由的对象集合</td><td>Object</td></tr>
+<tr><td>from</td><td>表示切换路由的当前对象集合</td><td>Object</td></tr>
+<tr><td>next</td><td>确认是否进行下一步操作</td><td>Function</td></tr>
+<tr><td>data</td><td>当前缓存的所有数据集合</td><td>Object</td></tr>
+</tbody>
+</table>
+<ul>
+<li><p><code>next</code>，必须执行该方法，否则将不能进行后续操作</p>
+<ul>
+<li><p><code>next(boolean)</code>，顾名思义，即可确认是否需要阻止路由切换</p></li>
+<li><p><code>next(string)</code>， 接收路由地址，内部会自动进行路由跳转</p></li>
+<li><p><code>next()</code>，不传值，默认是 true</p></li>
+<li><p><code>next(&lt;Confirm /&gt;)</code>，react 组件，仅<code>routeWillLeave</code>支持</p>
+<p>自定义的<code>Confirm</code>组件接收将默认接收如下 props，示例如下</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">class</span> <span class="token class-name">Confirm</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> stop<span class="token punctuation">,</span> pass<span class="token punctuation">,</span> to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> data <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">确认是否离开当前页面？</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">取消</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">pass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">离开</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></li>
+</ul></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="routewillleave"></a><a href="#routewillleave" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>routeWillLeave</code></h3>
+<blockquote>
+<p>每个<code>路由组件</code>都具备该静态钩子函数</p>
+<p>当该组件对应的具体路由离开时，即触发</p>
+<p>示例</p>
+<ul>
+<li><code>/a</code> 切换到 <code>/b</code>，<code>/a</code>对应的路由组件触发</li>
+<li>动态路由<code>/a/:id</code>，从<code>/a/1</code>切换到<code>/a/2</code>，则<code>/a/:id</code>对应的路由组件触发</li>
+<li><code>/a/b</code> 切换到 <code>/a</code>， <code>/b</code>对应的路由组件触发</li>
+<li>💅 <code>/a</code> 切换到 <code>/a/b</code>，则<code>不会</code>触发任何路由组件的 routeWillLeave 钩子</li>
+</ul>
+<pre><code class="hljs css language-js"><span class="token keyword">static</span> <span class="token function">routeWillLeave</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> next<span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="routedidupdate"></a><a href="#routedidupdate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>routeDidUpdate</code></h3>
+<blockquote>
+<p>该钩子函数定义在<code>路由组件</code></p>
+<p>即当前组件在创建后或发生更新后都会触发当前组件定义的静态函数<code>routeDidUpdate</code></p>
+<pre><code class="hljs css language-js"><span class="token keyword">static</span> <span class="token function">routeDidUpdate</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="routerwillupdate"></a><a href="#routerwillupdate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>routerWillUpdate</code></h3>
+<blockquote>
+<p>该钩子函数定义在<code>根组件</code>上，即入口组件</p>
+<p>客户端路由进行切换，且通过了<code>routeWillLeave</code>钩子后，会立即触发全局的<code>routerWillUpdate</code>钩子</p>
+<pre><code class="hljs css language-js"><span class="token keyword">static</span> <span class="token function">routerWillUpdate</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> next<span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="routerdidupdate"></a><a href="#routerdidupdate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>routerDidUpdate</code></h3>
+<blockquote>
+<p>该钩子函数定义在<code>根组件</code>上，即入口组件</p>
+<p>客户端路由切换结束，对应的组件渲染完毕，同时需要更新数据的所有组件也更新渲染完毕后，将触发该全局的<code>routerDidUpdate</code>钩子</p>
+<pre><code class="hljs css language-js"><span class="token keyword">static</span> <span class="token function">routerDidUpdate</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="示例example"></a><a href="#示例example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例Example</h3>
+<blockquote>
+<p>具体字段，请打印参数进行查看</p>
+</blockquote>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-1-tab-2" class="nav-link active" data-group="group_1" data-tab="tab-group-1-content-2">根组件</div><div id="tab-group-1-tab-3" class="nav-link" data-group="group_1" data-tab="tab-group-1-content-3">Home路由组件</div><div id="tab-group-1-tab-4" class="nav-link" data-group="group_1" data-tab="tab-group-1-content-4">Detail路由组件</div><div id="tab-group-1-tab-5" class="nav-link" data-group="group_1" data-tab="tab-group-1-content-5">使用说明</div></div><div class="tab-content"><div id="tab-group-1-content-2" class="tab-pane active" data-group="group_1" tabindex="-1"><div><span><pre><code class="hljs css language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> start <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'award'</span><span class="token punctuation">;</span><br /><span class="token keyword">import</span> <span class="token punctuation">{</span> RouterSwitch<span class="token punctuation">,</span> Route <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'award-router'</span><span class="token punctuation">;</span><br /><br />@start<br /><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span><span class="token punctuation">{</span><br /><br />  <span class="token keyword">static</span> <span class="token function">routerWillUpdate</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> next<span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token comment">// 任何一次路由的变化都会触发</span><br />    <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><br />  <span class="token keyword">static</span> <span class="token function">routerDidUpdate</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token comment">// 任何路由变化结束后都会触发，不管嵌套几层路由，最终只是代表一次</span><br />    <span class="token comment">// 即表明当前切换全部完成后再触发</span><br />  <span class="token punctuation">}</span><br /><br />  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token keyword">return</span> <span class="token punctuation">(</span><br />      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token plain-text"><br />        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Home<span class="token punctuation">}</span></span> <span class="token attr-name">exact</span> <span class="token punctuation">/></span></span><span class="token plain-text"><br />        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/detail/:id<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Detail<span class="token punctuation">}</span></span> <span class="token attr-name">exact</span> <span class="token punctuation">/></span></span><span class="token plain-text"><br />      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><br />    <span class="token punctuation">)</span><br />  <span class="token punctuation">}</span><br /><span class="token punctuation">}</span><br /><br /></code></pre>
+</span></div></div><div id="tab-group-1-content-3" class="tab-pane" data-group="group_1" tabindex="-1"><div><span><pre><code class="hljs css language-js"><span class="token keyword">class</span> <span class="token class-name">Home</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span><span class="token punctuation">{</span><br /><br />  <span class="token keyword">static</span> <span class="token function">routeWillLeave</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> next<span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token comment">/**<br />     * 路由 /  切换到 /detail/1 会触发<br />     */</span><br />    <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><br />  <span class="token keyword">static</span> <span class="token function">routeDidUpdate</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token comment">/**<br />     * 路由 /         切换到 /detail/1 会触发<br />     * 路由 /detail/1 切换到 / 会触发<br />     * <br />     * data是当前组件的props数据<br />     * data.__award__data__ 这是表示当前站点全部缓存的数据<br />     */</span><br />  <span class="token punctuation">}</span><br /><br />  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">home</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><br />  <span class="token punctuation">}</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</span></div></div><div id="tab-group-1-content-4" class="tab-pane" data-group="group_1" tabindex="-1"><div><span><pre><code class="hljs css language-js"><span class="token keyword">class</span> <span class="token class-name">Detail</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span><span class="token punctuation">{</span><br /><br />  <span class="token keyword">static</span> <span class="token function">routeWillLeave</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> next<span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token comment">/**<br />     * 路由 /detail/1 切换到 / 会触发<br />     * 路由 /detail/1 切换到 /detail/2 会触发      <br />     */</span><br />    <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />  <span class="token punctuation">}</span><br /><br />  <span class="token keyword">static</span> <span class="token function">routeDidUpdate</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> data</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token comment">/**<br />     * 路由 /         切换到 /detail/1 会触发<br />     * 路由 /detail/1 切换到 /detail/2 会触发<br />     * <br />     * data是当前组件的props数据<br />     * data.__award__data__ 这是表示当前站点全部缓存的数据<br />     */</span><br />  <span class="token punctuation">}</span><br /><br />  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><br />    <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">home</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><br />  <span class="token punctuation">}</span><br /><span class="token punctuation">}</span><br /></code></pre>
+</span></div></div><div id="tab-group-1-content-5" class="tab-pane" data-group="group_1" tabindex="-1"><div><span><ul>
+<li><p>路由从 <code>/</code> 切换到 <code>/detail/1</code> ,将会依次触发下面生命周期</p>
+<pre><code class="hljs">Home<span class="token punctuation">.</span><span class="token parameter">routeWillLeave</span> <br /><span class="token operator">=></span> App<span class="token punctuation">.</span><span class="token parameter">routerWillUpdate</span> <br /><span class="token operator">=></span> Detail<span class="token punctuation">.</span><span class="token parameter">routeDidUpdate</span> <br /><span class="token operator">=></span> App<span class="token punctuation">.</span>routerDidUpdate<br /></code></pre></li>
+<li><p>路由从 <code>/detail/1</code> 切换到 <code>/detail/2</code> ,将会依次触发下面生命周期</p>
+<pre><code class="hljs">Detail<span class="token punctuation">.</span><span class="token parameter">routeWillLeave</span> <br /><span class="token operator">=></span> App<span class="token punctuation">.</span><span class="token parameter">routerWillUpdate</span> <br /><span class="token operator">=></span> Detail<span class="token punctuation">.</span><span class="token parameter">routeDidUpdate</span> <br /><span class="token operator">=></span> App<span class="token punctuation">.</span>routerDidUpdate<br /></code></pre></li>
+<li><p>首次刷新地址<code>/</code></p>
+<pre><code class="hljs">Home<span class="token punctuation">.</span>routeDidUpdate    <span class="token punctuation">[</span>参数<span class="token keyword">from</span>为当前path信息<span class="token punctuation">]</span><br /><span class="token operator">=></span> App<span class="token punctuation">.</span>routerDidUpdate <span class="token punctuation">[</span>参数<span class="token keyword">from</span>为<span class="token keyword">null</span><span class="token punctuation">]</span><br /></code></pre></li>
+<li><p>首次刷新地址<code>/detail/1</code></p>
+<pre><code class="hljs">Detail<span class="token punctuation">.</span>routeDidUpdate  <span class="token punctuation">[</span>参数<span class="token keyword">from</span>为当前path信息<span class="token punctuation">]</span><br /><span class="token operator">=></span> App<span class="token punctuation">.</span>routerDidUpdate <span class="token punctuation">[</span>参数<span class="token keyword">from</span>为<span class="token keyword">null</span><span class="token punctuation">]</span><br /></code></pre></li>
+</ul>
+</span></div></div></div></div>
+<h2><a class="anchor" aria-hidden="true" id="路由跳转"></a><a href="#路由跳转" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>路由跳转</h2>
+<p>主要涉及路由跳转后，页面是否回到顶部，或者页面回到某一处，例如，点击跳转后，页面回到距离顶部 100px，那么该怎么定义呢？使用 <code>location</code> 对象, 传入 <code>data</code> 对象:</p>
+<pre><code class="hljs css language-js"><span class="token comment">// data 数据格式</span>
+data<span class="token operator">:</span> <span class="token punctuation">{</span>
+  scroll<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  x<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  y<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 这是正常滚动的默认值, 如果不要滚动, 那就设为 scroll: false 就好了</span>
+<span class="token comment">// 页面会在切换后滚动到坐标 [x, y]的位置去.</span>
+</code></pre>
+<pre><code class="hljs css language-jsx"><span class="token comment">// Link跳转</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Link</span></span>
+  <span class="token attr-name">to</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>
+    pathname<span class="token operator">:</span> <span class="token string">'/目标地址'</span><span class="token punctuation">,</span>
+    data<span class="token operator">:</span> <span class="token punctuation">{</span>
+      scroll<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">//表示是否回到顶部，如果设置为false，那么就不会滚动,连滚动到头部都不会了</span>
+      x<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment">//回到的时候x轴坐标</span>
+      y<span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token comment">//回到顶部，但是需要距离顶部100px</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
+<span class="token punctuation">></span></span><span class="token plain-text">
+  跳转
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span><span class="token punctuation">;</span>
+
+<span class="token comment">//history跳转</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>history<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  pathname<span class="token operator">:</span> <span class="token string">'/目标地址'</span><span class="token punctuation">,</span>
+  data<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 参数说明参考上面</span>
+    scroll<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    y<span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="路由重定向"></a><a href="#路由重定向" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>路由重定向</h2>
+<ul>
+<li>在 <code>getInitialProps</code> 中 <code>throw { url }</code></li>
+<li>Route 组件的 redirect 属性</li>
+</ul>
+<p>当需要用户访问<code>/home</code>时，直接跳转到<code>/home/detail</code></p>
+<pre><code class="hljs css language-jsx"><span class="token comment">/**
+ * 通过定义 redirect 这个props来实现
+ * 这种方式可以在服务端作用，推荐使用这种跳转
+ *
+ * 如果使用routerWillUpdate自动跳转，服务端还需要编写判断路由来执行跳转的中间件
+ */</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>Home<span class="token punctuation">}</span></span> <span class="token attr-name">redirect</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home/detail<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/home/detail<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>HomeDetail<span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Route</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RouterSwitch</span></span><span class="token punctuation">></span></span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="全局路由跳转"></a><a href="#全局路由跳转" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>全局路由跳转</h2>
+<blockquote>
+<p>我们提供了<code>history</code> api 提供开发者进行任意跳转</p>
+</blockquote>
+<p>示例</p>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> history <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'award-router'</span>
+
+<span class="token operator">...</span>
+
+history<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token operator">...</span>
+
+history<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token operator">...</span>
+</code></pre>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2020-1-6 by topthinking</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/award/docs/basic/deploy"><span class="arrow-prev">← </span><span>生产环境部署</span></a><a class="docs-next button" href="/award/docs/router/dynamicRoute"><span>动态路由</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#说明">说明</a></li><li><a href="#注意">注意</a></li><li><a href="#路由导入">路由导入</a><ul class="toc-headings"><li><a href="#-有意义">🎉 有意义</a></li><li><a href="#️-无意义">☠️ 无意义</a></li></ul></li><li><a href="#路由定义">路由定义</a></li><li><a href="#路由匹配规则">路由匹配规则</a></li><li><a href="#route-属性props">Route 属性(props)</a></li><li><a href="#路由数据">路由数据</a></li><li><a href="#loading-逻辑">loading 逻辑</a></li><li><a href="#关于缓存说明">关于缓存说明</a></li><li><a href="#嵌套路由">嵌套路由</a></li><li><a href="#生命周期">生命周期</a><ul class="toc-headings"><li><a href="#routewillleave"><code>routeWillLeave</code></a></li><li><a href="#routedidupdate"><code>routeDidUpdate</code></a></li><li><a href="#routerwillupdate"><code>routerWillUpdate</code></a></li><li><a href="#routerdidupdate"><code>routerDidUpdate</code></a></li><li><a href="#示例example">示例Example</a></li></ul></li><li><a href="#路由跳转">路由跳转</a></li><li><a href="#路由重定向">路由重定向</a></li><li><a href="#全局路由跳转">全局路由跳转</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
+                indexName: 'ximalaya_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

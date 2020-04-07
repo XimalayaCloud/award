@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>静态资源使用说明 · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="由于在服务端渲染时，需要预先准备好样式资源文件，这边做了一些特殊处理"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="静态资源使用说明 · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/"/><meta property="og:description" content="由于在服务端渲染时，需要预先准备好样式资源文件，这边做了一些特殊处理"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/award/js/third/buttons.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1586229909659"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class=""><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>基础</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">基础<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/basic/intro">快速入门</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/config">配置文件</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/command">命令介绍</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/data">数据获取和管理</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/award/docs/basic/static">静态资源使用说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/error">友好错误解决方案</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/mock">本地数据模拟</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/document">DOM文档组件</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/server">自定义server服务</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/deploy">生产环境部署</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">路由<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/router/intro">介绍</a></li><li class="navListItem"><a class="navItem" href="/award/docs/router/dynamicRoute">动态路由</a></li><li class="navListItem"><a class="navItem" href="/award/docs/router/nestedRoute">嵌套路由</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">更多<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/more/tools">开发工具说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/more/CONTRIBUTING">贡献指南</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">静态资源使用说明</h1></header><article><div><span><p>由于在服务端渲染时，需要预先准备好样式资源文件，这边做了一些特殊处理</p>
+<ul>
+<li>生产环境支持按路由进行样式拆分</li>
+<li>无需加任何代码，默认支持样式scope</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="样式"></a><a href="#样式" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>样式</h2>
+<blockquote>
+<p>仅支持样式格式如下<code>.sass</code> <code>.scss</code> <code>.css</code></p>
+<p>请使用<code>import</code>来引用样式，这样引用的样式会根据引用规则做scope处理</p>
+<p>如果使用<code>require</code>引用的样式，那么就不会添加样式scope了</p>
+</blockquote>
+<p><strong>样式引用分<code>全局生效</code>和<code>当前组件生效</code></strong></p>
+<pre><code class="hljs css language-js"><span class="token comment">// 末尾加感叹号表示样式对全局生效</span>
+<span class="token keyword">import</span> <span class="token string">'./common.scss!'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 不加感叹号表示样式对当前组件生效</span>
+<span class="token keyword">import</span> <span class="token string">'./app.scss'</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="scope说明"></a><a href="#scope说明" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>scope说明</h3>
+<ul>
+<li>项目内会随机两位数scope算法，在一定程度上保证了稳定随机</li>
+<li>同时增加了map文件，默认没有，需要在package.json指定</li>
+</ul>
+<p><strong>示例</strong></p>
+<pre><code class="hljs css language-json"><span class="token punctuation">{</span>
+  <span class="token property">"map"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>当指定了map为<code>true</code>后，项目根目录会生成<code>.map</code>文件，该文件变化的原因是基于当前项目的文件结构的变化而变化的</p>
+<p>使用该文件，可以在项目结构发生轻微的变化时，不会导致样式scope发生重命名，这样生成的静态资源的hash名称就不会频繁更换</p>
+<p>用户可以在浏览器端更好的使用静态资源缓存</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="scope传递"></a><a href="#scope传递" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>scope传递</h3>
+<blockquote>
+<p>常见场景<code>NavLink</code>的使用</p>
+</blockquote>
+<p><strong>示例</strong></p>
+<p><code>组件A</code></p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span><span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>className<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>组件B</code></p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">import</span> <span class="token constant">A</span> <span class="token keyword">from</span> <span class="token string">'A'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string">'./b.scss'</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span><span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// 如果需要让b.scss的样式作用到组件A，请必须添加className=""</span>
+    <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">A</span></span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="类vue样式scope之award-style"></a><a href="#类vue样式scope之award-style" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>类vue样式scope之award-style</h3>
+<blockquote>
+<p><code>award-style</code>内的样式支持sass语法</p>
+<p><code>TypeScript</code>项目需要配置解析字段，<a href="/award/docs/more/tools#项目根目录创建indexdts文件">点击查看</a></p>
+<p>针对<code>小组件</code>以及<code>样式内容较少</code>的js文件，如下</p>
+</blockquote>
+<pre><code class="hljs css language-j">const Header <span class="token verb keyword">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token verb keyword">=</span><span class="token verb keyword">></span> <span class="token punctuation">(</span>
+  <span class="token verb keyword">&lt;</span>div<span class="token verb keyword">></span>
+    <span class="token verb keyword">&lt;</span>h1<span class="token verb keyword">></span>this is header<span class="token verb keyword">&lt;</span><span class="token adverb builtin">/</span>h1<span class="token verb keyword">></span>
+    <span class="token verb keyword">&lt;</span>award<span class="token verb keyword">-</span>style<span class="token verb keyword">></span>
+      <span class="token verb keyword">{</span><span class="token conjunction variable">`</span>
+        h1<span class="token verb keyword">{</span>
+          color<span class="token conjunction variable">:</span>red<span class="token verb keyword">;</span>
+        <span class="token adverb builtin">}</span>
+      <span class="token conjunction variable">`</span><span class="token adverb builtin">}</span>
+    <span class="token verb keyword">&lt;</span><span class="token adverb builtin">/</span>award<span class="token verb keyword">-</span>style<span class="token verb keyword">></span>
+  <span class="token verb keyword">&lt;</span><span class="token adverb builtin">/</span>div<span class="token verb keyword">></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>直接在当前js文件的任何地方写<code>award-style</code>组件，无需引用任何库，</p>
+<p><strong>请注意：模板字符串不支持变量，因为静态编译阶段会将模板字符串全部读取，所以如果写了变量会进行报错提示</strong></p>
+<p>或者如下示例</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>award-style</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+    h1{
+      color:red;
+    }
+  </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>award-style</span><span class="token punctuation">></span></span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">Header</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">this is header</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">    
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>以上默认作用的样式针对当前的js文件，如果需要针对全局生效，你也可以这样使用</p>
+<p><code>award-style</code>标签添加<code>global</code>属性即可</p>
+</blockquote>
+<pre><code class="hljs css language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>award-style</span> <span class="token attr-name">global</span><span class="token punctuation">></span></span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+ a{
+   color:#000;
+ }
+</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>award-style</span><span class="token punctuation">></span></span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="图片"></a><a href="#图片" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>图片</h2>
+<blockquote>
+<p>推荐使用<code>import</code>导入图片</p>
+<p>支持图片格式 <code>.jpg</code> <code>.jpeg</code> <code>.png</code> <code>.gif</code> <code>.svg</code></p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> bg <span class="token keyword">from</span> <span class="token string">'./1.png'</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>bg<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+</span></code></pre>
+<h3><a class="anchor" aria-hidden="true" id="base64"></a><a href="#base64" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>base64</h3>
+<p>根目录创建配置文件<code>.es-style.json</code>，进行如下设置</p>
+<pre><code class="hljs css language-json"><span class="token punctuation">{</span>
+  <span class="token property">"limit"</span><span class="token operator">:</span> <span class="token number">50000</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>当图片大小<code>&lt;=50000</code>字节，即<code>&lt;=50kb</code>时，将会转为base64</p>
+<h3><a class="anchor" aria-hidden="true" id="sprite"></a><a href="#sprite" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sprite</h3>
+<blockquote>
+<p>只针对当前一个样式文件内所有图片的处理</p>
+<p>当设置了相应参数后，会自动将当前文件内的所有图片进行雪碧图处理</p>
+</blockquote>
+<p><strong>样式文件顶部添加如下设置</strong></p>
+<pre><code class="hljs css language-css"><span class="token comment">/* sprite */</span>
+
+开始编写样式
+...
+
+</code></pre>
+<p><strong>注意</strong></p>
+<blockquote>
+<p>CSS sprite 生成的图片大小是固定的</p>
+<p>即当前展示区域的大小必须和图片的大小一致，因为雪碧图处理会修改background-size属性</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="antd"></a><a href="#antd" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>antd</h2>
+<blockquote>
+<p>系统已内置antd样式按需加载的babel插件配置了</p>
+<p>开发者只需在项目中自行安装<code>antd</code>库后即可import使用了</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="修改主题"></a><a href="#修改主题" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>修改主题</h3>
+<p><strong>设置<code>package.json</code>，指定主题配置文件</strong></p>
+<pre><code class="hljs css language-json"><span class="token punctuation">{</span>
+  <span class="token property">"theme"</span><span class="token operator">:</span><span class="token string">"./theme.js"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>开发匹配文件<code>theme.js</code>，请点击查看<a href="https://ant.design/docs/react/customize-theme-cn#Ant-Design-%E7%9A%84%E6%A0%B7%E5%BC%8F%E5%8F%98%E9%87%8F"><code>antd官方</code></a>的具体配置变量</strong></p>
+<pre><code class="hljs css language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string">'primary-color'</span><span class="token operator">:</span> <span class="token string">'#1DA57A'</span><span class="token punctuation">,</span>
+  <span class="token string">'link-color'</span><span class="token operator">:</span> <span class="token string">'#1DA57A'</span><span class="token punctuation">,</span>
+  <span class="token string">'border-radius-base'</span><span class="token operator">:</span> <span class="token string">'2px'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="代码拆分"></a><a href="#代码拆分" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>代码拆分</h2>
+<p><code>Award</code>框架内部提供了基于<code>路由组件</code>的代码拆分处理，这个是由框架内部自动完成，无需开发者配置</p>
+<p><strong>同时我们还提供给开发者进行自定义组件拆分的方法</strong></p>
+<h3><a class="anchor" aria-hidden="true" id="示例"></a><a href="#示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例</h3>
+<blockquote>
+<p>基于<code>react-loadable</code>这个库</p>
+<p>开发者不需要安装、也不需要做任何配置，只需要按下面的例子使用即可</p>
+<p>因为在服务端渲染时需要做一些定制的配置，Award已经将其内置了</p>
+</blockquote>
+<p><strong>index.js <code>根组件</code></strong></p>
+<pre><code class="hljs css language-jsx"><span class="token operator">...</span>
+
+<span class="token keyword">import</span> Loadable <span class="token keyword">from</span> <span class="token string">'react-loadable'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> LoadableComponent <span class="token operator">=</span> <span class="token function">Loadable</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token function-variable function">loader</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'./app.js'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">loading</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">加载中...</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token punctuation">,</span>
+  delay<span class="token operator">:</span> <span class="token number">3000</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token operator">...</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">LoadableComponent</span></span> <span class="token punctuation">/></span></span>
+  <span class="token operator">...</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>app.js</strong></p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">import</span> <span class="token string">'./app.scss'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">hello world - app</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> App<span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>那么会把 app.js 这个组件拆分出一个单独的 js 文件</p>
+<p>上面只是个例子，在实际开发中，不推荐对这种小的组件进行代码拆分</p>
+<p>一般对一些大型组件进行按需加载，比如类似<code>antd</code></p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="外部依赖引用（非require引用）"></a><a href="#外部依赖引用（非require引用）" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>外部依赖引用（非require引用）</h2>
+<p>比如一个 js 文件需要被外置引入, 譬如名字叫 <code>a.js</code>, 那么需要在 package.json 中添加如下字段:</p>
+<pre><code class="hljs css language-json"><span class="token property">"external"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 表示引用的a.js映射到本地jquery.js文件</span>
+  <span class="token property">"a.js"</span><span class="token operator">:</span> <span class="token string">"./static/jquery.js"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>然后在<a href="document"><code>document.js</code></a>中需要添加如下代码即可引入该external文件</p>
+<blockquote>
+<p>注意：这里不能通过<code>require('./award.config.js')</code>来获取assetPrefixs</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> assetPrefixs <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>assetPrefixs <span class="token operator">+</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">external/a.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span>
+
+<span class="token comment">// 防止缓存，自行添加时间戳</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>assetPrefixs <span class="token operator">+</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">external/a.js?v=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="符号快速引用"></a><a href="#符号快速引用" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>@符号快速引用</h2>
+<blockquote>
+<p><code>@/</code>表示当前项目的根目录，开发者可以这样使用</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token operator">...</span>
+<span class="token keyword">import</span> <span class="token string">"@/src/app.scss"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">"@/src/app.png"</span><span class="token punctuation">;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>award-style</span><span class="token punctuation">></span></span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+i{
+  background:url('@/src/app.jpg');
+}
+</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>award-style</span><span class="token punctuation">></span></span>
+<span class="token operator">...</span>
+</code></pre>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2020-3-6 by topthinking</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/award/docs/basic/data"><span class="arrow-prev">← </span><span>数据获取和管理</span></a><a class="docs-next button" href="/award/docs/basic/error"><span>友好错误解决方案</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#样式">样式</a><ul class="toc-headings"><li><a href="#scope说明">scope说明</a></li><li><a href="#scope传递">scope传递</a></li><li><a href="#类vue样式scope之award-style">类vue样式scope之award-style</a></li></ul></li><li><a href="#图片">图片</a><ul class="toc-headings"><li><a href="#base64">base64</a></li><li><a href="#sprite">sprite</a></li></ul></li><li><a href="#antd">antd</a><ul class="toc-headings"><li><a href="#修改主题">修改主题</a></li></ul></li><li><a href="#代码拆分">代码拆分</a><ul class="toc-headings"><li><a href="#示例">示例</a></li></ul></li><li><a href="#外部依赖引用（非require引用）">外部依赖引用（非require引用）</a></li><li><a href="#符号快速引用">@符号快速引用</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
+                indexName: 'ximalaya_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

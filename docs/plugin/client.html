@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>客户端Hook · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## 重要说明"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="客户端Hook · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/"/><meta property="og:description" content="## 重要说明"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/award/js/third/buttons.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1586229909659"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class="siteNavGroupActive"><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>基础</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">基础<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/plugin/intro">说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/development">开发教程</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/node">Node端Hook</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/award/docs/plugin/client">客户端Hook</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">官方插件列表<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/plugin/dva">award-plugin-dva</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/cahce">award-plugin-cahce</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/pwa">award-plugin-pwa</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/styled-components">award-plugin-styled-components</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">客户端Hook</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="重要说明"></a><a href="#重要说明" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>重要说明</h2>
+<blockquote>
+<p>请务必阅读上一章内容，大体建立对Award插件的认识</p>
+<p>⚠️ 着重说明 ⚠️ 以下的hook列表中，hook的标题没有特殊标识的，那么该hook支持<code>同步</code>和<code>异步</code></p>
+<p>创建<code>src/client.ts</code>文件，目前支持两种风格的插件编写</p>
+<p>1.函数形式，插件hook比较散，不易于聚合管理</p>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> ClientHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'award-plugin'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// ClientHooks用来TS类型提示的</span>
+<span class="token comment">// options是当前使用该插件传进来的参数</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter">hooks<span class="token operator">:</span> ClientHooks<span class="token punctuation">,</span> options<span class="token operator">:</span> any</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  hooks<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token comment">// 开始处理params</span>
+    <span class="token comment">// 通过this.options来获取插件自定义配置的变量</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>2.对象形式，对插件功能做了聚合</p>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> Plugin <span class="token keyword">from</span> <span class="token string">'award-plugin'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">extends</span> Plugin<span class="token punctuation">.</span>Client<span class="token punctuation">{</span>
+  <span class="token function">apply</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">basic</span><span class="token punctuation">(</span><span class="token parameter">hooks</span><span class="token operator">=></span><span class="token punctuation">{</span>
+      hooks<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token comment">// 开始处理params</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="basic"></a><a href="#basic" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>basic</h2>
+<h3><a class="anchor" aria-hidden="true" id="init"></a><a href="#init" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>init</h3>
+<p>客户端初始化时，触发该方法，此后将不再触发了</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>INITIAL_STATE</td><td>服务端返回的数据集合</td><td>object</td></tr>
+<tr><td>match_routes</td><td>匹配到的路由</td><td>array</td></tr>
+<tr><td>Component</td><td>根组件、即入口组件</td><td>react.component</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="modifyinitialpropsctx"></a><a href="#modifyinitialpropsctx" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>modifyInitialPropsCtx</h3>
+<p>修改客户端<code>getInitialProps</code>函数接收的参数</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>params</td><td>默认传递的参数内容</td><td>object</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="catcherror"></a><a href="#catcherror" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>catchError</h3>
+<p>捕获错误，对错误进行分发处理</p>
+<pre><code class="hljs css language-typescript"><span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">IcatchError</span> <span class="token punctuation">{</span>
+  <span class="token keyword">type</span><span class="token operator">:</span> <span class="token string">'global'</span> <span class="token operator">|</span> <span class="token string">'router'</span> <span class="token operator">|</span> <span class="token string">'fetch'</span><span class="token punctuation">;</span>
+  error<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>type</td><td>错误发生类型</td><td>'global'</td><td>'router'</td><td>'fetch'</td></tr>
+<tr><td>error</td><td>具体的错误详情</td><td>Error</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="rendered"></a><a href="#rendered" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>rendered</h3>
+<p>在客户端，通过ReactDOM渲染结束后触发的钩子函数，即当前所有的组件都已经触发<code>componentDidMount</code>了</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>Component</td><td>根组件、即入口组件</td><td>react.component</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="router"></a><a href="#router" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>router</h2>
+<h3><a class="anchor" aria-hidden="true" id="routechangebeforeloadinitialprops"></a><a href="#routechangebeforeloadinitialprops" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>routeChangeBeforeLoadInitialProps</h3>
+<p>客户端路由发生变化时，在加载数据之前，获取bundle之后触发</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>emitter</td><td>全局事件监听对象</td><td>object</td></tr>
+<tr><td>match_routes</td><td>匹配到的路由</td><td>array</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-12-31 by topthinking</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/award/docs/plugin/node"><span class="arrow-prev">← </span><span>Node端Hook</span></a><a class="docs-next button" href="/award/docs/plugin/dva"><span>award-plugin-dva</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#重要说明">重要说明</a></li><li><a href="#basic">basic</a><ul class="toc-headings"><li><a href="#init">init</a></li><li><a href="#modifyinitialpropsctx">modifyInitialPropsCtx</a></li><li><a href="#catcherror">catchError</a></li><li><a href="#rendered">rendered</a></li></ul></li><li><a href="#router">router</a><ul class="toc-headings"><li><a href="#routechangebeforeloadinitialprops">routeChangeBeforeLoadInitialProps</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
+                indexName: 'ximalaya_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

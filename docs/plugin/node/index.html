@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Node端Hook · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## 重要说明"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Node端Hook · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/"/><meta property="og:description" content="## 重要说明"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/award/js/third/buttons.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1586229909659"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class="siteNavGroupActive"><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>基础</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">基础<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/plugin/intro">说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/development">开发教程</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/award/docs/plugin/node">Node端Hook</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/client">客户端Hook</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">官方插件列表<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/plugin/dva">award-plugin-dva</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/cahce">award-plugin-cahce</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/pwa">award-plugin-pwa</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/styled-components">award-plugin-styled-components</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Node端Hook</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="重要说明"></a><a href="#重要说明" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>重要说明</h2>
+<blockquote>
+<p>请务必阅读上一章内容，大体建立对Award插件的认识</p>
+<p>⚠️ 着重说明 ⚠️ 以下的hook列表中，hook的标题没有特殊标识的，那么该hook支持<code>同步</code>和<code>异步</code></p>
+<p>创建<code>src/node.ts</code>文件，目前支持两种风格的插件编写</p>
+<p>1.函数形式，插件hook比较散，不易于聚合管理</p>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> NodeHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'award-plugin'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// NodeHooks用来TS类型提示的</span>
+<span class="token comment">// options是当前使用该插件传进来的参数</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter">hooks<span class="token operator">:</span> NodeHooks<span class="token punctuation">,</span> options<span class="token operator">:</span> any</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  hooks<span class="token punctuation">.</span><span class="token function">modifyContextAward</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token comment">// 开始处理params</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>2.对象形式，对插件功能做了聚合</p>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> Plugin <span class="token keyword">from</span> <span class="token string">'award-plugin'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">extends</span> Plugin<span class="token punctuation">.</span>Node<span class="token punctuation">{</span>
+  <span class="token function">apply</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">server</span><span class="token punctuation">(</span><span class="token parameter">hooks</span><span class="token operator">=></span><span class="token punctuation">{</span>
+      hooks<span class="token punctuation">.</span><span class="token function">modifyContextAward</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token comment">// 开始处理params</span>
+        <span class="token comment">// 通过this.options来获取插件自定义配置的变量</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="server"></a><a href="#server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>server</h2>
+<h3><a class="anchor" aria-hidden="true" id="modifycontextaward"></a><a href="#modifycontextaward" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>modifyContextAward</h3>
+<p>修改ctx.award的变量结构，原则上只允许添加，不允许删除</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="modifyinitialpropsctx"></a><a href="#modifyinitialpropsctx" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>modifyInitialPropsCtx</h3>
+<p>修改在服务端运行时，当执行<code>getInitialProps</code>函数时，处理该函数接收到的参数</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+<tr><td>params</td><td>服务端默认传递的参数内容</td><td>object</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="willcache"></a><a href="#willcache" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>willCache</h3>
+<p>在服务端处理缓存之前，触发该函数</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="willfetch"></a><a href="#willfetch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>willFetch</h3>
+<p>在服务器获取数据之前，触发该函数</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="didfetch"></a><a href="#didfetch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>didFetch</h3>
+<p>在服务端获取完数据之后，触发该函数</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="beforecoremiddlewares"></a><a href="#beforecoremiddlewares" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>beforeCoreMiddlewares</h3>
+<p>在award内部的核心中间件之前注入中间件的hook函数</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>middlewares</td><td>存储中间件的数组结构，原型链操作</td><td>Array</td></tr>
+<tr><td>config</td><td>当前项目的award配置</td><td>object</td></tr>
+<tr><td>port</td><td>当前服务端口</td><td>string</td></tr>
+<tr><td>dev</td><td>当前配置运行环境，开发、生产</td><td>boolean</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="aftercoremiddlewares"></a><a href="#aftercoremiddlewares" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>afterCoreMiddlewares</h3>
+<p>在award内部的核心中间件之后注入中间件的hook函数</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>middlewares</td><td>存储中间件的数组结构，原型链操作</td><td>Array</td></tr>
+<tr><td>config</td><td>当前项目的award配置</td><td>object</td></tr>
+<tr><td>port</td><td>当前服务端口</td><td>string</td></tr>
+<tr><td>dev</td><td>当前配置运行环境，开发、生产</td><td>boolean</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="beforerender"></a><a href="#beforerender" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>beforeRender</h3>
+<p>award在服务端渲染之前，即在执行<code>renderToString</code>函数之前一行</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="render"></a><a href="#render" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>render</h3>
+<p>执行<code>renderToString</code>函数所接受的参数</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+<tr><td>Component</td><td>renderToString接受的react组件</td><td>React.Element</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="document"></a><a href="#document" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>document</h3>
+<p>award在服务端渲染，或者在导出单页应用时，对document进行整理</p>
+<pre><code class="hljs css language-typescript"><span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Idocument</span> <span class="token punctuation">{</span>
+  context<span class="token operator">:</span> IContext<span class="token punctuation">;</span>
+  doc<span class="token operator">:</span> <span class="token punctuation">{</span>
+    beforeHead<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+    afterHead<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+    beforeScript<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+    afterScript<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+    beforeHtml<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+    afterHtml<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+<tr><td>doc</td><td>文档结构对象</td><td>Object</td></tr>
+<tr><td></td><td>beforeHead</td><td>React.Element</td></tr>
+<tr><td></td><td>afterHead</td><td>React.Element</td></tr>
+<tr><td></td><td>beforeScript</td><td>React.Element</td></tr>
+<tr><td></td><td>afterScript</td><td>React.Element</td></tr>
+<tr><td></td><td>beforeHtml</td><td>React.Element</td></tr>
+<tr><td></td><td>afterHtml</td><td>React.Element</td></tr>
+</tbody>
+</table>
+<pre><code class="hljs css language-js"><span class="token comment">// 支持如下示例的使用策略</span>
+params<span class="token punctuation">.</span>doc<span class="token punctuation">.</span>beforeHead <span class="token operator">=</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">hello 1</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+params<span class="token punctuation">.</span>doc<span class="token punctuation">.</span><span class="token function-variable function">beforeHead</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">hello 2</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+
+<span class="token comment">// 最终输出结果</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">hello 1</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">hello 2</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span></span><span class="token punctuation">></span></span>
+
+<span class="token comment">// 即该钩子，会对原型链值的累加</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="afterrender"></a><a href="#afterrender" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>afterRender</h3>
+<p>award在服务端渲染之后，即在执行<code>renderToString</code>函数之后一行</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>context</td><td>服务端的<code>koa</code>的上下文对象</td><td>object</td></tr>
+<tr><td>html</td><td><code>renderToString</code>执行后生成的html字符串</td><td>string</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="build"></a><a href="#build" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>build</h2>
+<h3><a class="anchor" aria-hidden="true" id="beforebuild"></a><a href="#beforebuild" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>beforeBuild</h3>
+<p>award项目执行<code>award build</code>构建命令之前</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>run_env</td><td>构建的环境类型</td><td>'node' 、 'web_ssr' 、 'web_spa'</td></tr>
+<tr><td>config</td><td>当前项目的award配置</td><td>object</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="babelinclude"></a><a href="#babelinclude" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>babelInclude</h3>
+<p>在<code>web</code>编译阶段，判断babel插件是否需要处理该文件，类似webpack include用法，该钩子只支持同步</p>
+<blockquote>
+<p>需要注意：仅<code>web</code>编译可以使用，包括开发环境和编译出生产环境的静态资源</p>
+<p>只接受一个参数<code>filePath</code>，表示当前文件路径；如果需要处理成功，需要给出返回值，类型为<code>boolean</code></p>
+</blockquote>
+<p><strong>award内部默认处理规则</strong></p>
+<ul>
+<li>不忽略 node_modules/award</li>
+<li>忽略 node_modules <code>该钩子会在这个阶段执行</code></li>
+<li>其余都不忽略</li>
+</ul>
+<p><strong>示例</strong></p>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> Plugin <span class="token keyword">from</span> <span class="token string">'award-plugin'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">extends</span> Plugin<span class="token punctuation">.</span>Node<span class="token punctuation">{</span>
+  <span class="token function">apply</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token parameter">hooks</span><span class="token operator">=></span><span class="token punctuation">{</span>
+      hooks<span class="token punctuation">.</span><span class="token function">babelInclude</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">filePath</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment">// 当award内部的默认规则要求babel-loader忽略对该文件的处理后.....</span>
+        <span class="token comment">// 紧接着立刻触发该钩子</span>
+        <span class="token comment">// 接着你就可以通过正则匹配决定是否处理该文件路径</span>
+        <span class="token comment">// 如果不返回，或者返回false，那么babel-loader就不再处理该文件了</span>
+        <span class="token comment">// 只有返回true才会处理该文件</span>
+        <span class="token keyword">return</span> <span class="token operator">...</span>  
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="source"></a><a href="#source" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>source</h3>
+<p>处理编译后的静态资源</p>
+<pre><code class="hljs css language-typescript"><span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Isource</span> <span class="token punctuation">{</span>
+  dir<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  dist<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>dir</td><td>当前项目根目录</td><td>string</td></tr>
+<tr><td>dist</td><td>当前静态资源输出文件的相对路径</td><td>string</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="afterbuild"></a><a href="#afterbuild" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>afterBuild</h3>
+<p>award项目执行<code>award build</code>构建命令之后</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>run_env</td><td>构建的环境类型</td><td>'node' 、 'web_ssr' 、 'web_spa'</td></tr>
+<tr><td>config</td><td>当前项目的award配置</td><td>object</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="config"></a><a href="#config" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>config</h2>
+<h3><a class="anchor" aria-hidden="true" id="webpackconfig"></a><a href="#webpackconfig" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>webpackConfig</h3>
+<p>处理webpack的配置文件</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>config</td><td>当前系统内置的webpack配置</td><td>object</td></tr>
+<tr><td>isServer</td><td>当前的配置是否应用服务端编译</td><td>boolean</td></tr>
+<tr><td>isAward</td><td>表示当前是否编译award项目内文件，即非server端文件</td><td>boolean</td></tr>
+<tr><td>dir</td><td>当前项目的根目录</td><td>string</td></tr>
+<tr><td>dev</td><td>当前配置运行环境，开发、生产</td><td>boolean</td></tr>
+<tr><td>dll</td><td>表示当前的webpack配置是否应用于dll</td><td>boolean</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="babelconfig-同步"></a><a href="#babelconfig-同步" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>babelConfig <code>同步</code></h3>
+<p>添加新的babel配置，该钩子只支持同步</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>config</td><td>当前babel的配置结构</td><td>object { plugins: Array<any>;presets: Array<any>;}</td></tr>
+<tr><td>awardConfig</td><td>当前系统内置的webpack配置</td><td>object</td></tr>
+<tr><td>isServer</td><td>当前的配置是否应用服务端编译</td><td>boolean</td></tr>
+<tr><td>dev</td><td>当前配置运行环境，开发、生产</td><td>boolean</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="compiler"></a><a href="#compiler" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>compiler</h2>
+<h3><a class="anchor" aria-hidden="true" id="webpackcompiler"></a><a href="#webpackcompiler" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>webpackCompiler</h3>
+<p>处理webpack编译后的compiler</p>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>compiler</td><td>webpack编译的对象结构</td><td>object</td></tr>
+<tr><td>config</td><td>当前系统内置的webpack配置</td><td>object</td></tr>
+<tr><td>isServer</td><td>当前的配置是否应用服务端编译</td><td>boolean</td></tr>
+<tr><td>isAward</td><td>表示当前是否编译award项目内文件，即非server端文件</td><td>boolean</td></tr>
+<tr><td>dir</td><td>当前项目的根目录</td><td>string</td></tr>
+<tr><td>dev</td><td>当前配置运行环境，开发、生产</td><td>boolean</td></tr>
+<tr><td>dll</td><td>表示当前的webpack的编译是否对dll进行编译</td><td>boolean</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2020-1-6 by topthinking</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/award/docs/plugin/development"><span class="arrow-prev">← </span><span>开发教程</span></a><a class="docs-next button" href="/award/docs/plugin/client"><span>客户端Hook</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#重要说明">重要说明</a></li><li><a href="#server">server</a><ul class="toc-headings"><li><a href="#modifycontextaward">modifyContextAward</a></li><li><a href="#modifyinitialpropsctx">modifyInitialPropsCtx</a></li><li><a href="#willcache">willCache</a></li><li><a href="#willfetch">willFetch</a></li><li><a href="#didfetch">didFetch</a></li><li><a href="#beforecoremiddlewares">beforeCoreMiddlewares</a></li><li><a href="#aftercoremiddlewares">afterCoreMiddlewares</a></li><li><a href="#beforerender">beforeRender</a></li><li><a href="#render">render</a></li><li><a href="#document">document</a></li><li><a href="#afterrender">afterRender</a></li></ul></li><li><a href="#build">build</a><ul class="toc-headings"><li><a href="#beforebuild">beforeBuild</a></li><li><a href="#babelinclude">babelInclude</a></li><li><a href="#source">source</a></li><li><a href="#afterbuild">afterBuild</a></li></ul></li><li><a href="#config">config</a><ul class="toc-headings"><li><a href="#webpackconfig">webpackConfig</a></li><li><a href="#babelconfig-同步">babelConfig <code>同步</code></a></li></ul></li><li><a href="#compiler">compiler</a><ul class="toc-headings"><li><a href="#webpackcompiler">webpackCompiler</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
+                indexName: 'ximalaya_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

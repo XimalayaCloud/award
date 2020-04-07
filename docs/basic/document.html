@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>DOM文档组件 · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## html文档，类似index.html"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="DOM文档组件 · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/"/><meta property="og:description" content="## html文档，类似index.html"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/award/js/third/buttons.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1586229909659"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class=""><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>基础</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">基础<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/basic/intro">快速入门</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/config">配置文件</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/command">命令介绍</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/data">数据获取和管理</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/static">静态资源使用说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/error">友好错误解决方案</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/mock">本地数据模拟</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/award/docs/basic/document">DOM文档组件</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/server">自定义server服务</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/deploy">生产环境部署</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">路由<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/router/intro">介绍</a></li><li class="navListItem"><a class="navItem" href="/award/docs/router/dynamicRoute">动态路由</a></li><li class="navListItem"><a class="navItem" href="/award/docs/router/nestedRoute">嵌套路由</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">更多<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/more/tools">开发工具说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/more/CONTRIBUTING">贡献指南</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">DOM文档组件</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="html文档，类似indexhtml"></a><a href="#html文档，类似indexhtml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>html文档，类似index.html</h2>
+<blockquote>
+<p>如果你需要扩展html文档，比如添加自定义脚本标签等等，那么你需要阅读下面内容</p>
+</blockquote>
+<p><strong>在根目录创建<code>document.js</code>文件，其需要通过<code>export default</code>导出一个react组件，作为服务端渲染或者单页应用引用的模板组件</strong></p>
+<blockquote>
+<p>可以通过在<code>document.js</code>内自定义html文档上其他的节点元素</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="示例"></a><a href="#示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例</h2>
+<pre><code class="hljs css language-jsx"><span class="token comment">// document.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">extends</span> React<span class="token punctuation">.</span>Component <span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 这是Award核心内容</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> Head<span class="token punctuation">,</span> Html<span class="token punctuation">,</span> Script <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Head</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Html</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+          </span><span class="token punctuation">{</span><span class="token comment">/* 可以自定义添加你的代码 */</span><span class="token punctuation">}</span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Script</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="接收的props说明"></a><a href="#接收的props说明" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>接收的props说明</h2>
+<table>
+<thead>
+<tr><th>props</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Head</code></td><td>⭐️ Award内部整理的头部资源，包括css资源地址、组件内的头部标签等</td></tr>
+<tr><td><code>Html</code></td><td>⭐️ Award内部渲染出来的dom文档，这里是服务端渲染出的html字符串，<code>Html</code>是包含html字符串的组件</td></tr>
+<tr><td><code>Script</code></td><td>⭐️ Award内部整理的脚本片段，包括需要加载的js资源等一些内置的js全局环境变量</td></tr>
+<tr><td><code>assetPrefixs</code></td><td>定义在<code>award.config.js</code>里面的<code>assetPrefixs</code>，注意：这里不能通过<code>require('./award.config.js')</code>来获取assetPrefixs</td></tr>
+<tr><td><code>context</code></td><td>表示当前请求的上下文对象，同时award相关环境参数都存储在<code>context.award</code>内</td></tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ 在使用自定义document组件时，不能丢失Award框架内提供的props渲染，否则会导致页面主体内容丢失</p>
+<p>即上面打⭐️的都是必须添加的，否则服务端渲染的内容会丢失，会造成不可挽回的错误</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="总结"></a><a href="#总结" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>总结</h2>
+<ul>
+<li><p><code>document.js</code>可以理解为一个模板, 用来包裹住我们的组件的html, 然后生成一个完整的页面.</p></li>
+<li><p>在<code>document.js</code>中我们可以自由写如一些script标签来完成一些在react项目内部不方便做的事, 例如谷歌统计代码, sdk资源引用等</p></li>
+</ul>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-12-31 by topthinking</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/award/docs/basic/mock"><span class="arrow-prev">← </span><span>本地数据模拟</span></a><a class="docs-next button" href="/award/docs/basic/server"><span>自定义server服务</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#html文档，类似indexhtml">html文档，类似index.html</a></li><li><a href="#示例">示例</a></li><li><a href="#接收的props说明">接收的props说明</a></li><li><a href="#总结">总结</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
+                indexName: 'ximalaya_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

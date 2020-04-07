@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>开发教程 · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&gt; 请务必阅读上一章内容，大体建立对Award插件的认识"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="开发教程 · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/"/><meta property="og:description" content="&gt; 请务必阅读上一章内容，大体建立对Award插件的认识"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/award/js/third/buttons.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1586229909659"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class="siteNavGroupActive"><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>基础</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">基础<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/plugin/intro">说明</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/award/docs/plugin/development">开发教程</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/node">Node端Hook</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/client">客户端Hook</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">官方插件列表<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/plugin/dva">award-plugin-dva</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/cahce">award-plugin-cahce</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/pwa">award-plugin-pwa</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/styled-components">award-plugin-styled-components</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">开发教程</h1></header><article><div><span><blockquote>
+<p>请务必阅读上一章内容，大体建立对Award插件的认识</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="开始"></a><a href="#开始" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>开始</h3>
+<blockquote>
+<p>初始化插件开发模板</p>
+</blockquote>
+<pre><code class="hljs css language-bash"><span class="token function">npm</span> init award -t plugin <span class="token operator">&lt;</span>你插件的项目名称，不指定就在当前目录创建<span class="token operator">></span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="必读规则"></a><a href="#必读规则" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>必读规则</h2>
+<blockquote>
+<p>Award框架在插件处理上区分了端的场景，分别提供了在客户端和node端运行时的一些重要的时机Hook</p>
+<p>同时，插件本身也可以提供项目中使用的api，即支持默认导出，以及api注入功能，具体查看上一章</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="客户端hook"></a><a href="#客户端hook" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>客户端hook</h3>
+<blockquote>
+<p>即代码在客户端运行的流程上处理插件提供的额外的功能</p>
+<p>通常就是所谓的浏览器环境</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="node端hook"></a><a href="#node端hook" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>node端hook</h3>
+<blockquote>
+<p>即代码在Node上运行，请注意区别node服务，只要在node端运行的都算，包括命令行启动项目等等</p>
+<p>所提供的hook包括，开发环境的构建、编译和发布产物的编译，以及Award项目在node端运行的整个流程</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="对外暴露模块（api）"></a><a href="#对外暴露模块（api）" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>对外暴露模块（API）</h3>
+<blockquote>
+<p>即插件本身提供了一些api供项目中使用，在注册插件时，这些api都会被注入到<code>award</code>上，具体使用参考上一章</p>
+<p>导出规则，<strong>只支持default导出，如下示例</strong></p>
+<pre><code class="hljs css language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 这里写你的api列表，而且导出的数据结构必须是对象</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</blockquote>
+<p><strong>定义和使用示例</strong></p>
+<blockquote>
+<pre><code class="hljs css language-js"><span class="token comment">// 插件award-plugin-demo示例</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">start</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token comment">// 一些逻辑</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 使用时</span>
+<span class="token keyword">import</span> Award <span class="token keyword">from</span> <span class="token string">'award'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 那么就可以使用award-plugin-demo插件提供的start函数了</span>
+Award<span class="token punctuation">.</span>demo<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="开发步骤"></a><a href="#开发步骤" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>开发步骤</h2>
+<ol>
+<li>详细阅读客户端和Node端提供的hook，思考是否能实现你所需要的功能，如果欠缺，那么需要Award框架添加和调整相应的时机hook</li>
+<li>接着阅读官方插件列表提供的一系列插件的独立开发、测试的方案，通过模仿进行学习开发</li>
+<li>所有的插件都要基于<code>TypeScript</code>来开发，因为TS的类型提示和api说明，能提升插件开发的效率和动力</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="开发细节"></a><a href="#开发细节" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>开发细节</h2>
+<ol>
+<li>插件开发过程中，可能需要引用到Award相关的核心库，比如award`等，请注意不要引用任何来自工具集的库</li>
+<li>插件分别对客户端和Node端做独立处理，但是至少要处理一种，否则就不能称作Award插件了</li>
+<li>当开发客户端运行的插件时，需注意这些代码将全部在客户端运行，注意不要用到node上的一些库，比如<code>fs</code>文件操作等</li>
+<li>当开发Node端运行的插件时，可以任意的使用任何库，但请注意，尽量控制库的使用量，防止引用了危险的资源入侵服务器</li>
+<li>插件开发者应当深知<code>devDependencies</code>、<code>dependencies</code>的区别，前期官方会跟进每个插件的开发</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="ts描述文件"></a><a href="#ts描述文件" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>TS描述文件</h2>
+<blockquote>
+<p>插件项目需要提供对外的TS声明文件，如下示例</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token comment">// 定义namespace，名字都是统一的AwardPlugins</span>
+declare namespace AwardPlugins <span class="token punctuation">{</span>
+  <span class="token comment">// 设置当前插件需要导出的字段名称</span>
+  <span class="token comment">// 比如award-plugin-demo需要导出的名称demo，所以这里需要定义 const demo</span>
+  <span class="token keyword">export</span> <span class="token keyword">const</span> demo<span class="token operator">:</span> <span class="token constant">IDEMO</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义一些接口，类型等</span>
+<span class="token keyword">interface</span> <span class="token class-name">IDEMO</span> <span class="token punctuation">{</span>
+  start<span class="token operator">:</span> Function<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2020-1-2 by topthinking</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/award/docs/plugin/intro"><span class="arrow-prev">← </span><span>说明</span></a><a class="docs-next button" href="/award/docs/plugin/node"><span>Node端Hook</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#必读规则">必读规则</a><ul class="toc-headings"><li><a href="#客户端hook">客户端hook</a></li><li><a href="#node端hook">node端hook</a></li><li><a href="#对外暴露模块（api）">对外暴露模块（API）</a></li></ul></li><li><a href="#开发步骤">开发步骤</a></li><li><a href="#开发细节">开发细节</a></li><li><a href="#ts描述文件">TS描述文件</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
+                indexName: 'ximalaya_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

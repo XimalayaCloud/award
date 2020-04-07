@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>配置说明 · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&gt; 项目根目录创建`award.config.js`配置文件，该文件仅会在`node端执行`、支持`es6`语法"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="配置说明 · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/"/><meta property="og:description" content="&gt; 项目根目录创建`award.config.js`配置文件，该文件仅会在`node端执行`、支持`es6`语法"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/award/js/third/buttons.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1586229909659"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class=""><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>基础</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">基础<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/basic/intro">快速入门</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/award/docs/basic/config">配置文件</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/command">命令介绍</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/data">数据获取和管理</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/static">静态资源使用说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/error">友好错误解决方案</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/mock">本地数据模拟</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/document">DOM文档组件</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/server">自定义server服务</a></li><li class="navListItem"><a class="navItem" href="/award/docs/basic/deploy">生产环境部署</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">路由<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/router/intro">介绍</a></li><li class="navListItem"><a class="navItem" href="/award/docs/router/dynamicRoute">动态路由</a></li><li class="navListItem"><a class="navItem" href="/award/docs/router/nestedRoute">嵌套路由</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">更多<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/more/tools">开发工具说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/more/CONTRIBUTING">贡献指南</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">配置说明</h1></header><article><div><span><blockquote>
+<p>项目根目录创建<code>award.config.js</code>配置文件，该文件仅会在<code>node端执行</code>、支持<code>es6</code>语法</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="示例"></a><a href="#示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例</h2>
+<p><strong>award.config.js</strong></p>
+<pre><code class="hljs css language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  entry<span class="token operator">:</span> <span class="token string">'./index.js'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// OR</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  entry<span class="token operator">:</span> <span class="token string">'./index.js'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="默认配置"></a><a href="#默认配置" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>默认配置</h2>
+<pre><code class="hljs css language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  entry<span class="token operator">:</span> <span class="token string">'./index'</span><span class="token punctuation">,</span>         <span class="token comment">// 项目入口</span>
+  assetPrefixs<span class="token operator">:</span> <span class="token string">'/static/'</span><span class="token punctuation">,</span> <span class="token comment">// 静态资源地址</span>
+  <span class="token function-variable function">app</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">middlewares<span class="token operator">:</span> Middleware<span class="token punctuation">[</span><span class="token punctuation">]</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> Middleware<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// 自由扩展中间件</span>
+  basename<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>      <span class="token comment">// 路由前缀  </span>
+  mode<span class="token operator">:</span> <span class="token string">'server'</span><span class="token punctuation">,</span>    <span class="token comment">// 指定渲染类型，默认为服务端渲染,  ['server','client']</span>
+  router<span class="token operator">:</span> <span class="token string">'browser'</span><span class="token punctuation">,</span> <span class="token comment">// 指定路由类型，默认为browser, ['hash','browser']</span>
+  hashName<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>    <span class="token comment">// 指定导出项目的入口静态资源名字是否开启hash，默认开启hash</span>
+  crossOrigin<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 设置资源请求是否跨域</span>
+  proxyTable<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token comment">// 设置接口代理</span>
+  fetch<span class="token operator">:</span> <span class="token punctuation">{</span>           <span class="token comment">// 配置在服务端请求时，需要添加的host    </span>
+    domainMap<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  exportPath<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>  <span class="token comment">// 指定导出某个路由path的html</span>
+  <span class="token function">webpack</span><span class="token punctuation">(</span><span class="token parameter">config<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// 自定义扩展webpack配置 </span>
+    <span class="token keyword">return</span> config<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>       <span class="token comment">// 指定使用的插件名称</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="字段说明"></a><a href="#字段说明" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>字段说明</h2>
+<h3><a class="anchor" aria-hidden="true" id="entry-项目入口"></a><a href="#entry-项目入口" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>entry</code> 项目入口</h3>
+<p><strong>自定义指定项目入口</strong></p>
+<blockquote>
+<p>默认入口为<strong><code>index.(js|jsx|ts|tsx)</code></strong></p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="assetprefixs-静态资源前缀"></a><a href="#assetprefixs-静态资源前缀" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>assetPrefixs</code> 静态资源前缀</h3>
+<ul>
+<li><p>配置资源地址前缀，如果不是以<code>http</code>开头，那么系统在发布阶段会创建以<code>assetPrefixs</code>开头的资源访问地址</p></li>
+<li><p>如果是<code>http</code>开头，且如果需要做对应的<code>cdn</code>需要做地址资源映射，那么就需要自己新建静态资源中间件了，如下示例</p>
+<pre><code class="hljs css language-js"><span class="token keyword">const</span> mount <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'koa-mount'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token keyword">static</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'koa-static'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> Koa <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'koa'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Koa</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 最后一定要斜杠结尾</span>
+  assetPrefixs<span class="token operator">:</span> <span class="token string">'http://cdn.com/project/static/'</span><span class="token punctuation">,</span> 
+  <span class="token function-variable function">app</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">middlewares</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> source <span class="token operator">=</span> <span class="token function">mount</span><span class="token punctuation">(</span><span class="token string">'/static'</span><span class="token punctuation">,</span> app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">static</span><span class="token punctuation">(</span><span class="token string">'./dist'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    middlewares<span class="token punctuation">.</span><span class="token function">unshift</span><span class="token punctuation">(</span>source<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></li>
+<li><p>通常我们会根据环境来指定不同的<code>assetPrefixs</code>地址</p></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="app-处理核心中间件"></a><a href="#app-处理核心中间件" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>app</code> 处理核心中间件</h3>
+<blockquote>
+<p>对Award内<code>核心的中间件</code>进行再处理，可用于自定义中间件、实现缓存、数据处理等功能</p>
+<p>对于<code>非核心中间件</code>的使用，<a href="server#中间件">请点击查看更多关于中间件的扩展使用</a></p>
+</blockquote>
+<p><strong>示例</strong></p>
+<pre><code class="hljs css language-js"><span class="token function-variable function">app</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">middlewares</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token function-variable function">cache</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token comment">// 根据您的业务逻辑决定是否开启cache</span>
+    <span class="token comment">// 通常用来判断是否是登录用户</span>
+    <span class="token comment">// 我们往往对于登录用户采取纯客户端渲染</span>
+    <span class="token comment">// 非登录用户通过服务端渲染 + 静态html缓存来达到最优体验的目的</span>
+    ctx<span class="token punctuation">.</span>award<span class="token punctuation">.</span>cache <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">await</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token comment">// 插入缓存中间件之前</span>
+  middlewares<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> cache<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>middlewares 是一个系统内置的中间件数组</p>
+<p>开发阶段支持热更新，直接修改中间件代码，刷新页面即可查看逻辑执行结果</p>
+</blockquote>
+<pre><code class="hljs">middlewares <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'缓存处理中间件'</span><span class="token punctuation">,</span><span class="token string">'接口处理中间件'</span><span class="token punctuation">,</span><span class="token string">'渲染页面中间件'</span><span class="token punctuation">]</span>
+</code></pre>
+<ul>
+<li><strong>缓存处理中间件</strong>：判断<code>ctx.award.cache</code>值来决定是否读取缓存内容</li>
+<li><strong>接口处理中间件</strong>：根据匹配到的地址解析其对应接口数据的中间件，并将获取到的数据存放到<code>ctx.award.initialState</code>中</li>
+<li><strong>渲染页面中间件</strong>：根据接口数据、匹配组件渲染出html的中间件，html内容存放在<code>ctx.award.html</code>中</li>
+</ul>
+<blockquote>
+<p>支持路径引入，以及自定义返回中间件（即无需通过<code>splice</code>来操作原型了）</p>
+<p>配置文件支持 es6 语法了，包括配置文件引用的依赖都是支持的</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token comment">// 示例</span>
+<span class="token keyword">import</span> midd <span class="token keyword">from</span> <span class="token string">'./midd'</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">app</span><span class="token punctuation">(</span><span class="token parameter">middlewares</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>midd<span class="token punctuation">,</span> <span class="token operator">...</span>middlewares<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="basename-路由地址前缀"></a><a href="#basename-路由地址前缀" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>basename</code> 路由地址前缀</h3>
+<p>设置当前项目发布后的访问地址前缀，比如发布到<code>www.example.com/project-a</code>下，那么<code>/project-a</code>就是该项目的basename</p>
+<h3><a class="anchor" aria-hidden="true" id="mode-渲染类型"></a><a href="#mode-渲染类型" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>mode</code> 渲染类型</h3>
+<pre><code class="hljs css language-json"><span class="token punctuation">{</span>
+  <span class="token property">"mode"</span><span class="token operator">:</span> <span class="token string">"可选值"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>可选值</th><th>说明</th><th>类型</th><th>默认</th></tr>
+</thead>
+<tbody>
+<tr><td>server</td><td>服务端渲染</td><td>string</td><td>✔️</td></tr>
+<tr><td>client</td><td>服务端<code>不再</code>提供渲染能力，即单页应用</td><td>string</td><td></td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="router-路由类型"></a><a href="#router-路由类型" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>router</code> 路由类型</h3>
+<pre><code class="hljs css language-json"><span class="token punctuation">{</span>
+  <span class="token property">"router"</span><span class="token operator">:</span> <span class="token string">"可选值"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>可选值</th><th>说明</th><th>类型</th><th>默认</th></tr>
+</thead>
+<tbody>
+<tr><td>browser</td><td>HTML5 History 模式，没有<code>#</code>。服务端是否渲染需要根据<code>mode</code>值来判断</td><td>string</td><td>✔️</td></tr>
+<tr><td>hash</td><td>hash 模式，即带<code>#</code>。服务端也将不会渲染，服务端不处理 hash 形式的路由地址</td><td>string</td><td></td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="hashname-文件名称"></a><a href="#hashname-文件名称" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>hashName</code> 文件名称</h3>
+<p>当执行导出命名时，指定入口的资源文件是否进行 hash，只接受<code>true</code>或者<code>false</code>，默认为<code>true</code></p>
+<p><strong>入口静态资源，即配置项 <code>hashName</code></strong></p>
+<ul>
+<li><p><code>hashName = true</code></p>
+<p>入口静态资源的名称会根据文件内容进行 hash 处理，文件名称会根据内容进行变化</p></li>
+<li><p><code>hashName = false</code></p>
+<p>入口静态资源文件名称固定，默认有下面几种文件类型</p>
+<ul>
+<li><p>js</p>
+<p><code>common.js</code> - 当前项目公共的 js 资源</p>
+<p><code>manifest.js</code> - 存储当前项目变化的 js 资源</p>
+<p><code>main.js</code> - 当前项目的主入口 js 文件</p></li>
+<li><p>css</p>
+<p><code>main.css</code> - 当前项目公共的样式资源</p></li>
+</ul>
+<p>其余的 chunk 文件仍然是<code>hash</code>名称，主要通过代码拆分进行按需加载</p>
+<p>使用场景，当进行样式微小变化的时候，可以直接发布静态资源</p></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="crossorigin-是否跨域"></a><a href="#crossorigin-是否跨域" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>crossOrigin</code> 是否跨域</h3>
+<p>默认值为 true, 讲会在 script 标签设置 crossOrigin 属性为 anonymous, 当 script 标签请求跨站脚本的时候不会通过 cookies，客户端 SSL 证书或 HTTP 认证交换用户凭据。</p>
+<p>更多信息查看 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/CORS_settings_attributes">CORS_settings_attributes</a></p>
+<h3><a class="anchor" aria-hidden="true" id="proxytable-代理配置"></a><a href="#proxytable-代理配置" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>proxyTable</code> 代理配置</h3>
+<p>设置接口代码，例子如下</p>
+<p>配置规则参考<a href="https://github.com/chimurai/http-proxy-middleware"><code>http-proxy-middleware</code></a></p>
+<pre><code class="hljs css language-json"><span class="token punctuation">{</span>
+  <span class="token property">"proxyTable"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"/api"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"target"</span><span class="token operator">:</span> <span class="token string">"http://127.0.0.1:2891/"</span><span class="token punctuation">,</span>
+      <span class="token property">"changeOrigin"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="fetch-node-请求配置"></a><a href="#fetch-node-请求配置" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>fetch</code> node 请求配置</h3>
+<p>node 端需要拼接 URL, 所以需要 fetch 字段来做域名映射,
+如下的配置是 award 内部的默认配置, 当 node 端请求如 <code>/api/getUser</code> 这类接口, 会拼接上下面定义的<code>http://localhost:1234</code>, 形成 <code>http://localhost:1234/api/getUser</code>, 这样请求在 node 端就能被正确的处理了</p>
+<pre><code class="hljs css language-json"><span class="token punctuation">{</span>
+  <span class="token property">"fetch"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"domainMap"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token comment">// domain映射</span>
+      <span class="token comment">// </span><span class="token property">"api"</span><span class="token operator">:</span><span class="token string">"localhost"</span>
+      <span class="token property">"api"</span><span class="token operator">:</span> <span class="token string">"http://localhost:1234"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"apiGateway"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>下面将介绍下<code>domainMap</code></p>
+</blockquote>
+<p>如果你的项目是<code>ssr</code>，即<code>mode:&quot;server&quot;</code>，需要配置domain，又或者你需要配置mock时，也需要指定domainMap</p>
+<blockquote>
+<p>说明：由于在服务器上请求接口时，需要拼接全地址</p>
+<p>所以这里需要指定请求地址的前面的path来作为<code>domainMap</code>的key</p>
+<p>key对应的value就是以该path为开头的请求地址，都将使用该url来进行拼接</p>
+</blockquote>
+<h4><a class="anchor" aria-hidden="true" id="示例-1"></a><a href="#示例-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例</h4>
+<p>现在有两个请求地址<code>/api/a/b</code>和<code>/api/c/d</code></p>
+<p>如果</p>
+<blockquote>
+<p><code>/api/a</code>开头的地址映射到<code>http://a.com</code></p>
+<p><code>/api/c</code>开头的地址映射到<code>http://c.com</code></p>
+</blockquote>
+<p>那么<code>fetch</code>的<code>domainMap</code>需要进行如下配置</p>
+<pre><code class="hljs css language-json"><span class="token comment">// award.config.js</span>
+export default <span class="token punctuation">{</span>
+  <span class="token property">"fetch"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token property">"domainMap"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+      <span class="token property">"/api/a"</span><span class="token operator">:</span> <span class="token string">"http://a.com"</span><span class="token punctuation">,</span>
+      <span class="token property">"/api/c"</span><span class="token operator">:</span> <span class="token string">"http://c.com"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="注意"></a><a href="#注意" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注意</h4>
+<blockquote>
+<ol>
+<li><p><code>domainMap</code>指定的地址value后面不要带斜杠，因为斜杠你已经在请求url上设置了</p>
+<p><code>fetch('/api/a')</code>，最终会拼接成全地址<code>http://a.com/api/a</code>，然后在node服务器上发起接口请求</p></li>
+<li><p>当然一般使用mock的话，都是配置本地地址，即<code>/api/a</code>、<code>/api/c</code>的地址都是<code>http://localhost:你的端口号</code></p></li>
+<li><p>但是如果在测试环境或者uat、生产环境运行时，当前在服务端执行请求时，还是会到这里找map，拼接出完整的url的</p>
+<p>所以一般你需要通过环境变量来控制<code>domainMap</code>的值</p></li>
+</ol>
+</blockquote>
+<blockquote>
+<p>下面将介绍下<code>apiGateway</code></p>
+</blockquote>
+<p><code>apiGateway</code>是一种服务器内网请求接口的一种形式，通过<code>zookeeper</code>工具，提取ip，最后以ip的形式在内网进行接口调用</p>
+<p><strong>关于这里的配置需要联系网关同学进行协调处理</strong></p>
+<pre><code class="hljs css language-json">apiGateway<span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token property">"API_RETRY_TIME"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>  <span class="token comment">// 通过zk获取ip地址失败后尝试次数</span>
+  <span class="token property">"API_APIGATEWAY_OPEN"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">//是否开启apiGateway</span>
+  <span class="token property">"INNER_SOUTHGATE"</span><span class="token operator">:</span> <span class="token string">"127.0.0.1:7000"</span><span class="token punctuation">,</span>  <span class="token comment">//source gateway的ip地址集</span>
+  <span class="token property">"digestAuth"</span><span class="token operator">:</span><span class="token string">""</span> <span class="token comment">// zookeeper的权限密码，没有可以不填</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="exportpath-指定导出-path-的-html"></a><a href="#exportpath-指定导出-path-的-html" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>exportPath</code> 指定导出 path 的 html</h3>
+<blockquote>
+<ol>
+<li><p><code>exportPath</code>默认为 null，默认导出的时候主体的 html 内容为空</p></li>
+<li><p>接收对象结构，导出多个 html 文件</p>
+<p>需要注意，如果路由从<code>/</code>切换到<code>/about/3</code>时，对于单页应用，当前页面的 html 不会刷新变化，如果在<code>/about/3</code>页面刷新，页面会出现布局闪烁</p>
+<p>为了让切换后，刷新也是当前的<code>about.html</code>这个文件的结构，你需要在执行<code>award export</code>命令时，添加<code>--html</code></p></li>
+</ol>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token comment">/**
+ * 最终会导出3个html文件
+ */</span>
+<span class="token punctuation">{</span>
+  exportPath<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * key为导出的文件名称
+     * value为当前文件的默认路由地址 
+     */</span>
+    <span class="token string">"index.html"</span><span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span>
+    <span class="token string">"about.html"</span><span class="token operator">:</span> <span class="token string">"/about/3"</span><span class="token punctuation">,</span>
+    <span class="token string">"detail.html"</span><span class="token operator">:</span> <span class="token string">"/detail/10"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="webpack扩展-webpack-配置"></a><a href="#webpack扩展-webpack-配置" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>webpack</code>扩展 webpack 配置</h3>
+<blockquote>
+<p>⚠️ 必读 ⚠️，在使用该配置项时，请不要对rules进行任何修改和添加操作，如果确实有需求，请通过插件的形式来处理修改rules这种需求</p>
+<p>请注意，该方法只会在编译阶段执行</p>
+</blockquote>
+<p><code>webpack</code>字段是一个函数，接收两个参数，同时需要返回新的 config</p>
+<pre><code class="hljs css language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">webpack</span><span class="token punctuation">(</span><span class="token parameter">config<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> config<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>参数</th><th>说明</th><th>类型</th></tr>
+</thead>
+<tbody>
+<tr><td>config</td><td>框架提供的 webpack 配置对象</td><td>object</td></tr>
+<tr><td>options</td><td>框架提供的可供配置的参数，因为不同环境下的编译配置文件是不一样的，可以根据 options 来判断出来</td><td>object</td></tr>
+</tbody>
+</table>
+<blockquote>
+<pre><code class="hljs"><span class="token comment">// options结构</span>
+options<span class="token operator">:</span> <span class="token punctuation">{</span>
+  isServer<span class="token operator">:</span> boolean<span class="token punctuation">;</span> <span class="token comment">// 判断是否是node端的配置文件  node端为true、否则为false</span>
+  isAward<span class="token operator">:</span> boolean<span class="token punctuation">;</span>  <span class="token comment">// 标识当前执行编译的文件是否是award项目入口展开的，可以用来区分纯node项目编译和award项目编译</span>
+  dir<span class="token operator">:</span> string<span class="token punctuation">;</span>       <span class="token comment">// 当前项目的根目录地址</span>
+  dev<span class="token operator">:</span> boolean<span class="token punctuation">;</span>      <span class="token comment">// 判断当前配置是否是开发环境、还是生产环境 开发环境为true、其他为false</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</blockquote>
+<p><strong>示例</strong></p>
+<blockquote>
+<p>你可以自定义环境变量来区分不同环境下运行的逻辑</p>
+</blockquote>
+<p><strong>award.config.js</strong></p>
+<pre><code class="hljs css language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">webpack</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 这个回调函数只会在编译阶段执行，所以与之相关的依赖引用也只能写在函数内部了</span>
+    <span class="token comment">// 千万不能写到函数外</span>
+    <span class="token comment">// 因为生产环境只会安装dependencies里面的依赖</span>
+    <span class="token comment">// 而像编译用到的依赖都是在devDependencies里面的</span>
+    <span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    config<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>
+      <span class="token keyword">new</span> <span class="token class-name">webpack<span class="token punctuation">.</span>DefinePlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token string">'process.env'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token constant">MY_ENV</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">MY_ENV</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> config<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>你的 js 代码文件</strong></p>
+<pre><code class="hljs css language-js"><span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">'no xm_env'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 根据不同的环境显示不同的内容</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">MY_ENV</span> <span class="token operator">===</span> <span class="token string">'test'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  name <span class="token operator">=</span> <span class="token string">'test'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">MY_ENV</span> <span class="token operator">===</span> <span class="token string">'prod'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  name <span class="token operator">=</span> <span class="token string">'prod'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">MY_ENV</span> <span class="token operator">===</span> <span class="token string">'dev'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  name <span class="token operator">=</span> <span class="token string">'dev'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-12-31 by topthinking</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/award/docs/basic/intro"><span class="arrow-prev">← </span><span>快速入门</span></a><a class="docs-next button" href="/award/docs/basic/command"><span>命令介绍</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#示例">示例</a></li><li><a href="#默认配置">默认配置</a></li><li><a href="#字段说明">字段说明</a><ul class="toc-headings"><li><a href="#entry-项目入口"><code>entry</code> 项目入口</a></li><li><a href="#assetprefixs-静态资源前缀"><code>assetPrefixs</code> 静态资源前缀</a></li><li><a href="#app-处理核心中间件"><code>app</code> 处理核心中间件</a></li><li><a href="#basename-路由地址前缀"><code>basename</code> 路由地址前缀</a></li><li><a href="#mode-渲染类型"><code>mode</code> 渲染类型</a></li><li><a href="#router-路由类型"><code>router</code> 路由类型</a></li><li><a href="#hashname-文件名称"><code>hashName</code> 文件名称</a></li><li><a href="#crossorigin-是否跨域"><code>crossOrigin</code> 是否跨域</a></li><li><a href="#proxytable-代理配置"><code>proxyTable</code> 代理配置</a></li><li><a href="#fetch-node-请求配置"><code>fetch</code> node 请求配置</a></li><li><a href="#exportpath-指定导出-path-的-html"><code>exportPath</code> 指定导出 path 的 html</a></li><li><a href="#webpack扩展-webpack-配置"><code>webpack</code>扩展 webpack 配置</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
+                indexName: 'ximalaya_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>介绍 · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&gt; Award提供了丰富的插件功能，旨在为了在更大程度上扩展整个框架的功能和生命力"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="介绍 · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/"/><meta property="og:description" content="&gt; Award提供了丰富的插件功能，旨在为了在更大程度上扩展整个框架的功能和生命力"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/award/js/third/buttons.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1586229909659"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1586229909659"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>基础</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">基础<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem navListItemActive"><a class="navItem" href="/award/docs/plugin/intro">说明</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/development">开发教程</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/node">Node端Hook</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/client">客户端Hook</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">官方插件列表<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/award/docs/plugin/dva">award-plugin-dva</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/cahce">award-plugin-cahce</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/pwa">award-plugin-pwa</a></li><li class="navListItem"><a class="navItem" href="/award/docs/plugin/styled-components">award-plugin-styled-components</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">介绍</h1></header><article><div><span><blockquote>
+<p>Award提供了丰富的插件功能，旨在为了在更大程度上扩展整个框架的功能和生命力</p>
+<p>插件基于Award框架生态，具有独立管理、独立发布的特点</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="命名规则"></a><a href="#命名规则" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>命名规则</h2>
+<p>所有插件的名称必须以<code>award-plugin-</code>开头，紧接着后面的名称需要说明该插件的用途</p>
+<p>譬如<code>pwa</code>插件命名为<code>award-plugin-pwa</code></p>
+<p>那么除了<code>award-plugin-</code>以外的的字符，也必须以小横杠<code>-</code>连接，比如<code>award-plugin-server-cache</code>等</p>
+<h2><a class="anchor" aria-hidden="true" id="使用步骤"></a><a href="#使用步骤" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>使用步骤</h2>
+<h3><a class="anchor" aria-hidden="true" id="1-安装插件"></a><a href="#1-安装插件" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. 安装插件</h3>
+<blockquote>
+<p>插件包的名称都是以<code>award-plugin-</code>开头的</p>
+</blockquote>
+<pre><code class="hljs css language-sh"><span class="token function">yarn</span> <span class="token function">add</span> award-plugin-<span class="token operator">&lt;</span>插件描述名称<span class="token operator">></span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="2-注册插件"></a><a href="#2-注册插件" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. 注册插件</h3>
+<blockquote>
+<p>需要在award.config.js配置文件中指定插件，插件执行的顺序是从上往下的</p>
+<p>配置规则类似babel插件，支持options。定义插件的名称，可以是变量，可以是字符串，<strong>但是请确认最终代码运行后的插件名称都是字符串，这一点和babel插件有些差异</strong></p>
+<p>option如果配置了函数，请不要在函数内使用调用，例如</p>
+<pre><code class="hljs css language-js"><span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./fun'</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>具体如下示例</p>
+</blockquote>
+<pre><code class="hljs css language-js"><span class="token comment">// award.config.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+    plugins<span class="token operator">:</span><span class="token punctuation">[</span>
+        <span class="token string">"award-plugin-pwa"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>
+            <span class="token string">"award-plugin-cache"</span><span class="token punctuation">,</span>
+            <span class="token punctuation">{</span>
+                <span class="token function">cookieName</span><span class="token punctuation">(</span><span class="token parameter">ctx</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token operator">/</span>test<span class="token operator">/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>ctx<span class="token punctuation">.</span>host<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">'test'</span> <span class="token operator">:</span> <span class="token string">'prod'</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="3-插件注入"></a><a href="#3-插件注入" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. 插件注入</h3>
+<blockquote>
+<p>即有些插件会默认导出一些特定功能的API，具体参考各个插件提供的文档说明</p>
+<p>Award框架在注册插件时，可以将这些类型的插件提供的API注入到<code>award</code>这个库上，类似挂载</p>
+<p>插件注入的API，是解析当前插件是否存在<code>export default</code>导出的api，然后将其挂载到<code>award</code>上，同时重命名</p>
+<p>如下示例</p>
+</blockquote>
+<ol>
+<li>假设存在示例插件<code>award-plugin-demo</code>，该插件可以直接导出API
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> demo <span class="token keyword">from</span> <span class="token string">'award-plugin-demo'</span><span class="token punctuation">;</span>
+</code></pre></li>
+<li>然后在<code>award.config.js</code>内注册了该插件</li>
+<li>那么，在项目中就可以这样使用其提供的api了
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> Award <span class="token keyword">from</span> <span class="token string">'award'</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Award<span class="token punctuation">.</span>demo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="4-注入命名规则"></a><a href="#4-注入命名规则" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. 注入命名规则</h3>
+<blockquote>
+<p>介绍插件注入到<code>award</code>上后的重命名规则，过滤开头的<code>award-plugin-</code>，后面采用驼峰式</p>
+</blockquote>
+<ol>
+<li>所有插件注册的名称都是以<code>award-plugin-</code>开头，注意，最后有个小横杠</li>
+<li>那么除了<code>award-plugin-</code>以外的的字符，也必须以小横杠<code>-</code>连接，比如<code>award-plugin-server-cache</code>等</li>
+<li>注入命名时，将忽略开头的<code>award-plugin-</code>字符串，比如上述例子，得到<code>server-cache</code></li>
+<li>重命名，将这个<code>-</code>后面跟的第一个字符改为大写，即重命名为驼峰式，比如上述例子，最终名称为<code>serverCache</code></li>
+<li>如果该插件存在导出模板，那么，在项目中就可以这样引用了<code>import { serverCache } from 'award'</code></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="5-typescript项目使用注意"></a><a href="#5-typescript项目使用注意" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5. TypeScript项目使用注意</h3>
+<ol>
+<li><p>引用规范，不支持类似这种引用形式：<code>import { demo } from 'award'</code></p>
+<p><strong>正确示例，如下</strong></p>
+<pre><code class="hljs css language-js"><span class="token keyword">import</span> Award  <span class="token keyword">from</span> <span class="token string">'award'</span><span class="token punctuation">;</span>
+<span class="token comment">// 通过这种形式来获取demo</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> demo <span class="token punctuation">}</span> <span class="token operator">=</span> Award
+</code></pre></li>
+<li><p><code>tsconfig.json</code>添加如下配置</p>
+<pre><code class="hljs css language-json"><span class="token comment">// 需要添加types，后面接需要引用的插件库的名称，如下示例</span>
+<span class="token punctuation">{</span>
+  <span class="token property">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"types"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">"node"</span><span class="token punctuation">,</span><span class="token string">"award-plugin-demo"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre></li>
+</ol>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-12-31 by topthinking</em></div><div class="docs-prevnext"><a class="docs-next button" href="/award/docs/plugin/development"><span>开发教程</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#命名规则">命名规则</a></li><li><a href="#使用步骤">使用步骤</a><ul class="toc-headings"><li><a href="#1-安装插件">1. 安装插件</a></li><li><a href="#2-注册插件">2. 注册插件</a></li><li><a href="#3-插件注入">3. 插件注入</a></li><li><a href="#4-注入命名规则">4. 注入命名规则</a></li><li><a href="#5-typescript项目使用注意">5. TypeScript项目使用注意</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
+                indexName: 'ximalaya_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
