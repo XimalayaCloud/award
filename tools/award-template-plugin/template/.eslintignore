@@ -1,6 +1,0 @@
-# Third party
-**/node_modules
-
-# 输出结果
-packages/**/lib
-packages/**/ts_build

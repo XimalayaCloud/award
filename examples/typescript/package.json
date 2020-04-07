@@ -1,8 +1,0 @@
-{
-  "name": "basic-ts",
-  "version": "1.0.0",
-  "license": "MIT",
-  "scripts": {
-    "dev": "award dev"
-  }
-}

@@ -1,8 +1,0 @@
-src
-node_modules
-package-lock.json
-yarn.lock
-tsconfig.json
-test
-
-index.d.ts

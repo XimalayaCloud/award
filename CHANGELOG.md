@@ -1,2 +1,0 @@
-# CHANGELOG to Award
-

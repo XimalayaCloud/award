@@ -1,8 +1,0 @@
-#资源
-.award
-dist
-
-#依赖
-node_modules
-yarn.lock
-package-lock.json
