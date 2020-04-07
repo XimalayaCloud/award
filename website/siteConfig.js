@@ -14,7 +14,7 @@ const times = '?v=' + +new Date();
 const siteConfig = {
   title: 'Award', // Title for your website.
   tagline: '渐进式web应用框架',
-  url: 'http://openact.ximalaya.com/award/', // Your website URL
+  url: 'https://ximalayacloud.github.io/award/', // Your website URL
   baseUrl: '/award/',
   projectName: 'award-docs',
   organizationName: 'ximalaya',
