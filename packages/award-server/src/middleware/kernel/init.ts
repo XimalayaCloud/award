@@ -24,6 +24,7 @@ export default function(this: IServer): Middleware<any, IContext> {
     if (/^node-fetch/.test(ctx.request.headers['user-agent'])) {
       throw new Error(`node-fetch requests are not accepted in award core`);
     }
+
     const url = ctx.request.url;
     const _url = url.split('?');
     const map = self.map.toJS();
@@ -128,6 +129,8 @@ export default function(this: IServer): Middleware<any, IContext> {
       error: false,
       /** 标识错误类型是否路由内错误还是路由外 */
       routerError: false,
+      /** 标识decode url error */
+      decodeError: false,
 
       /** react-loadable */
       modules: []
@@ -137,8 +140,18 @@ export default function(this: IServer): Middleware<any, IContext> {
       context: ctx
     });
 
+    try {
+      // decode url失败 Pathname "/%CCCCC/" could not be decoded
+      decodeURIComponent(ctx.request.url);
+    } catch (error) {
+      ctx.award.decodeError = true;
+    }
+
     if (match) {
-      // eslint-disable-next-line no-useless-catch
+      if (ctx.award.decodeError) {
+        throw { status: 500 };
+      }
+
       try {
         /** 执行主逻辑中间件 */
         await next();
@@ -151,7 +164,6 @@ export default function(this: IServer): Middleware<any, IContext> {
       /** 抛出404错误 */
       ctx.award.error = true;
       ctx.award.routerError = true;
-      // eslint-disable-next-line no-throw-literal
       throw { status: 404, routerError: true, __award__: true, NotFound: ctx.path };
     }
 
