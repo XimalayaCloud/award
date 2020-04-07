@@ -5,6 +5,8 @@ import { IContext, IServer } from 'award-types';
 import { log } from 'award-utils/server';
 import { Middleware } from 'koa';
 import * as _ from 'lodash';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import pageError from '../../utils/page_error';
 
 export default function(this: IServer, version: string): Middleware<any, IContext> {
@@ -33,12 +35,19 @@ export default function(this: IServer, version: string): Middleware<any, IContex
       }
     } catch (err) {
       const addErrorHeader = (errorH: any) => {
-        ctx.set(
-          'X-Award-Error',
-          Buffer.from(_.isError(errorH) ? errorH.message : JSON.stringify(errorH)).toString(
-            'base64'
-          )
-        );
+        try {
+          if (ctx.award && ctx.award.decodeError) {
+            errorH.message = 'url decode error';
+          }
+          ctx.set(
+            'X-Award-Error',
+            Buffer.from(_.isError(errorH) ? errorH.message : JSON.stringify(errorH)).toString(
+              'base64'
+            )
+          );
+        } catch (error) {
+          ctx.set('X-Award-Error', 'errorInfo format error');
+        }
       };
 
       // node服务器发生错误
@@ -49,7 +58,13 @@ export default function(this: IServer, version: string): Middleware<any, IContex
           throw finishError;
         } else {
           // 默认提示文字，主要不能导致服务一直pendding
-          ctx.body = '<meta charset="utf-8"/><p>网站奔溃了，请联系网站管理员</p>';
+          const defaultFile = path.join(self.dir, ctx.status + '.html');
+          if (fs.existsSync(defaultFile)) {
+            ctx.type = 'html';
+            ctx.body = fs.createReadStream(defaultFile);
+          } else {
+            ctx.body = `<html><head><meta charset="utf-8"/><title>${ctx.status}</title><body><p>${ctx.status}</p></body></head></html>`;
+          }
         }
       };
 
@@ -69,13 +84,20 @@ export default function(this: IServer, version: string): Middleware<any, IContex
        * 错误处理, 优先接收 err.status, 比如处理404
        */
       ctx.status = err.status || 500;
-      self.ErrorCatchFunction(contextLog(err, 'node'));
+      if (!ctx.award || (ctx.award && !ctx.award.decodeError)) {
+        self.ErrorCatchFunction(contextLog(err, 'node'));
+      }
       if (self.dev && !self.ignore) {
         // 如果没有设置忽略，将展示系统默认错误页面
         throw err;
       }
       if (!ctx.award) {
         // 即解析层就发生错误了
+        return finish(err);
+      }
+
+      if (ctx.award.decodeError) {
+        // 如果decode路由失败，则跳转默认页面
         return finish(err);
       }
 

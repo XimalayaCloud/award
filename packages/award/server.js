@@ -1,5 +1,6 @@
 /**
- * 提供开发环境和生产环境统一的启动服务
+ * 提供给开发环境和生产环境的统一启动服务
+ * 请不要随意修改这里的代码
  */
 const argvs = process.argv.slice(2);
 
@@ -56,4 +57,76 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
   Server = AwardServer;
 }
 
-module.exports = Server;
+module.exports = class {
+  values = [];
+  init = {};
+  constructor(params = {}) {
+    this.init = params;
+  }
+  use() {
+    this.values.push({
+      name: 'use',
+      arguments: arguments
+    });
+  }
+  core() {
+    this.values.push({
+      name: 'core'
+    });
+  }
+  logFilter() {
+    this.values.push({
+      name: 'logFilter',
+      arguments: arguments
+    });
+  }
+  log() {
+    this.values.push({
+      name: 'log',
+      arguments: arguments
+    });
+  }
+  catch() {
+    this.values.push({
+      name: 'catch',
+      arguments: arguments
+    });
+  }
+  router() {
+    this.values.push({
+      name: 'router',
+      arguments: arguments
+    });
+  }
+  listen(port, cb) {
+    if (typeof port === 'string' || typeof port === 'number') {
+      this.init['port'] = port;
+    }
+    const app = new Server(this.init);
+    this.values.map(item => {
+      switch (item.name) {
+        case 'use':
+          app.use.apply(app, arguments);
+          break;
+        case 'core':
+          app.core();
+          break;
+        case 'logFilter':
+          app.logFilter.apply(app, arguments);
+          break;
+        case 'log':
+          app.log.apply(app, arguments);
+          break;
+        case 'catch':
+          app.catch.apply(app, arguments);
+          break;
+        case 'router':
+          app.router.apply(app, arguments);
+          break;
+        default:
+          break;
+      }
+    });
+    app.listen.apply(app, arguments);
+  }
+};

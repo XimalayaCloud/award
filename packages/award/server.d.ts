@@ -63,7 +63,18 @@ declare module 'award/server' {
     core(): void;
 
     /**
-     * 日志过滤器
+     * 日志过滤器，仅在生产环境生效
+     *
+     * 通过过滤器，过滤出需要打印的日志
+     *
+     * 最后一个参数是option对象，表示该过滤的关键词是否需要打印出来
+     *
+     * 设置为false，就不会打印出来，默认是true
+      ```
+      app.logFilter('show', 'test', {
+        test: false
+      });
+      ```
      */
     logFilter(): void;
 

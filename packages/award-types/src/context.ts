@@ -35,6 +35,8 @@ export interface IContext extends Context {
     error: boolean;
     /** 标识错误类型是否路由内错误还是路由外 */
     routerError: boolean;
+    /** 标识decode url error  */
+    decodeError: boolean;
     /** 判断是否匹配到: 没有匹配到 但是路由不为空且路由不是斜杠 */
     match: boolean;
     /** react-loadable */
