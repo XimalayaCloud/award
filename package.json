@@ -20,8 +20,7 @@
     "pub": "node scripts/publish patch",
     "pub:alpha": "node scripts/publish alpha",
     "pub:beta": "node scripts/publish beta",
-    "pub:rc": "node scripts/publish rc",
-    "pub:doc": "cd website && npm install && npm run build"
+    "pub:rc": "node scripts/publish rc"
   },
   "engines": {
     "node": ">=10"
@@ -115,8 +114,5 @@
     "@types/ws": "6.0.3",
     "@types/webpack-dev-middleware": "2.0.3",
     "@types/zen-observable": "0.8.0"
-  },
-  "yxpm": {
-    "output": "website/build/award-docs"
   }
 }
