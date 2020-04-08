@@ -16,9 +16,13 @@ global.EventEmitter = new Event();
 
 export default (register = true, showInfo = true, port?: number) => {
   try {
+    let newPort = null;
     if (port) {
       // 判断端口是否冲突
-      portIsOccupied(port);
+      newPort = portIsOccupied(port);
+      if (newPort) {
+        port = newPort;
+      }
     }
 
     // 创建cache文件夹
@@ -84,6 +88,7 @@ export default (register = true, showInfo = true, port?: number) => {
       require('award-utils/server').registerPlugin();
       createProjectFileHash();
     }
+    return newPort;
   } catch (error) {
     console.error(error);
     process.exit(-1);

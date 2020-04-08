@@ -32,6 +32,8 @@ export default class Route extends React.Component<{
   exact?: boolean;
   loading?: any;
   client?: boolean;
+  /** 支持其他任意的字段 */
+  [key: string]: any;
 }> {
   public static propTypes = {
     path: PropTypes.string,
