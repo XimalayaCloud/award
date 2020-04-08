@@ -25,8 +25,11 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
       const DevServer = require('award-scripts').Server;
       class AwardServer extends DevServer {
         constructor(params = {}) {
-          const port = Number(params.port || 1234);
-          require('award-scripts/prepare')(true, true, port);
+          let port = Number(params.port || 1234);
+          const newPort = require('award-scripts/prepare')(true, true, port);
+          if (newPort) {
+            port = newPort;
+          }
           super({
             isProxy: Boolean(params.isProxy),
             port,

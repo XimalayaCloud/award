@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import isString = require('lodash/isString');
 import reduce = require('lodash/reduce');
 import { IOpt1, IOptUserBase } from './interfaces/fetchOptions';
@@ -16,10 +15,18 @@ const _interceptors: {
 };
 
 /**
- * Requests a URL, returning a promise.
- * @param  {object} [options] The options we want to pass to "fetch"
- * @param  {object} [otherOptions] 保持和apis一致的使用方式，二参数位option
- * @return {object}           An object containing either "data" or "err"
+ * award统一请求接口函数实现
+ * ```
+ * import fetch from 'award-fetch'
+ *
+ * fetch({
+ *   url:"/api",
+ *   // 直接处理响应返回的内容
+ *   transformResponse:()=>{
+ *
+ *   }
+ * })
+ * ```
  */
 async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase): Promise<any> {
   if (isString(options)) {
@@ -102,21 +109,10 @@ const interceptors = {
   }
 };
 
-// 同时处理多个fetch
-// {
-//   a: fetchFunc1,
-//   b: fetchFunc2,
-// }
-// ====> Promise
-// {
-//   a: fetchRes1,
-//   b: fetchRes2,
-// }
 function all(fetches: any) {
   return fetches;
 }
 
-// 取消fetch，目前仅支持xhr取消
 const source = () => {
   let cancelResolve: Function;
 
@@ -138,8 +134,61 @@ const setLog = (customLog: { error: Function }) => {
 
 export { interceptors, all, source, setLog };
 
+/**
+ * ```
+ * import fetch from 'award-fetch'
+ *
+ * // 请求劫持处理
+ * fetch.interceptors.request.use((response) => {
+ *  console.log(request);
+ *  return request
+ * })
+ *
+ * // 响应劫持处理
+ * fetch.interceptors.response.use((response) => {
+ *  console.log(response);
+ *  return response.json();
+ * })
+ * ```
+ */
 awardFetch.interceptors = interceptors;
+
+/**
+ *
+ * 同时处理多个fetch
+ * ```
+ * {
+ *  a: fetchFunc1,
+ *  b: fetchFunc2,
+ * }
+ * ===> Promise
+ * {
+ *  a: fetchRes1,
+ *  b: fetchRes2,
+ * }
+ * ```
+ */
 awardFetch.all = all;
+
+/**
+ * 取消fetch，目前仅支持xhr取消
+ * ```
+ * import fetch from 'award-fetch';
+ *
+ * const source = fetch.source();
+ * // 发起上传请求
+ * fetch({
+ *  url: '/api/upload',
+ *  method: 'POST',
+ *  xhr: true,
+ *  data: fileInfo,
+ *  cancelToken: source.token
+ * });
+ *
+ * // 终止上传
+ * source.cancel();
+ * ```
+ */
 awardFetch.source = source;
 awardFetch.setLog = setLog;
 
