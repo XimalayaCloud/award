@@ -41,6 +41,7 @@ function app(props) {
 }
 
 app.getInitialProps = ctx => {
+  console.log(ctx.routes);
   const result = [
     fetch('/api/list').then(data => {
       ctx.setAward({

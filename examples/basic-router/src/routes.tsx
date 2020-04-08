@@ -16,7 +16,13 @@ import CustomMoreDetail from './pages/custom/more-detail';
 
 export default () => (
   <RouterSwitch>
-    <Route path="/home" component={Home} loading={<p>loading...</p>} />
+    <Route
+      path="/home"
+      component={Home}
+      __award__spread__="123"
+      loading={<p>loading...</p>}
+      {...{ a: 2 }}
+    />
     <Route path="/search/:keyworld" component={() => <span>搜索页面</span>} />
     <Route
       path="/about"
