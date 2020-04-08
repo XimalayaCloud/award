@@ -9,8 +9,7 @@ import setAward from '../../../../setAward';
 export default async (
   Component: AComponentType,
   match_routes: Array<MatchedRoute<{}>>,
-  INITIAL_STATE: IinitState,
-  routes: any
+  INITIAL_STATE: IinitState
 ) => {
   const searchInfo = search();
   const { ssr } = loadParams.get();
@@ -29,7 +28,7 @@ export default async (
         location: window.location,
         query,
         setAward,
-        routes,
+        routes: match_routes,
         route: null,
         match: null
       };
