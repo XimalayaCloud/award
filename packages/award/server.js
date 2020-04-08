@@ -106,22 +106,22 @@ module.exports = class {
     this.values.map(item => {
       switch (item.name) {
         case 'use':
-          app.use.apply(app, arguments);
+          app.use.apply(app, item.arguments);
           break;
         case 'core':
           app.core();
           break;
         case 'logFilter':
-          app.logFilter.apply(app, arguments);
+          app.logFilter.apply(app, item.arguments);
           break;
         case 'log':
-          app.log.apply(app, arguments);
+          app.log.apply(app, item.arguments);
           break;
         case 'catch':
-          app.catch.apply(app, arguments);
+          app.catch.apply(app, item.arguments);
           break;
         case 'router':
-          app.router.apply(app, arguments);
+          app.router.apply(app, item.arguments);
           break;
         default:
           break;
