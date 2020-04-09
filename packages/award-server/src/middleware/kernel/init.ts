@@ -74,14 +74,14 @@ export default function(this: IServer): Middleware<any, IContext> {
         // <Route />
         const info = match_routes[matchLength - 1];
         if (Object.keys(info.route).length === 0) {
-          if (url !== '/') {
+          if (_url[0] !== '/') {
             match = false;
           } else {
             match_routes = [];
           }
         }
       } else {
-        if (url !== '/') {
+        if (_url[0] !== '/') {
           match = false;
         }
       }

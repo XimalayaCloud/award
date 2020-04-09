@@ -30,7 +30,8 @@ export default async function PageError(
         ...errorInfo,
         message: errorInfo.message ? errorInfo.message : null,
         stack: errorInfo.stack ? errorInfo.stack : null,
-        routerError: ctx.award.routerError
+        routerError: ctx.award.routerError,
+        pathname: ctx.path
       }
     );
     return render(ctx, react_render);
