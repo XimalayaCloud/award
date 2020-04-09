@@ -16,7 +16,11 @@ export default (ctx: IContext) => {
 
   if (!ctx.award.routes.length) {
     // 无路由的页面
-    const Component = ctx.award.RootComponent as React.FC;
+    let Component: any = () => null;
+    const { mode } = ctx.award.config;
+    if (mode === 'server') {
+      Component = ctx.award.RootComponent as React.FC;
+    }
     return () => (
       <AwardContext.Provider value={(ctx.award.initialState as any).award || {}}>
         <Loadable.Capture report={(moduleName: any) => ctx.award.modules.push(moduleName)}>
