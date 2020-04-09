@@ -140,18 +140,17 @@ export default function(this: IServer): Middleware<any, IContext> {
       context: ctx
     });
 
-    try {
-      // decode url失败 Pathname "/%CCCCC/" could not be decoded
-      decodeURIComponent(ctx.request.url);
-    } catch (error) {
-      ctx.award.error = true;
-      ctx.award.decodeError = true;
-      if (match) {
-        throw error;
-      } else {
+    if (hasRoutes) {
+      try {
+        // decode url失败 Pathname "/%CCCCC/" could not be decoded
+        decodeURIComponent(ctx.request.url);
+      } catch (error) {
+        ctx.award.error = true;
+        ctx.award.routerError = false;
         throw {
-          status: 404,
-          message: error.message
+          staus: match ? 500 : 404,
+          message: error.message,
+          routerError: false
         };
       }
     }

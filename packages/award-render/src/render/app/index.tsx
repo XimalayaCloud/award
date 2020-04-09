@@ -9,8 +9,21 @@ import root from './root';
 export default (ctx: IContext) => {
   const RootComponent = root(ctx);
 
-  if (ctx.award.error && !ctx.award.routerError && ctx.award.decodeError) {
+  if (ctx.award.error && !ctx.award.routerError) {
+    // 发生全局错误了
     return RootComponent;
+  }
+
+  if (!ctx.award.routes.length) {
+    // 无路由的页面
+    const Component = ctx.award.RootComponent as React.FC;
+    return () => (
+      <AwardContext.Provider value={(ctx.award.initialState as any).award || {}}>
+        <Loadable.Capture report={(moduleName: any) => ctx.award.modules.push(moduleName)}>
+          <Component {...(ctx.award.initialState.award || {})} />
+        </Loadable.Capture>
+      </AwardContext.Provider>
+    );
   }
 
   let locationUrl = ctx.request.url;

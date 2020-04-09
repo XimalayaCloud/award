@@ -73,9 +73,7 @@ export default function(this: IServer, version: string): Middleware<any, IContex
        * 错误处理, 优先接收 err.status, 比如处理404
        */
       ctx.status = err.status || 500;
-      if (!ctx.award || (ctx.award && !ctx.award.decodeError)) {
-        self.ErrorCatchFunction(contextLog(err, 'node'));
-      }
+      self.ErrorCatchFunction(contextLog(err, 'node'));
       if (self.dev && !self.ignore) {
         // 如果没有设置忽略，将展示系统默认错误页面
         throw err;
@@ -96,10 +94,6 @@ export default function(this: IServer, version: string): Middleware<any, IContex
           }
         } else {
           // 当前项目没有路由，那么就是false了
-          ctx.award.routerError = false;
-        }
-        if (ctx.award.decodeError) {
-          // 如果decode路由失败，则跳转默认页面
           ctx.award.routerError = false;
         }
         ctx.award.error = true;
