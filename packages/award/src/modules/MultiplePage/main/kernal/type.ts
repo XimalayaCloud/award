@@ -39,7 +39,6 @@ export interface IKernal {
   modal: Function;
   history: any;
   getInitialState: Function;
-  cleanError: Function;
   setParam: Function;
   emitter: {
     emit: (name: string, data: any) => void;

@@ -16,7 +16,17 @@ export default (ctx: IContext) => {
     if (ctx.award.error && !ctx.award.routerError) {
       // 发生错误，且是路由外的错误
       const Component = Exception.shot();
-      RootComponent = () => <Component {...(ctx.award.initialState.AwardException || {})} />;
+      const redirect = (url: string, status?: number) => {
+        ctx.status = status === 301 ? status : 302;
+        if (!/^http(s)?:/.test(url)) {
+          ctx.redirect(ctx.award.config.basename + url);
+        } else {
+          ctx.redirect(url);
+        }
+      };
+      RootComponent = () => (
+        <Component {...(ctx.award.initialState.AwardException || {})} redirect={redirect} />
+      );
     } else {
       // 存在路由，渲染正常组件
       const Component = withRouter(ctx.award.RootComponent as React.FC);

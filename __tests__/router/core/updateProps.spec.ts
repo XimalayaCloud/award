@@ -84,19 +84,10 @@ describe('updateProps 和 reloadInitialProps测试', () => {
   });
 
   it('updateProps function Error', done => {
-    // 直接渲染home组件
     window.jestMock = jest.fn();
-    const URL = document.createElement('div');
-    URL.id = '__URL__';
-    URL.setAttribute('data-loadable', '1');
-    document.body.appendChild(URL);
     history.replaceState({}, '', '/?id=123');
     mountStart(async wrapper => {
-      expect(wrapper.html()).toBe('<p>hello </p>');
-
-      await new Promise(resolve => setTimeout(resolve, 30));
-      wrapper.update();
-      expect(wrapper.html()).toBe('<p>hello error</p>');
+      expect(wrapper.html()).toBe('<p>hello </p><p>hello error</p>');
       expect(window.jestMock).toHaveBeenCalledTimes(1);
       done();
     });

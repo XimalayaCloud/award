@@ -14,7 +14,7 @@ if (process.env.WEB_TYPE === 'WEB_SPA') {
   exportPath = process.env.EXPORTPATH;
 }
 
-export default class Base extends React.Component {
+export default class Base extends React.Component<any, any> {
   /** 基础数据 */
   public routes: any;
   public match_routes: any;
@@ -32,7 +32,6 @@ export default class Base extends React.Component {
   public getInitialProps: Function;
 
   /**  其他 */
-  public cleanError: Function;
   public forceRenderRouter: Function;
   public history: History;
   public PromptContext: any;

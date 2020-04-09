@@ -16,7 +16,11 @@ export default async function PageError(
     // 抛出重定向
     console.info('[redirect]', url);
     ctx.status = status === 301 ? status : 302;
-    ctx.redirect(ctx.award.config.basename + url);
+    if (!/^http(s)?:/.test(url)) {
+      ctx.redirect(ctx.award.config.basename + url);
+    } else {
+      ctx.redirect(url);
+    }
     return '';
   } else {
     // 抛出错误
@@ -24,7 +28,10 @@ export default async function PageError(
       { req: ctx.request },
       {
         ...errorInfo,
-        routerError: ctx.award.routerError
+        message: errorInfo.message ? errorInfo.message : null,
+        stack: errorInfo.stack ? errorInfo.stack : null,
+        routerError: ctx.award.routerError,
+        pathname: ctx.path
       }
     );
     return render(ctx, react_render);

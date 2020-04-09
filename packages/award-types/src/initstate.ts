@@ -16,4 +16,5 @@ export interface IAwardException {
   url?: string | null;
   routerError?: boolean;
   data?: Object;
+  pathname?: any;
 }

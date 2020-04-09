@@ -69,9 +69,10 @@ describe('updateProps 和 reloadInitialProps测试', () => {
     // 直接渲染home组件
     window.jestMock = jest.fn();
     history.replaceState({}, '', '/?id=abc');
-    mountStart(async (wrapper, err) => {
+    mountStart(async wrapper => {
       await new Promise(resolve => setTimeout(resolve, 10));
-      expect(err.message).toEqual('reloadInitialProps这是系统关键字，请不要使用该名称作为key');
+      wrapper.update();
+      expect(wrapper.html()).toBe('<p>hello error</p>');
       done();
     });
     require('@/fixtures/basic-router/updateProps/main/b');

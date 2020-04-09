@@ -9,8 +9,7 @@ import * as React from 'react';
 import { BrowserRouter, HashRouter, Prompt, withRouter } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 import { History, Action, Location } from 'history';
-import { search, Exception, AwardRouterContext, loadParams, awardHistory } from 'award-utils';
-import clientPlugin from 'award-plugin/client';
+import { search, AwardRouterContext, loadParams, awardHistory } from 'award-utils';
 
 import Lifecycle from './lifecycle';
 import isRender from '../utils/render';
@@ -121,27 +120,7 @@ export default class KernalComponent extends Lifecycle {
 
       public constructor(props: RouteComponentProps<any>) {
         super(props);
-        let errorInfo = null;
-        // webpack会删除该段代码
-        if (process.env.NODE_ENV === 'development') {
-          if (window.award_hmr && window.award_hmr_error) {
-            // 热更新
-            errorInfo = window.award_hmr_error;
-          }
-        }
-
-        // 正常渲染，且发生的错误是路由外的才录用
-        if (
-          !errorInfo &&
-          self.award_initialState.AwardException &&
-          !self.award_initialState.AwardException.routerError
-        ) {
-          errorInfo = self.award_initialState.AwardException;
-        }
-
         this.state = {
-          errorInfo,
-          loading: null,
           data: self.award_initialState.award
         };
       }
@@ -156,23 +135,9 @@ export default class KernalComponent extends Lifecycle {
         if (updateProps) {
           await loadRoot(self.getInitialProps, self.award_initialState, self.routes);
           this.setState({
-            errorInfo: self.award_initialState.AwardException || null,
             data: self.award_initialState.award
           });
         }
-
-        // 路由内切换，需要清除全局错误
-        self.cleanError = () => {
-          // 清除热更新错误标记
-          if (this.state.errorInfo) {
-            if (process.env.NODE_ENV === 'development') {
-              delete window.award_hmr_error;
-            }
-            this.setState({
-              errorInfo: null
-            });
-          }
-        };
       }
 
       public getSnapshotBeforeUpdate(prevProps: RouteComponentProps<any>) {
@@ -192,66 +157,8 @@ export default class KernalComponent extends Lifecycle {
         return null;
       }
 
-      /**
-       * 捕获全局错误
-       * @param error
-       */
-      public async componentDidCatch(error: any) {
-        clientPlugin.hooks.catchError({ type: 'global', error });
-        const message = error.message ? error.message : null;
-        const stack = error.stack ? error.stack : null;
-        const errorInfo = await Exception.handleError.call(
-          null,
-          {
-            message,
-            stack,
-            routerError: false
-          },
-          (component: any) => {
-            this.setState({
-              loading: component
-            });
-          }
-        );
-        if (process.env.NODE_ENV === 'development') {
-          window.award_hmr_error = errorInfo;
-        }
-        this.setState({
-          errorInfo,
-          loading: null
-        });
-      }
-
       public render() {
         this.reload = false;
-        if (this.state.loading) {
-          const { loading } = this.state;
-          if (React.isValidElement(loading)) {
-            return React.cloneElement(
-              loading as any,
-              typeof loading.type === 'string'
-                ? {}
-                : { data: self.award_initialState, routerError: false }
-            );
-          }
-          if (typeof loading === 'function') {
-            return React.createElement(loading, {
-              data: self.award_initialState,
-              routerError: false
-            });
-          }
-          return null;
-        }
-
-        let renderElement: any = null;
-
-        if (this.state.errorInfo) {
-          const ErrorComponent = Exception.shot();
-          renderElement = <ErrorComponent {...this.state.errorInfo} />;
-        }
-
-        renderElement = renderElement || this.props.children || null;
-
         if (this.state.data.hasOwnProperty('reloadInitialProps')) {
           throw new Error('reloadInitialProps这是系统关键字，请不要使用该名称作为key');
         }
@@ -267,7 +174,6 @@ export default class KernalComponent extends Lifecycle {
             console.warn('当前根组件正在执行reloadInitialProps函数，请等待执行完毕！');
           }
         };
-
         return (
           <>
             <AwardRouterContext.Consumer>
@@ -276,14 +182,13 @@ export default class KernalComponent extends Lifecycle {
                 return null;
               }}
             </AwardRouterContext.Consumer>
-            {renderElement &&
-              React.cloneElement(renderElement, {
-                match: this.props.match,
-                location: this.props.location,
-                history: this.props.history,
-                ...this.state.data,
-                reloadInitialProps
-              })}
+            {React.cloneElement(this.props.children as React.ReactElement, {
+              match: this.props.match,
+              location: this.props.location,
+              history: this.props.history,
+              ...this.state.data,
+              reloadInitialProps
+            })}
           </>
         );
       }

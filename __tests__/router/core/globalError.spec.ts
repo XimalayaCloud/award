@@ -10,6 +10,7 @@ describe('路由错误测试', () => {
     jest.resetModules();
     history.replaceState({}, '', '/');
     createDOM();
+    process.env.RUN_ENV = 'web';
     process.env.USE_ROUTE = '1';
     process.env.NODE_ENV = 'production';
     const home = (callback: Function) => {
@@ -133,7 +134,7 @@ describe('路由错误测试', () => {
         .find('p')
         .at(0)
         .simulate('click');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise(resolve => setTimeout(resolve, 50));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>loading.../home</p>');
 
