@@ -9,6 +9,10 @@ import root from './root';
 export default (ctx: IContext) => {
   const RootComponent = root(ctx);
 
+  if (ctx.award.error && !ctx.award.routerError && ctx.award.decodeError) {
+    return RootComponent;
+  }
+
   let locationUrl = ctx.request.url;
   const basename = ctx.award.config.basename;
   let originalUrl = ctx.originalUrl;

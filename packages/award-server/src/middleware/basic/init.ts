@@ -5,8 +5,6 @@ import { IContext, IServer } from 'award-types';
 import { log } from 'award-utils/server';
 import { Middleware } from 'koa';
 import * as _ from 'lodash';
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import pageError from '../../utils/page_error';
 
 export default function(this: IServer, version: string): Middleware<any, IContext> {
@@ -36,9 +34,6 @@ export default function(this: IServer, version: string): Middleware<any, IContex
     } catch (err) {
       const addErrorHeader = (errorH: any) => {
         try {
-          if (ctx.award && ctx.award.decodeError) {
-            errorH.message = 'url decode error';
-          }
           ctx.set(
             'X-Award-Error',
             Buffer.from(_.isError(errorH) ? errorH.message : JSON.stringify(errorH)).toString(
@@ -58,13 +53,7 @@ export default function(this: IServer, version: string): Middleware<any, IContex
           throw finishError;
         } else {
           // 默认提示文字，主要不能导致服务一直pendding
-          const defaultFile = path.join(self.dir, ctx.status + '.html');
-          if (fs.existsSync(defaultFile)) {
-            ctx.type = 'html';
-            ctx.body = fs.createReadStream(defaultFile);
-          } else {
-            ctx.body = `<html><head><meta charset="utf-8"/><title>${ctx.status}</title><body><p>${ctx.status}</p></body></head></html>`;
-          }
+          ctx.body = `<html><head><meta charset="utf-8"/><title>${ctx.status}</title><body><p>${ctx.status}</p></body></head></html>`;
         }
       };
 
@@ -96,11 +85,6 @@ export default function(this: IServer, version: string): Middleware<any, IContex
         return finish(err);
       }
 
-      if (ctx.award.decodeError) {
-        // 如果decode路由失败，则跳转默认页面
-        return finish(err);
-      }
-
       try {
         // 渲染提供的错误组件页面
         if (self.routes.size !== 0) {
@@ -112,6 +96,10 @@ export default function(this: IServer, version: string): Middleware<any, IContex
           }
         } else {
           // 当前项目没有路由，那么就是false了
+          ctx.award.routerError = false;
+        }
+        if (ctx.award.decodeError) {
+          // 如果decode路由失败，则跳转默认页面
           ctx.award.routerError = false;
         }
         ctx.award.error = true;

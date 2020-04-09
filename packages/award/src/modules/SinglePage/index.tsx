@@ -115,7 +115,15 @@ module.exports = async (Component: AComponentType<any>, INITIAL_STATE: IinitStat
 
       if (this.state.errorInfo) {
         const ErrorComponent = Exception.shot();
-        return <ErrorComponent {...this.state.errorInfo} />;
+        const redirect = (url: string) => {
+          if (!/^http(s)?:/.test(url)) {
+            const { basename } = loadParams.get();
+            window.location.href = basename + url;
+          } else {
+            window.location.href = url;
+          }
+        };
+        return <ErrorComponent {...this.state.errorInfo} redirect={redirect} />;
       }
       if (this.state.data.hasOwnProperty('reloadInitialProps')) {
         throw new Error('reloadInitialProps这是系统关键字，请不要使用该名称作为key');

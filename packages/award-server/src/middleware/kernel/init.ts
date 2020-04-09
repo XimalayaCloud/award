@@ -34,8 +34,8 @@ export default function(this: IServer): Middleware<any, IContext> {
     }
 
     /** 从不变的数据源里面获取新的routes、配置config */
-    const routes = self.routes.toJS() as Routes;
     const config = self.config.toJS() as IConfig;
+    const routes = self.routes.toJS() as Routes;
     const hasRoutes = routes.length ? true : false;
 
     if (config.assetPrefixs !== '/' && new RegExp(`^${config.assetPrefixs}`).test(url)) {
@@ -144,14 +144,19 @@ export default function(this: IServer): Middleware<any, IContext> {
       // decode url失败 Pathname "/%CCCCC/" could not be decoded
       decodeURIComponent(ctx.request.url);
     } catch (error) {
+      ctx.award.error = true;
       ctx.award.decodeError = true;
+      if (match) {
+        throw error;
+      } else {
+        throw {
+          status: 404,
+          message: error.message
+        };
+      }
     }
 
     if (match) {
-      if (ctx.award.decodeError) {
-        throw { status: 500 };
-      }
-
       try {
         /** 执行主逻辑中间件 */
         await next();
@@ -164,7 +169,12 @@ export default function(this: IServer): Middleware<any, IContext> {
       /** 抛出404错误 */
       ctx.award.error = true;
       ctx.award.routerError = true;
-      throw { status: 404, routerError: true, __award__: true, NotFound: ctx.path };
+      throw {
+        status: 404,
+        routerError: true,
+        __award__: true,
+        NotFound: ctx.path
+      };
     }
 
     if (!ctx.body) {
