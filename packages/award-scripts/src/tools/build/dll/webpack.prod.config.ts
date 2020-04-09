@@ -14,15 +14,15 @@ export default (entry: any, dir: string, dllDir: any) => {
   const config = {
     entry,
     context: dir,
+    performance: {
+      hints: false
+    },
     devtool: 'none',
     mode: 'production',
     output: {
       path: path.join(dllDir),
       filename: 'common.js',
       library: 'award_[hash:5]'
-    },
-    performance: {
-      hints: false
     },
     module: {
       rules: [

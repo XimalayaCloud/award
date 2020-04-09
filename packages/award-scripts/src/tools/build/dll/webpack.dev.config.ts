@@ -17,6 +17,7 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir
     performance: {
       hints: false
     },
+    devtool: 'none',
     mode: 'development',
     output: {
       path: dllDir,

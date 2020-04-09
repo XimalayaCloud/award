@@ -32,7 +32,7 @@ export default (
   serviceId = 'award'
 ) => {
   if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-    console.error(`[${eventType}]: `);
+    console.error(`[${eventType}]: ${siteInfo.url}`);
     mutiLog(msg);
     return null;
   }
