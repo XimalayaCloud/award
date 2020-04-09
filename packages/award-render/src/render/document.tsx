@@ -6,6 +6,7 @@ const AwardScript = (props: any) => {
   const {
     dev,
     map,
+    error,
     manifest,
     assetPrefixs,
     cache,
@@ -32,7 +33,7 @@ const AwardScript = (props: any) => {
   }
 
   // 服务端渲染、browser形式的路由、未开启缓存、未发生错误
-  if (mode === 'server' && router === 'browser' && !cache) {
+  if (mode === 'server' && router === 'browser' && !cache && !error) {
     scriptData.push(<div key="1" id="__URL__" data-loadable={modules.length} />);
   }
 
