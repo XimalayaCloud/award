@@ -15,25 +15,13 @@
     "award": "./bin/index.js",
     "award-debug": "./bin/debug.js"
   },
-  "files": [
-    "lib",
-    "bin",
-    "index.js",
-    "index.d.ts",
-    "server.js",
-    "server.d.ts"
-  ],
-  "keywords": [
-    "react",
-    "react-router",
-    "nodejs",
-    "webpack",
-    "babel",
-    "ssr",
-    "spa",
-    "plugin"
-  ],
+  "files": ["lib", "bin", "index.js", "index.d.ts", "server.js", "server.d.ts"],
+  "keywords": ["react", "react-router", "nodejs", "webpack", "babel", "ssr", "spa", "plugin"],
   "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
   "dependencies": {
     "award-fetch": "0.12.0",
     "award-plugin": "0.12.0",
@@ -43,8 +31,6 @@
     "award-types": "0.12.0",
     "award-utils": "0.12.0",
     "lodash": "4.17.15",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
     "react-helmet": "5.2.1",
     "react-loadable": "5.5.0"
   }
