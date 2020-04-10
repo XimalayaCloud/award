@@ -15,7 +15,7 @@
 ## Installation
 
 ```bash
-$ yarn add award 
+$ yarn add award react react-dom
 $ yarn add award-scripts -D
 ```
 ## Create `index.js`
