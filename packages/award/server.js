@@ -61,10 +61,9 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
 }
 
 module.exports = class {
-  values = [];
-  init = {};
   constructor(params = {}) {
     this.init = params;
+    this.values = [];
   }
   use() {
     this.values.push({
