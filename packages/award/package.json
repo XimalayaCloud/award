@@ -19,8 +19,8 @@
   "keywords": ["react", "react-router", "nodejs", "webpack", "babel", "ssr", "spa", "plugin"],
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=16.0.0",
-    "react-dom": ">=16.0.0"
+    "react": ">=16.3.0",
+    "react-dom": ">=16.3.0"
   },
   "dependencies": {
     "award-fetch": "0.14.0",
