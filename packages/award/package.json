@@ -1,6 +1,6 @@
 {
   "name": "award",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "渐进式的web应用框架 (支持服务端渲染&单页应用)",
   "homepage": "http://ximalayacloud.github.io/award/",
   "bugs": "https://github.com/XimalayaCloud/award/issues",
@@ -15,21 +15,37 @@
     "award": "./bin/index.js",
     "award-debug": "./bin/debug.js"
   },
-  "files": ["lib", "bin", "index.js", "index.d.ts", "server.js", "server.d.ts"],
-  "keywords": ["react", "react-router", "nodejs", "webpack", "babel", "ssr", "spa", "plugin"],
+  "files": [
+    "lib",
+    "bin",
+    "index.js",
+    "index.d.ts",
+    "server.js",
+    "server.d.ts"
+  ],
+  "keywords": [
+    "react",
+    "react-router",
+    "nodejs",
+    "webpack",
+    "babel",
+    "ssr",
+    "spa",
+    "plugin"
+  ],
   "license": "MIT",
   "peerDependencies": {
     "react": ">=16.3.0",
     "react-dom": ">=16.3.0"
   },
   "dependencies": {
-    "award-fetch": "0.14.0",
-    "award-plugin": "0.14.0",
-    "award-render": "0.14.0",
-    "award-router": "0.14.0",
-    "award-server": "0.14.0",
-    "award-types": "0.14.0",
-    "award-utils": "0.14.0",
+    "award-fetch": "0.15.0",
+    "award-plugin": "0.15.0",
+    "award-render": "0.15.0",
+    "award-router": "0.15.0",
+    "award-server": "0.15.0",
+    "award-types": "0.15.0",
+    "award-utils": "0.15.0",
     "lodash": "4.17.15",
     "react-helmet": "5.2.1",
     "react-loadable": "5.5.0"
