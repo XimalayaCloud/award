@@ -16,8 +16,8 @@ const grey = str => {
 
 module.exports = () => {
   try {
-    const rv = require('react').version;
-    const rdV = require('react-dom').version;
+    const rv = require('react/package.json').version;
+    const rdV = require('react-dom/package.json').version;
     if (rv !== rdV) {
       throw {
         message: ` ${yellow(`react@${rv}`)} 和 ${yellow(`react-dom@${rdV}`)} 的版本号必须 ${green(
