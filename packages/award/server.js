@@ -60,7 +60,7 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
   Server = AwardServer;
 }
 
-module.exports = class {
+module.exports = class CustomServer {
   constructor(params = {}) {
     this.init = params;
     this.values = [];

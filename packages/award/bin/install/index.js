@@ -16,6 +16,16 @@ const grey = str => {
 
 module.exports = () => {
   try {
+    require('react');
+    require('react-dom');
+  } catch (error) {
+    console.info();
+    console.info(error.message);
+    console.info();
+    process.exit(-1);
+  }
+
+  try {
     const { version: awardS } = require('award-scripts/package.json');
     const { version: awardV } = require('award/package.json');
     if (awardS !== awardV) {
