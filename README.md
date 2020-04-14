@@ -10,6 +10,13 @@
 
 - **参考学习:** 提供了[文档](http://ximalayacloud.github.io/award/docs/basic/intro/)和[视频](https://www.bilibili.com/video/av82146266)
 
+# Quick experience
+
+```bash
+# "example" is target dir
+$ npm init award example
+```
+
 # Example
 
 ## Installation
