@@ -4,6 +4,7 @@
 import * as inquirer from 'inquirer';
 import find = require('find-process');
 import * as fs from 'fs-extra';
+import * as chalk from 'chalk';
 import * as path from 'path';
 
 const port = process.argv.slice(2)[0];
@@ -39,30 +40,34 @@ const findAvailablePort = async () => {
   return currentPort;
 };
 
-inquirer
-  .prompt({
-    type: 'confirm',
-    message: '端口【' + port + '】 已经被占用，是否关闭该端口？',
-    name: 'target'
-  })
-  .then(async (answers: any) => {
-    if (answers.target) {
-      process.exit(0);
-    } else {
-      const newPort = await findAvailablePort();
-      inquirer
-        .prompt({
-          type: 'confirm',
-          message: '是否使用推荐端口【' + newPort + '】 ？',
-          name: 'target'
-        })
-        .then(async (answer: any) => {
-          if (answer.target) {
-            fs.writeFileSync(portFile, newPort);
-            process.exit(1);
-          } else {
-            process.exit(-1);
-          }
-        });
-    }
-  });
+(async () => {
+  const newPort = await findAvailablePort();
+  inquirer
+    .prompt({
+      type: 'confirm',
+      message: `端口【 ${chalk.bold.yellow(
+        port
+      )} 】已经被占用，是否使用推荐端口【 ${chalk.bold.green(newPort)} 】 ？`,
+      name: 'target'
+    })
+    .then(async (answers: any) => {
+      if (answers.target) {
+        fs.writeFileSync(portFile, newPort);
+        process.exit(1);
+      } else {
+        inquirer
+          .prompt({
+            type: 'confirm',
+            message: `是否强制关闭端口【 ${chalk.bold.yellow(port)} 】？`,
+            name: 'target'
+          })
+          .then(async (answer: any) => {
+            if (answer.target) {
+              process.exit(0);
+            } else {
+              process.exit(-1);
+            }
+          });
+      }
+    });
+})();
