@@ -10,7 +10,6 @@ import * as chalk from 'chalk';
 import { renderToString } from 'react-dom/server';
 import { Helmet as Head } from 'react-helmet';
 import { getBundles } from 'react-loadable/webpack';
-import * as Loadable from 'react-loadable';
 import { Server } from 'award-server';
 import openBrowser = require('open-chrome-refresh');
 import { serverInfo, getAwardConfig } from 'award-utils/server';
@@ -170,8 +169,6 @@ export default class DevServer extends Server {
       if (fs.existsSync(filename)) {
         stats = JSON.parse(fs.readFileSync(filename, 'utf-8'));
       }
-      // 优先初始化import
-      await Loadable.preloadAll();
 
       // 渲染组件
       const html = renderToString(Component);
