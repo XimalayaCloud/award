@@ -46,8 +46,8 @@ module.exports = () => {
           if (_list.length) {
             if (fs.existsSync(cachePort)) {
               // 表示端口出问题了，需要将缓存全部清除
-              clean(cachePath);
-              fs.mkdirpSync(cachePath);
+              clean(constant.CACHE_DIR);
+              fs.mkdirpSync(constant.CACHE_DIR);
             }
             port = Math.floor(Math.random() * 30000 + 10000);
           } else {
