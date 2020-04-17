@@ -6,3 +6,4 @@ export { default as complierInfo } from './complierInfo';
 export { default as PortIsOccupied } from './port';
 export { default as prepare } from './prepare';
 export { default as existCwd } from './exist-cwd';
+export { default as constant } from './constant';

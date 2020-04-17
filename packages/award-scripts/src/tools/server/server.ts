@@ -16,7 +16,7 @@ import openBrowser = require('open-chrome-refresh');
 import { serverInfo, getAwardConfig } from 'award-utils/server';
 import { IServerEntry, IContext } from 'award-types';
 
-import { extensions, clearConsole } from '../tool';
+import { extensions, clearConsole, constant as toolConstant } from '../tool';
 import { register } from '../babel';
 import remove = require('../remove');
 import { constant } from '../help';
@@ -166,10 +166,7 @@ export default class DevServer extends Server {
     (this as any).renderReactToString = async (Component: any, ctx: IContext) => {
       let stats = null;
       // 加载bundle json
-      const filename = path.join(
-        this.dir,
-        'node_modules/.cache/award/' + constant['REACT-LOADABEL']
-      );
+      const filename = path.join(toolConstant.CACHE_DIR, constant['REACT-LOADABEL']);
       if (fs.existsSync(filename)) {
         stats = JSON.parse(fs.readFileSync(filename, 'utf-8'));
       }

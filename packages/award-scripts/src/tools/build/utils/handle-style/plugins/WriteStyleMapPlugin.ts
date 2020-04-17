@@ -1,11 +1,12 @@
 import * as fs from 'fs';
 import hashString = require('string-hash');
 import * as path from 'path';
+import constant from '../../../../tool/constant';
 
 const pluginName = 'WriteStyleMapPlugin';
 const cwd = process.cwd();
 
-const styleModulefile = path.join(cwd, 'node_modules/.cache/award/.moduleStyles.json');
+const styleModulefile = path.join(constant.CACHE_DIR, '.moduleStyles.json');
 
 const originFile = (pwd: string, origin: string) => {
   const file = path.join(pwd, origin);

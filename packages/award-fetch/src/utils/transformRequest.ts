@@ -6,13 +6,20 @@ import isUndefined = require('lodash/isUndefined');
 
 /**
  * a=1 => {a: 1}
+ * "[{a:2}]" => [{a:2}]
  */
 function string2Object(str: string) {
-  return str.split('&').reduce((res: object, item: string) => {
-    const arr = item.split('=');
-    (res as any)[arr[0]] = arr[1];
-    return res;
-  }, {});
+  let data = {};
+  try {
+    data = JSON.parse(str);
+  } catch (error) {
+    data = str.split('&').reduce((res: object, item: string) => {
+      const arr = item.split('=');
+      (res as any)[arr[0]] = arr[1];
+      return res;
+    }, {});
+  }
+  return data;
 }
 
 /**

@@ -8,6 +8,7 @@ import FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 import { HmrTimePlugin, ProgressBarPlugin, ReactLoadablePlugin } from '../../webpack-plugins';
 import webpackInclude from '../utils/include';
 import alias from '../utils/alias';
+import toolConstant from '../../tool/constant';
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin');
@@ -82,7 +83,7 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
       }),
       new FriendlyErrorsWebpackPlugin(),
       new ReactLoadablePlugin({
-        filename: path.join(cwd, 'node_modules/.cache/award/' + constant['REACT-LOADABEL'])
+        filename: path.join(toolConstant.CACHE_DIR, constant['REACT-LOADABEL'])
       }),
       new HmrTimePlugin(),
       new webpack.HotModuleReplacementPlugin(),
