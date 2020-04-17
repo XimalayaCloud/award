@@ -49,7 +49,6 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
     }
   } catch (error) {}
 } else {
-  process.env.NODE_ENV = 'production';
   const ProdServer = require('award-server').Server;
   class AwardServer extends ProdServer {
     constructor(params = {}) {
