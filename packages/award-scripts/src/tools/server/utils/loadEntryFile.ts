@@ -3,6 +3,7 @@
  */
 import { join } from 'path';
 import { fromJS } from 'immutable';
+import * as Loadable from 'react-loadable';
 import { DocumentComponent } from 'award-utils/server';
 import removeModule = require('../../remove');
 import { IConfig, IServer } from 'award-types';
@@ -19,6 +20,8 @@ export default function(this: IServer) {
 
         // 引用入口直接执行AppRegistry
         require(this.RootPageEntry);
+        // 预加载所有模块
+        await Loadable.preloadAll();
 
         if (this.RootComponent === null) {
           // 说明没有执行start方法

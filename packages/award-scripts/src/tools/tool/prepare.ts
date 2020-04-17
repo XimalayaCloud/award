@@ -4,11 +4,11 @@
 import * as os from 'os';
 import * as chalk from 'chalk';
 import * as fs from 'fs-extra';
-import * as path from 'path';
 import * as Event from 'events';
 import createProjectFileHash from './createProjectFileHash';
 import compiler from '../compiler';
 import portIsOccupied from './port';
+import constant from './constant';
 
 let start = false;
 
@@ -26,10 +26,8 @@ export default (register = true, showInfo = true, port?: number) => {
     }
 
     // 创建cache文件夹
-    const cache = path.join(process.cwd(), 'node_modules', '.cache', 'award');
-
-    if (!fs.existsSync(cache)) {
-      fs.mkdirpSync(cache);
+    if (!fs.existsSync(constant.CACHE_DIR)) {
+      fs.mkdirpSync(constant.CACHE_DIR);
     }
 
     const argvs = process.argv.slice(2);

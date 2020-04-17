@@ -1,6 +1,6 @@
-import * as path from 'path';
 import * as fs from 'fs-extra';
 import clean from '../tools/tool/clean';
+import constant from '../tools/tool/constant';
 import exportProject from '../library/export';
 
 export default {
@@ -23,11 +23,10 @@ export default {
   async action(argv: any) {
     process.env.WEB_TYPE = 'WEB_SPA';
     process.env.EXPORTRUNHTML = argv.html ? '1' : '0';
-    const cache = path.join(process.cwd(), 'node_modules', '.cache', 'award');
-    if (fs.existsSync(cache)) {
-      clean(cache);
+    if (fs.existsSync(constant.CACHE_DIR)) {
+      clean(constant.CACHE_DIR);
     }
-    fs.mkdirpSync(cache);
+    fs.mkdirpSync(constant.CACHE_DIR);
     exportProject({
       browser: argv.browser,
       local: argv.local,
