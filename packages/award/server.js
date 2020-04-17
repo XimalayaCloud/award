@@ -17,6 +17,7 @@ class DebugServer {
 let Server = null;
 // 表示开发环境
 if (argvs[0] === 'dev' || argvs[0] === 'debug') {
+  process.env.NODE_ENV = 'development';
   try {
     require('./bin/install')();
 
@@ -48,6 +49,7 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
     }
   } catch (error) {}
 } else {
+  process.env.NODE_ENV = 'production';
   const ProdServer = require('award-server').Server;
   class AwardServer extends ProdServer {
     constructor(params = {}) {
