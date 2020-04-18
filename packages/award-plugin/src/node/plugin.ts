@@ -14,7 +14,8 @@ import {
   babelConfig,
   webpackCompiler,
   document,
-  source
+  source,
+  babelInclude
 } from '../../types/node';
 import Node from './';
 import { parseAsync } from '../utils';
@@ -142,6 +143,39 @@ export interface BuildHooks {
 | config  | 当前项目的award配置 | object                           |
    */
   beforeBuild: beforeBuild;
+
+  /**
+   * 在web编译阶段，判断babel插件是否需要处理该文件，类似webpack include用法，该钩子只支持同步
+   *
+   * 需要注意：仅web编译可以使用，包括开发环境和编译出生产环境的静态资源
+   *
+   * `只接受一个参数filePath，表示当前文件路径；如果需要处理成功，需要给出返回值，类型为boolean`
+   *
+   * ## award内部默认处理规则
+   * - 不忽略 node_modules/award
+   * - 忽略 node_modules 该钩子会在这个阶段执行
+   * - 其余都不忽略
+   *
+   *
+   * ```js
+   * import Plugin from 'award-plugin';
+   * export default class extends Plugin.Node{
+   *  apply(){
+        this.build(hooks=>{
+          hooks.babelInclude(function(filePath){
+              // 当award内部的默认规则要求babel-loader忽略对该文件的处理后.....
+              // 紧接着立刻触发该钩子
+              // 接着你就可以通过正则匹配决定是否处理该文件路径
+              // 如果不返回，或者返回false，那么babel-loader就不再处理该文件了
+              // 只有返回true才会处理该文件
+              return ...
+            })
+          })
+        }
+      }
+   * ```
+   */
+  babelInclude: babelInclude;
 
   /**
    *
