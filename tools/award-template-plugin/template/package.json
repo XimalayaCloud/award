@@ -14,7 +14,9 @@
   "devDependencies": {
     "award": "latest",
     "award-plugin-<%-name%>": "link:./src",
-    "award-scripts": "latest"
+    "award-scripts": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   },
   "engines": {
     "node": ">=8.11.1"
