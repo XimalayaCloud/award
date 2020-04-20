@@ -89,7 +89,7 @@ const createStyleLink = (ctx: IContext) => {
 
 export default async (ctx: IContext, renderReactToString?: Function | null, stats?: any) => {
   const {
-    config: { router, mode },
+    config: { router, mode, crossOrigin },
     RootComponent
   } = ctx.award;
 
@@ -148,11 +148,16 @@ export default async (ctx: IContext, renderReactToString?: Function | null, stat
     });
   }
 
+  const cross: any = {};
+  if (crossOrigin) {
+    cross.crossOrigin = 'anonymous';
+  }
+
   if (bundles.length) {
     bundles.forEach((bundle: any, index: number) => {
       if (/\.js$/.test(bundle.publicPath)) {
         if (!/hot-update\.js/.test(bundle.publicPath)) {
-          bundleScript.push(<script src={bundle.publicPath} key={index} />);
+          bundleScript.push(<script {...cross} src={bundle.publicPath} key={index} />);
         }
       } else if (/\.css$/.test(bundle.publicPath)) {
         bundleStyle.push(
