@@ -119,9 +119,7 @@ export default class AsyncRender extends React.Component<any, any> {
 
   private routerDidUpdate() {
     const Component = routeComponents.get(this.path);
-    if (Component && Component.routeDidUpdate) {
-      this.props.routerDidUpdate(Component.routeDidUpdate, this.renderdata());
-    }
+    this.props.routerDidUpdate(Component ? Component.routeDidUpdate : null, this.renderdata());
     this.reload = false;
   }
 
