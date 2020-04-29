@@ -40,22 +40,29 @@ const contentByString = (str: any, filepath: any) => {
 const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
   let styleSheet = '';
   if (styles.length) {
-    styles.map(async (item: any) => {
-      // 解析css样式
-      const css = postcss(_plugins).process(item.css, {
-        from: item.from
-      }).css;
-      // 压缩css文件
-      const output = new CleanCSS({}).minify(css);
-      if (isGlobal && !dev()) {
-        const globalId = DefaultHashString(output.styles);
-        // 筛选出重复的全局样式引用
-        if (StoreGlobalStyle.indexOf(globalId) === -1) {
-          StoreGlobalStyle.push(globalId);
-          styleSheet += output.styles;
+    styles.map((item: any) => {
+      try {
+        if (item.css) {
+          // 解析css样式
+          const css = postcss(_plugins).process(item.css, {
+            from: item.from
+          }).css;
+          // 压缩css文件
+          const output = new CleanCSS({}).minify(css);
+          if (isGlobal && !dev()) {
+            const globalId = DefaultHashString(output.styles);
+            // 筛选出重复的全局样式引用
+            if (StoreGlobalStyle.indexOf(globalId) === -1) {
+              StoreGlobalStyle.push(globalId);
+              styleSheet += output.styles;
+            }
+          } else {
+            styleSheet += output.styles;
+          }
         }
-      } else {
-        styleSheet += output.styles;
+      } catch (error) {
+        console.error(error);
+        process.exit(-1);
       }
     });
   }
