@@ -136,27 +136,23 @@ class Plugin {
               }
             }
           }
-
+          const hasBundle: any = [];
           if (entry) {
-            const hasBundle: any = [];
             _chunks.forEach((chunkEntry: any) => {
               if (modules.indexOf(chunkEntry) !== -1) {
                 hasBundle.push(hashString(chunkEntry));
               }
             });
-
-            // 移出入口
-            modules.shift();
             moduleEntry.push(entry);
-
-            MyChunks[item.debugId] = {
-              id: item.id,
-              entry,
-              modules,
-              name: item.name,
-              'hash-bundle': hasBundle
-            };
           }
+
+          MyChunks[item.debugId] = {
+            id: item.id,
+            entry,
+            modules,
+            name: item.name,
+            'hash-bundle': hasBundle
+          };
         });
 
         // 去除重复的bundle依赖
