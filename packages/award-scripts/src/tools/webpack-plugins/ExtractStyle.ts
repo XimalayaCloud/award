@@ -138,6 +138,7 @@ class Plugin {
           }
           const hasBundle: any = [];
           if (entry) {
+            hasBundle.push(hashString(entry));
             _chunks.forEach((chunkEntry: any) => {
               if (modules.indexOf(chunkEntry) !== -1) {
                 hasBundle.push(hashString(chunkEntry));
