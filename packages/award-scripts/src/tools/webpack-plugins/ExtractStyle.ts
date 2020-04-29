@@ -53,24 +53,25 @@ class Plugin {
         chunks.forEach((item: any) => {
           const dep = [];
           const reasons = (Array.from(item._modules)[0] as any).reasons;
-          for (const module of item.modulesIterable) {
-            if (module.resource && !regNodeModules.test(module.resource)) {
+          for (const myModule of item.modulesIterable) {
+            if (myModule.resource && !regNodeModules.test(myModule.resource)) {
               // 当前模块存在样式
-              dep.push(module.resource.replace(cwd, ''));
+              dep.push(myModule.resource.replace(cwd, ''));
             }
           }
           if (reasons) {
-            const module = reasons[0].module;
-            if (module) {
-              depAll[module.resource.replace(cwd, '')] = dep;
+            const myModule = reasons[0].module;
+            if (myModule) {
+              const name = myModule.resource.replace(cwd, '');
+              depAll[name] = [...(depAll[name] || []), ...dep];
             }
           }
 
           // 提取依赖入口
-          for (const module of item.modulesIterable) {
-            if (module.resource && !regNodeModules.test(module.resource)) {
+          for (const myModule of item.modulesIterable) {
+            if (myModule.resource && !regNodeModules.test(myModule.resource)) {
               // 当前模块存在样式
-              _chunks.push(module.resource.replace(cwd, ''));
+              _chunks.push(myModule.resource.replace(cwd, ''));
               break;
             }
           }
@@ -123,14 +124,19 @@ class Plugin {
         const moduleEntry: any = []; // 每个chunk的入口文件，都是依赖的第一个文件
         chunks.forEach((item: any) => {
           const modules: any = [];
-          for (const module of item.modulesIterable) {
-            if (module.resource && !regNodeModules.test(module.resource)) {
+          let entry = null;
+          for (const myModule of item.modulesIterable) {
+            if (myModule.resource && !regNodeModules.test(myModule.resource)) {
               // 当前模块存在样式
-              modules.push(module.resource.replace(cwd, ''));
+              const name = myModule.resource.replace(cwd, '');
+              if (global.routeFileNames.indexOf(name) !== -1) {
+                entry = name;
+              } else {
+                modules.push(name);
+              }
             }
           }
-          // 获取第一个模块
-          const entry = modules[0];
+
           if (entry) {
             const hasBundle: any = [];
             _chunks.forEach((chunkEntry: any) => {
