@@ -34,7 +34,7 @@ export default class WS {
               } else {
                 options.url = `http://localhost:${this.port}${options.url}`;
               }
-              fetch(options).then((data: any) => {
+              fetch(options, options.__file__isInterceptorsResponse).then((data: any) => {
                 wss.send(JSON.stringify(data));
               });
             }

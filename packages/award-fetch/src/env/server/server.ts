@@ -25,7 +25,11 @@ class HttpClient {
     }
   }
 
-  public async startFetch(options: IOpt1, retryTime = this.API_RETRY_TIME): Promise<any> {
+  public async startFetch(
+    options: IOpt1,
+    isInterceptorsResponse: boolean,
+    retryTime = this.API_RETRY_TIME
+  ): Promise<any> {
     const { url } = options;
     try {
       const uri = await this.getUri(url);
@@ -37,11 +41,14 @@ class HttpClient {
       const _time1 = Number(new Date());
       console.info(`[server-fetch-start]:${uri}`);
       try {
-        const data = await fetch({
-          ...options,
-          url: uri,
-          timeout: this.timeout
-        }).then(response => {
+        const data = await fetch(
+          {
+            ...options,
+            url: uri,
+            timeout: this.timeout
+          },
+          isInterceptorsResponse
+        ).then(response => {
           if (response.status < 200 || response.status > 350) {
             // 需要重试
             throw new Error(`${response.url}: ${response.statusText}`);
@@ -54,7 +61,7 @@ class HttpClient {
       } catch (e) {
         if (retryTime > 0) {
           log.error(uri, 'server-fetch-retry');
-          return this.startFetch(options, --retryTime);
+          return this.startFetch(options, isInterceptorsResponse, --retryTime);
         }
         log.error(e.message, 'server-fetch-error');
         return Promise.reject(e);
@@ -79,7 +86,7 @@ class HttpClient {
   }
 }
 
-export default (options: IOpt1) => {
+export default (options: IOpt1, isInterceptorsResponse: boolean) => {
   const { fetch: fetchConfig }: any = getAwardConfig();
   const { timeout = 5000 } = fetchConfig;
   Object.assign(apiGatewayConfig, fetchConfig.apiGateway);
@@ -96,7 +103,10 @@ export default (options: IOpt1) => {
     });
   }
 
-  return httpClient.startFetch({
-    ...options
-  });
+  return httpClient.startFetch(
+    {
+      ...options
+    },
+    isInterceptorsResponse
+  );
 };

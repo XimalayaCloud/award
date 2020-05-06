@@ -111,13 +111,19 @@ function mergeOptions(_options: IOpt1, defaultOpt?: IOptdefault): IOpt2 {
  * web client fetch
  * @param  {[object]} options fetch参数
  */
-export default (options: IOpt1) => {
+export default (options: IOpt1, isInterceptorsResponse: boolean) => {
   const opts: IOpt2 = mergeOptions(options, defaultOptions);
   const { url, params, transformResponse } = opts;
 
   if (needXHR(opts)) {
-    return xhr(opts);
+    return xhr(opts, isInterceptorsResponse);
   }
 
-  return fetch(`${encodeURI(url)}${params}`, opts).then(transformResponse);
+  return fetch(`${encodeURI(url)}${params}`, opts).then(response => {
+    if (isInterceptorsResponse) {
+      return response;
+    } else {
+      return transformResponse(response);
+    }
+  });
 };

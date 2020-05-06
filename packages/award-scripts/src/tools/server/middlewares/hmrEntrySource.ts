@@ -1,13 +1,14 @@
 /**
  * 初始化中间件
  */
-import { clearConsole } from '../../tool';
+import fetch from 'award-fetch';
 import { IContext, IServer, IConfig } from 'award-types';
-import removeModule = require('../../remove');
 import { Middleware } from 'koa';
 import { serverInfo } from 'award-utils/server';
 import nodePlugin from 'award-plugin/node';
 import loadEntryFile from '../utils/loadEntryFile';
+import { clearConsole } from '../../tool';
+import removeModule = require('../../remove');
 
 export default function hmrEntrySource(this: IServer): Middleware<any, IContext> {
   const self = this;
@@ -38,8 +39,11 @@ export default function hmrEntrySource(this: IServer): Middleware<any, IContext>
     }
     try {
       // 重新加载入口文件
+      global.ServerHmr = true;
+      fetch.clean();
       await loadEntryFile.call(self);
       await next();
+      global.ServerHmr = false;
     } finally {
       if (self.RootPageEntry) {
         removeModule(self.RootPageEntry);
