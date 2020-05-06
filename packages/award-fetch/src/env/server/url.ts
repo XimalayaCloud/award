@@ -11,12 +11,20 @@ export function getUrlPrefix(url: string) {
   }
   /**  //a.com/b/c **/
   if (/^\/\//.test(url)) {
-    throw new Error('Node端发起http请求时，请指定协议');
+    throw {
+      status: 500,
+      message: 'Node端发起http请求时，请指定协议',
+      fetch: true
+    };
   }
   const { fetch: fetchConfig }: any = getAwardConfig();
   const { domainMap } = fetchConfig;
   if (!domainMap) {
-    throw new Error('Node端发起http请求时，请确保配置了domainMap');
+    throw {
+      status: 500,
+      message: 'Node端发起http请求时，请确保配置了domainMap',
+      fetch: true
+    };
   }
   let domainPrefix = null;
   Object.keys(domainMap).forEach(item => {
@@ -29,7 +37,11 @@ export function getUrlPrefix(url: string) {
   if (domainPrefix) {
     return domainPrefix;
   }
-  throw new Error(`Node端发起请求[${url}]，没有找到对应的domainMap`);
+  throw {
+    status: 500,
+    message: `Node端发起请求[${url}]，没有找到对应的domainMap`,
+    fetch: true
+  };
 }
 
 /**

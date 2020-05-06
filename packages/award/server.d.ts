@@ -87,15 +87,16 @@ declare module 'award/server' {
      * 如果没有将errLogs返回，那么将不会打印错误日志
      *
      * ```
-     * app.catch(errLogs => {
+     * app.catch((errLogs, ctx) => {
      *   // 开发阶段、errLogs为null
      *   // 可以自行处理errLogs，决定是否将错误errLogs发送到终端，即打印日志
+     *   // ctx表示当前发生错误的请求的上下文对象
      *   return newErrLogs;
      * })
      * ```
      *
      */
-    catch(cb: Function): void;
+    catch(cb: (error: object, ctx: IContext) => object): void;
 
     /**
      *

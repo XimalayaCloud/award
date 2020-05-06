@@ -38,6 +38,8 @@ const siteConfig = {
   blogSidebarCount: 'ALL',
   blogSidebarTitle: { default: '最近博客', all: '全部博客' },
 
+  // https://docsearch.algolia.com/apply/
+
   algolia: {
     apiKey: '7d689b8feb15c55f80f2cb5cf393d503',
     indexName: 'ximalaya_award'
