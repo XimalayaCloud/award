@@ -77,7 +77,11 @@ export default (
       getThriftServer(API_APIGATEWAY_PATH).then(addr => {
         try {
           if (!addr) {
-            throw new Error('no thrift host find');
+            throw {
+              status: 500,
+              message: 'no thrift host find',
+              fetch: true
+            };
           }
 
           const [host, port] = addr.split(':');

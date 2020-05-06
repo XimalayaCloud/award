@@ -34,9 +34,11 @@ class HttpClient {
     try {
       const uri = await this.getUri(url);
       if (!/^http(s)?:/.test(uri)) {
-        throw new Error(
-          `请求地址[${url}]匹配的domain必须设置http协议，当前node请求的完整url为${uri}`
-        );
+        throw {
+          status: 500,
+          message: `请求地址[${url}]匹配的domain必须设置http协议，当前node请求的完整url为${uri}`,
+          fetch: true
+        };
       }
       const _time1 = Number(new Date());
       console.info(`[server-fetch-start]:${uri}`);
@@ -51,7 +53,7 @@ class HttpClient {
         ).then(response => {
           if (response.status < 200 || response.status > 350) {
             // 需要重试
-            throw new Error(`${response.url}: ${response.statusText}`);
+            throw { status: 500, message: `${response.url}: ${response.statusText}`, fetch: true };
           }
           return response;
         });

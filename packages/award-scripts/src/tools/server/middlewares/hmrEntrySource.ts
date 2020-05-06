@@ -40,15 +40,15 @@ export default function hmrEntrySource(this: IServer): Middleware<any, IContext>
     try {
       // 重新加载入口文件
       global.ServerHmr = true;
-      fetch.clean();
       await loadEntryFile.call(self);
       await next();
-      global.ServerHmr = false;
     } finally {
+      fetch.clean();
       if (self.RootPageEntry) {
         removeModule(self.RootPageEntry);
         serverInfo.call(self);
       }
     }
+    global.ServerHmr = false;
   };
 }

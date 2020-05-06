@@ -132,5 +132,5 @@ export function checkStatus(response: Response) {
     return response;
   }
 
-  throw new Error(`${response.url}: ${response.statusText}`);
+  throw { status: 500, message: `${response.url}: ${response.statusText}`, fetch: true };
 }
