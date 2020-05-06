@@ -73,7 +73,7 @@ export default function(this: IServer, version: string): Middleware<any, IContex
        * 错误处理, 优先接收 err.status, 比如处理404
        */
       ctx.status = err.status || 500;
-      self.ErrorCatchFunction(contextLog(err, 'node'));
+      self.ErrorCatchFunction(contextLog(err, 'node'), ctx);
       if (self.dev && !self.ignore) {
         // 如果没有设置忽略，将展示系统默认错误页面
         throw err;
@@ -111,7 +111,7 @@ export default function(this: IServer, version: string): Middleware<any, IContex
         try {
           if (ctx.award.routerError) {
             // 渲染错误定位到Layout层面，这个时候渲染全局展示的错误页面
-            self.ErrorCatchFunction(contextLog(newError, 'renderLayout'));
+            self.ErrorCatchFunction(contextLog(newError, 'renderLayout'), ctx);
             // 路由内错误在渲染错误页面时，全局报错，这个时候需要直接渲染错误页面
             ctx.award.routerError = false;
             ctx.body = await pageError(error, ctx, self.renderReactToString);
@@ -122,7 +122,7 @@ export default function(this: IServer, version: string): Middleware<any, IContex
         }
 
         // 错误展示页面确实发生错误了
-        self.ErrorCatchFunction(contextLog(newError, 'renderErrorPage'));
+        self.ErrorCatchFunction(contextLog(newError, 'renderErrorPage'), ctx);
         return finish(newError);
       }
     }

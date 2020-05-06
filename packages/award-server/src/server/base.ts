@@ -270,9 +270,10 @@ export default class Base {
    * 如果没有将errLogs返回，那么将不会打印错误日志
    *
    * ```
-   * app.catch(errLogs => {
+   * app.catch((errLogs, ctx) => {
    *   // 开发阶段、errLogs为null
    *   // 可以自行处理errLogs，决定是否将错误errLogs发送到终端，即打印日志
+   *   // ctx表示当前发生错误的请求的上下文对象
    *   return newErrLogs;
    * })
    * ```
@@ -289,9 +290,9 @@ export default class Base {
 
   private handleError(cb: Function) {
     if (typeof cb === 'function') {
-      this.ErrorCatchFunction = (errLogs: any) => {
+      this.ErrorCatchFunction = (errLogs: any, ctx: IContext) => {
         // 触发回调catch处理当前错误日志
-        const info = cb(errLogs);
+        const info = cb(errLogs, ctx);
         if (info && _.isObject(info)) {
           // 向终端打印日志
           console.error(JSON.stringify(info));
