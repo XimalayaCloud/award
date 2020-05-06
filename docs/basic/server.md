@@ -168,10 +168,11 @@ app.listen(1234, (listen, url, open) => {
 ```js
 ...
 
-app.catch((errLogs)=>{
+app.catch((errLogs, ctx) => {
   // 处理errLogs是否落盘逻辑，对errLogs的字段进行判断处理
   // 根据业务需求，确认是否需要需要返回errLogs，将errLogs落盘到日志
   // 如果不需要落盘日志，可以不返回，或者返回null
+  // ctx 表示当前发生错误的请求的上下文
   return errLogs
 })
 
