@@ -18,7 +18,6 @@ export default function(this: IServer, version: string): Middleware<any, IContex
 
       if (url === '/healthcheck') {
         // 健康检查
-        console.info(`${new Date()}: ___healthcheck`);
         ctx.body = 'healthCheck success';
       } else if (url === '/favicon.ico') {
         ctx.status = 200;

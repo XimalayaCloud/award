@@ -112,51 +112,41 @@ async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase):
 
   (options as any).basename = awardFetch.basename;
 
-  const isInterceptorsResponse = Boolean(_interceptors.response.length);
-
   // 环境判断
   if (process.env.RUN_ENV === 'node') {
     const { thrift } = options;
     if (thrift) {
-      response = require('./env/thrift')(options, thriftUtils, isInterceptorsResponse);
+      response = require('./env/thrift')(options, thriftUtils);
     } else {
-      response = require('./env/server')(options, isInterceptorsResponse);
+      response = require('./env/server')(options);
     }
   } else if (process.env.WEB_TYPE === 'WEB_SPA') {
     // 单页应用开发环境
     if (Number(process.env.Browser) === 1) {
       // 这里走websocket
-      response = require('./env/file')(options, isInterceptorsResponse);
+      response = require('./env/file')(options);
     } else {
       // 这里是web端
-      response = require('./env/web')(options, isInterceptorsResponse);
+      response = require('./env/web')(options);
     }
   } else {
     // 这里是在线的web端
-    response = require('./env/web')(options, isInterceptorsResponse);
+    response = require('./env/web')(options);
   }
-  return response
-    .then((data: any) => {
-      return reduce(
-        _interceptors.response,
-        (res, interceptor) => {
-          const result = interceptor(res, log);
-          if (result) {
-            return result;
-          } else {
-            return res;
-          }
-        },
-        data
-      );
-    })
-    .then((data: any) => {
-      if (isInterceptorsResponse && typeof (options as any).transformResponse === 'function') {
-        return (options as any).transformResponse(data);
-      } else {
-        return data;
-      }
-    });
+  return response.then((data: any) => {
+    return reduce(
+      _interceptors.response,
+      (res, interceptor) => {
+        const result = interceptor(res, log);
+        if (result) {
+          return result;
+        } else {
+          return res;
+        }
+      },
+      data
+    );
+  });
 }
 
 function all(fetches: any) {

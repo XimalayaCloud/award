@@ -8,8 +8,8 @@ import './app.scss';
 
 fetch.interceptors.response.use((response, log) => {
   log.error('发生错误了', 'interceptors response');
-  console.error(1234, response.status);
-  return response.json();
+  console.error(1234, response);
+  return response;
 });
 
 function app(props) {
@@ -56,12 +56,7 @@ function app(props) {
 
 app.getInitialProps = ctx => {
   const result = [
-    fetch('/api/list', {
-      transformResponse: response => {
-        console.log(321, response);
-        return response;
-      }
-    }).then(data => {
+    fetch('/api/list').then(data => {
       ctx.setAward({
         num: data.num
       });
