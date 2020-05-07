@@ -77,14 +77,22 @@ export default ({
     /**
      * this.setAward({'name':2})
      */
-    public setAward(obj: Object = {}) {
+    public setAward(obj: Object = {}): Promise<any> | any {
       if (obj.constructor === Object && Object.keys(obj).length) {
         hmrAwardValue = {
           ...this.state.award,
           ...obj
         };
-        this.setState({
-          award: hmrAwardValue
+        // 处理异步更新状态
+        return new Promise(resolve => {
+          this.setState(
+            {
+              award: hmrAwardValue
+            },
+            () => {
+              setTimeout(resolve, 0);
+            }
+          );
         });
       } else {
         console.warn('setAward必须接受一个不为空的对象');

@@ -5,6 +5,7 @@
 import * as React from 'react';
 import { IAwardException } from 'award-types';
 import hoistNonReactStatics = require('hoist-non-react-statics');
+import { pathname as localPathname } from './help';
 
 // 这里是组件
 let CaptureComponent: any = null;
@@ -115,13 +116,14 @@ export async function handleError(
   }
   const message = error.message ? error.message : null;
   const stack = error.stack ? error.stack : null;
-  const { status = 500, info = {}, url = null, routerError = true, ...rests } = error;
+  const { status = 500, info = {}, url = null, routerError = true, pathname, ...rests } = error;
   error = { ...rests, status, message, stack, info, url, routerError, data: {} };
 
   const ctx = {
     error,
     req: this,
-    loading: null
+    loading: null,
+    pathname: process.env.RUN_ENV === 'web' ? localPathname() : pathname
   };
 
   Object.defineProperty(ctx, 'loading', {

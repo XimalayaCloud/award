@@ -6,6 +6,12 @@ import About from './about';
 import './common.scss!';
 import './app.scss';
 
+fetch.interceptors.response.use((response, log) => {
+  log.error('发生错误了', 'interceptors response');
+  console.error(1234, response.status);
+  return response.json();
+});
+
 function app(props) {
   const [info, setInfo] = useState({
     name: 'Award'
@@ -50,7 +56,12 @@ function app(props) {
 
 app.getInitialProps = ctx => {
   const result = [
-    fetch('/api/list').then(data => {
+    fetch('/api/list', {
+      transformResponse: response => {
+        console.log(321, response);
+        return response;
+      }
+    }).then(data => {
       ctx.setAward({
         num: data.num
       });

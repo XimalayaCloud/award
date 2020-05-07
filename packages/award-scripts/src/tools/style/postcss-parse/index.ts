@@ -38,14 +38,15 @@ const contentByString = (str: any, filepath: any) => {
 
 // postcss批量处理
 const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
-  return new Promise((resolve, reject) => {
-    if (styles.length) {
-      Promise.all(
-        styles.map(async (item: any) => {
+  let styleSheet = '';
+  if (styles.length) {
+    styles.map((item: any) => {
+      try {
+        if (item.css) {
           // 解析css样式
-          const { css } = await postcss(_plugins).process(item.css, {
+          const css = postcss(_plugins).process(item.css, {
             from: item.from
-          });
+          }).css;
           // 压缩css文件
           const output = new CleanCSS({}).minify(css);
           if (isGlobal && !dev()) {
@@ -53,25 +54,19 @@ const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
             // 筛选出重复的全局样式引用
             if (StoreGlobalStyle.indexOf(globalId) === -1) {
               StoreGlobalStyle.push(globalId);
-              return output.styles;
-            } else {
-              return '';
+              styleSheet += output.styles;
             }
           } else {
-            return output.styles;
+            styleSheet += output.styles;
           }
-        })
-      )
-        .then(style => {
-          resolve(style.join(''));
-        })
-        .catch(error => {
-          reject(error);
-        });
-    } else {
-      resolve('');
-    }
-  });
+        }
+      } catch (error) {
+        console.error(error);
+        process.exit(-1);
+      }
+    });
+  }
+  return styleSheet;
 };
 
 /**
@@ -186,45 +181,38 @@ export default (state: any) => {
     })
   ];
 
-  return new Promise(async (resolve, reject) => {
-    try {
-      // sass读取样式资源文件内容，并重新赋值state.styles的属性
-      state.styles.jsx.map((item: any, index: number) => {
-        state.styles.jsx[index].css = !/\.(j|t)sx?$/.test(item.from)
-          ? contentByFilePath(item.from)
-          : contentByString(state.scopeCSS, item.from);
-      });
-
-      state.styles.global.map((item: any, index: number) => {
-        state.styles.global[index].css = !/\.(j|t)sx?$/.test(item.from)
-          ? contentByFilePath(item.from)
-          : contentByString(state.globalCSS, item.from);
-      });
-
-      // 需要对全局样式的选择器进行过滤识别处理，即不能携带和scope一致的选择器
-      const globalStyle = await handleStyleByPostcss(state.styles.global, _plugins, true);
-      let jsxStyle: any = await handleStyleByPostcss(state.styles.jsx, _plugins, false);
-      let styleId = jsxStyle ? getHashByReference(reference) : 0;
-
-      if (styleId) {
-        if (dev()) {
-          // 在开发阶段，为了防止热更新时样式不生效，需要带上随机的hash码
-          styleId = styleId + DefaultHashString(jsxStyle);
-        }
-        // 拼接scopeId
-        const { css } = await postcss([postcssSelector(styleId)]).process(jsxStyle, {
-          from: undefined
-        });
-        jsxStyle = css;
-      }
-
-      resolve({
-        global: globalStyle,
-        jsx: jsxStyle,
-        styleId
-      });
-    } catch (err) {
-      reject(err);
-    }
+  // sass读取样式资源文件内容，并重新赋值state.styles的属性
+  state.styles.jsx.map((item: any, index: number) => {
+    state.styles.jsx[index].css = !/\.(j|t)sx?$/.test(item.from)
+      ? contentByFilePath(item.from)
+      : contentByString(state.scopeCSS, item.from);
   });
+
+  state.styles.global.map((item: any, index: number) => {
+    state.styles.global[index].css = !/\.(j|t)sx?$/.test(item.from)
+      ? contentByFilePath(item.from)
+      : contentByString(state.globalCSS, item.from);
+  });
+
+  // 需要对全局样式的选择器进行过滤识别处理，即不能携带和scope一致的选择器
+  const globalStyle = handleStyleByPostcss(state.styles.global, _plugins, true);
+  let jsxStyle: any = handleStyleByPostcss(state.styles.jsx, _plugins, false);
+  let styleId = jsxStyle ? getHashByReference(reference) : 0;
+
+  if (styleId) {
+    if (dev()) {
+      // 在开发阶段，为了防止热更新时样式不生效，需要带上随机的hash码
+      styleId = styleId + DefaultHashString(jsxStyle);
+    }
+    // 拼接scopeId
+    jsxStyle = postcss([postcssSelector(styleId)]).process(jsxStyle, {
+      from: undefined
+    }).css;
+  }
+
+  return {
+    global: globalStyle,
+    jsx: jsxStyle,
+    styleId
+  };
 };

@@ -1,3 +1,4 @@
 export default {
-  mode: 'client'
+  mode: 'client',
+  entry: './main/b'
 };

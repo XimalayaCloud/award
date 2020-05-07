@@ -41,7 +41,7 @@ yarn dev
 
 **你必须在`src/plugin`目录内编写插件的核心逻辑**
 
-> 关于插件的具体开发步骤和注意细节，[请点击文档查看](http://openact.ximalaya.com/award/docs/plugin/development/)
+> 关于插件的具体开发步骤和注意细节，[请点击文档查看](http://ximalayacloud.github.io/award/docs/plugin/development/)
 
 # 发布步骤
 

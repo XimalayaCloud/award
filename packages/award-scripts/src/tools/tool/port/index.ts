@@ -3,8 +3,12 @@ import * as path from 'path';
 import { killPortProcess } from 'kill-port-process';
 import { loopWhile } from 'deasync';
 import { spawn } from 'child_process';
+import * as fs from 'fs-extra';
+import clean from '../clean';
 import closeStaticPort from '../close-static-port';
+
 const pid: any[] = [];
+const portFile = path.join(process.cwd(), 'node_modules', '.port');
 
 const checkPort = (port: number) => {
   return new Promise(resolve => {
@@ -12,11 +16,18 @@ const checkPort = (port: number) => {
       stdio: 'inherit',
       cwd: process.cwd()
     });
-    check.on('exit', data => {
-      if (data === 0) {
-        resolve(true);
-      } else {
+    check.on('exit', code => {
+      if (code === 0) {
+        resolve({ close: true });
+      } else if (code === 255) {
         process.exit(0);
+      } else if (code === 1) {
+        // 使用新端口
+        if (fs.existsSync(portFile)) {
+          const newPort = fs.readFileSync(portFile, 'utf-8');
+          clean(portFile);
+          resolve({ close: false, port: Number(newPort) });
+        }
       }
     });
   });
@@ -37,7 +48,7 @@ const selectPort = (port: number) => {
       if (_list.length) {
         checkPort(port).then(resolve);
       } else {
-        resolve(false);
+        resolve({ close: false });
       }
     });
   });
@@ -46,9 +57,13 @@ const selectPort = (port: number) => {
 export default (port: number) => {
   let wait = true;
   let close = false;
-  selectPort(port).then((ret: boolean) => {
+  let newPort = null;
+  selectPort(port).then((res: { close: boolean; port?: number }) => {
     wait = false;
-    close = ret;
+    close = res.close;
+    if (res.port) {
+      newPort = res.port;
+    }
   });
   loopWhile(() => wait);
 
@@ -60,4 +75,5 @@ export default (port: number) => {
     loopWhile(() => waitPort);
     closeStaticPort();
   }
+  return newPort;
 };

@@ -53,24 +53,25 @@ class Plugin {
         chunks.forEach((item: any) => {
           const dep = [];
           const reasons = (Array.from(item._modules)[0] as any).reasons;
-          for (const module of item.modulesIterable) {
-            if (module.resource && !regNodeModules.test(module.resource)) {
+          for (const myModule of item.modulesIterable) {
+            if (myModule.resource && !regNodeModules.test(myModule.resource)) {
               // 当前模块存在样式
-              dep.push(module.resource.replace(cwd, ''));
+              dep.push(myModule.resource.replace(cwd, ''));
             }
           }
           if (reasons) {
-            const module = reasons[0].module;
-            if (module) {
-              depAll[module.resource.replace(cwd, '')] = dep;
+            const myModule = reasons[0].module;
+            if (myModule) {
+              const name = myModule.resource.replace(cwd, '');
+              depAll[name] = [...(depAll[name] || []), ...dep];
             }
           }
 
           // 提取依赖入口
-          for (const module of item.modulesIterable) {
-            if (module.resource && !regNodeModules.test(module.resource)) {
+          for (const myModule of item.modulesIterable) {
+            if (myModule.resource && !regNodeModules.test(myModule.resource)) {
               // 当前模块存在样式
-              _chunks.push(module.resource.replace(cwd, ''));
+              _chunks.push(myModule.resource.replace(cwd, ''));
               break;
             }
           }
@@ -123,34 +124,36 @@ class Plugin {
         const moduleEntry: any = []; // 每个chunk的入口文件，都是依赖的第一个文件
         chunks.forEach((item: any) => {
           const modules: any = [];
-          for (const module of item.modulesIterable) {
-            if (module.resource && !regNodeModules.test(module.resource)) {
+          let entry = null;
+          for (const myModule of item.modulesIterable) {
+            if (myModule.resource && !regNodeModules.test(myModule.resource)) {
               // 当前模块存在样式
-              modules.push(module.resource.replace(cwd, ''));
+              const name = myModule.resource.replace(cwd, '');
+              if (global.routeFileNames.indexOf(name) !== -1) {
+                entry = name;
+              } else {
+                modules.push(name);
+              }
             }
           }
-          // 获取第一个模块
-          const entry = modules[0];
+          const hasBundle: any = [];
           if (entry) {
-            const hasBundle: any = [];
+            hasBundle.push(hashString(entry));
             _chunks.forEach((chunkEntry: any) => {
               if (modules.indexOf(chunkEntry) !== -1) {
                 hasBundle.push(hashString(chunkEntry));
               }
             });
-
-            // 移出入口
-            modules.shift();
             moduleEntry.push(entry);
-
-            MyChunks[item.debugId] = {
-              id: item.id,
-              entry,
-              modules,
-              name: item.name,
-              'hash-bundle': hasBundle
-            };
           }
+
+          MyChunks[item.debugId] = {
+            id: item.id,
+            entry,
+            modules,
+            name: item.name,
+            'hash-bundle': hasBundle
+          };
         });
 
         // 去除重复的bundle依赖

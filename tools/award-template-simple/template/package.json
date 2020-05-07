@@ -17,7 +17,9 @@
   },
   "author": "<%-author%>",
   "dependencies": {
-    "award": "latest"
+    "award": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
     "award-scripts": "latest"

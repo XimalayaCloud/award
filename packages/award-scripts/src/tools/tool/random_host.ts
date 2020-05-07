@@ -8,6 +8,7 @@ import find = require('find-process');
 import { getIPAdress } from 'award-utils/server';
 import { loopWhile } from 'deasync';
 import clean from './clean';
+import constant from './constant';
 
 const pid: any[] = [];
 
@@ -21,8 +22,7 @@ module.exports = () => {
 
   // 获取端口
   let port = Math.floor(Math.random() * 30000 + 10000);
-  const cachePath = path.join(process.cwd(), 'node_modules', '.cache', 'award');
-  const cachePort = path.join(cachePath, '.port');
+  const cachePort = path.join(constant.CACHE_DIR, '.port');
   if (fs.existsSync(cachePort)) {
     port = Number(fs.readFileSync(cachePort, 'utf-8'));
   }
@@ -46,8 +46,8 @@ module.exports = () => {
           if (_list.length) {
             if (fs.existsSync(cachePort)) {
               // 表示端口出问题了，需要将缓存全部清除
-              clean(cachePath);
-              fs.mkdirpSync(cachePath);
+              clean(constant.CACHE_DIR);
+              fs.mkdirpSync(constant.CACHE_DIR);
             }
             port = Math.floor(Math.random() * 30000 + 10000);
           } else {

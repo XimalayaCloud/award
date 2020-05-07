@@ -4,7 +4,6 @@
  * 寻找到当前js里面的第一个JSXElement组件，然后开始分析样式
  */
 import hashString = require('string-hash');
-import { loopWhile } from 'deasync';
 import chalk = require('chalk');
 import md5 = require('md5');
 import * as fs from 'fs-extra';
@@ -15,12 +14,12 @@ import postcssParse from '../postcss-parse';
 import { dev } from '../utils';
 import { getHashByReference } from '../../tool/createProjectFileHash';
 import clean from '../../tool/clean';
+import constant from '../../tool/constant';
 
 // 记录样式是否出现重复的引用，主要用来做css导出使用的
 const styleIds: any = [];
 const globalIds: any = [];
 const cwd = process.cwd();
-const styleCacheDir = path.join(cwd, 'node_modules/.cache/award');
 
 // eslint-disable-next-line complexity
 export default (cache: any, state: any) => {
@@ -43,18 +42,12 @@ export default (cache: any, state: any) => {
     }
   } else {
     if (!state.hasParseStyle && (state.styles.global.length || state.styles.jsx.length)) {
-      let isError: any = '';
       let globalStyle = '';
       let JsxStyle = '';
       let styleId = 0;
 
       // 读取缓存
       const cacheId = getHashByReference(reference);
-      const cacheDir = path.join(styleCacheDir, cacheId);
-      if (!fs.existsSync(cacheDir)) {
-        fs.mkdirSync(cacheDir);
-      }
-
       // 读取文件名称
       // global、jsx文件的变更时间
       let filename = '';
@@ -71,8 +64,13 @@ export default (cache: any, state: any) => {
           from: item
         };
       });
+      const newFileName = md5(filename);
+      const cacheDir = path.join(constant.CACHE_DIR, newFileName.substr(0, 2));
+      if (!fs.existsSync(cacheDir)) {
+        fs.mkdirSync(cacheDir);
+      }
+      const filepath = path.join(cacheDir, cacheId + '-' + newFileName);
 
-      const filepath = path.join(cacheDir, md5(filename));
       if (
         fs.existsSync(filepath) &&
         !global.style_hmr &&
@@ -109,23 +107,12 @@ export default (cache: any, state: any) => {
           clean(cacheDir);
           fs.mkdirSync(cacheDir);
         }
-        // 通过loopWhile在同步任务里面执行异步任务
-        let wait = true;
-        postcssParse(state)
-          .then((result: any) => {
-            globalStyle = result.global;
-            JsxStyle = result.jsx;
-            styleId = result.styleId;
-            wait = false;
-          })
-          .catch(err => {
-            wait = false;
-            isError = err;
-          });
-        loopWhile(() => wait);
-        if (isError instanceof Error) {
-          throw isError;
-        }
+        // 解析样式资源
+        const result = postcssParse(state);
+        globalStyle = result.global;
+        JsxStyle = result.jsx;
+        styleId = result.styleId;
+
         if (dev()) {
           fs.writeFileSync(
             filepath,

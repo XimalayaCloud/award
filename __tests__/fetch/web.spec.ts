@@ -44,8 +44,10 @@ describe('测试award-fetch web', () => {
     });
 
     fetch.interceptors.response.use((res: any) => {
-      res = res + ' world';
-      return res;
+      return new Promise(async resolve => {
+        const data = await res.text();
+        resolve(data + ' world');
+      });
     });
 
     const info = jest.fn();

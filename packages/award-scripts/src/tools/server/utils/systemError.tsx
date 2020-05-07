@@ -104,7 +104,7 @@ new Server({
         <li>
           <a
             style={{ color: '#fff' }}
-            href="http://openact.ximalaya.com/award/docs/basic/error/"
+            href="http://ximalayacloud.github.io/award/docs/basic/error/"
             target="_blank"
           >
             更多错误处理介绍，请点击查看文档

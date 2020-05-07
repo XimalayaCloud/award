@@ -20,8 +20,7 @@
     "pub": "node scripts/publish patch",
     "pub:alpha": "node scripts/publish alpha",
     "pub:beta": "node scripts/publish beta",
-    "pub:rc": "node scripts/publish rc",
-    "pub:doc": "cd website && npm install && npm run build"
+    "pub:rc": "node scripts/publish rc"
   },
   "engines": {
     "node": ">=10"
@@ -52,6 +51,8 @@
     "eslint-plugin-jest": "23.0.3",
     "eslint-plugin-import": "2.18.2",
     "prettier": "1.19.1",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
     "shelljs": "0.8.3",
     "supertest": "4.0.2",
     "ts-jest": "24.1.0",
@@ -115,8 +116,5 @@
     "@types/ws": "6.0.3",
     "@types/webpack-dev-middleware": "2.0.3",
     "@types/zen-observable": "0.8.0"
-  },
-  "yxpm": {
-    "output": "website/build/award-docs"
   }
 }

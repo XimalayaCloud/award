@@ -63,7 +63,18 @@ declare module 'award/server' {
     core(): void;
 
     /**
-     * 日志过滤器
+     * 日志过滤器，仅在生产环境生效
+     *
+     * 通过过滤器，过滤出需要打印的日志
+     *
+     * 最后一个参数是option对象，表示该过滤的关键词是否需要打印出来
+     *
+     * 设置为false，就不会打印出来，默认是true
+      ```
+      app.logFilter('show', 'test', {
+        test: false
+      });
+      ```
      */
     logFilter(): void;
 
@@ -76,15 +87,16 @@ declare module 'award/server' {
      * 如果没有将errLogs返回，那么将不会打印错误日志
      *
      * ```
-     * app.catch(errLogs => {
+     * app.catch((errLogs, ctx) => {
      *   // 开发阶段、errLogs为null
      *   // 可以自行处理errLogs，决定是否将错误errLogs发送到终端，即打印日志
+     *   // ctx表示当前发生错误的请求的上下文对象
      *   return newErrLogs;
      * })
      * ```
      *
      */
-    catch(cb: Function): void;
+    catch(cb: (error: object, ctx: IContext) => object): void;
 
     /**
      *

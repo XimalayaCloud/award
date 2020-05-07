@@ -106,12 +106,14 @@ async function RouteEntry(
      */
     if (pass) {
       // 获取数据
-      needClient = await fetchInitialState(Component, match_routes, INITIAL_STATE, routes);
+      needClient = await fetchInitialState(Component, match_routes, INITIAL_STATE);
       // 客户端直接渲染404页面
-      if (!match) {
-        INITIAL_STATE.AwardException = await Exception.handleError.call(null, {
-          status: 404
-        });
+      if (!INITIAL_STATE.AwardException || INITIAL_STATE.AwardException.status !== 404) {
+        if (!match) {
+          INITIAL_STATE.AwardException = await Exception.handleError.call(null, {
+            status: 404
+          });
+        }
       }
       // 触发路由更新前钩子
       if (

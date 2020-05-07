@@ -29,7 +29,7 @@ export default (data?: { [key: string]: any } | Function) => {
         }
       } else {
         if (typeof setAward === 'function') {
-          setAward(data);
+          return setAward(data);
         }
       }
     }

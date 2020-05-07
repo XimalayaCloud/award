@@ -21,6 +21,7 @@ declare namespace NodeJS {
 
   export interface Global {
     inServer: boolean;
+    ServerHmr: boolean;
     AppRegistry: Function;
     __AWARD__PLUGINS__: {
       [name: string]: {

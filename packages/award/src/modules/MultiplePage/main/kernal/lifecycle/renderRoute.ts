@@ -9,8 +9,6 @@ export default function renderRoute(this: IKernal) {
     if (this.lastRoute === ctx.route) {
       return ctx.cb(false);
     }
-    // 清除全局错误
-    this.cleanError();
 
     // 找出当前需要更新的组件，即剔除创建组件的路由
     const existRoutes: any = [];

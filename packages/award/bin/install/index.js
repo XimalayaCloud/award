@@ -16,6 +16,32 @@ const grey = str => {
 
 module.exports = () => {
   try {
+    const rv = require('react/package.json').version;
+    const rdV = require('react-dom/package.json').version;
+    if (rv !== rdV) {
+      throw {
+        message: ` ${yellow(`react@${rv}`)} 和 ${yellow(`react-dom@${rdV}`)} 的版本号必须 ${green(
+          '保持一致'
+        )} `
+      };
+    } else {
+      var vs = rv.split('.');
+      if (vs[0] < 17 && vs[1] < 3) {
+        throw {
+          message: ` ${yellow(`react@${rv}`)} 和 ${yellow(`react-dom@${rdV}`)} 的版本号必须 ${green(
+            `>=16.3.0`
+          )} `
+        };
+      }
+    }
+  } catch (error) {
+    console.info();
+    console.info(error.message);
+    console.info();
+    process.exit(-1);
+  }
+
+  try {
     const { version: awardS } = require('award-scripts/package.json');
     const { version: awardV } = require('award/package.json');
     if (awardS !== awardV) {

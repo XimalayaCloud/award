@@ -9,7 +9,7 @@ export default (config: IConfig, dir: any): any => {
       const RootPageEntry = join(dir, entry);
       let RootComponent = () => null;
 
-      if (mode === 'client') {
+      if (mode === 'server') {
         global.AppRegistry = (Component: any) => {
           RootComponent = Component;
         };
