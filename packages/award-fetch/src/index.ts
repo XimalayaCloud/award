@@ -4,15 +4,7 @@ import { IOpt1, IOptUserBase } from './interfaces/fetchOptions';
 import log, { set as _setLog } from './utils/log';
 import * as thriftUtils from './utils/thrift'; // 防止开发环境模块重新载入
 import { COMMONERROR, ABORTERROR } from './utils/constant';
-
-// fetch 拦截器
-let _interceptors: {
-  request: Function[];
-  response: Function[];
-} = {
-  request: [],
-  response: []
-};
+import { interceptors as _interceptors, clean } from './utils/interceptors';
 
 export interface Log {
   error: (err: Error | string, name: string) => void;
@@ -25,7 +17,14 @@ const interceptors = {
     }
   },
   response: {
-    use: (func: (response: Response, log: Log) => Response) => {
+    /**
+     * @response 请求返回的响应对象 Response
+     *
+     * @data award-fetch处理后的数据结构，比如`json()`、`text()`
+     *
+     * @log 输出日志，log.error
+     */
+    use: (func: (response: Response, data: any, log: Log) => Response) => {
       _interceptors.response.push(func);
     }
   }
@@ -95,6 +94,8 @@ async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase):
     Object.assign(options, otherOptions);
   }
 
+  (options as any).basename = awardFetch.basename;
+
   options = reduce(
     _interceptors.request,
     (req, interceptor): IOpt1 => {
@@ -108,10 +109,7 @@ async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase):
     options
   );
 
-  let response;
-
-  (options as any).basename = awardFetch.basename;
-
+  let response = null;
   // 环境判断
   if (process.env.RUN_ENV === 'node') {
     const { thrift } = options;
@@ -133,20 +131,7 @@ async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase):
     // 这里是在线的web端
     response = require('./env/web')(options);
   }
-  return response.then((data: any) => {
-    return reduce(
-      _interceptors.response,
-      (res, interceptor) => {
-        const result = interceptor(res, log);
-        if (result) {
-          return result;
-        } else {
-          return res;
-        }
-      },
-      data
-    );
-  });
+  return response;
 }
 
 function all(fetches: any) {
@@ -186,13 +171,6 @@ awardFetch.ABORT_ERROR = ABORTERROR;
 /** 指定是否需要启用当前basename */
 awardFetch.basename = false;
 
-awardFetch.clean = () => {
-  if (process.env.NODE_ENV === 'development') {
-    if (global.ServerHmr) {
-      _interceptors.request = [];
-      _interceptors.response = [];
-    }
-  }
-};
+awardFetch.clean = clean;
 
 export default awardFetch;

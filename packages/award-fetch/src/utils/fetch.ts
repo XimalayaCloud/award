@@ -2,9 +2,12 @@ import fetch = require('isomorphic-fetch');
 import defaultsDeep = require('lodash/defaultsDeep');
 import isString = require('lodash/isString');
 import some = require('lodash/some');
+import reduce = require('lodash/reduce');
 import { IOpt1, IOpt2, IOptdefault } from '../interfaces/fetchOptions';
 import transformRequest from './transformRequest';
 import xhr, { checkStatus } from './xhr';
+import { interceptors } from './interceptors';
+import log from './log';
 
 function parseResponseJSON(response: Response) {
   try {
@@ -117,5 +120,19 @@ export default (options: IOpt1) => {
     return xhr(opts);
   }
 
-  return fetch(`${encodeURI(url)}${params}`, opts).then(transformResponse);
+  return fetch(`${encodeURI(url)}${params}`, opts).then(response => {
+    const data = transformResponse(response);
+    return reduce(
+      interceptors.response,
+      (transformData, interceptor) => {
+        const result = interceptor(response, transformData, log);
+        if (result) {
+          return result;
+        } else {
+          return transformData;
+        }
+      },
+      data
+    );
+  });
 };

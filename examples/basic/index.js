@@ -6,10 +6,10 @@ import About from './about';
 import './common.scss!';
 import './app.scss';
 
-fetch.interceptors.response.use((response, log) => {
+fetch.interceptors.response.use((response, data, log) => {
   log.error('发生错误了', 'interceptors response');
   console.error(1234, response);
-  return response;
+  return data;
 });
 
 function app(props) {
