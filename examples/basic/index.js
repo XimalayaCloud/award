@@ -8,7 +8,8 @@ import './app.scss';
 
 fetch.interceptors.response.use((data, response, log) => {
   log.error('发生错误了', 'interceptors response');
-  console.error('[response.status] ', response.status);
+  console.log('[response data]:', data);
+  console.error('[response.status]', response.status);
   return data;
 });
 

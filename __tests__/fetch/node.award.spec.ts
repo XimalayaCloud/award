@@ -158,8 +158,8 @@ describe('测试award-fetch  node', () => {
       fetch(server.url, {
         method: 'POST',
         dataType: 'text'
-      }).catch((err: any) => {
-        expect(err.message).toBe(`${server.url}: Internal Server Error`);
+      }).then((response: any) => {
+        expect(response.ok).toBeFalsy();
         expect(retry).toHaveBeenCalledTimes(3);
         resolve();
       });

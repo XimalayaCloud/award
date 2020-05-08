@@ -18,6 +18,7 @@ const interceptors = {
   },
   response: {
     /**
+     * 回调函数支持 async await
      *
      * @data award-fetch处理后的数据结构，比如`json()`、`text()`
      *
