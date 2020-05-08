@@ -48,8 +48,7 @@ export default (
   options: IOptthrift,
   thriftUtils: {
     getClients: Function;
-  },
-  isInterceptorsResponse: boolean
+  }
 ): Promise<any> => {
   const { fetch: fetchConfig = {} }: any = getAwardConfig();
 
@@ -111,7 +110,7 @@ export default (
           const callback = (err: Error, re: any) => {
             if (err) {
               log.error(err, 'fetch-to-thrift-err');
-              fetch(options, isInterceptorsResponse)
+              fetch(options)
                 .then(resolve)
                 .catch(reject);
               thriftClients[thriftKey] = null;
@@ -128,7 +127,7 @@ export default (
         } catch (e) {
           log.error(e, 'thriftPool-connnect-error');
           // thrift连接失败 换http请求
-          fetch(options, isInterceptorsResponse)
+          fetch(options)
             .then(resolve)
             .catch(reject);
           thriftClients[thriftKey] = null;
@@ -136,5 +135,5 @@ export default (
       });
     });
   }
-  return fetch(options, isInterceptorsResponse);
+  return fetch(options);
 };

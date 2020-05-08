@@ -38,14 +38,18 @@ const cacheUtil = {
     // 路径匹配缓存在
     if (html) {
       // 直接读缓存，不做任何计算处理
-      console.info(`[hit]${path}`);
+      if (process.env.NODE_ENV !== 'production') {
+        console.info(`[hit]${path}`);
+      }
       ctx.set('X-Award-Cache', 'true');
     }
     return html;
   },
   set(ctx: IContext, html: string) {
     const path = this._getPath(ctx);
-    console.info(`[cache]: ${path}`);
+    if (process.env.NODE_ENV !== 'production') {
+      console.info(`[cache]: ${path}`);
+    }
     if (path) {
       pageCache.set(path, html);
     }

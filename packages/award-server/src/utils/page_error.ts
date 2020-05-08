@@ -14,7 +14,9 @@ export default async function PageError(
 
   if (url != null) {
     // 抛出重定向
-    console.info('[redirect]', url);
+    if (process.env.NODE_ENV !== 'production') {
+      console.info('[redirect]', url);
+    }
     ctx.status = status === 301 ? status : 302;
     if (!/^http(s)?:/.test(url)) {
       ctx.redirect(ctx.award.config.basename + url);

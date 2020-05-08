@@ -5,8 +5,10 @@ import some = require('lodash/some');
 import { IOpt1, IOpt2, IOptdefault } from '../interfaces/fetchOptions';
 import transformRequest from './transformRequest';
 import xhr, { checkStatus } from './xhr';
+import { interceptors } from './interceptors';
+import log from './log';
 
-function parseJSON(response: Response) {
+function parseResponseJSON(response: Response) {
   try {
     return checkStatus(response).json();
   } catch (error) {
@@ -14,7 +16,7 @@ function parseJSON(response: Response) {
   }
 }
 
-function parseText(response: Response) {
+function parseResponseText(response: Response) {
   try {
     return checkStatus(response).text();
   } catch (error) {
@@ -22,13 +24,13 @@ function parseText(response: Response) {
   }
 }
 
-function parseObject(response: Response) {
-  if (typeof response === 'string') {
+function parseObject(data: Response) {
+  if (typeof data === 'string') {
     try {
-      return JSON.parse(response);
+      return JSON.parse(data);
     } catch (error) {}
   }
-  return response;
+  return data;
 }
 
 function parseXhrJSON(data: Response) {
@@ -46,10 +48,8 @@ const defaultOptions = {
   // 允许跨域
   credentials: 'include',
   mode: 'cors',
-  // request data format
-  // object --> string
   transformRequest,
-  transformResponse: parseJSON,
+  transformResponse: parseResponseJSON,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
   }
@@ -97,7 +97,7 @@ function mergeOptions(_options: IOpt1, defaultOpt?: IOptdefault): IOpt2 {
   }
 
   if (dataType === 'string' || dataType === 'text') {
-    options.transformResponse = parseText;
+    options.transformResponse = parseResponseText;
   }
 
   if (dataType === 'object') {
@@ -111,19 +111,27 @@ function mergeOptions(_options: IOpt1, defaultOpt?: IOptdefault): IOpt2 {
  * web client fetch
  * @param  {[object]} options fetch参数
  */
-export default (options: IOpt1, isInterceptorsResponse: boolean) => {
+export default (options: IOpt1) => {
   const opts: IOpt2 = mergeOptions(options, defaultOptions);
   const { url, params, transformResponse } = opts;
 
   if (needXHR(opts)) {
-    return xhr(opts, isInterceptorsResponse);
+    return xhr(opts);
   }
 
-  return fetch(`${encodeURI(url)}${params}`, opts).then(response => {
-    if (isInterceptorsResponse) {
-      return response;
-    } else {
-      return transformResponse(response);
+  return fetch(`${encodeURI(url)}${params}`, opts).then(async response => {
+    let transformData = await transformResponse(response);
+    const rl = interceptors.response.length;
+    if (rl) {
+      let i = 0;
+      while (i < rl) {
+        const result = await interceptors.response[i](transformData, response, log);
+        if (result) {
+          transformData = result;
+        }
+        i++;
+      }
     }
+    return transformData;
   });
 };

@@ -25,11 +25,7 @@ class HttpClient {
     }
   }
 
-  public async startFetch(
-    options: IOpt1,
-    isInterceptorsResponse: boolean,
-    retryTime = this.API_RETRY_TIME
-  ): Promise<any> {
+  public async startFetch(options: IOpt1, retryTime = this.API_RETRY_TIME): Promise<any> {
     const { url } = options;
     try {
       const uri = await this.getUri(url);
@@ -40,33 +36,36 @@ class HttpClient {
           fetch: true
         };
       }
-      const _time1 = Number(new Date());
-      console.info(`[server-fetch-start]:${uri}`);
       try {
-        const data = await fetch(
-          {
-            ...options,
-            url: uri,
-            timeout: this.timeout
-          },
-          isInterceptorsResponse
-        ).then(response => {
-          if (response.status < 200 || response.status > 350) {
-            // 需要重试
-            throw { status: 500, message: `${response.url}: ${response.statusText}`, fetch: true };
-          }
-          return response;
-        });
-        const _time2 = Number(new Date());
-        console.info(`[server-fetch-end]:${uri}(${_time2 - _time1}ms)`);
-        return data;
+        return await fetch({
+          ...options,
+          url: uri,
+          timeout: this.timeout
+        })
+          .then(response => {
+            if (this.API_RETRY_TIME && retryTime > 0) {
+              // 设置了重试次数，且当前重试次数 > 0
+              if (response.status < 200 || response.status > 350) {
+                throw {
+                  type: 1,
+                  message: `${response.url}: ${response.statusText}`
+                };
+              }
+            }
+            return response;
+          })
+          .catch(err => {
+            throw err;
+          });
       } catch (e) {
-        if (retryTime > 0) {
-          log.error(uri, 'server-fetch-retry');
-          return this.startFetch(options, isInterceptorsResponse, --retryTime);
+        if (e.type === 1) {
+          if (retryTime > 0) {
+            log.error(e.message, 'server-fetch-retry');
+            return this.startFetch(options, --retryTime);
+          }
+        } else {
+          throw e;
         }
-        log.error(e.message, 'server-fetch-error');
-        return Promise.reject(e);
       }
     } catch (err) {
       log.error(err, 'apiGetWay-getUri-error');
@@ -88,7 +87,7 @@ class HttpClient {
   }
 }
 
-export default (options: IOpt1, isInterceptorsResponse: boolean) => {
+export default (options: IOpt1) => {
   const { fetch: fetchConfig }: any = getAwardConfig();
   const { timeout = 5000 } = fetchConfig;
   Object.assign(apiGatewayConfig, fetchConfig.apiGateway);
@@ -105,10 +104,7 @@ export default (options: IOpt1, isInterceptorsResponse: boolean) => {
     });
   }
 
-  return httpClient.startFetch(
-    {
-      ...options
-    },
-    isInterceptorsResponse
-  );
+  return httpClient.startFetch({
+    ...options
+  });
 };

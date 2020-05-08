@@ -43,15 +43,16 @@ describe('测试award-fetch web', () => {
       return req;
     });
 
-    fetch.interceptors.response.use((res: any) => {
-      return new Promise(async resolve => {
-        const data = await res.text();
+    fetch.interceptors.response.use(async (data: any, res: any) => {
+      return await new Promise(async resolve => {
+        expect(res.ok).toBeTruthy();
         resolve(data + ' world');
       });
     });
 
     const info = jest.fn();
-    fetch.interceptors.response.use(() => {
+    fetch.interceptors.response.use((data: any) => {
+      expect(data).toBe('hello world');
       info();
     });
 

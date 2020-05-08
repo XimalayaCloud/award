@@ -7,7 +7,7 @@ import isFunction = require('lodash/isFunction');
 import { IOpt2 } from '../interfaces/fetchOptions';
 import { COMMONERROR, ABORTERROR } from './constant';
 
-export default function request(options: IOpt2, isInterceptorsResponse: boolean): Promise<any> {
+export default function request(options: IOpt2): Promise<any> {
   return new Promise((resolve: (rdata: any) => void, reject: (reason: any) => void) => {
     const {
       method,
@@ -40,30 +40,21 @@ export default function request(options: IOpt2, isInterceptorsResponse: boolean)
         return;
       }
 
-      if (isInterceptorsResponse) {
-        const responseData =
-          !dataType || dataType === 'string' || dataType === 'text'
-            ? xhr.responseText
-            : xhr.response;
-        resolve(responseData);
-      } else {
-        try {
-          checkStatus({
-            url,
-            status: xhr.status,
-            statusText: xhr.statusText
-          } as any);
-        } catch (error) {
-          error.award = COMMONERROR;
-          reject(error);
-        }
-
+      try {
+        checkStatus({
+          url,
+          status: xhr.status,
+          statusText: xhr.statusText
+        } as any);
         const responseData =
           !dataType || dataType === 'string' || dataType === 'text'
             ? xhr.responseText
             : transformResponse(xhr.response);
 
         resolve(responseData);
+      } catch (error) {
+        error.award = COMMONERROR;
+        reject(error);
       }
 
       xhr = null;
@@ -132,5 +123,5 @@ export function checkStatus(response: Response) {
     return response;
   }
 
-  throw { status: 500, message: `${response.url}: ${response.statusText}`, fetch: true };
+  throw { status: 500, message: `${response.url}: ${response.statusText}`, fetch: true, response };
 }

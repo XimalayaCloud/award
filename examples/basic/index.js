@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { start, Consumer, basename } from 'award';
+import { start, Consumer, basename, Head } from 'award';
 import fetch from 'award-fetch';
 import Home from './home';
 import About from './about';
 import './common.scss!';
 import './app.scss';
 
-fetch.interceptors.response.use((response, log) => {
+fetch.interceptors.response.use((data, response, log) => {
   log.error('发生错误了', 'interceptors response');
-  console.error(1234, response.status);
-  return response.json();
+  console.log('[response data]:', data.ok);
+  console.error('[response.status]', response.status);
+  return data;
 });
 
 function app(props) {
@@ -21,6 +22,9 @@ function app(props) {
   }
   return (
     <>
+      <Head>
+        <title>basic</title>
+      </Head>
       <p>basename：{basename()}</p>
       <h1
         onClick={() => {
@@ -56,16 +60,18 @@ function app(props) {
 
 app.getInitialProps = ctx => {
   const result = [
-    fetch('/api/list', {
-      transformResponse: response => {
-        console.log(321, response);
-        return response;
-      }
-    }).then(data => {
-      ctx.setAward({
-        num: data.num
-      });
-    })
+    fetch('/api/list')
+      .then(async data => {
+        console.log(1, data);
+        // const t = await data.text();
+        // console.log('res', data.ok, t);
+        ctx.setAward({
+          num: data.num
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      })
   ];
 
   return Promise.all(result);
