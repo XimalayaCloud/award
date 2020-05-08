@@ -8,7 +8,7 @@ import './app.scss';
 
 fetch.interceptors.response.use((data, response, log) => {
   log.error('发生错误了', 'interceptors response');
-  console.log('[response data]:', data);
+  console.log('[response data]:', data.ok);
   console.error('[response.status]', response.status);
   return data;
 });
@@ -60,11 +60,18 @@ function app(props) {
 
 app.getInitialProps = ctx => {
   const result = [
-    fetch('/api/list').then(data => {
-      ctx.setAward({
-        num: data.num
-      });
-    })
+    fetch('http://a.com/api/error')
+      .then(async data => {
+        console.log(1, data);
+        // const t = await data.text();
+        // console.log('res', data.ok, t);
+        ctx.setAward({
+          num: data.num
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      })
   ];
 
   return Promise.all(result);

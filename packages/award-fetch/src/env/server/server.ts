@@ -37,25 +37,34 @@ class HttpClient {
         };
       }
       try {
-        return await fetch({
+        await fetch({
           ...options,
           url: uri,
           timeout: this.timeout
-        }).then(response => {
-          if (this.API_RETRY_TIME && retryTime > 0) {
-            // 设置了重试次数，且当前重试次数 > 0
-            if (response.status < 200 || response.status > 350) {
-              throw {
-                message: `${response.url}: ${response.statusText}`
-              };
+        })
+          .then(response => {
+            if (this.API_RETRY_TIME && retryTime > 0) {
+              // 设置了重试次数，且当前重试次数 > 0
+              if (response.status < 200 || response.status > 350) {
+                throw {
+                  type: 1,
+                  message: `${response.url}: ${response.statusText}`
+                };
+              }
             }
-          }
-          return response;
-        });
+            return response;
+          })
+          .catch(err => {
+            throw err;
+          });
       } catch (e) {
-        if (retryTime > 0) {
-          log.error(e.message, 'server-fetch-retry');
-          return this.startFetch(options, --retryTime);
+        if (e.type === 1) {
+          if (retryTime > 0) {
+            log.error(e.message, 'server-fetch-retry');
+            return this.startFetch(options, --retryTime);
+          }
+        } else {
+          throw e;
         }
       }
     } catch (err) {
