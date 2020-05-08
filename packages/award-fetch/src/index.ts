@@ -136,7 +136,7 @@ async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase):
   options = reduce(
     _interceptors.request,
     (req, interceptor): IOpt1 => {
-      const result = interceptor(req, log);
+      const result = interceptor.func(req, log);
       if (result) {
         return result;
       } else {
