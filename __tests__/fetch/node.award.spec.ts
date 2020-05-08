@@ -165,4 +165,18 @@ describe('测试award-fetch  node', () => {
       });
     });
   });
+
+  it('错误请求未知尝试', async () => {
+    const fetch = require('award-fetch').default;
+    await new Promise(resolve => {
+      fetch('http://a.b.c.com/a', {
+        method: 'POST'
+      }).catch((e: any) => {
+        expect(e.message).toBe(
+          'request to http://a.b.c.com/a failed, reason: getaddrinfo ENOTFOUND a.b.c.com'
+        );
+        resolve();
+      });
+    });
+  });
 });
