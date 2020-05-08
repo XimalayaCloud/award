@@ -37,7 +37,7 @@ class HttpClient {
         };
       }
       try {
-        await fetch({
+        return await fetch({
           ...options,
           url: uri,
           timeout: this.timeout

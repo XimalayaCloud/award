@@ -60,7 +60,7 @@ function app(props) {
 
 app.getInitialProps = ctx => {
   const result = [
-    fetch('http://a.com/api/error')
+    fetch('/api/list')
       .then(async data => {
         console.log(1, data);
         // const t = await data.text();
