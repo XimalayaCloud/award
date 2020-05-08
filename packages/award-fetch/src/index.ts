@@ -18,13 +18,14 @@ const interceptors = {
   },
   response: {
     /**
-     * @response 请求返回的响应对象 Response
      *
      * @data award-fetch处理后的数据结构，比如`json()`、`text()`
      *
+     * @response 请求返回的响应的对象原型 Response
+     *
      * @log 输出日志，log.error
      */
-    use: (func: (response: Response, data: any, log: Log) => Response) => {
+    use: (func: (data: any, response: Response, log: Log) => Response) => {
       _interceptors.response.push(func);
     }
   }
@@ -55,11 +56,12 @@ const interceptors = {
  * })
  *
  * // 响应劫持处理
- * // response 表示请求参数
+ * // data表示award-fetch处理的数据结果
+ * // response 表示响应返回的对象原型
  * // log是函数，可以在服务器输出错误 log.error
- * fetch.interceptors.response.use((response, log) => {
- *  console.log(response);
- *  return response.json();
+ * fetch.interceptors.response.use((data, response, log) => {
+ *  console.log("response status",response.status);
+ *  return data
  * })
  * ```
  *

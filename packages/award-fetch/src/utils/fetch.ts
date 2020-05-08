@@ -125,7 +125,7 @@ export default (options: IOpt1) => {
     return reduce(
       interceptors.response,
       (transformData, interceptor) => {
-        const result = interceptor(response, transformData, log);
+        const result = interceptor(transformData, response, log);
         if (result) {
           return result;
         } else {

@@ -6,7 +6,7 @@ import About from './about';
 import './common.scss!';
 import './app.scss';
 
-fetch.interceptors.response.use((response, data, log) => {
+fetch.interceptors.response.use((data, response, log) => {
   log.error('发生错误了', 'interceptors response');
   console.error('[response.status] ', response.status);
   return data;
