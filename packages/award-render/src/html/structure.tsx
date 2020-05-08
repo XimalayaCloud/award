@@ -7,6 +7,8 @@ import { IContext } from 'award-types';
 import { getBundles } from 'react-loadable/webpack';
 import * as path from 'path';
 
+require('react-helmet/lib/HelmetConstants.js').HELMET_ATTRIBUTE = '';
+
 const styleModulefile = path.join(process.cwd(), 'node_modules/.cache/award/.moduleStyles.json');
 
 const createStyleLink = (ctx: IContext) => {

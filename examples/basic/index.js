@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { start, Consumer, basename } from 'award';
+import { start, Consumer, basename, Head } from 'award';
 import fetch from 'award-fetch';
 import Home from './home';
 import About from './about';
@@ -8,7 +8,7 @@ import './app.scss';
 
 fetch.interceptors.response.use((response, data, log) => {
   log.error('发生错误了', 'interceptors response');
-  console.error(1234, response);
+  console.error('[response.status] ', response.status);
   return data;
 });
 
@@ -21,6 +21,9 @@ function app(props) {
   }
   return (
     <>
+      <Head>
+        <title>basic</title>
+      </Head>
       <p>basename：{basename()}</p>
       <h1
         onClick={() => {
