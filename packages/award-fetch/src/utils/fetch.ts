@@ -125,7 +125,7 @@ export default (options: IOpt1) => {
     if (rl) {
       let i = 0;
       while (i < rl) {
-        const result = await interceptors.response[i](transformData, response, log);
+        const result = await interceptors.response[i].func(transformData, response, log);
         if (result) {
           transformData = result;
         }

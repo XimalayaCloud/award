@@ -2,11 +2,13 @@
  * 样式随机两位数scope算法，在一定程度上保证了稳定随机
  * 同时增加了map文件，默认没有，需要package.json指定
  */
+import fetch from 'award-fetch';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as chokidar from 'chokidar';
 import stringHash = require('string-hash');
 import { quickSort } from '../help';
+import { regNodeModules } from '../help';
 
 const ch = [
   'A',
@@ -268,6 +270,21 @@ export default () => {
         randoms.push(deleteRandom);
         rl++;
         delete storeReference[lowerFilePath];
+      }
+    })
+    .on('change', filepath => {
+      // 这里只对改变的文件进行缓存清除
+      const fullPath = path.join(cwd, filepath);
+      const mod = require.cache[fullPath];
+      if (mod) {
+        delete require.cache[mod.id];
+        fetch.clean(mod.id);
+        if (mod.parent) {
+          if (!regNodeModules.test(mod.parent.id)) {
+            delete require.cache[mod.parent.id];
+            fetch.clean(mod.parent.id);
+          }
+        }
       }
     });
 
