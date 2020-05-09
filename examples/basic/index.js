@@ -28,6 +28,7 @@ function app(props) {
     <>
       <Head>
         <title>basic</title>
+        <meta name="keywords" content="award" />
       </Head>
       <p>basename：{basename()}</p>
       <h1

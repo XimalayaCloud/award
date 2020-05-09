@@ -75,6 +75,7 @@ const siteConfig = {
 
   // Add custom scripts here that would be placed in <script> tags.
   scripts: [
+    '/award/js/third/baidu.js' + times,
     '/award/js/third/buttons.js' + times,
     '/award/js/third/clipboard.js' + times,
     '/award/js/code-block-buttons.js' + times
@@ -95,7 +96,9 @@ const siteConfig = {
   // Show documentation's last update time.
   enableUpdateTime: true,
 
-  docsSideNavCollapsible: true
+  docsSideNavCollapsible: true,
+
+  editUrl: 'https://github.com/XimalayaCloud/award/tree/master/docs/'
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...

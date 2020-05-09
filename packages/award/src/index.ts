@@ -10,6 +10,8 @@ export { default as start, ErrorProps } from './start';
 export { default as setAward } from './setAward';
 export { default as removeAward } from './removeAward';
 
+require('react-helmet/lib/HelmetConstants.js').HELMET_ATTRIBUTE = '';
+
 if (process.env.RUN_ENV === 'web') {
   const basename = '';
   '<$>__AWARD__BASENAME__<$>';
