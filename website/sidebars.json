@@ -17,7 +17,13 @@
   },
   "插件": {
     "基础": ["plugin/intro", "plugin/development", "plugin/node", "plugin/client"],
-    "官方插件列表": ["plugin/dva", "plugin/cahce", "plugin/pwa", "plugin/styled-components"]
+    "官方插件列表": [
+      "plugin/dva",
+      "plugin/cahce",
+      "plugin/pwa",
+      "plugin/styled-components",
+      "plugin/webpack-include"
+    ]
   },
   "接口": {
     "基础": [

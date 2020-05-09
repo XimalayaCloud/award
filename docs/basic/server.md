@@ -105,9 +105,11 @@ module.exports = mid1;
 
 ## 日志过滤
 
-> 自定义过滤字段来禁用`console.log`的打印
-> 
-> 如果没有设置过滤器，award会禁用服务端所有的`console.log`的输出
+> `award`在编译服务端资源时，会移除所有的console代码
+>
+> 这里的服务端资源编译的入口只有两个`项目入口文件`和`award.config.js`
+>
+> 也就是说，这里的日志过滤只针对未编译的代码，那么也就是当前`server.js`及其依赖
 
 ```js
 
