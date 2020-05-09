@@ -13,7 +13,24 @@ export interface Log {
 const interceptors = {
   request: {
     use: (func: (response: Request, log: Log) => Request) => {
-      _interceptors.request.push(func);
+      let sourceFile = null;
+      if (process.env.NODE_ENV === 'development' && process.env.RUN_ENV === 'node') {
+        try {
+          throw new Error();
+        } catch (error) {
+          const stack = error.stack;
+          const stackArr = stack.split('\n');
+          const source = stackArr[2];
+          const match = source.match(new RegExp(`${process.cwd()}/(.*)(.js|ts|jsx|tsx)`));
+          if (match) {
+            sourceFile = match[0];
+          }
+        }
+      }
+      _interceptors.request.push({
+        source: sourceFile,
+        func
+      });
     }
   },
   response: {
@@ -27,7 +44,24 @@ const interceptors = {
      * @log 输出日志，log.error
      */
     use: (func: (data: any, response: Response, log: Log) => Response) => {
-      _interceptors.response.push(func);
+      let sourceFile = null;
+      if (process.env.NODE_ENV === 'development' && process.env.RUN_ENV === 'node') {
+        try {
+          throw new Error();
+        } catch (error) {
+          const stack = error.stack;
+          const stackArr = stack.split('\n');
+          const source = stackArr[2];
+          const match = source.match(new RegExp(`${process.cwd()}/(.*)(.js|ts|jsx|tsx)`));
+          if (match) {
+            sourceFile = match[0];
+          }
+        }
+      }
+      _interceptors.response.push({
+        source: sourceFile,
+        func
+      });
     }
   }
 };
@@ -102,7 +136,7 @@ async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase):
   options = reduce(
     _interceptors.request,
     (req, interceptor): IOpt1 => {
-      const result = interceptor(req, log);
+      const result = interceptor.func(req, log);
       if (result) {
         return result;
       } else {

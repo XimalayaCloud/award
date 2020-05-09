@@ -1,7 +1,6 @@
 /**
  * 初始化中间件
  */
-import fetch from 'award-fetch';
 import { IContext, IServer, IConfig } from 'award-types';
 import { Middleware } from 'koa';
 import { serverInfo } from 'award-utils/server';
@@ -39,16 +38,10 @@ export default function hmrEntrySource(this: IServer): Middleware<any, IContext>
     }
     try {
       // 重新加载入口文件
-      global.ServerHmr = true;
       await loadEntryFile.call(self);
       await next();
     } finally {
-      fetch.clean();
-      if (self.RootPageEntry) {
-        removeModule(self.RootPageEntry);
-        serverInfo.call(self);
-      }
+      serverInfo.call(self);
     }
-    global.ServerHmr = false;
   };
 }

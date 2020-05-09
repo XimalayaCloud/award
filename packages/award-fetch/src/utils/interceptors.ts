@@ -1,16 +1,26 @@
 export const interceptors: {
-  request: Function[];
-  response: Function[];
+  request: any;
+  response: any;
 } = {
   request: [],
   response: []
 };
 
-export const clean = () => {
+export const clean = (filepath: string) => {
   if (process.env.NODE_ENV === 'development') {
-    if (global.ServerHmr) {
-      interceptors.request = [];
-      interceptors.response = [];
-    }
+    interceptors.request = interceptors.request.filter((item: any) => {
+      if (item.source !== filepath) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    interceptors.response = interceptors.response.filter((item: any) => {
+      if (item.source !== filepath) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 };

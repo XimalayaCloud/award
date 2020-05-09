@@ -11,8 +11,8 @@ const port = process.argv.slice(2)[0];
 const pid: any[] = [];
 const portFile = path.join(process.cwd(), 'node_modules', '.port');
 
-const findAvailablePort = async () => {
-  let currentPort = Math.floor(Math.random() * 30000 + 10000);
+const findAvailablePort = async (port: string) => {
+  let currentPort = Number(port) + 1;
   let receive = false;
   await new Promise(async resolve => {
     while (!receive) {
@@ -27,7 +27,7 @@ const findAvailablePort = async () => {
             }
           });
           if (_list.length) {
-            currentPort = Math.floor(Math.random() * 30000 + 10000);
+            currentPort = currentPort + 1;
           } else {
             receive = true;
           }
@@ -41,7 +41,7 @@ const findAvailablePort = async () => {
 };
 
 (async () => {
-  const newPort = await findAvailablePort();
+  const newPort = await findAvailablePort(port);
   inquirer
     .prompt({
       type: 'confirm',
