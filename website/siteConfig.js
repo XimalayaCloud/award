@@ -44,9 +44,6 @@ const siteConfig = {
     indexName: 'ximalayacloud_award'
   },
 
-  gaTrackingId: 'UA-165989021-1',
-  gaGtag: true,
-
   /* path to images for header/footer */
   footerIcon: 'img/favicon.ico',
   favicon: 'img/logo.png',
@@ -78,6 +75,7 @@ const siteConfig = {
 
   // Add custom scripts here that would be placed in <script> tags.
   scripts: [
+    '/award/js/third/baidu.js' + times,
     '/award/js/third/buttons.js' + times,
     '/award/js/third/clipboard.js' + times,
     '/award/js/code-block-buttons.js' + times
