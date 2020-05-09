@@ -44,6 +44,9 @@ const siteConfig = {
     indexName: 'ximalayacloud_award'
   },
 
+  gaTrackingId: 'UA-165989021-1',
+  gaGtag: true,
+
   /* path to images for header/footer */
   footerIcon: 'img/favicon.ico',
   favicon: 'img/logo.png',
@@ -95,7 +98,9 @@ const siteConfig = {
   // Show documentation's last update time.
   enableUpdateTime: true,
 
-  docsSideNavCollapsible: true
+  docsSideNavCollapsible: true,
+
+  editUrl: 'https://github.com/XimalayaCloud/award/tree/master/docs/'
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
