@@ -44,6 +44,7 @@ export default (dir: string, assetPrefixs: string) => {
        * 获取packages.json的dll参数
        */
       const dll = (require(pkg).dll || []).filter((item: any) => item !== 'award');
+      const devDll = (require(pkg)['dev-dll'] || []).filter((item: any) => item !== 'award');
       // 遍历每个entry的版本号
       const entry = [
         ...new Set([
@@ -65,7 +66,8 @@ export default (dir: string, assetPrefixs: string) => {
           '@hot-loader/react-dom',
           'react-helmet',
           'react-loadable',
-          ...dll
+          ...dll,
+          ...devDll
         ])
       ].filter((item: any) => !/^[\.|\/]/.test(item));
 

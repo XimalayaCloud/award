@@ -23,7 +23,7 @@ function app(props) {
   if (process.env.RUN_ENV === 'node') {
     const a = 2;
   }
-  console.log('render');
+  console.log('render123');
   return (
     <>
       <Head>

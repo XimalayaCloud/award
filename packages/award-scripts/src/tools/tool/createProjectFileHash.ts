@@ -242,6 +242,17 @@ export default () => {
     });
   };
 
+  const loopDeleteParentMod = (mod: any) => {
+    if (mod) {
+      // 删除当前mod
+      if (!regNodeModules.test(mod.id)) {
+        fetch.clean(mod.id);
+        delete require.cache[mod.id];
+      }
+      loopDeleteParentMod(mod.parent);
+    }
+  };
+
   let deleteRandom: any = null;
   const watch = chokidar
     .watch('**/*.{ts,tsx,js,jsx}', {
@@ -276,16 +287,7 @@ export default () => {
       // 这里只对改变的文件进行缓存清除
       const fullPath = path.join(cwd, filepath);
       const mod = require.cache[fullPath];
-      if (mod) {
-        delete require.cache[mod.id];
-        fetch.clean(mod.id);
-        if (mod.parent) {
-          if (!regNodeModules.test(mod.parent.id)) {
-            delete require.cache[mod.parent.id];
-            fetch.clean(mod.parent.id);
-          }
-        }
-      }
+      loopDeleteParentMod(mod);
     });
 
   loopFile(cwd);
