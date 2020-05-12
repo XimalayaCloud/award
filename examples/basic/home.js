@@ -12,7 +12,7 @@ p:hover{
 
 export default () => (
   <div>
-    <h1 className="h1 aB">hello home</h1>
+    <h1 className="h1">hello home</h1>
     <p>this is home component</p>
   </div>
 );

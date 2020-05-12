@@ -29,6 +29,7 @@ if (argvs[0] === 'dev' || argvs[0] === 'debug') {
           let port = Number(params.port || 1234);
           const newPort = require('award-scripts/prepare')(true, true, port);
           if (newPort) {
+            params.port = newPort;
             port = newPort;
           }
           super({
@@ -107,6 +108,9 @@ module.exports = class CustomServer {
       this.init['port'] = port;
     }
     const app = new Server(this.init);
+    if (typeof port === 'string' || typeof port === 'number') {
+      arguments[0] = this.init.port;
+    }
     this.values.map(item => {
       switch (item.name) {
         case 'use':
