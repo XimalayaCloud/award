@@ -11,7 +11,8 @@ import {
 import clientPlugin from 'award-plugin/client';
 
 const isObj = (obj: any) => typeof obj === 'object';
-const isPromise = (obj: any) => isObj(obj) && typeof obj.then === 'function';
+const isPromise = (obj: any) =>
+  !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 
 /**
  * 处理路由的核心组件
