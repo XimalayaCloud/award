@@ -133,7 +133,7 @@ export function routerWillUpdate({
       resolve(true);
     }
   }).then(res => {
-    if (res) {
+    if (res && !loadParams.get().firstRender) {
       loadParams.set({ isSwitchRouter: true });
     }
     return res;
