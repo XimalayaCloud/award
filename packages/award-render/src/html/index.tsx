@@ -134,7 +134,6 @@ export default async (
   const myDoc: DocumentProps = {
     Head: () => (
       <>
-        <meta charSet="utf-8" />
         <RenderComponent element={docStruct.beforeHead} />
         {head}
         {doc.head}
