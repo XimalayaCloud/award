@@ -1,17 +1,17 @@
-import { Helmet as Head } from 'react-helmet';
 import loadParams from 'award-utils/loadParams';
+import Head from './head';
 import Consumer from './consumer';
 import start from './start';
 import setAward from './setAward';
 import removeAward from './removeAward';
-export { Helmet as Head } from 'react-helmet';
+
+export { default as Head } from './head';
 export { default as Consumer } from './consumer';
 export { default as start, ErrorProps } from './start';
 export { default as setAward } from './setAward';
 export { default as removeAward } from './removeAward';
 
 if (process.env.RUN_ENV === 'web') {
-  require('react-helmet/lib/HelmetConstants.js').HELMET_ATTRIBUTE = '_';
   const basename = '';
   '<$>__AWARD__BASENAME__<$>';
   loadParams.set({ basename });
