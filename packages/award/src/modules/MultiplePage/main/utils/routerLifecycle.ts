@@ -132,6 +132,11 @@ export function routerWillUpdate({
     } else {
       resolve(true);
     }
+  }).then(res => {
+    if (res) {
+      loadParams.set({ isSwitchRouter: true });
+    }
+    return res;
   });
 }
 

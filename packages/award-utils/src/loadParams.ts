@@ -6,6 +6,8 @@ const params = {
   ssr: false,
   firstRender: true,
   isRenderRouter: false,
+  /** 标识是否切换路由 */
+  isSwitchRouter: false,
   basename: '',
   routes: []
 };
@@ -15,13 +17,15 @@ export const set = ({
   firstRender,
   basename,
   isRenderRouter,
-  routes
+  routes,
+  isSwitchRouter
 }: {
   ssr?: boolean;
   firstRender?: boolean;
   basename?: string;
   isRenderRouter?: boolean;
   routes?: any;
+  isSwitchRouter?: boolean;
 }) => {
   if (typeof firstRender !== 'undefined') {
     params.firstRender = firstRender;
@@ -41,6 +45,10 @@ export const set = ({
 
   if (typeof routes !== 'undefined') {
     params.routes = routes;
+  }
+
+  if (typeof isSwitchRouter !== 'undefined') {
+    params.isSwitchRouter = isSwitchRouter;
   }
 };
 
