@@ -28,6 +28,8 @@
 
 - 支持使用TypeScript进行开发，[了解更多](https://ximalayacloud.github.io/award/docs/more/tools#%E6%8E%A5%E5%85%A5typescript)
 
+- 最佳实践，[喜马拉雅PC主站](https://www.ximalaya.com/)
+
 # Quick experience
 
 ```bash
