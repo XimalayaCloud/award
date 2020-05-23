@@ -2,13 +2,26 @@
 
 [![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/awardhello-world-0y1fi?fontsize=14&hidenavigation=1&theme=dark)
 
-- **场景:** 基于react框架，支撑[大型内容网站](#faq)的服务端渲染和单页应用
+- **场景:** 基于react框架，支撑[大型内容网站](#faq)的服务端渲染或单页应用
 
-- **开箱即用:** 开发者只需要关注组件和中间件的开发即可，其他就交给award吧
+- **开箱即用:** 开发者只需要关注组件（react）和中间件（koa）的开发即可，其他就交给award处理吧
 
-- **插件:** 提供了丰富且强大的插件系统，让开发者在Award的生态里自由的翱翔
+- **插件:** 提供了丰富且强大的插件系统，让开发者可以自由的操作award执行的生命周期（服务端、客户端、编译等所有场景）
 
 - **参考学习:** 提供了[文档](http://ximalayacloud.github.io/award/docs/basic/intro/)和[视频](https://www.bilibili.com/video/av82146266)
+
+# feature
+
+- 无需任何配置，支持根据路由按需加载js和css资源
+
+- 无需任何配置，支持CSS Modules，代码如下示例，[更多](https://ximalayacloud.github.io/award/docs/basic/static)
+
+  ```jsx
+  import "./test.scss"
+  
+  // 直接如下所示写组件即可，不需要做任何处理，award自会帮你实现CSS Modules
+  <h1 className="name">hello world</h1>
+  ```
 
 # Quick experience
 
