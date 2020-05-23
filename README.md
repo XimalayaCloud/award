@@ -22,7 +22,7 @@
   // 直接如下所示写组件即可，不需要做任何处理，award自会帮你实现CSS Modules
   <h1 className="name">hello world</h1>
   ```
-- 路由底层基于**`react-router v5`**，那么就可以根据其规则配置复杂的路由规则了，[了解更多](https://ximalayacloud.github.io/award/docs/router/intro)
+- 路由底层基于**react-router v5**，那么就可以根据其规则配置复杂的路由规则了，[了解更多](https://ximalayacloud.github.io/award/docs/router/intro)
 
 - 提供了路由切换的**生命周期**，[了解更多](https://ximalayacloud.github.io/award/docs/router/intro#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
 
