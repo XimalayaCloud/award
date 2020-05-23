@@ -26,6 +26,8 @@
 
 - 提供了路由切换的**生命周期**，[了解更多](https://ximalayacloud.github.io/award/docs/router/intro#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
 
+- 服务端基于**koa2**运行，你可以自由的编写中间件，且支持中间件的热更新，无需重启或刷新服务，[了解更多](https://ximalayacloud.github.io/award/docs/basic/server#%E4%B8%AD%E9%97%B4%E4%BB%B6)
+
 - 支持使用TypeScript进行开发，[了解更多](https://ximalayacloud.github.io/award/docs/more/tools#%E6%8E%A5%E5%85%A5typescript)
 
 - 最佳实践，[喜马拉雅PC主站](https://www.ximalaya.com/)
