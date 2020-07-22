@@ -17,7 +17,7 @@ import webpackCompiler from '../utils/webpack.compiler';
 import Config from './webpack.dev.config';
 import { countDllPkgHash } from './utils';
 
-export default (dir: string, assetPrefixs: string) => {
+export default (configWebpack: Function | undefined, dir: string, assetPrefixs: string) => {
   if (!fs.existsSync(path.join(dir, 'node_modules/award/package.json'))) {
     return Promise.resolve();
   }
@@ -107,9 +107,9 @@ export default (dir: string, assetPrefixs: string) => {
         }
       }
 
-      const config: any = Config(entry, dir, assetPrefixs, envs, dllDir);
+      const config = Config(entry, dir, assetPrefixs, envs, dllDir);
       await ProdCompiler(
-        await webpackCompiler(config.webpack, config, {
+        await webpackCompiler(configWebpack, config, {
           isServer: false,
           isAward: false,
           dev: false,
