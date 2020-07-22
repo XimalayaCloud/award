@@ -18,7 +18,7 @@ import webpackCompiler from '../utils/webpack.compiler';
 import WebpackConfig from './webpack.prod.config';
 import { countDllPkgHash } from './utils';
 
-export default (dir: string, isUseRoute: boolean) => {
+export default (configWebpack: Function | undefined, dir: string, isUseRoute: boolean) => {
   // 需要特殊区分生产环境和其他环境
   let dllDir: any = path.join(dir, '.dll');
   const commonDll = path.join(dllDir, 'common.js');
@@ -74,10 +74,10 @@ export default (dir: string, isUseRoute: boolean) => {
         }
       }
 
-      const config: any = WebpackConfig(entry, dir, dllDir);
+      const config = WebpackConfig(entry, dir, dllDir);
       complierInfo(`dll entry ${chalk.yellow(entry.toString())}`);
       await ProdCompiler(
-        await webpackCompiler(config.webpack, config, {
+        await webpackCompiler(configWebpack, config, {
           isServer: false,
           isAward: false,
           dev: false,

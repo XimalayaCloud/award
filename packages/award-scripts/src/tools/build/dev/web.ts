@@ -29,7 +29,7 @@ module.exports = function(app: Koa) {
     // 获取编译对象
     const entry = join(dir, config.entry);
     // 判断是否需要编译dll文件
-    await dllDev(dir, config.assetPrefixs);
+    await dllDev(config.webpack, dir, config.assetPrefixs);
     try {
       const compiler = await webpackCompiler(config.webpack, web(entry, config.assetPrefixs), {
         isServer: false,
