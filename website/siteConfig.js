@@ -32,7 +32,8 @@ const siteConfig = {
     },
     { doc: 'api/start', label: 'API' },
     { href: 'https://github.com/XimalayaCloud/award', label: 'GitHub' },
-    { href: 'https://www.bilibili.com/video/av82146266', label: '视频' }
+    { href: 'https://www.bilibili.com/video/av82146266', label: '视频' },
+    { blog: true, label: '博客' }
   ],
 
   blogSidebarCount: 'ALL',
