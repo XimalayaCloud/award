@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Award，依赖导入竟然可以这样用 · Award</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&gt; 注：以下涉及的代码均为核心实现的伪代码"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Award，依赖导入竟然可以这样用 · Award"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ximalayacloud.github.io/award//award/blog/2020/07/28/award-plugin-import"/><meta property="og:description" content="&gt; 注：以下涉及的代码均为核心实现的伪代码"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/award/img/logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://ximalayacloud.github.io/award//award/blog/atom.xml" title="Award Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://ximalayacloud.github.io/award//award/blog/feed.xml" title="Award Blog RSS Feed"/><script type="text/javascript" src="/award/js/third/baidu.js?v=1595904880719"></script><script type="text/javascript" src="/award/js/third/buttons.js?v=1595904880719"></script><script type="text/javascript" src="/award/js/third/clipboard.js?v=1595904880719"></script><script type="text/javascript" src="/award/js/code-block-buttons.js?v=1595904880719"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/award/js/scrollSpy.js"></script><link rel="stylesheet" href="/award/css/prism.css"/><link rel="stylesheet" href="/award/css/main.css"/><script src="/award/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/award/"><h2 class="headerTitle">Award</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/award/docs/basic/intro" target="_self">文档</a></li><li class=""><a href="/award/docs/plugin/intro" target="_self">插件</a></li><li class=""><a href="/award/docs/api/start" target="_self">API</a></li><li class=""><a href="https://github.com/XimalayaCloud/award" target="_self">GitHub</a></li><li class=""><a href="https://www.bilibili.com/video/av82146266" target="_self">视频</a></li><li class="siteNavGroupActive"><a href="/award/blog/" target="_self">博客</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>全部博客</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">全部博客</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/award/blog/2020/07/28/award-plugin-import">Award，依赖导入竟然可以这样用</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/award/blog/2020/07/28/award-plugin-import">Award，依赖导入竟然可以这样用</a></h1><p class="post-meta">July 28, 2020</p><div class="authorBlock"><p class="post-authorName"><a target="_blank" rel="noreferrer noopener">topthinking</a></p></div></header><div><span><blockquote>
+<p>注：以下涉及的代码均为核心实现的伪代码</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="背景"></a><a href="#背景" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>背景</h2>
+<blockquote>
+<p>针对一些可以扩展 <strong>框架功能(API)</strong> 的插件</p>
+<p>一方面，我们又要让开发者配置插件；一方面又需要<code>import</code>导入插件</p>
+<p>那有没有只需要开发者配置完插件就可以使用呢？</p>
+<p>比如<a href="https://ximalayacloud.github.io/award/">award框架</a>的插件就是这样设计的</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="到底是什么？"></a><a href="#到底是什么？" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>到底是什么？</h2>
+<blockquote>
+<p>为了获取配置的插件<code>award-plugin-dva</code>提供的api</p>
+</blockquote>
+<ul>
+<li><p>原来我们这样用</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">import</span> dva <span class="token keyword">from</span> <span class="token string">'award-plugin-dva'</span>
+  
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>dva<span class="token punctuation">)</span>
+</code></pre></li>
+<li><p>现在就可以直接这样使用</p>
+<pre><code class="hljs css language-jsx"><span class="token comment">// award是某框架的核心依赖</span>
+<span class="token keyword">import</span> Award <span class="token keyword">from</span> <span class="token string">'award'</span>
+  
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Award<span class="token punctuation">.</span>dva<span class="token punctuation">)</span>
+</code></pre></li>
+</ul>
+<blockquote>
+<p>点击查看更多使用细节：<a href="https://ximalayacloud.github.io/award/docs/plugin/dva">https://ximalayacloud.github.io/award/docs/plugin/dva</a></p>
+<p>接下来，都将以<code>award</code>这个库作为示例介绍</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="怎么做？"></a><a href="#怎么做？" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>怎么做？</h2>
+<blockquote>
+<p>这里需要解决两个问题</p>
+<ol>
+<li>通过js运行时，正常执行逻辑</li>
+<li>通过ts解析时，可以进行代码提示</li>
+</ol>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="js-runtime"></a><a href="#js-runtime" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>js runtime</h3>
+<p>我们可以在<code>award</code>库内添加如下伪代码，即可实现</p>
+<pre><code class="hljs css language-js"><span class="token comment">// import Award from 'award'</span>
+
+<span class="token keyword">const</span> dva <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'award-plugin-dva'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>Award<span class="token punctuation">,</span>
+  dva
+<span class="token punctuation">}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="ts-runtime"></a><a href="#ts-runtime" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ts runtime</h3>
+<p>这里需要区分两处的<code>TS</code>描述文件</p>
+<ol>
+<li><code>award</code> library</li>
+</ol>
+<blockquote>
+<p>award内的ts描述文件</p>
+</blockquote>
+<pre><code class="hljs css language-ts"><span class="token comment">// 定义一个namespace，用来提供对外的API提示</span>
+<span class="token keyword">declare</span> <span class="token keyword">namespace</span> Award <span class="token punctuation">{</span>
+    
+<span class="token punctuation">}</span>
+</code></pre>
+<ol start="2">
+<li><code>award-plugin-dva</code> library</li>
+</ol>
+<blockquote>
+<p>award-plugin-dva内的ts描述文件</p>
+</blockquote>
+<pre><code class="hljs css language-ts"><span class="token keyword">declare</span> <span class="token keyword">namespace</span> Award <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">const</span> dva<span class="token operator">:</span> <span class="token constant">IDVA</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">IDVA</span> <span class="token punctuation">{</span>
+    
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>至此，我们已经完成了准备工作，但是提示仍然无法正常工作</p>
+<p>所以我们还需要指定下<code>tsconfig.json</code>文件</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="tsconfigjson"></a><a href="#tsconfigjson" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>tsconfig.json</h3>
+<blockquote>
+<p>需要手动指定下<code>compilerOptions</code>的<code>types</code></p>
+</blockquote>
+<pre><code class="hljs css language-json"><span class="token property">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"types"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"node"</span><span class="token punctuation">,</span> <span class="token string">"award-plugin-dva"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="思考"></a><a href="#思考" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>思考</h2>
+<p>不知读者是否有如下疑问</p>
+<p><strong>我们的插件是在配置文件中指定的，难道在<code>js runtime</code>时，需要引入配置文件？</strong></p>
+<blockquote>
+<p>有时，配置文件往往会做一下node文件操作的事情</p>
+<p>还有，并不是所有引用的插件都提供api扩展支持的，我们要做导入取舍</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="实现"></a><a href="#实现" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>实现</h3>
+<p>这里通过<code>babel</code>对其代码进行静态编译解析，添加确实需要的代码</p>
+<ul>
+<li><p>文件中的代码</p>
+<pre><code class="hljs css language-js"><span class="token comment">// 添加关键词</span>
+<span class="token keyword">const</span> plugins <span class="token operator">=</span> <span class="token string">"&lt;$>award-plugin&lt;$>"</span>
+  
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>Award<span class="token punctuation">,</span>
+  <span class="token operator">...</span>plugins
+<span class="token punctuation">}</span>
+</code></pre></li>
+</ul>
+<blockquote>
+<p>当babel在解析js代码时，分析到这个关键字 <strong><code>&lt;$&gt;award-plugin&lt;$&gt;</code></strong> ，babel对其进行替换，最终替换为如下代码</p>
+</blockquote>
+<ul>
+<li>运行时，转换后的代码
+<pre><code class="hljs css language-js"><span class="token keyword">const</span> plugins <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">{</span>
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">try</span><span class="token punctuation">{</span>
+   result<span class="token punctuation">.</span>dva <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'award-plugin-dva'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token keyword">catch</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>Award<span class="token punctuation">,</span>
+  <span class="token operator">...</span>plugins
+<span class="token punctuation">}</span>
+</code></pre></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="总结"></a><a href="#总结" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>总结</h2>
+<blockquote>
+<p><strong>项目中使用到依赖并不一定需要<code>import</code>导入，但是也不能完全不使用<code>import</code>，这就需要开发者进行权衡了</strong></p>
+</blockquote>
+<p>这里主要介绍了框架设计中对于其配置文件的规范设计，同时也抛砖引玉的帮助大家拓展一种新的思维视角</p>
+</span></div></div><div class="blogSocialSection"></div></div><div class="blog-recent"><a class="button" href="/award/blog/">最近博客</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#背景">背景</a></li><li><a href="#到底是什么？">到底是什么？</a></li><li><a href="#怎么做？">怎么做？</a><ul class="toc-headings"><li><a href="#js-runtime">js runtime</a></li><li><a href="#ts-runtime">ts runtime</a></li><li><a href="#tsconfigjson">tsconfig.json</a></li></ul></li><li><a href="#思考">思考</a><ul class="toc-headings"><li><a href="#实现">实现</a></li></ul></li><li><a href="#总结">总结</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2020 Ximalaya Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ec1057b369ccdb82237f71eced4babef',
+                indexName: 'ximalayacloud_award',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
