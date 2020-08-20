@@ -70,6 +70,13 @@ const immerRandoms: any[] = [];
 const cwd = process.cwd();
 const mapFilepath = path.join(cwd, '.map');
 
+/**
+ * award项目，默认忽略这些文件夹
+ *
+ * 即这些文件夹不参与任何award项目的编译
+ */
+const ignoreReg = /(\.dll|\.award|dist|node_modules|\.git)/;
+
 const readMapToJson = () => {
   // 读写map
   const obj: any = {};
@@ -194,22 +201,6 @@ export default () => {
     rl--;
   };
 
-  // 遍历当前项目资源文件，要忽略根目录下的文件
-  // 针对award特有的文件处理 .award、.dll、node_modules、.git
-  const excludeDirs = ['.award', '.dll', 'node_modules', '.git', 'dist'].map(item =>
-    path.join(cwd, item)
-  );
-
-  const ignoreDir = (filePath: string): boolean => {
-    for (let i = 0; i < 5; i++) {
-      const item = excludeDirs[i];
-      if (filePath.indexOf(item) !== -1) {
-        return true;
-      }
-    }
-    return false;
-  };
-
   const loopFile = (rootDir: string) => {
     const files = fs.readdirSync(rootDir);
     // 对当前files按规则顺序进行排序
@@ -229,7 +220,12 @@ export default () => {
     newFiles.forEach(filename => {
       const filePath = path.join(rootDir, filename);
       const stat = fs.statSync(filePath);
-      if (stat.isDirectory() && !ignoreDir(filePath)) {
+
+      if (ignoreReg.test(filePath)) {
+        return;
+      }
+
+      if (stat.isDirectory()) {
         // 如果当前路由是目录文件 且 不忽略当前路径
         // 那么将继续遍历该目录
         loopFile(filePath);
@@ -256,7 +252,7 @@ export default () => {
   let deleteRandom: any = null;
   const watch = chokidar
     .watch('**/*.{ts,tsx,js,jsx}', {
-      ignored: /(\.dll|\.award|dist|node_modules|\.git)/,
+      ignored: ignoreReg,
       cwd
     })
     .on('add', filepath => {
