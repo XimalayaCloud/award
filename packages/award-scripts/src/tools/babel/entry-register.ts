@@ -11,9 +11,11 @@ export default () => {
           },
           modules: 'commonjs'
         }
-      ]
+      ],
+      '@babel/preset-typescript'
     ],
     plugins: [
+      '@babel/plugin-transform-typescript',
       [
         '@babel/plugin-transform-runtime',
         {
@@ -34,6 +36,7 @@ export default () => {
         }
       ],
       '@babel/plugin-transform-modules-commonjs'
-    ]
+    ],
+    extensions: ['.tsx', '.ts', '.jsx', '.js']
   });
 };

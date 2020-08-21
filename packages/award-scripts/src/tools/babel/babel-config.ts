@@ -58,7 +58,8 @@ export default function getBabelConfig({
           }
         : { targets: '> 0.25%, not dead' }
     ],
-    '@babel/preset-react'
+    '@babel/preset-react',
+    '@babel/preset-typescript'
   ];
 
   const plugins: any = [
@@ -83,14 +84,9 @@ export default function getBabelConfig({
           '@': './'
         }
       }
-    ]
+    ],
+    ['@babel/plugin-transform-typescript', { isTSX: true }]
   ];
-
-  // ts独有语法解析插件
-  if (ts) {
-    presets.push('@babel/preset-typescript');
-    plugins.push('@babel/plugin-transform-typescript');
-  }
 
   // 异步加载处理插件
   if (!isServer) {
