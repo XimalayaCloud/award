@@ -1,3 +1,8 @@
+import * as path from 'path';
+
+const pkg = require(path.join(process.cwd(), 'package.json'));
+const alias = pkg.alias ? { ...pkg.alias } : {};
+
 export default () => {
   require('@babel/register')({
     compact: false,
@@ -31,7 +36,8 @@ export default () => {
         {
           root: [process.cwd()],
           alias: {
-            '@': './'
+            '@': './',
+            ...alias
           }
         }
       ],

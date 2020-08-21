@@ -15,6 +15,8 @@ const dir = process.cwd();
 global.routeFileNames = [];
 
 const awardBabel = join(dir, 'award.babel.js');
+const pkg = require(join(dir, 'package.json'));
+const alias = pkg.alias ? { ...pkg.alias } : {};
 
 /**
  * 获取babel配置
@@ -81,7 +83,8 @@ export default function getBabelConfig({
       {
         root: [dir],
         alias: {
-          '@': './'
+          '@': './',
+          ...alias
         }
       }
     ],

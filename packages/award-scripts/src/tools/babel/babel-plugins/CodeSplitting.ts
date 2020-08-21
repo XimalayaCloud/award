@@ -6,10 +6,15 @@ import { requireResolve, regNodeModules } from '../../help';
 
 const cwd = process.cwd();
 
-const check = (
-  nodes: (t.JSXElement | t.JSXFragment | t.JSXExpressionContainer | t.JSXSpreadChild | t.JSXText)[],
-  routes: any
-) => {
+export type ChildrenElements = (
+  | t.JSXElement
+  | t.JSXFragment
+  | t.JSXExpressionContainer
+  | t.JSXSpreadChild
+  | t.JSXText
+)[];
+
+const check = (nodes: ChildrenElements, routes: any) => {
   nodes.forEach(item => {
     if (t.isJSXElement(item) && t.isJSXIdentifier(item.openingElement.name)) {
       if (item.openingElement.name.name !== 'Route') {
@@ -125,17 +130,7 @@ const check = (
   });
 };
 
-const splitting = (
-  childrens: (
-    | t.JSXElement
-    | t.JSXFragment
-    | t.JSXExpressionContainer
-    | t.JSXSpreadChild
-    | t.JSXText
-  )[],
-  state: any,
-  tpl: any
-) => {
+const splitting = (childrens: ChildrenElements, state: any, tpl: any) => {
   const reference = state && state.file && state.file.opts.filename;
   const isServer = state && state.opts && state.opts.isServer;
   const ts = state && state.opts && state.opts.ts;
@@ -281,7 +276,8 @@ export default function(babel: any) {
                   /**
                    * 代码拆分
                    */
-                  splitting(path.node.children, state, tpl);
+
+                  splitting(path.node.children as any, state, tpl);
 
                   /**
                    * 收集路由表
@@ -290,7 +286,7 @@ export default function(babel: any) {
                   const _routes: any = [];
 
                   // 这里要递归查找children
-                  check(path.node.children, routes);
+                  check(path.node.children as any, routes);
 
                   routes.forEach((item: any) => {
                     const obj = [];
@@ -320,7 +316,7 @@ export default function(babel: any) {
                       t.jsxClosingElement(t.jsxIdentifier('p')),
                       [t.jsxText('路由出错了...')],
                       false
-                    )
+                    ) as any
                   ];
 
                   if (isServer) {

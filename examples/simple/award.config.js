@@ -1,4 +1,5 @@
 import middleware from '@/middleware';
+import path from 'path';
 
 export default {
   app: middlewares => {
