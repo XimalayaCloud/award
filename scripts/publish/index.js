@@ -12,8 +12,9 @@ const lernaShell = path.join(
   os.type() === 'Windows_NT' ? 'lerna.cmd' : 'lerna'
 );
 
-const type = process.argv.splice(2)[0];
-
+const args = process.argv.splice(2);
+const type = args[0];
+const force = args[1];
 const Types = ['alpha', 'beta', 'rc', 'patch'];
 
 if (Types.indexOf(type) === -1) {
@@ -44,16 +45,33 @@ if (Types.indexOf(type) === -1) {
     stdio: 'inherit'
   });
   await new Promise(resolve => {
-    const build = spawn('node', [path.join(__dirname, '..', 'build', 'index.js')], {
-      stdio: 'inherit'
-    });
-    build.on('close', resolve);
-    build.on('exit', code => {
-      if (code !== 0) {
-        process.exit(code);
-      }
-    });
+    inquirer
+      .prompt({
+        type: 'confirm',
+        message: '请确认上面的npm仓库登录用户名是否正确？',
+        name: 'registry'
+      })
+      .then(answers => {
+        if (answers.registry) {
+          resolve();
+        } else {
+          process.exit();
+        }
+      });
   });
+  if (force !== 'force') {
+    await new Promise(resolve => {
+      const build = spawn('node', [path.join(__dirname, '..', 'build', 'index.js')], {
+        stdio: 'inherit'
+      });
+      build.on('close', resolve);
+      build.on('exit', code => {
+        if (code !== 0) {
+          process.exit(code);
+        }
+      });
+    });
+  }
   await new Promise(resolve => {
     const changeVersion = spawn(
       'node',
