@@ -35,7 +35,7 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
 
   // 收集样式引用集合
   path.traverse({
-    ImportDeclaration(_path: any) {
+    ImportDeclaration(_path) {
       let givenPath = _path.node.source.value.replace(/!$/, '');
       if (shouldBeParseStyle(givenPath)) {
         const mod = requireResolve(givenPath, resolve(reference));
@@ -54,7 +54,7 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
         }
       }
     },
-    JSXElement(_path: NodePath<t.JSXElement>) {
+    JSXElement(_path) {
       if (!t.isJSXIdentifier(_path.node.openingElement.name)) {
         return;
       }

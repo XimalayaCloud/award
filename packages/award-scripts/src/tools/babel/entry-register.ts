@@ -1,3 +1,8 @@
+import * as path from 'path';
+
+const pkg = require(path.join(process.cwd(), 'package.json'));
+const alias = pkg.alias ? { ...pkg.alias } : {};
+
 export default () => {
   require('@babel/register')({
     compact: false,
@@ -11,9 +16,11 @@ export default () => {
           },
           modules: 'commonjs'
         }
-      ]
+      ],
+      '@babel/preset-typescript'
     ],
     plugins: [
+      '@babel/plugin-transform-typescript',
       [
         '@babel/plugin-transform-runtime',
         {
@@ -29,11 +36,13 @@ export default () => {
         {
           root: [process.cwd()],
           alias: {
-            '@': './'
+            '@': './',
+            ...alias
           }
         }
       ],
       '@babel/plugin-transform-modules-commonjs'
-    ]
+    ],
+    extensions: ['.tsx', '.ts', '.jsx', '.js']
   });
 };

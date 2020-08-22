@@ -81,7 +81,23 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
         clear: false,
         width: 60
       }),
-      new FriendlyErrorsWebpackPlugin(),
+      new FriendlyErrorsWebpackPlugin({
+        onErrors: function(severity, errors) {
+          if (severity !== 'error') {
+            return;
+          }
+          const error: any = errors[0];
+          if (error) {
+            if (!error.module) {
+              const message =
+                error.webpackError && error.webpackError.message
+                  ? error.webpackError.message
+                  : error.name;
+              console.info(message);
+            }
+          }
+        }
+      }),
       new ReactLoadablePlugin({
         filename: path.join(toolConstant.CACHE_DIR, constant['REACT-LOADABEL'])
       }),
@@ -100,7 +116,8 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
 
   if (existEslintrcFile && config.module) {
     config.module.rules.push({
-      test: /\.(jsx?|tsx?)$/,
+      enforce: 'pre',
+      test: /\.(j|t)sx?$/,
       ...(existEslintrcIgnoreFile
         ? {}
         : {
@@ -113,6 +130,7 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
           options: {
             cache: true,
             emitWarning: true,
+            emitError: true,
             configFile: eslintrcConfigFile
           }
         }
