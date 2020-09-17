@@ -31,31 +31,6 @@ function error(ctx: Context, err: Err) {
   });
 }
 
-// parse request body
-const bodyParser = (ctx: Context) => {
-  const chunkArr: any[] = [];
-  const { req } = ctx;
-  let bufLen = 0;
-
-  return new Promise(resolve => {
-    req.on('data', chunk => {
-      chunkArr.push(chunk);
-      bufLen += chunk.length;
-    });
-
-    req.on('end', () => {
-      const input = Buffer.concat(chunkArr, bufLen).toString();
-
-      try {
-        (req as any).data = JSON.parse(input);
-      } catch (err) {
-        (req as any).data = input;
-      }
-      resolve();
-    });
-  });
-};
-
 // handler mock file
 const handler = (ctx: IContext, filename: string, urlObj: any) => {
   return new Promise((resolve, reject) => {
@@ -137,7 +112,6 @@ export default function mockMidd() {
       return;
     }
 
-    await bodyParser(ctx);
     try {
       const ret = await handler(ctx, filename, urlObj);
       ctx.type = 'application/json';
