@@ -1,3 +1,4 @@
 [submodule "gh-pages"]
 	path = gh-pages
 	url = http://github.com/XimalayaCloud/award.git
+  branch = gh-pages

@@ -101,7 +101,11 @@ sidebar_label: 贡献指南
   
   - 提交Merge Request
   
-  > 接下来操作，都是在`website`文件夹内执行
+  > 接下来操作，都是在`website`文件夹内执行，且需要保证`gh-pages`已经克隆，执行命令
+    ```shell
+    $ git submodule init
+    $ git submodule update
+    ```
 
   - 审核通过后，合并master分支，同时执行编译文档脚本
     ```shell
@@ -114,3 +118,10 @@ sidebar_label: 贡献指南
     ```
   
   - 切换到`gh-pages`文件夹，进行git提交，并推送到远端
+
+    ```shell
+    # 或者在根目录执行如下命令
+    git submodule foreach 'git add .'
+    git submodule foreach 'git commit -m "更新文档"'
+    git submodule foreach 'git push'
+    ```
