@@ -75,3 +75,42 @@ sidebar_label: 贡献指南
     # 查看award库的单元测试覆盖
     yarn test:coverage --collectCoverageFrom="packages/award/src/**/*.{ts,tsx}"
     ```
+
+## 文档编写
+
+> award文档基于[`docusaurus@1.14.6`](https://github.com/facebook/docusaurus)构建的
+
+- 安装文档依赖
+  
+  ```shell
+  $ cd website
+  $ yarn
+  ```
+
+- 启动文档可视化命令
+
+  ```
+  # in website dir
+  $ yarn start
+
+  # in award root dir
+  $ yarn doc
+  ```
+
+- 发布文档
+  
+  - 提交Merge Request
+  
+  > 接下来操作，都是在`website`文件夹内执行
+
+  - 审核通过后，合并master分支，同时执行编译文档脚本
+    ```shell
+    $ yarn build
+    ```
+
+  - 执行拷贝命令，需安装`rsync`拷贝工具
+    ```shell
+    rsync -av build/award-docs/* ../gh-pages
+    ```
+  
+  - 切换到`gh-pages`文件夹，进行git提交，并推送到远端
