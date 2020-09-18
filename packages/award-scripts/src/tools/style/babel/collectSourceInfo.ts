@@ -21,10 +21,6 @@ export default (path: NodePath<t.ImportDeclaration>, state: any) => {
   const publicEntry = (state && state.opts && state.opts.publicEntry) || './dist';
   const write = (state && state.opts && state.opts.write) || false;
 
-  if (typeof state.styleSourceMap === 'undefined') {
-    state.styleSourceMap = {};
-  }
-
   // 全局的引用 './common.scss!'
   let globalStyle = false;
   if (/!$/.test(givenPath)) {

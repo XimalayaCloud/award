@@ -77,6 +77,7 @@ export default class ManageRoute extends React.Component<any> {
         router={router}
         url={url}
         data={{ ...props, ..._props }}
+        routes={match_routes}
         hasRender={hasRender}
         updateError={updateError}
         updateState={updateState}
