@@ -18,7 +18,21 @@ const isPromise = (obj: any) =>
  * 处理路由的核心组件
  */
 @unmountsetState
-export default class AsyncRender extends React.Component<any, any> {
+export default class AsyncRender extends React.Component<
+  {
+    routes: Array<any>;
+    router: any;
+    path: any;
+    url: any;
+    data: any;
+    hasRender: any;
+    updateError: any;
+    updateState: any;
+    routerDidUpdate: any;
+    updateProps: any;
+  },
+  any
+> {
   public fetchTime = 0;
   private path = null;
   private emitter: any;
@@ -203,7 +217,7 @@ export default class AsyncRender extends React.Component<any, any> {
       const initalProps = {
         history: renderProps.history,
         location: renderProps.location,
-        routes: renderProps.routes,
+        routes: this.props.routes,
         match: renderProps.match,
         query: queryObj(renderProps.location.search.replace(/^\?/, '')),
         setAward: setAward.get()
