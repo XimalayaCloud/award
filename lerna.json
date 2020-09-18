@@ -1,7 +1,7 @@
 {
   "version": "1.0.7",
   "versions": {
-    "alpha": "1.0.7-alpha"
+    "alpha": "1.0.8-alpha"
   },
   "hoist": true,
   "npmClient": "yarn",
