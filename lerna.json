@@ -1,7 +1,7 @@
 {
-  "version": "1.0.7",
+  "version": "1.0.8-alpha.0",
   "versions": {
-    "alpha": "1.0.8-alpha"
+    "alpha": "1.0.8-alpha.0"
   },
   "hoist": true,
   "npmClient": "yarn",
@@ -12,5 +12,7 @@
     }
   },
   "lerna": "2.11.0",
-  "packages": ["packages/*"]
+  "packages": [
+    "packages/*"
+  ]
 }

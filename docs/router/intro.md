@@ -359,7 +359,6 @@ class Home extends React.Component{
 
   static routeDidUpdate(to, from, data){
     /**
-     * 路由 /         切换到 /detail/1 会触发
      * 路由 /detail/1 切换到 / 会触发
      * 
      * data是当前组件的props数据

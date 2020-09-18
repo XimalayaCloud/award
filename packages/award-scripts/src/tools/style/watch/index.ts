@@ -32,7 +32,7 @@ const watch = () => {
 
       // 获取新的keys
       keys = Object.keys(map);
-      keys = keys.filter(item => watchFiles.indexOf(item) === -1);
+      keys = keys.filter(item => watchFiles.indexOf(item) === -1 && !/\.(t|j)sx?$/.test(item));
       watchFiles = [...keys, ...watchFiles];
 
       if (keys.length) {

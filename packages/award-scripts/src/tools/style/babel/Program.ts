@@ -11,8 +11,9 @@ import * as fs from 'fs-extra';
 import collectSourceInfo from './collectSourceInfo';
 import handleStyles from './handleStyles';
 import writeStyle from './writeStyle';
-
+import { storeAwardStyle } from '../utils/constant';
 import { shouldBeParseStyle, dev } from '../utils';
+import { memoryFile } from '../../help';
 
 export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
   const reference = state && state.file && state.file.opts.filename;
@@ -21,6 +22,7 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
     global: [],
     jsx: []
   };
+  state.styleSourceMap = {};
   state.elementSelectors = [];
   state.css = '';
   state.scopeCSS = '';
@@ -124,6 +126,17 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
     if (state.globalCSS) {
       state.styles.global.push(reference);
     }
+
+    if (!state.styleSourceMap[reference]) {
+      state.styleSourceMap[reference] = [reference];
+    }
+
+    let map: any = {};
+    if (memoryFile.existsSync(storeAwardStyle)) {
+      map = JSON.parse(memoryFile.readFileSync(storeAwardStyle, 'utf-8'));
+    }
+    map[reference] = state.scopeCSS + state.globalCSS;
+    memoryFile.writeFileSync(storeAwardStyle, JSON.stringify(map));
   }
 
   // 解析并处理当前组件全部的样式资源
