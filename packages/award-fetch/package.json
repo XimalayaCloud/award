@@ -1,6 +1,6 @@
 {
   "name": "award-fetch",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "为服务端和客户端的数据请求提供了统一接口",
   "main": "lib/index.js",
   "types": "lib",
