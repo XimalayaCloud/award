@@ -1,6 +1,6 @@
 {
   "name": "award-types",
-  "version": "1.0.8",
+  "version": "1.0.8-alpha.1",
   "author": "award",
   "license": "MIT",
   "types": "src",
