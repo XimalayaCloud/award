@@ -34,7 +34,7 @@ export default class AsyncRender extends React.Component<
   any
 > {
   public fetchTime = 0;
-  private path = null;
+  private path: any = null;
   private emitter: any;
   private reload = false;
 

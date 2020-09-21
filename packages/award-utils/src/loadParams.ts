@@ -2,7 +2,7 @@
  * 首次加载的参数
  */
 
-const params = {
+const params: any = {
   ssr: false,
   firstRender: true,
   isRenderRouter: false,

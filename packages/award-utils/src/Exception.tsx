@@ -119,7 +119,7 @@ export async function handleError(
   const { status = 500, info = {}, url = null, routerError = true, pathname, ...rests } = error;
   error = { ...rests, status, message, stack, info, url, routerError, data: {} };
 
-  const ctx = {
+  const ctx: any = {
     error,
     req: this,
     loading: null,

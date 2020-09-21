@@ -45,7 +45,7 @@ export default class Route extends React.Component<{
     client: PropTypes.bool
   };
 
-  public render() {
+  public render(): any {
     return null;
   }
 }

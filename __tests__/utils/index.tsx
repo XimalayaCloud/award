@@ -32,7 +32,7 @@ export const mountStart: ImountStart = (
     jest.doMock('award', () => ({
       ...award,
       start() {
-        award.start(...arguments)(() => null);
+        award.start(...arguments)((): any => null);
       }
     }));
   }
