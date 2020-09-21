@@ -13,7 +13,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": false,
     "noImplicitAny": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "skipLibCheck": true,
     "removeComments": false,
     "resolveJsonModule": true,

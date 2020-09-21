@@ -225,7 +225,18 @@ export default class AsyncRender extends React.Component<
       await clientPlugin.hooks.modifyInitialPropsCtx({
         params: initalProps
       });
-      const data = await getInitialProps(initalProps);
+
+      // 计算lastData
+      const routes = this.props.routes;
+      let lastData = null;
+      for (let i = 0; i < routes.length - 1; i++) {
+        if (routes[i + 1].match.path === this.path) {
+          lastData = routes[i].result;
+          break;
+        }
+      }
+
+      const data = await getInitialProps(initalProps, lastData);
 
       // 没有返回值或者返回值不是对象
       if (!data || !isObj(data) || Array.isArray(data)) {

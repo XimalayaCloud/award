@@ -36,6 +36,7 @@ export default (
     });
 
     const runCore = async (item: MatchedRoute, lastData: any, isLast: boolean) => {
+      let result = {};
       try {
         const cmp = item.route.component;
         if (cmp && cmp!.getInitialProps) {
@@ -59,20 +60,20 @@ export default (
           }
           const _search = isLast && search ? '?' + search : '';
           const path = item.match.url + _search;
-          const result = {
+          result = {
             ...(props[path] || {}),
             ..._props
           };
           props[path] = result;
-          return result;
         }
-        return {};
+        (item as any).result = result;
       } catch (error) {
         if (errorPath) {
           errorPath.path = item.match.path;
         }
         reject(error);
       }
+      return result;
     };
 
     let lastData = null;

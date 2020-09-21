@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 export default class extends React.Component<any> {
-  public static getInitialProps(ctx) {
+  public static getInitialProps(ctx, last) {
+    console.log('last2', last);
     return {
       id: ctx.match.params.id,
       pid: ctx.match.params.pid

@@ -66,12 +66,25 @@ export default class Common extends Base {
     diffRoutes: any,
     pathname: string
   ) {
-    if (diffRoutes.length === 0) {
+    let nl = new_match_routes.length;
+    let j = 0;
+    for (let i = 0; i < nl; i++) {
+      if (new_match_routes[i].route.chain) {
+        j++;
+      }
+    }
+    if (diffRoutes.length === 0 || nl === j) {
       // eslint-disable-next-line no-param-reassign
       diffRoutes = new_match_routes;
     }
     const search = _location.search.replace(/^\?/, '');
-    const needInitiRoutes = diffRoutes.filter((item: any) => item.route.needInitiProps);
+    const needInitiRoutes = diffRoutes.filter((item: any) => {
+      if (item.route.chain) {
+        return true;
+      } else {
+        return item.route.needInitiProps;
+      }
+    });
     if (needInitiRoutes.length) {
       // 切换到下个路由页面之前，需要提取加载数据
       try {

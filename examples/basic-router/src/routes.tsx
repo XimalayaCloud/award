@@ -36,8 +36,8 @@ export default () => (
       <Route path="/about/:id" component={About} client loading={<p>loading...</p>} />
     </Route>
     <Route path="/custom" component={Custom} exact />
-    <Route path="/custom/:id" component={CustomDetail} redirect="/custom/:id/more">
-      <Route path="/custom/:id/more/:pid(\\d+)" component={CustomMoreDetail} />
+    <Route path="/custom/:id" component={CustomDetail} redirect="/custom/:id/more" chain>
+      <Route path="/custom/:id/more/:pid(\\d+)" component={CustomMoreDetail} chain />
       <Route path="/custom/:id/more" component={CustomMore} />
     </Route>
   </RouterSwitch>

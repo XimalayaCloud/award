@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 export default class extends React.Component<any> {
-  public static getInitialProps(ctx) {
+  public static getInitialProps(ctx, last) {
+    console.log('last1', last);
     return {
       info: {
         id: ctx.match.params.id
