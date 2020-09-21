@@ -9,7 +9,7 @@ import { Model } from './model';
 export interface Route extends RouteConfig {
   // component?: AComponentType<RouteConfigComponentProps<any>>;
   component?: RouteConfig['component'] & {
-    getInitialProps?: (ctx: ICtx) => IAny | Promise<IAny>;
+    getInitialProps?: (ctx: ICtx, lastData?: any) => IAny | Promise<IAny>;
     model?: Model | Model[];
   };
   loading?: boolean;

@@ -19,55 +19,76 @@ export default (
   new_match_routes?: Array<MatchedRoute<{}>>,
   errorPath?: any
 ): Promise<{ routes: Array<MatchedRoute<{}>>; props: IAny }> => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const props: IAny = {};
     const mrlen = match_routes.length;
-    Promise.all(
-      match_routes.map(async (item: MatchedRoute, index: number) => {
-        try {
-          const cmp = item.route.component;
-          let _props: any = {};
-          if (cmp && cmp!.getInitialProps) {
-            const ctx = {
-              ...context,
-              routes: new_match_routes || match_routes,
-              route: item.route,
-              match: item.match
-            };
+    /**
+     * 需要对当前的match_routes进行分析，如果route.chain = true
+     */
+    const chain: Array<MatchedRoute<{}>> = [];
+    const sync: Array<MatchedRoute<{}>> = [];
+    match_routes.map(mr => {
+      if (mr.route.chain) {
+        chain.push(mr);
+      } else {
+        sync.push(mr);
+      }
+    });
 
-            // 针对 {a: promise, b: promise}
-            _props = (await cmp!.getInitialProps(ctx)) || {};
-            if (Array.isArray(_props)) {
-              // return Promise.all()
-              _props = {};
-            } else {
-              for (const key in _props) {
-                if (_props.hasOwnProperty(key)) {
-                  const val = await _props[key];
-                  _props[key] = val;
-                }
+    const runCore = async (item: MatchedRoute, lastData: any, isLast: boolean) => {
+      try {
+        const cmp = item.route.component;
+        if (cmp && cmp!.getInitialProps) {
+          const ctx = {
+            ...context,
+            routes: new_match_routes || match_routes,
+            route: item.route,
+            match: item.match
+          };
+
+          let _props: any = (await cmp!.getInitialProps(ctx, lastData)) || {};
+          if (Array.isArray(_props)) {
+            _props = {};
+          } else {
+            for (const key in _props) {
+              if (_props.hasOwnProperty(key)) {
+                const val = await _props[key];
+                _props[key] = val;
               }
             }
-            const _search = index === mrlen - 1 && search ? '?' + search : '';
-            const path = item.match.url + _search;
-            props[path] = {
-              ...(props[path] || {}),
-              ..._props
-            };
           }
-        } catch (error) {
-          if (errorPath) {
-            errorPath.path = item.match.path;
-          }
-          throw error;
+          const _search = isLast && search ? '?' + search : '';
+          const path = item.match.url + _search;
+          const result = {
+            ...(props[path] || {}),
+            ..._props
+          };
+          props[path] = result;
+          return result;
         }
+        return {};
+      } catch (error) {
+        if (errorPath) {
+          errorPath.path = item.match.path;
+        }
+        reject(error);
+      }
+    };
+
+    let lastData = null;
+    while (chain.length) {
+      const item = chain.shift();
+      if (item) {
+        lastData = await runCore(item, lastData, chain.length ? false : true);
+      }
+    }
+
+    Promise.all(
+      sync.map(async (item: MatchedRoute, index: number) => {
+        await runCore(item, null, index === mrlen - 1);
       })
-    )
-      .then(() => {
-        resolve({ routes: match_routes, props });
-      })
-      .catch(err => {
-        reject(err);
-      });
+    ).then(() => {
+      resolve({ routes: match_routes, props });
+    });
   });
 };
