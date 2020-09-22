@@ -73,6 +73,11 @@ const handler = (ctx: IContext, filename: string, urlObj: any) => {
  */
 export default function mockMidd() {
   async function mockMiddleware(ctx: IContext, next: Function) {
+    if (ctx.headers['no-mock']) {
+      await next();
+      return;
+    }
+
     const { fetch: fetchConfig = {} } = getAwardConfig();
     const { domainMap = {} } = fetchConfig;
 
