@@ -1,6 +1,6 @@
 {
   "name": "award-render",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "服务端渲染的核心逻辑",
   "main": "lib/index.js",
   "types": "lib",
