@@ -244,13 +244,11 @@ export class Server extends Base {
         this.coreMiddlewares = result;
       }
       this.coreMiddlewares.forEach(item => {
-        // 直接是async函数，那就直接插入中间件
-        if (item.constructor.name === 'AsyncFunction') {
+        // 如果是数组，传入config和app，供调用运行，并返回中间件函数
+        if (Array.isArray(item)) {
+          this.middlewares.push((item as any)[0](this.app, config));
+        } else {
           this.middlewares.push(item);
-        }
-        // 如果是普通函数，传入config和app，供调用运行，并返回async的中间件函数
-        if (item.constructor.name === 'Function') {
-          this.middlewares.push((item as any)(this.app, config));
         }
       });
     }

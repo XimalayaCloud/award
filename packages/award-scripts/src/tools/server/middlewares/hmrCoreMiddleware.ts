@@ -4,13 +4,23 @@ import { List } from 'immutable';
 import * as _ from 'lodash';
 
 const loadMiddleware = function(this: IServer, middlewares: List<Middleware<any, IContext>>) {
-  const { app } = this.config.toObject() as IConfig;
+  const config = this.config.toObject() as IConfig;
+  const { app } = config;
   let _middlewares = middlewares.toArray();
   const result: any = app(_middlewares);
   if (result && _.isArray(result)) {
     _middlewares = result;
   }
-  return _middlewares;
+  const resMiddlewares: any[] = [];
+  _middlewares.forEach(item => {
+    // 如果是数组，传入config和app，供调用运行，并返回中间件函数
+    if (Array.isArray(item)) {
+      resMiddlewares.push((item as any)[0](this.app, config));
+    } else {
+      resMiddlewares.push(item);
+    }
+  });
+  return resMiddlewares;
 };
 
 export default function hmrCoreMiddleware(
