@@ -237,13 +237,21 @@ export class Server extends Base {
   public loadCoreMiddlewares() {
     this.registerMiddlewares();
     if (!this.apiServer) {
-      const { app } = this.config.toObject() as IConfig;
+      const config = this.config.toObject() as IConfig;
+      const { app } = config;
       const result: any = app(this.coreMiddlewares);
       if (result && _.isArray(result)) {
         this.coreMiddlewares = result;
       }
       this.coreMiddlewares.forEach(item => {
-        this.middlewares.push(item);
+        // 直接是async函数，那就直接插入中间件
+        if (item.constructor.name === 'AsyncFunction') {
+          this.middlewares.push(item);
+        }
+        // 如果是普通函数，传入config和app，供调用运行，并返回async的中间件函数
+        if (item.constructor.name === 'Function') {
+          this.middlewares.push((item as any)(this.app, config));
+        }
       });
     }
   }
