@@ -68,7 +68,7 @@ function runESLint() {
   if (package) {
     console.log(chalk.green(`🏖  Linting ${package} files...`));
   } else {
-    console.log(chalk.green(`🏖  Linting all files...`));
+    console.log(chalk.green(`🏖  Linting ${onlyChanged ? 'changed' : 'all'} files...`));
   }
 
   const { errorCount, warningCount, output } = runESLintOnFilesWithOptions(allPaths, onlyChanged);
