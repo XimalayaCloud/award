@@ -17,7 +17,7 @@ class Router extends React.Component<any, any> {
   public static contextType = AwardRouterContext;
 
   private needUpdateInitialState = true;
-  private renderNum = 0;
+  private renderNum: { [pathname: string]: number } = {};
 
   public constructor(props: any, context: any) {
     super(props, context);
@@ -183,8 +183,8 @@ class Router extends React.Component<any, any> {
     }
 
     // 执行核心路由组件的绘制
-    if (this.renderNum === 0) {
-      this.renderNum = this.state.diffRoutes.length;
+    if (!this.renderNum[this.state.pathname] || this.renderNum[this.state.pathname] <= 0) {
+      this.renderNum[this.state.pathname] = this.state.diffRoutes.length;
     }
     return (
       <SwitchContext.Provider
@@ -229,8 +229,12 @@ class Router extends React.Component<any, any> {
                   fn
                 });
               }
-              this.renderNum--;
-              if (this.renderNum === 0) {
+
+              if (typeof this.renderNum[this.state.pathname] !== 'undefined') {
+                this.renderNum[this.state.pathname]--;
+              }
+
+              if (this.renderNum[this.state.pathname] === 0) {
                 console.log('路由切换渲染以及数据更新完毕');
                 emitter.getEmitter().emit('routerDidUpdate', this.state.award_initialState);
               }
