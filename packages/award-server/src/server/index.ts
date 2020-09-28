@@ -237,13 +237,19 @@ export class Server extends Base {
   public loadCoreMiddlewares() {
     this.registerMiddlewares();
     if (!this.apiServer) {
-      const { app } = this.config.toObject() as IConfig;
+      const config = this.config.toObject() as IConfig;
+      const { app } = config;
       const result: any = app(this.coreMiddlewares);
       if (result && _.isArray(result)) {
         this.coreMiddlewares = result;
       }
       this.coreMiddlewares.forEach(item => {
-        this.middlewares.push(item);
+        // 如果是数组，传入config和app，供调用运行，并返回中间件函数
+        if (Array.isArray(item)) {
+          this.middlewares.push((item as any)[0](this.app, config));
+        } else {
+          this.middlewares.push(item);
+        }
       });
     }
   }

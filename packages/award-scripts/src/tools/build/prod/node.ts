@@ -38,67 +38,70 @@ function Compiler(compiler: webpack.Compiler): Promise<undefined> {
 export default async (dir: string) => {
   let resetStore: any = null;
   try {
-    complierInfo('Compiling Project Files...');
-
     const config = getAwardConfig(dir);
     const output = join(dir, config.server_dist);
 
-    const awardConfigTmp = join(dir, 'node_modules', '.awardConfigTmp');
-    clean(awardConfigTmp);
+    // 只有当服务端渲染时，才编译node环境需要的资源
+    if (config.mode === 'server') {
+      complierInfo('Compiling Project Files...');
 
-    /**
-     * 保存配置文件
-     */
-    const awardConfig = join(output, '.awardConfig');
-    let existawardConfig = false;
-    if (fs.existsSync(awardConfig)) {
-      fs.moveSync(awardConfig, awardConfigTmp);
-      existawardConfig = true;
-    }
+      const awardConfigTmp = join(dir, 'node_modules', '.awardConfigTmp');
+      clean(awardConfigTmp);
 
-    resetStore = () => {
-      // 删除所有编译代码
+      /**
+       * 保存配置文件
+       */
+      const awardConfig = join(output, '.awardConfig');
+      let existawardConfig = false;
+      if (fs.existsSync(awardConfig)) {
+        fs.moveSync(awardConfig, awardConfigTmp);
+        existawardConfig = true;
+      }
+
+      resetStore = () => {
+        // 删除所有编译代码
+        clean(output);
+        if (existawardConfig && fs.existsSync(awardConfigTmp)) {
+          // 如果之前存在配置文件，则恢复
+          fs.mkdirSync(output);
+          fs.moveSync(awardConfigTmp, awardConfig);
+        }
+      };
+
+      process.on('SIGINT', () => {
+        resetStore();
+        process.exit(-1);
+      });
+
       clean(output);
-      if (existawardConfig && fs.existsSync(awardConfigTmp)) {
-        // 如果之前存在配置文件，则恢复
-        fs.mkdirSync(output);
+
+      // 将项目资源编译为node环境运行
+      await Compiler(
+        await webpackCompiler(
+          config.webpack,
+          WebpackNodeProject({
+            entry: join(dir, config.entry),
+            output,
+            dir,
+            assetPrefixs: config.assetPrefixs
+          }),
+          {
+            isServer: true,
+            isAward: true,
+            dev: false,
+            dir
+          }
+        )
+      );
+
+      // 复制转移的配置map文件和图片映射资源表
+      if (existawardConfig) {
         fs.moveSync(awardConfigTmp, awardConfig);
       }
-    };
-
-    process.on('SIGINT', () => {
-      resetStore();
-      process.exit(-1);
-    });
-
-    clean(output);
-
-    // 将项目资源编译为node环境运行
-    await Compiler(
-      await webpackCompiler(
-        config.webpack,
-        WebpackNodeProject({
-          entry: join(dir, config.entry),
-          output,
-          dir,
-          assetPrefixs: config.assetPrefixs
-        }),
-        {
-          isServer: true,
-          isAward: true,
-          dev: false,
-          dir
-        }
-      )
-    );
-
-    // 复制转移的配置map文件和图片映射资源表
-    if (existawardConfig) {
-      fs.moveSync(awardConfigTmp, awardConfig);
-    }
-    const awardImageCache = join(dir, 'node_modules', Constant.IAMGECACHENAME);
-    if (fs.existsSync(awardImageCache)) {
-      fs.moveSync(awardImageCache, join(output, Constant.IAMGECACHENAME));
+      const awardImageCache = join(dir, 'node_modules', Constant.IAMGECACHENAME);
+      if (fs.existsSync(awardImageCache)) {
+        fs.moveSync(awardImageCache, join(output, Constant.IAMGECACHENAME));
+      }
     }
 
     const nodeEntry = [];
