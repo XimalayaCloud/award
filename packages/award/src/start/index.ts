@@ -46,7 +46,7 @@ export default function start(
     global.AppRegistry(RootComponent);
   } else {
     // 注册插件
-    if (options && options.plugins && options.plugins.length) {
+    if (options?.plugins?.length) {
       clientPlugin.register(options.plugins);
     }
     // 客户端渲染应用

@@ -8,10 +8,7 @@ import info from './info';
 export default () => {
   const pkg = require('../../package.json');
 
-  commander
-    .version(pkg.version)
-    .usage('<command> [options]')
-    .option('--inspect');
+  commander.version(pkg.version).usage('<command> [options]').option('--inspect');
 
   const defaultOptParser = (val: any) => val;
 

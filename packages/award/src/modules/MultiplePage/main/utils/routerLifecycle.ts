@@ -66,7 +66,7 @@ export function routerWillUpdate({
   history: any;
   data: any;
 }) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     if (_routerWillUpdate) {
       _routerWillUpdate(
         to,
@@ -132,7 +132,7 @@ export function routerWillUpdate({
     } else {
       resolve(true);
     }
-  }).then(res => {
+  }).then((res) => {
     if (res && !loadParams.get().firstRender) {
       loadParams.set({ isSwitchRouter: true });
     }

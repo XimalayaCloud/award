@@ -13,7 +13,7 @@ export { default as removeAward } from './removeAward';
 
 if (process.env.RUN_ENV === 'web') {
   const basename = '';
-  '<$>__AWARD__BASENAME__<$>';
+  ('<$>__AWARD__BASENAME__<$>');
   loadParams.set({ basename });
 }
 
@@ -46,7 +46,7 @@ if (process.env.RUN_ENV === 'node') {
    *   }
    * }
    */
-  '<$>__AWARD__PLUGINS__<$>';
+  ('<$>__AWARD__PLUGINS__<$>');
 }
 
 // 分析插件结构，并导出资源

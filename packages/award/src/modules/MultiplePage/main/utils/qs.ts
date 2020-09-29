@@ -12,8 +12,8 @@ function querystring(query: string) {
   let part;
 
   while ((part = parser.exec(query))) {
-    var key = decode(part[1]),
-      value = decode(part[2]);
+    let key = decode(part[1]);
+    let value = decode(part[2]);
 
     if (key === null || value === null || key in result) continue;
     result[key] = value;

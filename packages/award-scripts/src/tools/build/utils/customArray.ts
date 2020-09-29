@@ -30,7 +30,7 @@ export default class CustomArray extends Array {
       if (item.test) {
         const reg = new RegExp(item.test);
         let hasReg = false;
-        forbidden.forEach(forb => {
+        forbidden.forEach((forb) => {
           if (reg.test(forb)) {
             hasReg = true;
           }

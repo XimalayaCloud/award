@@ -17,7 +17,7 @@ export default async (
   let needInitialRoutes = [];
   try {
     needInitialRoutes = match_routes.filter(
-      match_route => (!ssr && match_route.route.needInitiProps) || match_route.route.client
+      (match_route) => (!ssr && match_route.route.needInitiProps) || match_route.route.client
     );
 
     if (needInitialRoutes.length || !ssr) {
@@ -51,7 +51,7 @@ export default async (
         match_routes
       );
 
-      needInitialRoutes.forEach(item => {
+      needInitialRoutes.forEach((item) => {
         item.route.client = false;
       });
 

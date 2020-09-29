@@ -7,8 +7,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as chokidar from 'chokidar';
 import stringHash = require('string-hash');
-import { quickSort } from '../help';
-import { regNodeModules } from '../help';
+import { quickSort, regNodeModules } from '../help';
 
 const ch = [
   'A',
@@ -122,7 +121,9 @@ const readMapToJson = () => {
 const writeJsonToMap = (obj: any) => {
   const newFile = [];
   for (const key in obj) {
-    newFile.push(`${key} ${obj[key]}`);
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      newFile.push(`${key} ${obj[key]}`);
+    }
   }
   fs.writeFileSync(mapFilepath, newFile.join('\n'));
 };
@@ -135,8 +136,8 @@ export default () => {
 
   let scope: any[] = [];
   let isNeedMap = false;
-  for (var i = 0; i < l + 10; i++) {
-    var rdm = i % 3;
+  for (let i = 0; i < l + 10; i++) {
+    let rdm = i % 3;
     ch.push(ch[rdm]);
     ch.splice(rdm, 1);
   }
@@ -206,7 +207,7 @@ export default () => {
     // 对当前files按规则顺序进行排序
     let newFiles: any[] = [];
     let newFileObj: any = {};
-    files.forEach(filename => {
+    files.forEach((filename) => {
       const filePath = path.join(rootDir, filename);
       const hash = Number(stringHash(filePath.replace(cwd, '').replace(/(\/|\\)/g, '')));
       newFileObj[hash] = filename;
@@ -217,7 +218,7 @@ export default () => {
       newFiles.push(newFileObj[hash]);
     });
 
-    newFiles.forEach(filename => {
+    newFiles.forEach((filename) => {
       const filePath = path.join(rootDir, filename);
       const stat = fs.statSync(filePath);
 
@@ -255,7 +256,7 @@ export default () => {
       ignored: ignoreReg,
       cwd
     })
-    .on('add', filepath => {
+    .on('add', (filepath) => {
       const filePath = path.join(cwd, filepath);
       const lowerFilePath = filePath.toLocaleLowerCase();
       if (!storeReference[lowerFilePath]) {
@@ -267,7 +268,7 @@ export default () => {
         }
       }
     })
-    .on('unlink', filepath => {
+    .on('unlink', (filepath) => {
       const filePath = path.join(cwd, filepath);
       const lowerFilePath = filePath.toLocaleLowerCase();
       // 删除文件
@@ -279,7 +280,7 @@ export default () => {
         delete storeReference[lowerFilePath];
       }
     })
-    .on('change', filepath => {
+    .on('change', (filepath) => {
       // 这里只对改变的文件进行缓存清除
       const fullPath = path.join(cwd, filepath);
       const mod = require.cache[fullPath];

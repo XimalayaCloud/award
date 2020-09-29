@@ -14,11 +14,11 @@ const portFile = path.join(process.cwd(), 'node_modules', '.port');
 const findAvailablePort = async (port: string) => {
   let currentPort = Number(port) + 1;
   let receive = false;
-  await new Promise(async resolve => {
+  await new Promise(async (resolve) => {
     while (!receive) {
-      await new Promise(_resolve => {
+      await new Promise((_resolve) => {
         find('port', currentPort).then((list: Array<any>) => {
-          const _list = list.filter(item => {
+          const _list = list.filter((item) => {
             if (pid.indexOf(item.pid) === -1) {
               pid.push(item.pid);
               return true;

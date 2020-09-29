@@ -46,8 +46,6 @@ export default async (
     path.join(process.cwd(), config.export_dist, 'dest', htmlName),
     config.hashName
       ? exportHtml
-      : require('html-beautifier/parser')(exportHtml)
-          .replace(/&lt;/g, '<')
-          .replace(/&gt;/g, '>')
+      : require('html-beautifier/parser')(exportHtml).replace(/&lt;/g, '<').replace(/&gt;/g, '>')
   );
 };

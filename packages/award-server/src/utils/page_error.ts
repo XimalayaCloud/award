@@ -12,7 +12,7 @@ export default async function PageError(
 
   ctx.status = status;
 
-  if (url != null) {
+  if (url !== null) {
     // 抛出重定向
     if (process.env.NODE_ENV !== 'production') {
       console.info('[redirect]', url);

@@ -5,7 +5,7 @@ import { watchPath, watchStyleSheet, hmrStyleSheetPath } from '../utils/constant
 let timed: any = null;
 
 export default (state: any) => {
-  const reference = state && state.file && state.file.opts.filename;
+  const reference = state?.file?.opts.filename;
   if (!global.storeStyleSheet) {
     global.storeStyleSheet = {};
   }
@@ -31,7 +31,9 @@ export default (state: any) => {
     // 写main.css
     let content = '';
     for (const key in global.storeStyleSheet) {
-      content = content + global.storeStyleSheet[key];
+      if (Object.prototype.hasOwnProperty.call(global.storeStyleSheet, key)) {
+        content = content + global.storeStyleSheet[key];
+      }
     }
     memoryFile.writeFileSync(watchStyleSheet, content);
   }, 0);
@@ -40,18 +42,20 @@ export default (state: any) => {
   let map = state.styleSourceMap;
   if (memoryFile.existsSync(watchPath)) {
     map = JSON.parse(memoryFile.readFileSync(watchPath, 'utf-8'));
-    for (let stylePath in state.styleSourceMap) {
-      const references = state.styleSourceMap[stylePath];
-      // map中存在已经该样式的path
-      if (map[stylePath]) {
-        references.forEach((reference: string) => {
-          if (map[stylePath].indexOf(reference) === -1) {
-            // push当前样式对应的js引用不存在的文件
-            map[stylePath].push(reference);
-          }
-        });
-      } else {
-        map[stylePath] = references;
+    for (const stylePath in state.styleSourceMap) {
+      if (Object.prototype.hasOwnProperty.call(state.styleSourceMap, stylePath)) {
+        const references = state.styleSourceMap[stylePath];
+        // map中存在已经该样式的path
+        if (map[stylePath]) {
+          references.forEach((reference: string) => {
+            if (map[stylePath].indexOf(reference) === -1) {
+              // push当前样式对应的js引用不存在的文件
+              map[stylePath].push(reference);
+            }
+          });
+        } else {
+          map[stylePath] = references;
+        }
       }
     }
   }

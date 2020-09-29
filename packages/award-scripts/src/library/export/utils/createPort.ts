@@ -2,7 +2,7 @@ import find = require('find-process');
 
 const ensurePort = (port: number) => {
   // 创建服务并监听该端口
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     find('port', port).then((list: Array<any>) => {
       resolve(list.length);
     });

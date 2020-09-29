@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 import * as postcss from 'postcss';
 import parseImage from '../utils/parse-image';
 import htmlElementList from '../utils/html-element-list';
@@ -15,10 +16,10 @@ export default postcss.plugin(
         // .main div,.main span{}
         // div{}
         if (rule.parent.type !== 'atrule' && rule.parent.name !== 'keyframes') {
-          rule.selector.split(',').map((selectors: any) => {
-            selectors.split(' ').map((selector: any) => {
+          rule.selector.split(',').forEach((selectors: any) => {
+            selectors.split(' ').forEach((selector: any) => {
               // 伪类选择器
-              selector.split(':').map((_selector: any) => {
+              selector.split(':').forEach((_selector: any) => {
                 if (
                   htmlElementList.indexOf(_selector) !== -1 &&
                   elementSelectors.indexOf(_selector) === -1
@@ -36,11 +37,11 @@ export default postcss.plugin(
 
           if (urls) {
             // 查询css的value是否存在url(<地址>)
-            urls.map((url: any) => {
+            urls.forEach((url: any) => {
               const match = url.match(/url\(['|"]?(.*\.(jpg|png|gif|jpeg|svg)(\?.*)?)['|"]?\)/g);
               if (match) {
                 // 匹配到数组形式
-                match.map((item: any) => {
+                match.forEach((item: any) => {
                   /**
                    * 有下面几种形式
                    * url(a.jpg)
@@ -55,24 +56,21 @@ export default postcss.plugin(
                   );
                   content = content.split('\\');
                   let url: any = content[0];
-                  try {
-                    // 从style里面解释样式资源
-                    const itemValue = item.replace(
-                      content.join(''),
-                      parseImage({
-                        url,
-                        reference: root.source.input.file,
-                        write,
-                        imageOptions,
-                        publicEntry,
-                        publicPath: publicPath === './' ? '../' : publicPath,
-                        state
-                      })
-                    );
-                    decl.value = decl.value.replace(item, itemValue);
-                  } catch (err) {
-                    throw err;
-                  }
+
+                  // 从style里面解释样式资源
+                  const itemValue = item.replace(
+                    content.join(''),
+                    parseImage({
+                      url,
+                      reference: root.source.input.file,
+                      write,
+                      imageOptions,
+                      publicEntry,
+                      publicPath: publicPath === './' ? '../' : publicPath,
+                      state
+                    })
+                  );
+                  decl.value = decl.value.replace(item, itemValue);
                 });
               }
             });

@@ -42,7 +42,7 @@ class HttpClient {
           url: uri,
           timeout: this.timeout
         })
-          .then(response => {
+          .then((response) => {
             if (this.API_RETRY_TIME && retryTime > 0) {
               // 设置了重试次数，且当前重试次数 > 0
               if (response.status < 200 || response.status > 350) {
@@ -54,7 +54,7 @@ class HttpClient {
             }
             return response;
           })
-          .catch(err => {
+          .catch((err) => {
             throw err;
           });
       } catch (e) {
@@ -90,8 +90,8 @@ class HttpClient {
 export default (options: IOpt1) => {
   const { fetch: fetchConfig }: any = getAwardConfig();
   const { timeout = 5000 } = fetchConfig;
-  Object.assign(apiGatewayConfig, fetchConfig.apiGateway);
-  const { API_RETRY_TIME, API_APIGATEWAY_OPEN } = apiGatewayConfig;
+  const _apiGatewayConfig = { ...apiGatewayConfig, ...fetchConfig.apiGateway };
+  const { API_RETRY_TIME, API_APIGATEWAY_OPEN } = _apiGatewayConfig;
 
   const httpClient = new HttpClient(API_RETRY_TIME, API_APIGATEWAY_OPEN, timeout);
 

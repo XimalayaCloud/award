@@ -1,26 +1,28 @@
 import { regNodeModules } from '../../help';
 
 function convertString(obj: any) {
-  var res: any = [];
+  let res: any = [];
   for (const key in obj) {
-    const item = obj[key];
-    if (typeof item == 'string') {
-      const _item = Number.isNaN(Number(item)) ? '"' + item + '"' : Number(item);
-      res.push((Array.isArray(obj) ? '' : '"' + key + '"' + ':') + _item + '');
-    } else if (typeof item == 'object') {
-      res.push((Array.isArray(obj) ? '' : '"' + key + '"' + ':') + convertString(item));
-    } else if (typeof item === 'function') {
-      const isFun = !/=>|function/.test(item.toString());
-      res.push((Array.isArray(obj) || isFun ? '' : '"' + key + '"' + ':') + item);
-    } else {
-      res.push((Array.isArray(obj) ? '' : '"' + key + '"' + ':') + item);
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const item = obj[key];
+      if (typeof item === 'string') {
+        const _item = Number.isNaN(Number(item)) ? '"' + item + '"' : Number(item);
+        res.push(String((Array.isArray(obj) ? '' : '"' + key + '":') + _item));
+      } else if (typeof item === 'object') {
+        res.push((Array.isArray(obj) ? '' : '"' + key + '":') + convertString(item));
+      } else if (typeof item === 'function') {
+        const isFun = !/=>|function/.test(item.toString());
+        res.push((Array.isArray(obj) || isFun ? '' : '"' + key + '":') + item);
+      } else {
+        res.push((Array.isArray(obj) ? '' : '"' + key + '":') + item);
+      }
     }
   }
 
   res = res.join(',');
   if (Array.isArray(obj)) {
     return '[' + res + ']';
-  } else if (typeof obj == 'object') {
+  } else if (typeof obj === 'object') {
     return '{' + res + '}';
   } else {
     return res;
@@ -33,7 +35,7 @@ const replaceWith = (tpl: any, callee: any, expression: any, state: any, t: any)
     expression.arguments.push(t.NullLiteral());
   }
   expression.arguments.push(createOptions(state, tpl));
-  const dev = state && state.opts && state.opts.dev;
+  const dev = state?.opts?.dev;
   if (dev) {
     return tpl(`(function(){
     START(ARGU)(Component => {
@@ -58,7 +60,7 @@ const replaceWith = (tpl: any, callee: any, expression: any, state: any, t: any)
  * 将Award配置的插件注入到客户端代码里面去
  */
 const createOptions = (state: any, tpl: any) => {
-  const plugins = state && state.opts && state.opts.plugins;
+  const plugins = state?.opts?.plugins;
   let options = tpl(`var a = {plugins:[]}`)();
   if (plugins) {
     options = tpl(`var a = {plugins:${convertString(plugins)}}`)();
@@ -67,7 +69,7 @@ const createOptions = (state: any, tpl: any) => {
 };
 
 const handleStartExpression = (path: any, state: any, tpl: any, t: any, isDefault = false) => {
-  const reference = state && state.file && state.file.opts.filename;
+  const reference = state?.file?.opts.filename;
   if (regNodeModules.test(reference)) {
     return;
   }
@@ -123,7 +125,7 @@ export default (babel: any) => {
         state.importSpec = [];
         path.traverse({
           ImportDeclaration(_path: any) {
-            const reference = state && state.file && state.file.opts.filename;
+            const reference = state?.file?.opts.filename;
             if (regNodeModules.test(reference)) {
               return;
             }
@@ -147,7 +149,7 @@ export default (babel: any) => {
         });
       },
       ClassDeclaration(path: any, state: any) {
-        const reference = state && state.file && state.file.opts.filename;
+        const reference = state?.file?.opts.filename;
         if (regNodeModules.test(reference)) {
           return;
         }
@@ -169,7 +171,7 @@ export default (babel: any) => {
           });
 
           if (myExpression) {
-            const dev = state && state.opts && state.opts.dev;
+            const dev = state?.opts?.dev;
             if (dev) {
               path.parent.body.push(
                 tpl(`EXP(ID, null, OPTIONS)(Component => {

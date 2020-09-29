@@ -20,7 +20,7 @@ export default function hmrEntrySource(this: IServer): Middleware<any, IContext>
     const config = self.config.toObject() as IConfig;
     // 重新注册plugin
     nodePlugin.unregister();
-    if (config && config.plugins) {
+    if (config?.plugins) {
       config.plugins.forEach((item: any) => {
         let name = null;
         if (Array.isArray(item)) {

@@ -32,7 +32,7 @@ const watch = () => {
 
       // 获取新的keys
       keys = Object.keys(map);
-      keys = keys.filter(item => watchFiles.indexOf(item) === -1 && !/\.(t|j)sx?$/.test(item));
+      keys = keys.filter((item) => watchFiles.indexOf(item) === -1 && !/\.(t|j)sx?$/.test(item));
       watchFiles = [...keys, ...watchFiles];
 
       if (keys.length) {
@@ -40,7 +40,7 @@ const watch = () => {
         chokidar.watch(keys, { ignored: regNodeModules }).on('change', (path: any) => {
           const styleLists = JSON.parse(memoryFile.readFileSync(watchPath, 'utf-8'));
           const styleMaps = styleLists[path];
-          styleMaps.map((item: any) => {
+          styleMaps.forEach((item: any) => {
             fs.utimesSync(item, new Date(), new Date());
           });
         });
@@ -61,7 +61,7 @@ const watch = () => {
         if (event === 'change' || (event === 'add' && unlink[path])) {
           delete unlink[path];
           const _path = map[path];
-          _path.map((item: any) => {
+          _path.forEach((item: any) => {
             (fs as any).utimesSync(item, new Date(), new Date(), () => {});
           });
         }
@@ -114,7 +114,7 @@ export default (compiler: any, app: any) => {
   });
 
   compiler.hooks.invalid.tap('invalid', () => {
-    style_time = +new Date();
+    style_time = Number(new Date());
     // 标识展示一次cache
     global.style_cache_tip = true;
     global.style_hmr_tip = true;

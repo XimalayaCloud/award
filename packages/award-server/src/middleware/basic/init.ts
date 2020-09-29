@@ -7,7 +7,7 @@ import { Middleware } from 'koa';
 import * as _ from 'lodash';
 import pageError from '../../utils/page_error';
 
-export default function(this: IServer, version: string): Middleware<any, IContext> {
+export default function (this: IServer, version: string): Middleware<any, IContext> {
   const self = this;
   return async function BasicInitMiddleware(ctx: IContext, next: any) {
     try {

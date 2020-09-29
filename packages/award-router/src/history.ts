@@ -10,13 +10,12 @@ export interface LocationDescriptorObject<S = any> {
 }
 
 export interface History {
-  push(path: string, state?: any): void;
-  push(location: LocationDescriptorObject<any>): void;
-  replace(path: string, state?: any): void;
-  replace(location: LocationDescriptorObject<any>): void;
-  go(n: number): void;
-  goBack(): void;
-  goForward(): void;
+  push: ((path: string, state?: any) => void) & ((location: LocationDescriptorObject<any>) => void);
+  replace: ((path: string, state?: any) => void) &
+    ((location: LocationDescriptorObject<any>) => void);
+  go: (n: number) => void;
+  goBack: () => void;
+  goForward: () => void;
 }
 
 /**

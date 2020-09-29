@@ -180,7 +180,7 @@ const source = () => {
 
   return {
     token: {
-      promise: new Promise(resolve => {
+      promise: new Promise((resolve) => {
         cancelResolve = resolve;
       })
     },

@@ -37,9 +37,9 @@ class Plugin {
   private method(callback: Function, methodName: 'basic' | 'router') {
     const self = this;
     const obj: any = {};
-    Client.names[methodName].forEach(name => {
+    Client.names[methodName].forEach((name) => {
       const { name: fnName } = parseAsync(name);
-      obj[fnName] = function() {
+      obj[fnName] = function () {
         self.__plugin__self__hooks__[fnName](...arguments);
       };
     });

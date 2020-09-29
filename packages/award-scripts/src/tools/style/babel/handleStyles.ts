@@ -24,7 +24,7 @@ const cwd = process.cwd();
 // eslint-disable-next-line complexity
 export default (cache: any, state: any) => {
   // 分析该js对应的样式资源
-  const reference = state && state.file && state.file.opts.filename;
+  const reference = state?.file?.opts.filename;
   if (global.ImportSource.indexOf(reference) === -1) {
     state.styleId = 0;
     return;
@@ -95,12 +95,16 @@ export default (cache: any, state: any) => {
 
         // 写文件到内存
         for (const new_src in result.fonts) {
-          const src = result.fonts[new_src];
-          memoryFile.writeFileSync(new_src, fs.readFileSync(src));
+          if (Object.prototype.hasOwnProperty.call(result.fonts, new_src)) {
+            const src = result.fonts[new_src];
+            memoryFile.writeFileSync(new_src, fs.readFileSync(src));
+          }
         }
         for (const new_src in result.images) {
-          const src = result.images[new_src];
-          memoryFile.writeFileSync(new_src, fs.readFileSync(src));
+          if (Object.prototype.hasOwnProperty.call(result.images, new_src)) {
+            const src = result.images[new_src];
+            memoryFile.writeFileSync(new_src, fs.readFileSync(src));
+          }
         }
       } else {
         if (fs.existsSync(cacheDir) && dev()) {

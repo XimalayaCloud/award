@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-invalid-this */
 import * as path from 'path';
 import * as babel from '@babel/core';
 import * as loaderUtils from 'loader-utils';

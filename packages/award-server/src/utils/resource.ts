@@ -9,7 +9,7 @@ import * as Loadable from 'react-loadable';
 
 let isReadPublicMap = false;
 
-export default async function(this: IServer) {
+export default async function (this: IServer) {
   if (!this.apiServer && !this.dev) {
     if (!isReadPublicMap) {
       isReadPublicMap = true;

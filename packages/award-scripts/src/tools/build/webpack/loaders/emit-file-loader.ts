@@ -7,7 +7,7 @@ export default function emitFileLoader(this: any, content: any, sourceMap: any) 
 
   const name = query.name || '[hash].[ext]';
   const pwd = query.pwd;
-  const context = query.context || this.rootContext || (this.options && this.options.context);
+  const context = query.context || this.rootContext || this.options?.context;
   const regExp = query.regExp;
   const opts = {
     context,

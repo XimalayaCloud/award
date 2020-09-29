@@ -1,8 +1,8 @@
 const url = '/award_dev_static/';
 const source = new EventSource(`${url}_award/style-hmr`);
 
-source.onmessage = function(event) {
-  if (event.data == '\uD83D\uDC93') {
+source.onmessage = function (event) {
+  if (event.data === '\uD83D\uDC93') {
     return;
   }
   try {
@@ -12,14 +12,15 @@ source.onmessage = function(event) {
 
 const processMessage = (obj: any) => {
   switch (obj.name) {
-    case 'project_style_hmr':
+    case 'project_style_hmr': {
       const link: any = document.createElement('link');
       link.href = url + obj.url;
       link.rel = 'stylesheet';
       link.type = 'text/css';
       document.head.appendChild(link);
       break;
-    case 'node_modules_style_hmr':
+    }
+    case 'node_modules_style_hmr': {
       const links = Array.from(document.getElementsByTagName('link'));
       const result = JSON.parse(obj.data);
       result.forEach((data: any) => {
@@ -44,5 +45,6 @@ const processMessage = (obj: any) => {
         }
       });
       break;
+    }
   }
 };

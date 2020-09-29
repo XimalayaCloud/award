@@ -51,7 +51,7 @@ function directoryUp(dir: any, name: any, type: any, cb: any, disableCache = fal
   return result || null;
 }
 
-export const getPkg = function(dir: any) {
+export const getPkg = function (dir: any) {
   return directoryUp(dir, 'package.json', 'file', (filePath: any, dir: any) => {
     let pkg;
     let result;
@@ -59,7 +59,7 @@ export const getPkg = function(dir: any) {
       pkg = require(filePath);
     } catch (e) {}
 
-    if (pkg && pkg.name && pkg.version) {
+    if (pkg?.name && pkg.version) {
       result = {
         name: pkg.name,
         version: pkg.version,

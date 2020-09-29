@@ -31,11 +31,11 @@ module.exports = () => {
 
   // 使用loopWhile在同步任务里面执行异步任务
   let wait = true;
-  new Promise(async resolve => {
+  new Promise(async (resolve) => {
     while (!receive) {
-      await new Promise(_resolve => {
+      await new Promise((_resolve) => {
         find('port', port).then((list: Array<any>) => {
-          const _list = list.filter(item => {
+          const _list = list.filter((item) => {
             if (pid.indexOf(item.pid) === -1) {
               pid.push(item.pid);
               return true;

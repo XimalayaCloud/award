@@ -12,7 +12,7 @@ let _award_plugins_: any = {};
 
 // 客户端，babel识别到<$>__AWARD__PLUGINS__<$>，那么将对其注入下面插件代码
 
-'<$>__AWARD__PLUGINS__<$>';
+('<$>__AWARD__PLUGINS__<$>');
 
 const asyncStart = async (hookName: string, params: any) => {
   const nameL = storeApis[hookName].length;
@@ -93,13 +93,13 @@ export const register = (plugins: Array<any>) => {
     if (/^(.*)award-plugin-(.*)/.test(name) && _award_plugins_[name]) {
       // 客户端环境需要依赖babel的代码注入
       const client = _award_plugins_[name].client;
-      const run = client.default || client;
+      const Run = client.default || client;
       currentName = name;
       try {
-        if (run.prototype && run.prototype.apply) {
-          new run(defaultApis, options, name).apply();
+        if (Run.prototype?.apply) {
+          new Run(defaultApis, options, name).apply();
         } else {
-          run(defaultApis, options);
+          Run(defaultApis, options);
         }
       } catch (error) {
         // 插件注册出错
@@ -110,7 +110,7 @@ export const register = (plugins: Array<any>) => {
 };
 
 export default (names: Array<any>) => {
-  names.forEach(name => {
+  names.forEach((name) => {
     const { name: fnName, type: fnType } = parseAsync(name);
     storeApis[fnName] = [];
     defaultApis[fnName] = (cb: Function) => {

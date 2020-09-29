@@ -63,7 +63,7 @@ export default function routeWillLeave(this: IKernal) {
     }
 
     const routeWillLeave = (component: any, path: any) =>
-      new Promise(resolve => {
+      new Promise((resolve) => {
         component.routeWillLeave(
           { ...ctx.target, query: ctx.query },
           { ...ctx.lastTarget, query: ctx.lastQuery },
@@ -121,7 +121,7 @@ export default function routeWillLeave(this: IKernal) {
     let i = needLeave.length - 1;
     while (i >= 0) {
       const component = routeComponents.get(needLeave[i]);
-      if (component && component.routeWillLeave && typeof component.routeWillLeave === 'function') {
+      if (component?.routeWillLeave && typeof component.routeWillLeave === 'function') {
         if (!(await routeWillLeave(component, needLeave[i]))) {
           // 没有继续跳转，如果是前进后退，需要将其正确归位
           const { basename } = loadParams.get();

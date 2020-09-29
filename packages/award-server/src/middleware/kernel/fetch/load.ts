@@ -62,7 +62,7 @@ export default async (ctx: IContext) => {
         const errorPath = { path: null };
         try {
           const loadMatchRoutes: any = [];
-          ctx.award.match_routes.forEach(match_route => {
+          ctx.award.match_routes.forEach((match_route) => {
             if (!match_route.route.client) {
               loadMatchRoutes.push(match_route);
             }

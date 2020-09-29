@@ -10,10 +10,12 @@ const reactDomLib = path.join(dir, 'react-dom');
 const pkg = require(path.join(cwd, 'package.json'));
 const alias = pkg.alias || {};
 
-for (let as in alias) {
-  const modulePath = alias[as];
-  if (!modulePath.includes(dir)) {
-    alias[as] = path.join(dir, modulePath);
+for (const as in alias) {
+  if (Object.prototype.hasOwnProperty.call(alias, as)) {
+    const modulePath = alias[as];
+    if (!modulePath.includes(dir)) {
+      alias[as] = path.join(dir, modulePath);
+    }
   }
 }
 

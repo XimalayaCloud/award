@@ -84,7 +84,7 @@ export default ({
           ...obj
         };
         // 处理异步更新状态
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           this.setState(
             {
               award: hmrAwardValue

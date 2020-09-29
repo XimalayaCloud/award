@@ -15,7 +15,7 @@ export default class ProgressBarPlugin {
 
   public constructor(options: any = {}) {
     this.stream = options.stream || process.stderr;
-    this.enabled = this.stream && this.stream.isTTY;
+    this.enabled = this.stream?.isTTY;
 
     const barLeft = chalk.bold('[');
     const barRight = chalk.bold(']');

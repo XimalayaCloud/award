@@ -28,7 +28,7 @@ export default (babel: any) => {
          *   module.hot.accept();
          * }
          */
-        const reference = state && state.file && state.file.opts.filename;
+        const reference = state?.file?.opts.filename;
         if (reference && reference === state.opts.entry) {
           _path.node.body.push(moduleHot(tpl));
         }

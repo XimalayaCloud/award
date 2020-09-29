@@ -37,12 +37,11 @@ export default function bundleAndData(this: IKernal) {
         const errorInfo: IAwardException = await Exception.handleError.call(null, {
           status: 404
         });
-        this.updateInitialState &&
-          this.updateInitialState({
-            match_routes: ctx.targetMatchRoutes,
-            diffRoutes: ctx.targeDiffRoutes,
-            error: errorInfo
-          });
+        this?.updateInitialState({
+          match_routes: ctx.targetMatchRoutes,
+          diffRoutes: ctx.targeDiffRoutes,
+          error: errorInfo
+        });
       } else {
         // 存在路由，匹配到了
         // 加载bundle，更新组件

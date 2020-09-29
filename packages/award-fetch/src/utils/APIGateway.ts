@@ -14,7 +14,7 @@ class APIGateway {
     this.INNER_SOUTHGATE = inner_southgate;
     const { fetch: fetchConfig }: any = getAwardConfig();
 
-    Object.assign(apiGatewayConfig, fetchConfig && fetchConfig.apiGateway);
+    const _apiGatewayConfig = { ...apiGatewayConfig, ...fetchConfig?.apiGateway };
 
     const {
       PATH,
@@ -22,8 +22,8 @@ class APIGateway {
     }: {
       PATH: string;
       INNER_SOUTHGATE: string;
-    } = apiGatewayConfig;
-    this.config = apiGatewayConfig;
+    } = _apiGatewayConfig;
+    this.config = _apiGatewayConfig;
     this.INNER_SOUTHGATE = this.INNER_SOUTHGATE || INNER_SOUTHGATE;
     this.PATH = PATH;
   }
@@ -100,7 +100,7 @@ class APIGateway {
   }
 
   private pickServer(): string {
-    if (this.servers == null || this.servers.length === 0) {
+    if (this.servers === null || this.servers.length === 0) {
       log.error('No API gateway instance is avaliable.', 'APIGateWay');
     }
     // Round Robin

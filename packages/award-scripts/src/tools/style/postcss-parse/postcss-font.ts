@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 import * as postcss from 'postcss';
 import * as fs from 'fs-extra';
 import * as md5 from 'md5';
@@ -19,7 +20,7 @@ export default postcss.plugin(
               const match = decl.value.match(/url\(([@|'|"|h|\/|.])([^)]*)\)/g);
 
               if (match) {
-                match.map((item: any) => {
+                match.forEach((item: any) => {
                   const codeUrl = item
                     .match(/\((([^)]*))\)/)[1]
                     .replace(/'|"/g, '')
@@ -57,11 +58,7 @@ export default postcss.plugin(
                   let src = '';
                   let new_src = '';
                   let filename = url.split('/').pop();
-                  const ext: any = url
-                    .split('/')
-                    .pop()
-                    .split('.')
-                    .pop();
+                  const ext: any = url.split('/').pop().split('.').pop();
 
                   // 获取真实的本地资源地址
                   if (!isAt) {

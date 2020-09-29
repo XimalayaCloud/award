@@ -11,12 +11,12 @@ const pid: any[] = [];
 const portFile = path.join(process.cwd(), 'node_modules', '.port');
 
 const checkPort = (port: number) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const check = spawn('node', [path.join(__dirname, 'check.js'), String(port)], {
       stdio: 'inherit',
       cwd: process.cwd()
     });
-    check.on('exit', code => {
+    check.on('exit', (code) => {
       if (code === 0) {
         resolve({ close: true });
       } else if (code === 255) {
@@ -35,9 +35,9 @@ const checkPort = (port: number) => {
 
 const selectPort = (port: number) => {
   // 创建服务并监听该端口
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     find('port', port).then((list: Array<any>) => {
-      const _list = list.filter(item => {
+      const _list = list.filter((item) => {
         if (pid.indexOf(item.pid) === -1) {
           pid.push(item.pid);
           return true;

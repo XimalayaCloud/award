@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable array-callback-return */
 import * as postcss from 'postcss';
 import * as CleanCSS from 'clean-css';
@@ -143,12 +144,12 @@ const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
 
 // 将css字符串经过postcss插件进行二次操作
 export default (state: any) => {
-  const reference = state && state.file && state.file.opts.filename;
-  let imageOptions = state && state.opts && state.opts.imageOptions;
-  let fontOptions = state && state.opts && state.opts.fontOptions;
-  const publicPath = (state && state.opts && state.opts.publicPath) || '/';
-  const publicEntry = (state && state.opts && state.opts.publicEntry) || './dist';
-  const write = (state && state.opts && state.opts.write) || false;
+  const reference = state?.file?.opts.filename;
+  let imageOptions = state?.opts?.imageOptions;
+  let fontOptions = state?.opts?.fontOptions;
+  const publicPath = state?.opts?.publicPath || '/';
+  const publicEntry = state?.opts?.publicEntry || './dist';
+  const write = state?.opts?.write || false;
 
   if (typeof imageOptions === 'undefined') {
     imageOptions = {};

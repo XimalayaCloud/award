@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import * as postcss from 'postcss';
 
-export default postcss.plugin('postcss-selector', styleId => {
+export default postcss.plugin('postcss-selector', (styleId) => {
   let uniqueInfo = `.${styleId}`;
 
   return (root: any) => {

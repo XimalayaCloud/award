@@ -28,7 +28,7 @@ function string2Object(str: string) {
  * @param  {[any]} returnObj [是否返回{}格式]
  * @return {[string | object]}
  */
-export default function(_data?: string | object, returnObj?: string) {
+export default function (_data?: string | object, returnObj?: string) {
   let data = _data;
   if (!data) {
     return returnObj === 'object' ? {} : '';

@@ -5,7 +5,7 @@ import { requireResolve, memoryFile } from '../../help';
 import { storeAwardStyle } from '../utils/constant';
 
 export default function watchImport(styleKeys: any, map: any, error: any): any {
-  styleKeys.map((stylePath: any) => {
+  styleKeys.forEach((stylePath: any) => {
     if (fs.existsSync(stylePath)) {
       let css = '';
       if (/\.(t|j)sx?$/.test(stylePath)) {
@@ -21,7 +21,7 @@ export default function watchImport(styleKeys: any, map: any, error: any): any {
       if (css) {
         const matchs = css.match(/\@import(.*;)/g);
         if (matchs) {
-          matchs.map(match => {
+          matchs.forEach((match) => {
             match = match.replace(/@import|\s|'|"|;/g, '');
 
             if (!/\.scss|css|sass$/.test(match)) {

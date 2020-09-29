@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /**
  * 检测import内容,同时通过sass获取style内容
  */
@@ -15,11 +16,11 @@ const cwd = process.cwd();
 
 export default (path: NodePath<t.ImportDeclaration>, state: any) => {
   let givenPath = path.node.source.value;
-  const reference = state && state.file && state.file.opts.filename;
-  let imageOptions = state && state.opts && state.opts.imageOptions;
-  const publicPath = (state && state.opts && state.opts.publicPath) || '/';
-  const publicEntry = (state && state.opts && state.opts.publicEntry) || './dist';
-  const write = (state && state.opts && state.opts.write) || false;
+  const reference = state?.file?.opts.filename;
+  let imageOptions = state?.opts?.imageOptions;
+  const publicPath = state?.opts?.publicPath || '/';
+  const publicEntry = state?.opts?.publicEntry || './dist';
+  const write = state?.opts?.write || false;
 
   // 全局的引用 './common.scss!'
   let globalStyle = false;
@@ -82,33 +83,30 @@ export default (path: NodePath<t.ImportDeclaration>, state: any) => {
       }
 
       const id = path.node.specifiers[0].local.name;
-      try {
-        const _content: any = parseImage({
-          url: givenPath,
-          reference,
-          write,
-          imageOptions,
-          publicEntry,
-          publicPath,
-          state
-        });
 
-        const variable = t.variableDeclarator(t.identifier(id), t.stringLiteral(_content));
+      const _content: any = parseImage({
+        url: givenPath,
+        reference,
+        write,
+        imageOptions,
+        publicEntry,
+        publicPath,
+        state
+      });
 
-        (path as any).replaceWith({
-          type: 'VariableDeclaration',
-          kind: 'const',
-          declarations: [variable],
-          leadingComments: [
-            {
-              type: 'CommentBlock',
-              value: `award-style '${givenPath}' `
-            }
-          ]
-        });
-      } catch (err) {
-        throw err;
-      }
+      const variable = t.variableDeclarator(t.identifier(id), t.stringLiteral(_content));
+
+      (path as any).replaceWith({
+        type: 'VariableDeclaration',
+        kind: 'const',
+        declarations: [variable],
+        leadingComments: [
+          {
+            type: 'CommentBlock',
+            value: `award-style '${givenPath}' `
+          }
+        ]
+      });
     }
   }
 

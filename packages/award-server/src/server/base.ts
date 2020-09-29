@@ -132,7 +132,7 @@ export default class Base {
 
     loadParams.set({ basename: config.basename });
 
-    if (config.plugins && config.plugins.length) {
+    if (config.plugins?.length) {
       nodePlugin.unregister();
       nodePlugin.register(config.plugins);
     }
@@ -227,7 +227,7 @@ export default class Base {
    * 挂载所有中间件
    */
   public loadAllMiddlewares() {
-    this.middlewares.forEach(middleware => {
+    this.middlewares.forEach((middleware) => {
       this.app.use(middleware);
     });
   }

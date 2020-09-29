@@ -21,7 +21,7 @@ const clean = require('../shared/clean');
 
 const dirs = fs
   .readdirSync(path.join(__dirname, '..', '..', 'packages'))
-  .map(item => 'packages/' + item);
+  .map((item) => 'packages/' + item);
 
 const dir = process.cwd();
 
@@ -41,7 +41,7 @@ const enabled = stream && stream.isTTY;
     clean(path.join(dir, 'dist'));
     while (i < dirs.length) {
       const item = dirs[i];
-      await new Promise(resolve => {
+      await new Promise((resolve) => {
         const cwd = path.join(dir, item);
         if (fs.existsSync(cwd) && fs.statSync(cwd).isDirectory()) {
           clean(path.join(cwd, 'lib'));
@@ -53,13 +53,13 @@ const enabled = stream && stream.isTTY;
     const _tsc = spawn(tsc, {
       cwd: dir
     });
-    _tsc.stdout.on('data', data => {
+    _tsc.stdout.on('data', (data) => {
       const content = data.toString();
       console.log();
       console.log(content);
       process.exit(-1);
     });
-    _tsc.on('close', async err => {
+    _tsc.on('close', async (err) => {
       const info = chalk.green('编译完成\n');
       if (enabled) {
         stream.clearLine();

@@ -18,9 +18,5 @@ export default (props: any) => {
       }
     }
   }
-  return (
-    <>
-      <Helmet {...rests}>{children}</Helmet>
-    </>
-  );
+  return <Helmet {...rests}>{children}</Helmet>;
 };

@@ -79,7 +79,7 @@ class Plugin {
 
         const _dd = (key: any, deps: any) => {
           const _d = depAll[key];
-          if (_d && _d.length) {
+          if (_d?.length) {
             _d.forEach((item: any) => {
               if (global.routeFileNames.indexOf(item) === -1) {
                 SplitStyleModules.push(item);
@@ -192,7 +192,7 @@ class Plugin {
           const item = MyChunks[debugId];
           const css: any = {};
           let cssKeys: any = [];
-          if (global['es-style'] && global['es-style'].es[item.entry]) {
+          if (global['es-style']?.es[item.entry]) {
             if (item.name === 'main') {
               // 把main入口的资源也提取到公共模块中
               CommonFileHashName[0] = global['es-style'].es[item.entry];
@@ -207,7 +207,7 @@ class Plugin {
               // 剔除提取的公共模块
               if (CommonChunkCssModule.indexOf(_module) === -1) {
                 // 剔除当前模块没有import样式
-                if (global['es-style'] && global['es-style'].es[_module]) {
+                if (global['es-style']?.es[_module]) {
                   /**
                    * 当前模块不在公共模块内
                    * 但是当前模块引用的样式被公共模块也引用了
@@ -296,10 +296,10 @@ class Plugin {
 
         // style
         const _CommonFileHashName: any = {};
-        if (global['es-style'] && global['es-style'].style) {
+        if (global['es-style']?.style) {
           // 获取全局的公共file名称
           const commonStyleReference = Object.keys(global['es-style'].style);
-          commonStyleReference.map(item => {
+          commonStyleReference.map((item) => {
             const hashId = global['es-style'].relation.style.file[item];
             const relations = global['es-style'].relation.style.hash[hashId];
             let keys: any = [];

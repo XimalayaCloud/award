@@ -100,7 +100,7 @@ export default function request(options: IOpt2): Promise<any> {
       xhr.upload.addEventListener('progress', onUploadProgress);
     }
 
-    if (cancelToken && cancelToken.promise) {
+    if (cancelToken?.promise) {
       cancelToken.promise.then((cancel: string) => {
         if (!xhr) {
           return;
