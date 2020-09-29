@@ -69,7 +69,7 @@ export default ({
       if (process.env.NODE_ENV === 'development') {
         if (window.award_hmr) {
           console.info('移除award_hmr');
-          delete window.award_hmr;
+          delete (window as any).award_hmr;
         }
       }
     }

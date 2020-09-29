@@ -6,7 +6,6 @@ import * as path from 'path';
 import { BabelConfig } from '../../babel';
 import FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 import { ProgressBarPlugin } from '../../webpack-plugins';
-import { regNodeModules } from '../../help';
 import webpackInclude from '../utils/include';
 import alias from '../utils/alias';
 
@@ -36,12 +35,6 @@ export default (entry: any, dir: string, assetPrefixs: string, envs: any, dllDir
             dll: true,
             assetPrefixs
           })
-        },
-        {
-          test: /\.tsx?$/,
-          exclude: regNodeModules,
-          include: dir,
-          loader: 'ts-loader'
         }
       ]
     },

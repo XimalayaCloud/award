@@ -61,7 +61,12 @@ export default function getBabelConfig({
         : { targets: '> 0.25%, not dead' }
     ],
     '@babel/preset-react',
-    '@babel/preset-typescript'
+    [
+      '@babel/preset-typescript',
+      {
+        onlyRemoveTypeImports: true
+      }
+    ]
   ];
 
   const plugins: any = [

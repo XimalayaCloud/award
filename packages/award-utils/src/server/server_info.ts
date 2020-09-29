@@ -75,7 +75,7 @@ export default function(this: IServer, show = true) {
         globalLog(...args);
       }
     };
-    delete global.AppRegistry;
+    delete (global as any).AppRegistry;
   }
   return url;
 }

@@ -89,7 +89,7 @@ const startWeb = async (Component: AComponentType, hot: Function | null = null) 
 
     // 生产环境清除全局变量标记
     if (process.env.NODE_ENV !== 'development') {
-      delete window.__AWARD__INIT__ROUTES__;
+      delete (window as any).__AWARD__INIT__ROUTES__;
       delete window.__INITIAL_STATE__;
     }
 

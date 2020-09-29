@@ -34,15 +34,6 @@ const start = () => {
           })
         },
         {
-          test: /\.tsx?$/,
-          exclude: regNodeModules,
-          include: dir,
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true
-          }
-        },
-        {
           test: /\.(css|scss|less|png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)!?$/,
           loader: 'ignore-loader'
         }
