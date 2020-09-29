@@ -18,10 +18,10 @@ export default () => {
       process.env.USE_ROUTE = '1';
     });
 
-    it('错误测试', done => {
+    it('错误测试', (done) => {
       process.env.USE_ROUTE = '0';
-      mountStart(async wrapper => {
-        await new Promise(resolve => setTimeout(resolve, 10));
+      mountStart(async (wrapper) => {
+        await new Promise((resolve) => setTimeout(resolve, 10));
         wrapper.update();
         expect(wrapper.html()).toBe('<p>hello error</p>');
         done();
@@ -29,7 +29,7 @@ export default () => {
       require('@/fixtures/basic-router/a');
     });
 
-    it('正确的路由切换 - 测试', done => {
+    it('正确的路由切换 - 测试', (done) => {
       // 需要解析RouterSwitch
       window.__INITIAL_STATE__ = {
         award: {}
@@ -43,14 +43,14 @@ export default () => {
           component: home
         }
       ];
-      mountStart(async wrapper => {
+      mountStart(async (wrapper) => {
         const { history } = require('award-router');
-        await new Promise(resolve => setTimeout(resolve, 10));
+        await new Promise((resolve) => setTimeout(resolve, 10));
         wrapper.update();
         expect(wrapper.html()).toBe('<p>hello routes</p>');
 
         history.push({ pathname: '/home' });
-        await new Promise(resolve => setTimeout(resolve, 20));
+        await new Promise((resolve) => setTimeout(resolve, 20));
         wrapper.update();
         expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello home</p></div>');
 

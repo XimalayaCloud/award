@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 /**
  * 测试Award项目的开发启动服务
  */
@@ -6,7 +7,7 @@ import * as os from 'os';
 const isWin = os.type() === 'Windows_NT';
 
 describe('测试Award项目的生产环境启动', () => {
-  it('常规测试 - 生产环境启动', done => {
+  it('常规测试 - 生产环境启动', (done) => {
     const root = require
       .resolve('@/fixtures/with-data/b/index.js')
       .replace(isWin ? /\\index\.js$/ : /\/index\.js$/, '');

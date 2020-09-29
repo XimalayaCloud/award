@@ -34,18 +34,15 @@ describe('路由错误测试', () => {
     window.__INITIAL_STATE__ = {};
   });
 
-  it('全局错误', done => {
+  it('全局错误', (done) => {
     // 直接渲染home组件
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
-      wrapper
-        .find('p')
-        .at(0)
-        .simulate('click');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      wrapper.find('p').at(0).simulate('click');
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello error</p>');
       done();
@@ -53,22 +50,19 @@ describe('路由错误测试', () => {
     require('@/fixtures/basic-router/error-test');
   });
 
-  it('全局错误 + loading Function main/a', done => {
+  it('全局错误 + loading Function main/a', (done) => {
     // 直接渲染home组件
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
-      wrapper
-        .find('p')
-        .at(0)
-        .simulate('click');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      wrapper.find('p').at(0).simulate('click');
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>loading...</p>');
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello errorgetInitialProps</p>');
       done();
@@ -76,22 +70,19 @@ describe('路由错误测试', () => {
     require('@/fixtures/basic-router/error-test/main/a');
   });
 
-  it('全局错误 + loading Element main/b', done => {
+  it('全局错误 + loading Element main/b', (done) => {
     // 直接渲染home组件
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
-      wrapper
-        .find('p')
-        .at(0)
-        .simulate('click');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      wrapper.find('p').at(0).simulate('click');
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>loading...element</p>');
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello errorgetInitialProps</p>');
       done();
@@ -99,22 +90,19 @@ describe('路由错误测试', () => {
     require('@/fixtures/basic-router/error-test/main/b');
   });
 
-  it('全局错误 + loading other main/c', done => {
+  it('全局错误 + loading other main/c', (done) => {
     // 直接渲染home组件
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
-      wrapper
-        .find('p')
-        .at(0)
-        .simulate('click');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      wrapper.find('p').at(0).simulate('click');
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('');
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello errorgetInitialProps</p>');
       done();
@@ -122,23 +110,20 @@ describe('路由错误测试', () => {
     require('@/fixtures/basic-router/error-test/main/c');
   });
 
-  it('全局错误 + loading Element main/d', done => {
+  it('全局错误 + loading Element main/d', (done) => {
     history.replaceState({}, '', '/home');
     // 直接渲染home组件
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello home</p></div>');
 
-      wrapper
-        .find('p')
-        .at(0)
-        .simulate('click');
-      await new Promise(resolve => setTimeout(resolve, 50));
+      wrapper.find('p').at(0).simulate('click');
+      await new Promise((resolve) => setTimeout(resolve, 50));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>loading.../home</p>');
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello errorgetInitialProps</p>');
       done();

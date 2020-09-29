@@ -17,7 +17,7 @@ const package = argv._[0] || '**';
 let allPaths = `packages/${package}/src/**/*.{ts,tsx}`;
 
 if (argv.test) {
-  allPaths = `packages/${package}/{__tests__,__mocks__}/**/*.{ts,tsx}`;
+  allPaths = `__tests__/**/*.{ts,tsx}`;
 }
 
 prettier(allPaths);

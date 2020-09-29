@@ -33,12 +33,12 @@ describe('路由错误测试', () => {
     window.__INITIAL_STATE__ = {};
   });
 
-  it('路由切换数据加载出错', done => {
+  it('路由切换数据加载出错', (done) => {
     // 直接渲染home组件
 
-    mountStart(async wrapper => {
+    mountStart(async (wrapper) => {
       const { history } = require('award-router');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
@@ -51,7 +51,7 @@ describe('路由错误测试', () => {
           y: 100
         }
       });
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><p>hello error</p>');
       expect(window.scrollTo).toHaveBeenCalledWith(1, 100);
@@ -64,7 +64,7 @@ describe('路由错误测试', () => {
           scroll: false
         }
       });
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise((resolve) => setTimeout(resolve, 20));
       expect(window.scrollTo).toBeCalledTimes(0);
 
       delete window.scrollTo;
@@ -77,7 +77,7 @@ describe('路由错误测试', () => {
           y: 1
         }
       });
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise((resolve) => setTimeout(resolve, 20));
       expect(window.scrollTo).toBeCalledTimes(0);
       done();
     });

@@ -9,7 +9,7 @@ let server: Server;
 const isWin = os.type() === 'Windows_NT';
 
 describe('测试award-fetch  node apiGateWay', () => {
-  beforeEach(done => {
+  beforeEach((done) => {
     const root = require
       .resolve('@/fixtures/basic/examples/c/index.tsx')
       .replace(isWin ? /\\index\.tsx$/ : /\/index\.tsx$/, '');
@@ -20,7 +20,7 @@ describe('测试award-fetch  node apiGateWay', () => {
     server = createServer(done, { port: 10809 });
   });
 
-  afterEach(done => {
+  afterEach((done) => {
     if (server.close) {
       server.close(done);
     }
@@ -30,11 +30,11 @@ describe('测试award-fetch  node apiGateWay', () => {
     process.env.API_ENV = '0';
     const fetch = require('award-fetch').default;
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -49,11 +49,11 @@ describe('测试award-fetch  node apiGateWay', () => {
     process.env.API_ENV = '1';
     const fetch = require('award-fetch').default;
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'

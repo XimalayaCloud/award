@@ -16,7 +16,8 @@ export const createServer = function createServer(done: Function, options?: { po
     await next();
   });
   app.use(koaBody());
-  const server = app.listen((options && options.port) || 0, function listen() {
+  const server = app.listen(options?.port || 0, function listen() {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-this
     app.port = this.address().port;
     app.url = 'http://localhost:' + app.port;
     app.close = (callback: Function) => {

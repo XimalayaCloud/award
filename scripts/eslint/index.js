@@ -62,7 +62,7 @@ function runESLint() {
     : [`packages/**/src/**/*.{ts,tsx}`];
 
   if (argv.test) {
-    allPaths = [`packages/${package}/{__tests__,__mocks__}/**/*.{ts,tsx}`];
+    allPaths = [`__tests__/**/*.{ts,tsx}`];
   }
 
   if (package) {

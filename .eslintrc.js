@@ -68,10 +68,11 @@ module.exports = {
   overrides: [
     {
       // 覆盖测试示例
-      files: ['{packages,tools}/**/__tests__/**/*.{ts,tsx}'],
+      files: ['__tests__/**/*.{ts,tsx}'],
       rules: {
         // https://github.com/jest-community/eslint-plugin-jest
-        'jest/no-focused-tests': 2
+        'jest/no-focused-tests': 2,
+        'no-promise-executor-return': 'off'
       },
       env: {
         jest: true

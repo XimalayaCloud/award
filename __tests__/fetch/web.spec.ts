@@ -6,13 +6,13 @@ import { createServer, Server } from '../utils/server';
 let server: Server;
 
 describe('测试award-fetch web', () => {
-  beforeEach(done => {
+  beforeEach((done) => {
     process.env.RUN_ENV = 'web';
     jest.resetModules();
     server = createServer(done);
   });
 
-  afterEach(done => {
+  afterEach((done) => {
     if (server.close) {
       server.close(done);
     }
@@ -20,7 +20,7 @@ describe('测试award-fetch web', () => {
 
   it('通用测试', async () => {
     const fetch = require('award-fetch').default;
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch({}).catch((err: any) => {
         expect(err.message).toBe(`url empty`);
         resolve();
@@ -30,7 +30,7 @@ describe('测试award-fetch web', () => {
 
   it('拦截器', async () => {
     const fetch = require('award-fetch').default;
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello';
     });
 
@@ -44,7 +44,7 @@ describe('测试award-fetch web', () => {
     });
 
     fetch.interceptors.response.use(async (data: any, res: any) => {
-      return await new Promise(async resolve => {
+      return await new Promise(async (resolve) => {
         expect(res.ok).toBeTruthy();
         resolve(data + ' world');
       });
@@ -56,7 +56,7 @@ describe('测试award-fetch web', () => {
       info();
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url).then((data: any) => {
         expect(data).toBe(`hello world`);
         expect(info).toHaveBeenCalledTimes(1);
@@ -72,14 +72,14 @@ describe('测试award-fetch web', () => {
     const { loadParams } = require('award-utils');
     loadParams.set({ basename: '/api' });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('/').catch((err: any) => {
         expect(err.message).toBe(`only absolute urls are supported`);
         resolve();
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('test').catch((err: any) => {
         expect(err.message).toBe(`only absolute urls are supported`);
         resolve();
@@ -88,7 +88,7 @@ describe('测试award-fetch web', () => {
 
     loadParams.set({ basename: '' });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('test').catch((err: any) => {
         expect(err.message).toBe(`only absolute urls are supported`);
         resolve();
@@ -96,20 +96,20 @@ describe('测试award-fetch web', () => {
     });
   });
 
-  it('测试返回text', async done => {
+  it('测试返回text', async (done) => {
     const fetch = require('award-fetch').default;
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url).catch((err: any) => {
         expect(err.type).toBe(`invalid-json`);
         resolve();
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         dataType: 'text'
       }).then((data: any) => {
@@ -121,7 +121,7 @@ describe('测试award-fetch web', () => {
     done();
   });
 
-  it('测试无任何返回', done => {
+  it('测试无任何返回', (done) => {
     const fetch = require('award-fetch').default;
     fetch(server.url).then((response: any) => {
       expect(response.status).toBe(404);

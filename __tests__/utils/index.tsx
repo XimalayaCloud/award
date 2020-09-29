@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import * as React from 'react';
 import { mount, configure, ReactWrapper } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';

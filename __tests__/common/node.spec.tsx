@@ -54,7 +54,7 @@ describe('开发环境', () => {
     expect(info).toBeCalledTimes(0);
   });
 
-  it('node环境运行setAward & removeAward', done => {
+  it('node环境运行setAward & removeAward', (done) => {
     const warn = jest.spyOn(console, 'warn');
     global.AppRegistry = () => {
       expect(warn).toHaveBeenCalledWith('setAward方法在服务端不生效');

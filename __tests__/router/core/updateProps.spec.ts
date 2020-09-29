@@ -38,55 +38,55 @@ describe('updateProps 和 reloadInitialProps测试', () => {
     }
   });
 
-  it('updateProps boolean true', done => {
+  it('updateProps boolean true', (done) => {
     // 直接渲染home组件
     window.jestMock = jest.fn();
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
-      await new Promise(resolve => setTimeout(resolve, 30));
+      await new Promise((resolve) => setTimeout(resolve, 30));
       expect(window.jestMock).toHaveBeenCalledTimes(2);
       done();
     });
     require('@/fixtures/basic-router/updateProps/main/a');
   });
 
-  it('updateProps function true', done => {
+  it('updateProps function true', (done) => {
     // 直接渲染home组件
     window.jestMock = jest.fn();
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
-      await new Promise(resolve => setTimeout(resolve, 30));
+      await new Promise((resolve) => setTimeout(resolve, 30));
       expect(window.jestMock).toHaveBeenCalledTimes(3);
       done();
     });
     require('@/fixtures/basic-router/updateProps/main/b');
   });
 
-  it('updateProps function false', done => {
+  it('updateProps function false', (done) => {
     // 直接渲染home组件
     window.jestMock = jest.fn();
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
-      await new Promise(resolve => setTimeout(resolve, 30));
+      await new Promise((resolve) => setTimeout(resolve, 30));
       expect(window.jestMock).toHaveBeenCalledTimes(2);
       done();
     });
     require('@/fixtures/basic-router/updateProps/main/c');
   });
 
-  it('updateProps function Error', done => {
+  it('updateProps function Error', (done) => {
     window.jestMock = jest.fn();
     history.replaceState({}, '', '/?id=123');
-    mountStart(async wrapper => {
+    mountStart(async (wrapper) => {
       expect(wrapper.html()).toBe('<p>hello </p><p>hello error</p>');
       expect(window.jestMock).toHaveBeenCalledTimes(1);
       done();

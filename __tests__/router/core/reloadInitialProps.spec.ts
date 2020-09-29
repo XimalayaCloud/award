@@ -38,23 +38,17 @@ describe('updateProps 和 reloadInitialProps测试', () => {
     }
   });
 
-  it('reloadInitialProps 测试', done => {
+  it('reloadInitialProps 测试', (done) => {
     // 直接渲染home组件
     window.jestMock = jest.fn();
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
       const warnd = jest.spyOn(console, 'warn');
-      wrapper
-        .find('p')
-        .at(0)
-        .simulate('click');
-      wrapper
-        .find('p')
-        .at(0)
-        .simulate('click');
-      await new Promise(resolve => setTimeout(resolve, 30));
+      wrapper.find('p').at(0).simulate('click');
+      wrapper.find('p').at(0).simulate('click');
+      await new Promise((resolve) => setTimeout(resolve, 30));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
       expect(warnd).toHaveBeenCalledWith(
@@ -65,12 +59,12 @@ describe('updateProps 和 reloadInitialProps测试', () => {
     require('@/fixtures/basic-router/updateProps/main/b');
   });
 
-  it('reloadInitialProps 测试', done => {
+  it('reloadInitialProps 测试', (done) => {
     // 直接渲染home组件
     window.jestMock = jest.fn();
     history.replaceState({}, '', '/?id=abc');
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello error</p>');
       done();

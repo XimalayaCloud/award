@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-invalid-this */
 import * as React from 'react';
 import { mount, configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
@@ -35,10 +36,7 @@ class Test extends React.Component {
 it('componentDidMount setTimeout', () => {
   jest.useFakeTimers();
   const client = mount(<Test />);
-  client
-    .find('h1')
-    .at(0)
-    .simulate('click');
+  client.find('h1').at(0).simulate('click');
   jest.runAllTimers();
   expect(client.html()).toBe('<h1>4</h1>');
 });

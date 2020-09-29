@@ -9,7 +9,7 @@ let server: Server;
 const isWin = os.type() === 'Windows_NT';
 
 describe('测试thrift', () => {
-  beforeEach(done => {
+  beforeEach((done) => {
     const root = require
       .resolve('@/fixtures/with-data/c/index.tsx')
       .replace(isWin ? /\\index\.tsx$/ : /\/index\.tsx$/, '');
@@ -20,7 +20,7 @@ describe('测试thrift', () => {
     server = createServer(done);
   });
 
-  afterEach(done => {
+  afterEach((done) => {
     if (server.close) {
       server.close(done);
     }
@@ -33,11 +33,11 @@ describe('测试thrift', () => {
     process.chdir(root);
     const fetch = require('award-fetch').default;
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         thrift: true,
         method: 'POST',
@@ -52,11 +52,11 @@ describe('测试thrift', () => {
   it('测试thrift，配置指定', async () => {
     const fetch = require('award-fetch').default;
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         thrift: true,
         method: 'POST',
@@ -89,11 +89,11 @@ describe('测试thrift', () => {
         };
       };
     });
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         thriftMethod: 'list',
         thrift: true,
@@ -105,7 +105,7 @@ describe('测试thrift', () => {
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         thriftMethod: 'listError',
         thrift: true,
@@ -117,7 +117,7 @@ describe('测试thrift', () => {
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         thriftMethod: 'listError',
         thrift: true,

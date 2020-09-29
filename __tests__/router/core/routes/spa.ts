@@ -1,7 +1,7 @@
 import { mountStart } from '../../../utils';
 
 export default () => {
-  it('测试单页应用', done => {
+  it('测试单页应用', (done) => {
     const home = (callback: Function) => {
       callback(require('@/fixtures/basic-router/c/pages/home'));
     };
@@ -25,7 +25,7 @@ export default () => {
     process.env.EXPORTPATH = JSON.stringify({
       'about.html': '/about/1'
     });
-    mountStart(async wrapper => {
+    mountStart(async (wrapper) => {
       const url = 'about.html#/about/1';
       Object.defineProperty(window, 'location', {
         value: {
@@ -36,7 +36,7 @@ export default () => {
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
       history.push({ pathname: '/about/1' });
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       expect(window.location.href).toEqual(url);
       done();
     });

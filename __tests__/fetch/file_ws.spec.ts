@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 /**
  * 测试一些配置文件
  */
@@ -18,7 +19,7 @@ describe('测试file', () => {
     jest.resetModules();
   });
 
-  it('浏览器file协议调试', done => {
+  it('浏览器file协议调试', (done) => {
     const ws = new WebSocket.Server({ port: 12399 });
     ws.on('connection', (wss: any) => {
       wss.on('message', (message: any) => {
