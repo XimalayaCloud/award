@@ -2,7 +2,7 @@ version: 2
 
 aliases:
   - &docker
-    - image: circleci/node:12.18-browsers-legacy
+    - image: circleci/openjdk:8-jdk-node-browsers
 
   - &restore_yarn_cache
     restore_cache:
