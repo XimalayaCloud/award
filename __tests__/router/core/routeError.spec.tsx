@@ -56,7 +56,7 @@ describe('路由错误测试', () => {
       expect(wrapper.html()).toBe('<p>hello routes</p><p>hello error</p>');
       expect(window.scrollTo).toHaveBeenCalledWith(1, 100);
 
-      delete window.scrollTo;
+      delete (window as any).scrollTo;
       window.scrollTo = jest.fn();
       history.push({
         pathname: '/about/2',
@@ -67,7 +67,7 @@ describe('路由错误测试', () => {
       await new Promise((resolve) => setTimeout(resolve, 20));
       expect(window.scrollTo).toBeCalledTimes(0);
 
-      delete window.scrollTo;
+      delete (window as any).scrollTo;
       window.scrollTo = jest.fn();
       history.push({
         pathname: '/about/2',
