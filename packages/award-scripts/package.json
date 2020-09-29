@@ -63,7 +63,7 @@
     "html-beautifier": "0.0.10",
     "ignore-loader": "0.1.2",
     "inquirer": "7.0.0",
-    "kill-port-process": "2.3.0",
+    "kill-port-process": "2.1.0",
     "less": "3.12.2",
     "less-loader": "7.0.1",
     "loader-utils": "2.0.0",
