@@ -2,7 +2,7 @@ const div = document.createElement('div');
 div.id = 'award';
 document.body.appendChild(div);
 
-it('正常渲染', done => {
+it('正常渲染', (done) => {
   jest.mock('react-dom', () => ({
     render() {
       const render = jest.requireActual('react-dom').render;

@@ -24,7 +24,7 @@ const createStyleLink = (ctx: IContext) => {
 
   if (!dev) {
     // 存在第三方依赖的静态资源
-    if (map.moduleStyles && map.moduleStyles[0]) {
+    if (map.moduleStyles?.[0]) {
       css.push(map.moduleStyles[0]);
     }
     match_routes.forEach((item: any) => {
@@ -34,7 +34,7 @@ const createStyleLink = (ctx: IContext) => {
         if (map[file]) {
           css.push(map[file]);
         }
-        if (map.moduleStyles && map.moduleStyles[file]) {
+        if (map.moduleStyles?.[file]) {
           css.push(...map.moduleStyles[file]);
         }
       }

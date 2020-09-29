@@ -50,7 +50,7 @@ const handler = (ctx: IContext, filename: string, urlObj: any) => {
 
           // run mock
           mock(ctx, randomMock, async (_err: any, data: any) => {
-            if (!_err && data != null) {
+            if (!_err && data !== null) {
               if (typeof data === 'function') {
                 resolve(JSON.stringify(await data()));
               } else {
@@ -83,7 +83,7 @@ export default function mockMidd() {
 
     const apiKeys = Object.keys(domainMap);
     const keys: any[] = [];
-    apiKeys.map(key => {
+    apiKeys.forEach((key) => {
       if (/^\//.test(key)) {
         keys.push(key.replace(/^\//, ''));
       } else {

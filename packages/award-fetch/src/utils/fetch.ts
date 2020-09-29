@@ -119,7 +119,7 @@ export default (options: IOpt1) => {
     return xhr(opts);
   }
 
-  return fetch(`${encodeURI(url)}${params}`, opts).then(async response => {
+  return fetch(`${encodeURI(url)}${params}`, opts).then(async (response) => {
     let transformData = await transformResponse(response);
     const rl = interceptors.response.length;
     if (rl) {

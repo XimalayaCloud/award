@@ -7,7 +7,7 @@ import spa from './spa';
 export default () => {
   normal();
   describe('路由核心逻辑测试', () => {
-    beforeEach(() => {
+    beforeEach((done) => {
       delete window.jestMock;
       jest.resetAllMocks();
       jest.resetModules();
@@ -16,6 +16,7 @@ export default () => {
       process.env.USE_ROUTE = '1';
       window.__AWARD__INIT__ROUTES__ = [];
       window.__INITIAL_STATE__ = {};
+      setTimeout(done, 20);
     });
     lifecycle();
     redirect();

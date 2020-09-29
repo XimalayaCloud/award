@@ -34,8 +34,8 @@ describe('路由测试 - 开发环境', () => {
     window.__INITIAL_STATE__ = {};
   });
 
-  it('测试热更新', done => {
-    mountStart(wrapper => {
+  it('测试热更新', (done) => {
+    mountStart((wrapper) => {
       expect(wrapper.html()).toBe('<p>hello routes</p>');
       done();
     });

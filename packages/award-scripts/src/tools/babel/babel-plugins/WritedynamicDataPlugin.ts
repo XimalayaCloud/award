@@ -16,14 +16,14 @@ if (os.type() === 'Windows_NT') {
   awardPlguinReg = /\\award-plugin\\lib\\/;
 }
 
-export default function(babel: any) {
+export default function (babel: any) {
   const { template: tpl } = babel;
   return {
     name: 'WritePlugin',
     visitor: {
       ExpressionStatement(spath: NodePath<t.ExpressionStatement>, state: any) {
-        const reference = state && state.file && state.file.opts.filename;
-        const basename = state && state.opts && state.opts.basename;
+        const reference = state?.file?.opts.filename;
+        const basename = state?.opts?.basename;
         if (!awardReg.test(reference) && !awardPlguinReg.test(reference)) {
           return;
         }
@@ -34,46 +34,48 @@ export default function(babel: any) {
             const element = [tpl(`_award_plugins_ = {};`)()];
 
             for (const plugin in global.__AWARD__PLUGINS__) {
-              const item = global.__AWARD__PLUGINS__[plugin];
-              const clientLibrayName = plugin + '/client';
-              const moduleName = '_' + item.name;
-              const clientModuleName = '_' + item.name + '_client';
-              element.push(
-                tpl(`let MODULENAME,CLIENTMODULENAME`)({
-                  MODULENAME: t.identifier(moduleName),
-                  CLIENTMODULENAME: t.identifier(clientModuleName)
-                }),
-                // try{}catch(e){} api依赖 require('award-plugin-example')
-                t.tryStatement(
-                  t.blockStatement([
-                    tpl(`MODULENAME = require(LIBRARYNAME)`)({
-                      MODULENAME: t.identifier(moduleName),
-                      LIBRARYNAME: t.stringLiteral(plugin)
-                    })
-                  ]),
-                  t.catchClause(t.identifier('e'), t.blockStatement([]))
-                ),
-                // try{}catch(e){} client依赖 require('award-plugin-example/client')
-                t.tryStatement(
-                  t.blockStatement([
-                    tpl(`CLIENTMODULENAME = require(CLIENTLIBRARYNAME)`)({
-                      CLIENTMODULENAME: t.identifier(clientModuleName),
-                      CLIENTLIBRARYNAME: t.stringLiteral(clientLibrayName)
-                    })
-                  ]),
-                  t.catchClause(t.identifier('e'), t.blockStatement([]))
-                ),
-                tpl(`_award_plugins_[LIBRARYNAME] = {
+              if (Object.prototype.hasOwnProperty.call(global.__AWARD__PLUGINS__, plugin)) {
+                const item = global.__AWARD__PLUGINS__[plugin];
+                const clientLibrayName = plugin + '/client';
+                const moduleName = '_' + item.name;
+                const clientModuleName = '_' + item.name + '_client';
+                element.push(
+                  tpl(`let MODULENAME,CLIENTMODULENAME`)({
+                    MODULENAME: t.identifier(moduleName),
+                    CLIENTMODULENAME: t.identifier(clientModuleName)
+                  }),
+                  // try{}catch(e){} api依赖 require('award-plugin-example')
+                  t.tryStatement(
+                    t.blockStatement([
+                      tpl(`MODULENAME = require(LIBRARYNAME)`)({
+                        MODULENAME: t.identifier(moduleName),
+                        LIBRARYNAME: t.stringLiteral(plugin)
+                      })
+                    ]),
+                    t.catchClause(t.identifier('e'), t.blockStatement([]))
+                  ),
+                  // try{}catch(e){} client依赖 require('award-plugin-example/client')
+                  t.tryStatement(
+                    t.blockStatement([
+                      tpl(`CLIENTMODULENAME = require(CLIENTLIBRARYNAME)`)({
+                        CLIENTMODULENAME: t.identifier(clientModuleName),
+                        CLIENTLIBRARYNAME: t.stringLiteral(clientLibrayName)
+                      })
+                    ]),
+                    t.catchClause(t.identifier('e'), t.blockStatement([]))
+                  ),
+                  tpl(`_award_plugins_[LIBRARYNAME] = {
                   name: NAME,
                   default: MODULENAME,
                   client: CLIENTMODULENAME,
                 }`)({
-                  LIBRARYNAME: t.stringLiteral(plugin),
-                  NAME: t.stringLiteral(item.name),
-                  MODULENAME: t.identifier(moduleName),
-                  CLIENTMODULENAME: t.identifier(clientModuleName)
-                })
-              );
+                    LIBRARYNAME: t.stringLiteral(plugin),
+                    NAME: t.stringLiteral(item.name),
+                    MODULENAME: t.identifier(moduleName),
+                    CLIENTMODULENAME: t.identifier(clientModuleName)
+                  })
+                );
+              }
             }
             spath.replaceWithMultiple(element);
           }
@@ -97,7 +99,7 @@ export default function(babel: any) {
               scopes = JSON.parse(String(fs.readFileSync(pkg))).scope || [];
             }
             let elements: any[] = [];
-            scopes.forEach(scope => {
+            scopes.forEach((scope) => {
               elements.push(t.stringLiteral(scope));
             });
             spath.replaceWith(

@@ -103,7 +103,15 @@ const normalConfig = (config: any, lessLoaderSource: any) => {
     },
     {
       test: /\.less$/,
-      loaders: [...styleloader, `less-loader?${JSON.stringify(lessLoaderSource)}`]
+      loaders: [
+        ...styleloader,
+        {
+          loader: 'less-loader',
+          options: {
+            lessOptions: lessLoaderSource
+          }
+        }
+      ]
     },
     {
       test: /\.css$/,

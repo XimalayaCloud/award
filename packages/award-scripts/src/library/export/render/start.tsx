@@ -50,13 +50,15 @@ module.exports = async (assetPrefixs: string, port?: number | null) => {
 
     if (exportPath && Object.keys(exportPath).length) {
       for (const htmlName in exportPath) {
-        const _url = exportPath[htmlName].split('?');
-        ctx.award.url = _url[0];
-        ctx.award.search = _url[1] ? '?' + _url[1] : '';
-        const { RootComponent } = await load(config, dir);
-        ctx.award.RootComponent = RootComponent;
-        ctx.award.RootComponent = await render(ctx);
-        await renderHtml(config, ctx, map, manifest, '', htmlName, port);
+        if (Object.prototype.hasOwnProperty.call(exportPath, htmlName)) {
+          const _url = exportPath[htmlName].split('?');
+          ctx.award.url = _url[0];
+          ctx.award.search = _url[1] ? '?' + _url[1] : '';
+          const { RootComponent } = await load(config, dir);
+          ctx.award.RootComponent = RootComponent;
+          ctx.award.RootComponent = await render(ctx);
+          await renderHtml(config, ctx, map, manifest, '', htmlName, port);
+        }
       }
     } else {
       ctx.award.RootComponent = await render(ctx);

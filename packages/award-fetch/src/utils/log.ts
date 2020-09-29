@@ -11,7 +11,7 @@ const error = (msg: string | Error, type = '', ...args: string[]) => {
       error: msg instanceof Error ? msg : new Error(msg)
     });
   }
-  if (customLog && customLog.error) {
+  if (customLog?.error) {
     return customLog.error(msg, type, ...args);
   }
   console.error(`${type ? `[${type}]: ` : ''}${msg}`);

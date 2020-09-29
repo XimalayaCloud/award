@@ -179,15 +179,7 @@ export default async (
   }
 
   // 直出html页面
-  const finalHtml =
-    '<!DOCTYPE html>' +
-    renderToString(
-      <>
-        <>
-          <DocumentComponent {...myDoc} {...data} />
-        </>
-      </>
-    );
+  const finalHtml = '<!DOCTYPE html>' + renderToString(<DocumentComponent {...myDoc} {...data} />);
 
   // 触发渲染后钩子
   await nodePlugin.hooks.afterRender({ context: ctx, html: finalHtml });

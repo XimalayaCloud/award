@@ -20,12 +20,7 @@ export default function run(opts: any, images: any) {
 
   // Increase padding to handle retina ratio
   if (areRetinaImages(images)) {
-    const ratio = (_ as any)
-      .chain(images)
-      .flatten('ratio')
-      .uniq()
-      .head()
-      .value().ratio;
+    const ratio = (_ as any).chain(images).flatten('ratio').uniq().head().value().ratio;
 
     if (ratio) {
       config.padding = config.padding * ratio;

@@ -48,21 +48,21 @@ describe('路由切换加载数据发生了错误', () => {
     }
   });
 
-  it('路由切换常规错误测试', done => {
-    mountStart(async wrapper => {
+  it('路由切换常规错误测试', (done) => {
+    mountStart(async (wrapper) => {
       const { history } = require('award-router');
 
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p>');
 
       // 发生错误，路由重定向到/home
       history.push('/detail/1');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><p>loading...</p>');
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello home1</p></div>');
       done();

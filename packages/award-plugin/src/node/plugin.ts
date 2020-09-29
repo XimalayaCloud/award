@@ -270,9 +270,9 @@ class Plugin {
   ) {
     const self = this;
     const obj: any = {};
-    Node.names[methodName].forEach(name => {
+    Node.names[methodName].forEach((name) => {
       const { name: fnName } = parseAsync(name);
-      obj[fnName] = function() {
+      obj[fnName] = function () {
         self.__plugin__self__hooks__[fnName](...arguments);
       };
     });

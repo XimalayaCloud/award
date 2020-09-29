@@ -6,7 +6,7 @@
  * 1. 指定某个package，不指定，默认全部
  * 2. --change 只检测git发生变化的代码
  * 3. --test 检测测试代码，即__tests__和__mocks__文件夹
- * npm run lint -- <指定某个package> --change --test
+ * npm run eslint -- <指定某个package> --change --test
  *
  */
 
@@ -29,7 +29,7 @@ function runESLintOnFilesWithOptions(filePatterns, onlyChanged) {
 
   const report = cli.executeOnFiles(finalFilePatterns);
 
-  const messages = report.results.filter(item => {
+  const messages = report.results.filter((item) => {
     if (!onlyChanged) {
       return true;
     }
@@ -48,7 +48,7 @@ function runESLintOnFilesWithOptions(filePatterns, onlyChanged) {
 
 function intersect(files, patterns) {
   let intersection = [];
-  patterns.forEach(pattern => {
+  patterns.forEach((pattern) => {
     intersection = [...intersection, ...minimatch.match(files, pattern, { matchBase: true })];
   });
   return [...new Set(intersection)];
@@ -62,7 +62,7 @@ function runESLint() {
     : [`packages/**/src/**/*.{ts,tsx}`];
 
   if (argv.test) {
-    allPaths = [`packages/${package}/{__tests__,__mocks__}/**/*.{ts,tsx}`];
+    allPaths = [`__tests__/**/*.{ts,tsx}`];
   }
 
   if (package) {
@@ -79,8 +79,8 @@ function runESLint() {
 }
 
 if (runESLint()) {
-  console.log(chalk.yellow('🎉  Lint passed.'));
+  console.log(chalk.yellow('🎉 Lint passed.'));
 } else {
-  console.log(chalk.red('☹️  Lint failed.'));
+  console.log(chalk.red('☹️ Lint failed.'));
   process.exit(1);
 }

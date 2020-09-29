@@ -27,7 +27,7 @@ export function getUrlPrefix(url: string) {
     };
   }
   let domainPrefix = null;
-  Object.keys(domainMap).forEach(item => {
+  Object.keys(domainMap).forEach((item) => {
     const matchReg = /^\//.test(item) ? item : '/' + item;
     if (new RegExp(`^${matchReg}`).test(url)) {
       domainPrefix = item;
@@ -57,7 +57,7 @@ export function getDomain(url: string) {
     domain = domainMap[prefix];
   }
   const res = domain.match(/https?:\/\/(.+)/);
-  return (res && res[1]) || '';
+  return res?.[1] || '';
 }
 
 /**

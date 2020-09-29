@@ -100,7 +100,7 @@ class Router extends React.Component<any, any> {
 
   public shouldComponentUpdate(nextProps: any, nextState: any) {
     const cache: any = [];
-    Object.keys(nextState.award_initialState).forEach(item => {
+    Object.keys(nextState.award_initialState).forEach((item) => {
       if (/^\//.test(item)) {
         cache.push(item);
       }
@@ -164,7 +164,7 @@ class Router extends React.Component<any, any> {
     }
     const award_initialState = this.state.award_initialState;
 
-    if (award_initialState && award_initialState.AwardException) {
+    if (award_initialState?.AwardException) {
       const AwardException = award_initialState.AwardException;
       // 如果存在要显示错误的组件
       if (AwardException.url) {

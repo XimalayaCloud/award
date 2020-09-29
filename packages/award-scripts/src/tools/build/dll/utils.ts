@@ -12,7 +12,7 @@ export const countDllPkgHash = (data: any) => {
     let si = 0;
     while (si < sl) {
       const nItem: any = [];
-      splitPath.map((item: any, index: any) => {
+      splitPath.forEach((item: any, index: any) => {
         if (index <= si) {
           nItem.push(item);
         }

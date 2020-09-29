@@ -79,6 +79,7 @@ async function RouteEntry(
     // 加载对应路由的js-bundle，初始化路由对应的组件
     // webpack会删除该段代码
     if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-param-reassign
       INITIAL_STATE = window.hmr_initialState || INITIAL_STATE;
     }
     await loadBundles(match_routes, search(), INITIAL_STATE);

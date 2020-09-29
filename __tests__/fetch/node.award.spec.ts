@@ -8,7 +8,7 @@ let server: Server;
 
 const isWin = os.type() === 'Windows_NT';
 describe('测试award-fetch  node', () => {
-  beforeEach(done => {
+  beforeEach((done) => {
     const root = require
       .resolve('@/fixtures/with-data/a/server.js')
       .replace(isWin ? /\\server\.js$/ : /\/server\.js$/, '');
@@ -19,7 +19,7 @@ describe('测试award-fetch  node', () => {
     server = createServer(done);
   });
 
-  afterEach(done => {
+  afterEach((done) => {
     if (server.close) {
       server.close(done);
     }
@@ -28,11 +28,11 @@ describe('测试award-fetch  node', () => {
   it('刷新APIGateway', async () => {
     const fetch = require('award-fetch').default;
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('//example.com/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -48,15 +48,15 @@ describe('测试award-fetch  node', () => {
     if (server.close) {
       server.close();
     }
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       server = createServer(resolve, { port: 10909 });
     });
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -66,7 +66,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('/api/detail', {
         method: 'POST',
         dataType: 'text'
@@ -76,7 +76,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('/api/music', {
         method: 'POST',
         dataType: 'text'
@@ -98,15 +98,15 @@ describe('测试award-fetch  node', () => {
     if (server.close) {
       server.close();
     }
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       server = createServer(resolve, { port: 10909 });
     });
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -126,15 +126,15 @@ describe('测试award-fetch  node', () => {
     if (server.close) {
       server.close();
     }
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       server = createServer(resolve, { port: 10909 });
     });
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -148,13 +148,13 @@ describe('测试award-fetch  node', () => {
   it('错误尝试', async () => {
     const fetch = require('award-fetch').default;
     const retry = jest.fn();
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       retry();
       ctx.status = 500;
       ctx.body = 'hello world';
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         method: 'POST',
         dataType: 'text'
@@ -168,7 +168,7 @@ describe('测试award-fetch  node', () => {
 
   it('错误请求未知尝试', async () => {
     const fetch = require('award-fetch').default;
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch('http://a.b.c.com/a', {
         method: 'POST'
       }).catch((e: any) => {

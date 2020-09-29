@@ -4,3 +4,4 @@
 # 输出结果
 packages/**/lib
 packages/**/ts_build
+dist

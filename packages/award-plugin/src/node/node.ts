@@ -88,13 +88,13 @@ export const register = (plugins: Array<any>) => {
       try {
         // node环境可以直接require引用依赖
         const node = require(`${name}/node`);
-        const run = node.default || node;
+        const Run = node.default || node;
         currentName = name;
         try {
-          if (run.prototype && run.prototype.apply) {
-            new run(defaultApis, options, name).apply();
+          if (Run.prototype?.apply) {
+            new Run(defaultApis, options, name).apply();
           } else {
-            run(defaultApis, options);
+            Run(defaultApis, options);
           }
         } catch (error) {
           // 插件注册出错
@@ -110,7 +110,7 @@ export const register = (plugins: Array<any>) => {
  * 提供钩子列表用来挂载每个插件的hook
  */
 export default (names: Array<any>) => {
-  names.forEach(name => {
+  names.forEach((name) => {
     const { name: fnName, type: fnType } = parseAsync(name);
     storeApis[fnName] = [];
     defaultApis[fnName] = (cb: Function) => {
@@ -136,7 +136,7 @@ export default (names: Array<any>) => {
 };
 
 export const unregister = (names: Array<any>) => {
-  names.forEach(name => {
+  names.forEach((name) => {
     const { name: fnName } = parseAsync(name);
     storeApis[fnName] = [];
   });

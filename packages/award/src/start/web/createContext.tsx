@@ -69,7 +69,7 @@ export default ({
       if (process.env.NODE_ENV === 'development') {
         if (window.award_hmr) {
           console.info('移除award_hmr');
-          delete window.award_hmr;
+          delete (window as any).award_hmr;
         }
       }
     }
@@ -84,7 +84,7 @@ export default ({
           ...obj
         };
         // 处理异步更新状态
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           this.setState(
             {
               award: hmrAwardValue

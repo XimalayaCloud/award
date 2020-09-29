@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { join } from 'path';
 import * as _ from 'lodash';
 import { IServer, IAny } from 'award-types';
@@ -6,14 +7,14 @@ import getIPAdress from './getIPAdress';
 const reset = '\x1B[0m';
 
 const boldGreenBright = (str: string) => {
-  return '\x1B[1m' + '\x1B[92m' + str + reset + reset;
+  return '\x1B[1m\x1B[92m' + str + reset + reset;
 };
 
 const cyan = (str: string) => {
   return '\x1B[36m' + str + reset;
 };
 
-export default function(this: IServer, show = true) {
+export default function (this: IServer, show = true) {
   const ip = getIPAdress();
   show = this.apiServer || !show ? false : true;
   const projectPkg: IAny & { name: string } = require(join(this.dir, 'package.json'));
@@ -75,7 +76,7 @@ export default function(this: IServer, show = true) {
         globalLog(...args);
       }
     };
-    delete global.AppRegistry;
+    delete (global as any).AppRegistry;
   }
   return url;
 }

@@ -1,3 +1,5 @@
+/* eslint-disable no-throw-literal */
+/* eslint-disable complexity */
 /**
  * 核心中间件
  */
@@ -9,7 +11,7 @@ import { Middleware } from 'koa';
 import CommonMiddleware from '../common';
 import RedirectFunction from '../../utils/redirect';
 
-export default function(this: IServer): Middleware<any, IContext> {
+export default function (this: IServer): Middleware<any, IContext> {
   if (this.apiServer) {
     return CommonMiddleware;
   }
@@ -39,7 +41,8 @@ export default function(this: IServer): Middleware<any, IContext> {
     const hasRoutes = routes.length ? true : false;
 
     if (config.assetPrefixs !== '/' && new RegExp(`^${config.assetPrefixs}`).test(url)) {
-      return (ctx.status = 404);
+      ctx.status = 404;
+      return;
     }
 
     if (self.dev) {

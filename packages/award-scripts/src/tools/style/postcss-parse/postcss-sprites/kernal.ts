@@ -323,7 +323,7 @@ export function runSpritesmith(opts: any, images: any) {
 
   return new Promise((resolve: any, reject: any) => {
     const promises: any = _.chain(images)
-      .groupBy(image => {
+      .groupBy((image) => {
         const tmp: any = image.groups.map(maskGroup(true));
         tmp.unshift('_');
 

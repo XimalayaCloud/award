@@ -4,7 +4,7 @@
 import { mountStart } from '../../../utils';
 
 export default () => {
-  it('常规测试路由生命周期', done => {
+  it('常规测试路由生命周期', (done) => {
     // 需要解析RouterSwitch
     window.__INITIAL_STATE__ = {
       award: {}
@@ -29,16 +29,16 @@ export default () => {
     ];
     window.jestMock = jest.fn();
     (window as any).routeDidUpdateArgs = jest.fn();
-    mountStart(async wrapper => {
+    mountStart(async (wrapper) => {
       const { history } = require('award-router');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello home</p></div>');
       expect(window.jestMock).toHaveBeenCalledTimes(1);
 
       const warn = jest.spyOn(console, 'warn');
       history.push({ pathname: '/about' });
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => setTimeout(resolve, 50));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello about1</p></div>');
       expect(window.jestMock).toHaveBeenCalledTimes(4);
@@ -46,7 +46,7 @@ export default () => {
       expect(warn).toBeCalledWith('');
 
       history.push({ pathname: '/about/13?id=14' });
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello about1314</p></div>');
       expect(window.jestMock).toHaveBeenCalledTimes(7);

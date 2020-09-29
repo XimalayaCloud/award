@@ -44,30 +44,30 @@ describe('award-router', () => {
     }
   });
 
-  it('测试路由切换 loading', done => {
-    mountStart(async wrapper => {
+  it('测试路由切换 loading', (done) => {
+    mountStart(async (wrapper) => {
       const { history } = require('award-router');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe(commonDOM);
 
       // 路由切换/about/1
       history.push('/about/1');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe(commonDOM + `<p>age:123</p><p>name:</p><p>hello </p>`);
 
-      await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       wrapper.update();
       expect(wrapper.html()).toBe(commonDOM + `<p>age:123</p><p>name:hello</p><p>hello 1</p>`);
 
       // 路由切换/home
       history.push('/home');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe(commonDOM + `<p>loading...home</p>`);
 
-      await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       wrapper.update();
       expect(wrapper.html()).toBe(commonDOM + `<p>hello home</p>`);
 

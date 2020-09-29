@@ -33,7 +33,7 @@ export default async function ExternalMiddleware(ctx: IContext, next: Koa.Next) 
     external = pkg.external;
   }
 
-  const reg = new RegExp(`^/external/`);
+  const reg = /^\/external\//;
   if (reg.test(ctx.request.url)) {
     const source = ctx.request.url.replace(reg, '').replace(/\?(.*)/, '');
     if (source) {

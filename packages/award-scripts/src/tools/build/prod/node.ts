@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 import * as webpack from 'webpack';
 import * as fs from 'fs-extra';
 import { join } from 'path';
@@ -12,8 +13,8 @@ function Compiler(compiler: webpack.Compiler): Promise<undefined> {
   return new Promise((resolve, reject) => {
     // 编译完成触发
     const name = 'CompilerNode';
-    compiler.hooks.done.tap(name, stats => {
-      if (stats.compilation.errors && stats.compilation.errors.length) {
+    compiler.hooks.done.tap(name, (stats) => {
+      if (stats.compilation.errors?.length) {
         reject();
       }
     });

@@ -16,7 +16,7 @@ let routes: Routes;
 const parseComponent = (Component: AComponentType): Promise<AComponentType> => {
   let parse: Function;
   if (process.env.NODE_ENV === 'development') {
-    if (routes && routes.length) {
+    if (routes?.length) {
       parse = require('../../modules/MultiplePage');
     } else {
       parse = require('../../modules/SinglePage');
@@ -33,8 +33,8 @@ const parseComponent = (Component: AComponentType): Promise<AComponentType> => {
 
 // 给元素添加remove polyfill
 // 针对IE8及其以下的，请自行添加Object polyfill进行处理
-(function(arr) {
-  arr.forEach(function(item) {
+(function (arr) {
+  arr.forEach(function (item) {
     if (item.hasOwnProperty('remove')) {
       return;
     }
@@ -42,7 +42,7 @@ const parseComponent = (Component: AComponentType): Promise<AComponentType> => {
       configurable: true,
       enumerable: true,
       writable: true,
-      value: function remove() {
+      value: function value() {
         if (this.parentNode === null) {
           return;
         }
@@ -57,7 +57,9 @@ const startWeb = async (Component: AComponentType, hot: Function | null = null) 
     document.body.innerHTML = '不存在名称为【award】的id选择器';
   } else {
     // 延迟执行-预加载
-    await new Promise(resolve => resolve());
+    await new Promise((resolve) => {
+      resolve();
+    });
     createIntialState();
     await Loadable.preloadAll();
     /**
@@ -89,7 +91,7 @@ const startWeb = async (Component: AComponentType, hot: Function | null = null) 
 
     // 生产环境清除全局变量标记
     if (process.env.NODE_ENV !== 'development') {
-      delete window.__AWARD__INIT__ROUTES__;
+      delete (window as any).__AWARD__INIT__ROUTES__;
       delete window.__INITIAL_STATE__;
     }
 
@@ -107,8 +109,8 @@ const startWeb = async (Component: AComponentType, hot: Function | null = null) 
     });
 
     if (process.env.NODE_ENV === 'development') {
-      hot && hot(ComponentType);
-      hot && hot(RootComponent);
+      hot?.(ComponentType);
+      hot?.(RootComponent);
     }
 
     render(<RootComponent />, document.getElementById('award'), () => {

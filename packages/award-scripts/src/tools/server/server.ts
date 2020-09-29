@@ -129,7 +129,7 @@ export default class DevServer extends Server {
     this.app.use(async function awaitWebCompiler(ctx: IContext, next: Function) {
       const done = path.join(self.dir, 'node_modules', 'compiler.done');
       if (!fs.existsSync(done)) {
-        await new Promise(resolve => {
+        await new Promise((resolve) => {
           const time = setInterval(() => {
             if (fs.existsSync(done)) {
               clearInterval(time);
@@ -153,7 +153,7 @@ export default class DevServer extends Server {
       try {
         await next();
       } finally {
-        self.removeMiddlewares.forEach(item => {
+        self.removeMiddlewares.forEach((item) => {
           remove(item);
         });
       }

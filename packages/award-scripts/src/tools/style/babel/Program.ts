@@ -6,17 +6,16 @@ import tpl from '@babel/template';
 import { NodePath } from '@babel/core';
 import stringHash = require('string-hash');
 import { resolve } from 'path';
-import { requireResolve } from '../../help';
+import { requireResolve, memoryFile } from '../../help';
 import * as fs from 'fs-extra';
 import collectSourceInfo from './collectSourceInfo';
 import handleStyles from './handleStyles';
 import writeStyle from './writeStyle';
 import { storeAwardStyle } from '../utils/constant';
 import { shouldBeParseStyle, dev } from '../utils';
-import { memoryFile } from '../../help';
 
 export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
-  const reference = state && state.file && state.file.opts.filename;
+  const reference = state?.file?.opts.filename;
 
   state.styles = {
     global: [],
@@ -64,7 +63,7 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
       if (name === 'award-style') {
         // 判断是否是global
         let isGlobal = false;
-        _path.node.openingElement.attributes.map(item => {
+        _path.node.openingElement.attributes.forEach((item) => {
           if (t.isJSXAttribute(item) && t.isJSXIdentifier(item.name)) {
             if (item.name.name === 'global') {
               // 全局
@@ -72,7 +71,7 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
             }
           }
         });
-        _path.node.children.forEach(child => {
+        _path.node.children.forEach((child) => {
           if (t.isJSXExpressionContainer(child) && t.isTemplateLiteral(child.expression)) {
             const quasis = child.expression.quasis;
             if (quasis.length > 1) {

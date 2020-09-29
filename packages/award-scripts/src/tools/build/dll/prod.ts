@@ -70,7 +70,8 @@ export default (configWebpack: Function | undefined, dir: string, isUseRoute: bo
         const oldLock = fs.readFileSync(dllLockFile, 'utf-8');
         if (currentLock === oldLock) {
           console.info(chalk.yellow(`检测发现当前dll资源未发生变更，将不再编译`));
-          return resolve();
+          resolve();
+          return;
         }
       }
 

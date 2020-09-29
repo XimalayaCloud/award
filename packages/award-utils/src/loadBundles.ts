@@ -24,11 +24,7 @@ export default (routes: Array<MatchedRoute<{}>>, search: string, award_initialSt
       // 这个时候就算设置了loading，loading也不会再现了，相当于从缓存中获取数据
       // 但是后续还是会获取数据，保证页面数据的最新
       // 但是如果触发了热更新，在路由的AsyncRender组件需要重新获取
-      if (
-        award_initialState &&
-        award_initialState[key] &&
-        Object.keys(award_initialState[key]).length
-      ) {
+      if (award_initialState?.[key] && Object.keys(award_initialState[key]).length) {
         route.needInitiProps = false;
       }
 
@@ -37,7 +33,7 @@ export default (routes: Array<MatchedRoute<{}>>, search: string, award_initialSt
         const cmt = route.component as Function;
         // 当前是异步组件时，判断是否已经加载过了
         if (cmt && !route.componentLoaded && typeof cmt === 'function') {
-          route.component = await new Promise(resolve => {
+          route.component = await new Promise((resolve) => {
             cmt((mod: any) => {
               resolve(mod.default ? mod.default : mod);
             });

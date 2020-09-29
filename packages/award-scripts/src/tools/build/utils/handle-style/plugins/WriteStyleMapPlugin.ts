@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 import * as fs from 'fs';
 import hashString = require('string-hash');
 import * as path from 'path';

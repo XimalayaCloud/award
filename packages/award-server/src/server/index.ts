@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
  * Award服务端核心代码
  */
@@ -147,7 +148,7 @@ export class Server extends Base {
             if (typeof middleware === 'string') {
               this.loadMiddleware(middleware, middlewares);
             } else if (Array.isArray(middleware)) {
-              middleware.forEach(item => {
+              middleware.forEach((item) => {
                 this.loadMiddleware(item, middlewares);
               });
             }
@@ -172,7 +173,7 @@ export class Server extends Base {
             if (typeof middleware === 'string') {
               this.loadMiddleware(middleware, middlewares);
             } else if (Array.isArray(middleware)) {
-              middleware.forEach(item => {
+              middleware.forEach((item) => {
                 this.loadMiddleware(item, middlewares);
               });
             }
@@ -243,7 +244,7 @@ export class Server extends Base {
       if (result && _.isArray(result)) {
         this.coreMiddlewares = result;
       }
-      this.coreMiddlewares.forEach(item => {
+      this.coreMiddlewares.forEach((item) => {
         // 如果是数组，传入config和app，供调用运行，并返回中间件函数
         if (Array.isArray(item)) {
           this.middlewares.push((item as any)[0](this.app, config));
@@ -300,7 +301,7 @@ export class Server extends Base {
    * 开始创建监听
    */
   public createListen() {
-    return new Promise(async resolve => {
+    return new Promise(async (resolve) => {
       Loadable.preloadAll().then(() => {
         const cb = (listen: any) => {
           const url = serverInfo.call(this, !this.dev);
@@ -344,7 +345,7 @@ export class Server extends Base {
         if (fs.existsSync(controllerFile)) {
           let Controllers = {};
           const collect = (baseFile: string, _Controllers: any) => {
-            fs.readdirSync(baseFile).forEach(item => {
+            fs.readdirSync(baseFile).forEach((item) => {
               const filePath = path.join(baseFile, item);
               if (fs.statSync(filePath).isDirectory()) {
                 _Controllers[item] = {};

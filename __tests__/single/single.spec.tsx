@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 /**
  * 测试无路由的单页应用
  */
@@ -34,7 +35,7 @@ describe('测试客户端执行start函数 - 生产环境', () => {
     createDOM();
   });
 
-  it('常规测试', done => {
+  it('常规测试', (done) => {
     const { loadParams } = require('award-utils');
     expect(loadParams.get().firstRender).toBeTruthy();
     start(() => {
@@ -46,19 +47,13 @@ describe('测试客户端执行start函数 - 生产环境', () => {
     require('@/fixtures/basic/examples/a');
   });
 
-  it('测试reloadInitialProps的函数调用', done => {
-    mountStart(wrapper => {
+  it('测试reloadInitialProps的函数调用', (done) => {
+    mountStart((wrapper) => {
       expect(wrapper.html()).toBe(`<h1>hello world</h1>`);
       history.replaceState({}, 'About', '/about?id=1');
       const warn = jest.spyOn(console, 'warn');
-      wrapper
-        .find('h1')
-        .at(0)
-        .simulate('click');
-      wrapper
-        .find('h1')
-        .at(0)
-        .simulate('click');
+      wrapper.find('h1').at(0).simulate('click');
+      wrapper.find('h1').at(0).simulate('click');
       expect(warn).toHaveBeenCalledWith(
         '当前根组件正在执行reloadInitialProps函数，请等待执行完毕！'
       );
@@ -70,7 +65,7 @@ describe('测试客户端执行start函数 - 生产环境', () => {
     require('@/fixtures/basic/examples/b');
   });
 
-  it('props使用了系统关键字reloadInitialProps', done => {
+  it('props使用了系统关键字reloadInitialProps', (done) => {
     window.__INITIAL_STATE__ = {
       award: {
         reloadInitialProps: null
@@ -83,7 +78,7 @@ describe('测试客户端执行start函数 - 生产环境', () => {
     require('@/fixtures/basic/examples/b');
   });
 
-  it('测试updateProps boolean', done => {
+  it('测试updateProps boolean', (done) => {
     window.jestMock = jest.fn();
     mountStart(() => {
       expect(window.jestMock).toHaveBeenCalledTimes(1);
@@ -92,7 +87,7 @@ describe('测试客户端执行start函数 - 生产环境', () => {
     require('@/fixtures/basic/updateProps/a');
   });
 
-  it('测试updateProps function', done => {
+  it('测试updateProps function', (done) => {
     window.jestMock = jest.fn();
     mountStart(() => {
       expect(window.jestMock).toHaveBeenCalledTimes(2);

@@ -13,7 +13,7 @@ export default () => {
 
   if (typeof require !== 'undefined') {
     [...extensions, ...images].map((item: any) => {
-      require.extensions[item] = data => {
+      require.extensions[item] = (data) => {
         if (images.indexOf(item) !== -1) {
           let url: any = data.filename;
           if (!/^http(s)?:|^\/\//.test(url)) {

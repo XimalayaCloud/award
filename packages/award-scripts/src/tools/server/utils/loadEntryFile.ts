@@ -8,7 +8,7 @@ import { DocumentComponent } from 'award-utils/server';
 import removeModule = require('../../remove');
 import { IConfig, IServer } from 'award-types';
 
-export default function(this: IServer) {
+export default function (this: IServer) {
   return new Promise(async (resolve, reject) => {
     try {
       const { entry, mode } = this.config.toObject() as IConfig;

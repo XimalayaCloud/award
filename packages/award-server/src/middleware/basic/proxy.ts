@@ -9,7 +9,7 @@ import k2c = require('koa2-connect');
 import { Middleware } from 'koa';
 import CommonMiddleware from '../common';
 
-export default function(this: IServer): Middleware<any, IContext> {
+export default function (this: IServer): Middleware<any, IContext> {
   /** 远程服务数据 */
   if (this.isProxy) {
     const self = this;

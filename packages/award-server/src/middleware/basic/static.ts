@@ -6,10 +6,9 @@ import * as koaMount from 'koa-mount';
 import * as Koa from 'koa';
 import { join } from 'path';
 import { IConfig, IServer, IContext } from 'award-types';
-import { Middleware } from 'koa';
 import CommonMiddleware from '../common';
 
-export default function(this: IServer): Middleware<any, IContext> {
+export default function (this: IServer): Koa.Middleware<any, IContext> {
   /** 生产环境注册静态资源服务 */
   /** 开发环境的静态资源由webpack提供的 */
   if (!this.dev && !this.apiServer) {

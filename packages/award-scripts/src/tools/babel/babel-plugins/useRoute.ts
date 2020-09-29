@@ -1,7 +1,7 @@
 import { NodePath } from '@babel/core';
 import * as t from '@babel/types';
 
-export default function() {
+export default function () {
   return {
     name: 'isUseRoute',
     visitor: {
@@ -17,7 +17,7 @@ export default function() {
           if (name === 'RouterSwitch') {
             const childrens = path.node.children;
             if (childrens.length) {
-              childrens.forEach(item => {
+              childrens.forEach((item) => {
                 if (t.isJSXElement(item)) {
                   if (t.isJSXIdentifier(item.openingElement.name)) {
                     if (item.openingElement.name.name === 'Route') {

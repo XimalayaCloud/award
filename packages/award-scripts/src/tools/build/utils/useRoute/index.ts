@@ -6,13 +6,13 @@ import { join } from 'path';
 import { complierInfo } from '../../../tool';
 
 export default (): Promise<boolean> =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     complierInfo('正在分析是否使用路由......');
     const parseRoute = spawn('node', [join(__dirname, './useRoute.js')]);
     let isError = false;
 
     // 子进程退出
-    parseRoute.on('exit', code => {
+    parseRoute.on('exit', (code) => {
       if (isError) {
         process.exit(-1);
       } else {
@@ -24,7 +24,7 @@ export default (): Promise<boolean> =>
       }
     });
 
-    parseRoute.stdout.on('data', data => {
+    parseRoute.stdout.on('data', (data) => {
       const content = data.toString().replace(/\s$/, '');
       if (/error/.test(content) || isError) {
         isError = true;

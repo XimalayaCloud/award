@@ -74,12 +74,6 @@ export default function nodeConfig({
             isServer: true,
             assetPrefixs
           })
-        },
-        {
-          test: /\.tsx?$/,
-          exclude: regNodeModules,
-          include: dir,
-          loader: 'ts-loader'
         }
       ]
     },

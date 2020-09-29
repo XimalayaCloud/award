@@ -66,7 +66,7 @@ export default (
       .then(() => {
         resolve({ routes: match_routes, props });
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
   });

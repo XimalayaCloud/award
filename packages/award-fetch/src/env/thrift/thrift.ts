@@ -30,14 +30,13 @@ const formatData = (data: any, thriftRequestModel: string, types: any): any => {
  */
 const getThriftServer = (path?: string): Promise<string> => {
   const { fetch: fetchConfig = {} }: any = getAwardConfig();
+  const _DefaultfetchConfig = { ...DefaultfetchConfig, ...fetchConfig?.thrift };
 
-  Object.assign(DefaultfetchConfig, fetchConfig && fetchConfig.thrift);
-
-  const { API_APIGATEWAY_OPEN, API_APIGATEWAY_IP, DOMAIN, PORT } = DefaultfetchConfig;
+  const { API_APIGATEWAY_OPEN, API_APIGATEWAY_IP, DOMAIN, PORT } = _DefaultfetchConfig;
 
   if (API_APIGATEWAY_OPEN) {
     const APIGatewayInstance = new APIGateway(API_APIGATEWAY_IP);
-    return APIGatewayInstance.getApiServer(path).then(apiGatewayServerIP => {
+    return APIGatewayInstance.getApiServer(path).then((apiGatewayServerIP) => {
       return apiGatewayServerIP;
     });
   }
@@ -51,8 +50,7 @@ export default (
   }
 ): Promise<any> => {
   const { fetch: fetchConfig = {} }: any = getAwardConfig();
-
-  Object.assign(DefaultfetchConfig, fetchConfig && fetchConfig.thrift);
+  const _DefaultfetchConfig = { ...DefaultfetchConfig, ...fetchConfig?.thrift };
 
   const {
     THRIFT_OPEN,
@@ -61,7 +59,7 @@ export default (
     TTL,
     IDLE_TIMEOUT,
     TIMEOUT
-  } = DefaultfetchConfig;
+  } = _DefaultfetchConfig;
 
   if (THRIFT_OPEN) {
     return new Promise((resolve, reject) => {
@@ -73,7 +71,7 @@ export default (
 
       const { actions, types } = thriftUtils.getClients(thriftKey);
 
-      getThriftServer(API_APIGATEWAY_PATH).then(addr => {
+      getThriftServer(API_APIGATEWAY_PATH).then((addr) => {
         try {
           if (!addr) {
             throw {
@@ -110,9 +108,7 @@ export default (
           const callback = (err: Error, re: any) => {
             if (err) {
               log.error(err, 'fetch-to-thrift-err');
-              fetch(options)
-                .then(resolve)
-                .catch(reject);
+              fetch(options).then(resolve).catch(reject);
               thriftClients[thriftKey] = null;
             } else {
               resolve(re);
@@ -127,9 +123,7 @@ export default (
         } catch (e) {
           log.error(e, 'thriftPool-connnect-error');
           // thrift连接失败 换http请求
-          fetch(options)
-            .then(resolve)
-            .catch(reject);
+          fetch(options).then(resolve).catch(reject);
           thriftClients[thriftKey] = null;
         }
       });

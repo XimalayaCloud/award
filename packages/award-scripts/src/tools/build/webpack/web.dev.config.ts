@@ -1,17 +1,19 @@
-import chalk = require('chalk');
 import * as webpack from 'webpack';
 import * as fs from 'fs';
 import * as path from 'path';
-import { BabelConfig } from '../../babel';
-import { constant, regNodeModules } from '../../help';
 import FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+import ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin');
+import chalk = require('chalk');
+
 import { HmrTimePlugin, ProgressBarPlugin, ReactLoadablePlugin } from '../../webpack-plugins';
+import { BabelConfig } from '../../babel';
+
 import webpackInclude from '../utils/include';
 import alias from '../utils/alias';
-import toolConstant from '../../tool/constant';
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin');
+import toolConstant from '../../tool/constant';
+import { constant, regNodeModules } from '../../help';
 
 const cwd = process.cwd();
 
@@ -53,18 +55,6 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
               })
             }
           ]
-        },
-        {
-          test: /\.tsx?$/,
-          include: webpackInclude,
-          use: [
-            {
-              loader: 'ts-loader',
-              options: {
-                transpileOnly: true
-              }
-            }
-          ]
         }
       ]
     },
@@ -82,17 +72,14 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
         width: 60
       }),
       new FriendlyErrorsWebpackPlugin({
-        onErrors: function(severity, errors) {
+        onErrors: function (severity, errors) {
           if (severity !== 'error') {
             return;
           }
           const error: any = errors[0];
           if (error) {
             if (!error.module) {
-              const message =
-                error.webpackError && error.webpackError.message
-                  ? error.webpackError.message
-                  : error.name;
+              const message = error.webpackError?.message ? error.webpackError.message : error.name;
               console.info(message);
             }
           }
@@ -102,8 +89,7 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
         filename: path.join(toolConstant.CACHE_DIR, constant['REACT-LOADABEL'])
       }),
       new HmrTimePlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.HotModuleReplacementPlugin()
     ],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -114,6 +100,10 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
     }
   };
 
+  /**
+   * 分析项目根目录，是否存在.eslintrc.js文件
+   * 若存在，则自动开启eslint-loader，否则不开启
+   */
   if (existEslintrcFile && config.module) {
     config.module.rules.push({
       enforce: 'pre',
@@ -129,7 +119,6 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
           loader: 'eslint-loader',
           options: {
             cache: true,
-            emitWarning: true,
             emitError: true,
             configFile: eslintrcConfigFile
           }

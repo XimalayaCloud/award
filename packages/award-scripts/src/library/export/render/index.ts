@@ -7,7 +7,7 @@ import chalk = require('chalk');
 import { clearConsole } from '../../../tools/tool';
 
 export default (assetPrefixs: string, port?: number) =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     clearConsole();
     console.info(`${chalk.bgBlue.white('', 'WAIT', '')} ${chalk.white('正在导出html...')}`);
     const child = spawn(
@@ -24,7 +24,7 @@ export default (assetPrefixs: string, port?: number) =>
       }
     );
 
-    child.on('exit', code => {
+    child.on('exit', (code) => {
       if (code === 0) {
         resolve();
       } else {

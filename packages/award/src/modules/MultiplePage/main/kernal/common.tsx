@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable max-params */
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 /**
  * 公共方法类
  */
@@ -67,7 +70,6 @@ export default class Common extends Base {
     pathname: string
   ) {
     if (diffRoutes.length === 0) {
-      // eslint-disable-next-line no-param-reassign
       diffRoutes = new_match_routes;
     }
     const search = _location.search.replace(/^\?/, '');
@@ -123,7 +125,7 @@ export default class Common extends Base {
 
   // 显示新的react组件
   public async modal(to: ILifeCycletoFrom, from: ILifeCycletoFrom, component: any) {
-    const confirm = await new Promise(resolve => {
+    const confirm = await new Promise((resolve) => {
       this.PromptContext.setState({
         dom: null
       });

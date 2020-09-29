@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /**
  * 几个核心组件
  * provider

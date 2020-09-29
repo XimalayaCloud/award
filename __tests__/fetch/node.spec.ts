@@ -8,7 +8,7 @@ let server: Server;
 const isWin = os.type() === 'Windows_NT';
 
 describe('测试award-fetch  node', () => {
-  beforeEach(done => {
+  beforeEach((done) => {
     const root = require
       .resolve('@/fixtures/with-data/a/server.js')
       .replace(isWin ? /\\server\.js$/ : /\/server\.js$/, '');
@@ -19,7 +19,7 @@ describe('测试award-fetch  node', () => {
     server = createServer(done);
   });
 
-  afterEach(done => {
+  afterEach((done) => {
     if (server.close) {
       server.close(done);
     }
@@ -28,11 +28,11 @@ describe('测试award-fetch  node', () => {
   it('通用测试 GET', async () => {
     const fetch = require('award-fetch').default;
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = { name: 'hello ' + ctx.query.name };
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         data: {
           name: 'world'
@@ -43,7 +43,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         params: {
           name: 'world'
@@ -54,7 +54,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         body: {
           name: 'world'
@@ -69,11 +69,11 @@ describe('测试award-fetch  node', () => {
   it('通用测试 POST', async () => {
     const fetch = require('award-fetch').default;
 
-    server.use(async ctx => {
+    server.use(async (ctx) => {
       ctx.body = { name: 'hello ' + ctx.query.name + ctx.request.body.id };
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         method: 'POST',
         params: {
@@ -88,7 +88,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         method: 'POST',
         params: {
@@ -103,7 +103,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       fetch(server.url, {
         method: 'POST',
         body: {

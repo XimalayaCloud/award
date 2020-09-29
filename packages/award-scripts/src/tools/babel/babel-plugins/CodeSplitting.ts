@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 import { resolve } from 'path';
 import hashString = require('string-hash');
 import { NodePath } from '@babel/core';
@@ -15,7 +16,7 @@ export type ChildrenElements = (
 )[];
 
 const check = (nodes: ChildrenElements, routes: any) => {
-  nodes.forEach(item => {
+  nodes.forEach((item) => {
     if (t.isJSXElement(item) && t.isJSXIdentifier(item.openingElement.name)) {
       if (item.openingElement.name.name !== 'Route') {
         throw new Error('RouterSwitch内的组件必须都是Route');
@@ -27,7 +28,7 @@ const check = (nodes: ChildrenElements, routes: any) => {
         const props: any = {
           __award__spread__: []
         };
-        item.openingElement.attributes.forEach(attr => {
+        item.openingElement.attributes.forEach((attr) => {
           if (t.isJSXAttribute(attr)) {
             if (t.isJSXIdentifier(attr.name)) {
               if (attr.name.name === '__award__spread__') {
@@ -106,7 +107,7 @@ const check = (nodes: ChildrenElements, routes: any) => {
             for (const key in children) {
               if (Object.prototype.hasOwnProperty.call(children, key)) {
                 if (key === '__award__spread__') {
-                  (children[key] as Array<any>).map(spread => {
+                  (children[key] as Array<any>).forEach((spread) => {
                     if (spread.type === 1) {
                       obj.push(t.objectProperty(t.identifier(key), spread.value));
                     }
@@ -131,24 +132,24 @@ const check = (nodes: ChildrenElements, routes: any) => {
 };
 
 const splitting = (childrens: ChildrenElements, state: any, tpl: any) => {
-  const reference = state && state.file && state.file.opts.filename;
-  const isServer = state && state.opts && state.opts.isServer;
-  const ts = state && state.opts && state.opts.ts;
-  const subprocess = state && state.opts && state.opts.subprocess;
+  const reference = state?.file?.opts.filename;
+  const isServer = state?.opts?.isServer;
+  const ts = state?.opts?.ts;
+  const subprocess = state?.opts?.subprocess;
   if (childrens.length) {
-    childrens.forEach(item => {
+    childrens.forEach((item) => {
       if (t.isJSXElement(item) && t.isJSXIdentifier(item.openingElement.name)) {
         if (item.openingElement.name.name === 'Route') {
           const attrs = item.openingElement.attributes;
           let sync = false;
-          attrs.forEach(_item => {
+          attrs.forEach((_item) => {
             if (t.isJSXAttribute(_item) && t.isJSXIdentifier(_item.name)) {
               if (_item.name.name === 'sync') {
                 sync = true;
               }
             }
           });
-          attrs.forEach(_item => {
+          attrs.forEach((_item) => {
             if (t.isJSXAttribute(_item) && t.isJSXIdentifier(_item.name)) {
               if (_item.name.name === 'component' && t.isJSXExpressionContainer(_item.value)) {
                 if (t.isIdentifier(_item.value.expression)) {
@@ -235,18 +236,18 @@ const splitting = (childrens: ChildrenElements, state: any, tpl: any) => {
 };
 
 // https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md#-%E6%8F%92%E4%BB%B6%E7%9A%84%E5%87%86%E5%A4%87%E5%92%8C%E6%94%B6%E5%B0%BE%E5%B7%A5%E4%BD%9C
-export default function(babel: any) {
+export default function (babel: any) {
   const { template: tpl } = babel;
   return {
     name: 'CodeSplitting',
     visitor: {
       Program: {
         enter(_path: NodePath<t.Program>, state: any) {
-          const reference = state && state.file && state.file.opts.filename;
+          const reference = state?.file?.opts.filename;
           if (regNodeModules.test(reference)) {
             return;
           }
-          const isServer = state && state.opts && state.opts.isServer;
+          const isServer = state?.opts?.isServer;
           state.path = _path;
           let exitRoutes = false;
           _path.traverse({
@@ -294,7 +295,7 @@ export default function(babel: any) {
                     for (const key in item) {
                       if (Object.prototype.hasOwnProperty.call(item, key)) {
                         if (key === '__award__spread__') {
-                          (item[key] as Array<any>).map(spread => {
+                          (item[key] as Array<any>).forEach((spread) => {
                             if (spread.type === 1) {
                               obj.push(t.objectProperty(t.identifier(key), spread.value));
                             }

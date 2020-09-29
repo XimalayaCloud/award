@@ -93,11 +93,6 @@ export default function webConfig({
           options: BabelConfig({
             assetPrefixs
           })
-        },
-        {
-          test: /\.tsx?$/,
-          include: webpackInclude,
-          loader: 'ts-loader'
         }
       ]
     },

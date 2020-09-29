@@ -42,7 +42,7 @@ export default function dllSource(dir: any, map: any, publicPath: any) {
     if (!fs.existsSync(distImages)) {
       fs.mkdirSync(distImages);
     }
-    fs.readdirSync(dllImages).forEach(item => {
+    fs.readdirSync(dllImages).forEach((item) => {
       fs.copyFileSync(join(dllImages, item), join(distImages, item));
     });
   }
@@ -52,7 +52,7 @@ export default function dllSource(dir: any, map: any, publicPath: any) {
     if (!fs.existsSync(distFonts)) {
       fs.mkdirSync(distFonts);
     }
-    fs.readdirSync(dllFonts).forEach(item => {
+    fs.readdirSync(dllFonts).forEach((item) => {
       fs.copyFileSync(join(dllFonts, item), join(distFonts, item));
     });
   }

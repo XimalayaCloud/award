@@ -9,7 +9,7 @@ let server: Server;
 const isWin = os.type() === 'Windows_NT';
 
 describe('测试file', () => {
-  beforeEach(done => {
+  beforeEach((done) => {
     const root = require
       .resolve('@/fixtures/with-data/c/index.tsx')
       .replace(isWin ? /\\index\.tsx$/ : /\/index\.tsx$/, '');
@@ -22,13 +22,13 @@ describe('测试file', () => {
     server = createServer(done);
   });
 
-  afterEach(done => {
+  afterEach((done) => {
     if (server.close) {
       server.close(done);
     }
   });
 
-  it('浏览器file协议调试 url null', done => {
+  it('浏览器file协议调试 url null', (done) => {
     process.env.Browser = '1';
     (window as any).AwardWebSocket = null;
     const fetch = require('award-fetch').default;

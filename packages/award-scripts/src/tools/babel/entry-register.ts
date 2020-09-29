@@ -17,7 +17,12 @@ export default () => {
           modules: 'commonjs'
         }
       ],
-      '@babel/preset-typescript'
+      [
+        '@babel/preset-typescript',
+        {
+          onlyRemoveTypeImports: true
+        }
+      ]
     ],
     plugins: [
       '@babel/plugin-transform-typescript',

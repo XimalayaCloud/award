@@ -8,15 +8,18 @@
 // yarn eslint --fix packages/award/src/**/*.tsx
 
 module.exports = {
-  extends: ['eslint-config-alloy/react', 'eslint-config-alloy/typescript', 'prettier'],
+  extends: ['alloy', 'alloy/react', 'alloy/typescript', 'prettier'],
   root: true,
-  plugins: ['jest', 'prettier', '@typescript-eslint/tslint'],
+  plugins: ['prettier', 'jest'],
   rules: {
     'prettier/prettier': ['error'],
     /**
      * eslint-config-alloy
      * https://github.com/AlloyTeam/eslint-config-alloy/blob/master/index.js
      */
+    'max-params': ['off'],
+    'no-throw-literal': ['off'],
+    'no-param-reassign': ['off'],
     indent: ['off'],
     'no-async-promise-executor': ['off'],
     semi: ['error', 'always'],
@@ -59,15 +62,17 @@ module.exports = {
     '@typescript-eslint/prefer-interface': ['off'],
     '@typescript-eslint/no-object-literal-type-assertion': ['off'],
     '@typescript-eslint/member-ordering': ['off'],
-    '@typescript-eslint/no-require-imports': ['off']
+    '@typescript-eslint/no-require-imports': ['off'],
+    '@typescript-eslint/no-unused-expressions': ['off']
   },
   overrides: [
     {
       // 覆盖测试示例
-      files: ['{packages,tools}/**/__tests__/**/*.{ts,tsx}'],
+      files: ['__tests__/**/*.{ts,tsx}'],
       rules: {
         // https://github.com/jest-community/eslint-plugin-jest
-        'jest/no-focused-tests': 2
+        'jest/no-focused-tests': 2,
+        'no-promise-executor-return': 'off'
       },
       env: {
         jest: true

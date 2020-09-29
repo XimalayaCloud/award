@@ -42,17 +42,17 @@ describe('直接渲染路由组件', () => {
     window.__INITIAL_STATE__ = {};
   });
 
-  it('直接渲染home路由组件', done => {
+  it('直接渲染home路由组件', (done) => {
     // 直接渲染home组件
     history.replaceState({}, '', '/home');
-    mountStart(async wrapper => {
+    mountStart(async (wrapper) => {
       const { history } = require('award-router');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello home</p></div>');
 
       history.push({ pathname: '/about/1' });
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><div><p>hello about</p></div>');
       done();
@@ -60,11 +60,11 @@ describe('直接渲染路由组件', () => {
     require('@/fixtures/basic-router/c');
   });
 
-  it('直接渲染redirect组件', done => {
+  it('直接渲染redirect组件', (done) => {
     // 直接渲染home组件
     history.replaceState({}, '', '/test1');
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 10));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe('');
       done();

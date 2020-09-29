@@ -105,5 +105,5 @@ interface Window {
     [key: any]: any;
   };
   ActiveXObject: any;
-  jestMock: Function;
+  jestMock: any;
 }

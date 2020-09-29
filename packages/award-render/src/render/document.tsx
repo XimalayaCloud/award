@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import * as React from 'react';
 import * as fs from 'fs-extra';
 import * as path from 'path';

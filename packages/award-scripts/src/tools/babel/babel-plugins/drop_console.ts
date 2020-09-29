@@ -1,12 +1,12 @@
 import { regNodeModules } from '../../help';
 
-export default function(babel: any) {
+export default function (babel: any) {
   const { types: t } = babel;
 
   return {
     visitor: {
       CallExpression(path: any, state: any) {
-        const reference = state && state.file && state.file.opts.filename;
+        const reference = state?.file?.opts.filename;
         if (regNodeModules.test(reference)) {
           return;
         }

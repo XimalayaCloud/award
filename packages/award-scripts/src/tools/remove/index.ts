@@ -58,7 +58,7 @@ const remove = (moduleName: string) => {
 
   // 删除模块缓存的路径
   if ((module.constructor as any)._pathCache) {
-    Object.keys((module.constructor as any)._pathCache).forEach(cacheKey => {
+    Object.keys((module.constructor as any)._pathCache).forEach((cacheKey) => {
       if (cacheKey.indexOf(moduleName) > 0) {
         delete (module.constructor as any)._pathCache[cacheKey];
       }

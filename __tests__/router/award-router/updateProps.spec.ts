@@ -38,12 +38,12 @@ describe('award-router', () => {
     }
   });
 
-  it('测试路由props reloadInitialProps', done => {
+  it('测试路由props reloadInitialProps', (done) => {
     (window as any).jestRouterMock = jest.fn();
     history.replaceState({}, '', '/about/1');
-    mountStart(async wrapper => {
+    mountStart(async (wrapper) => {
       const { history } = require('award-router');
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       wrapper.update();
       expect(wrapper.html()).toBe(
         '<p>hello routes</p><p>reloadInitialProps这是系统关键字，请不要使用该名称作为key</p>'
@@ -51,35 +51,29 @@ describe('award-router', () => {
 
       // 切换正常
       history.push('/about/2');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><p>hello about</p>');
 
       // 点击触发reloadInitialProps
       const warn = jest.spyOn(console, 'warn');
-      wrapper
-        .find('p')
-        .at(1)
-        .simulate('click');
-      wrapper
-        .find('p')
-        .at(1)
-        .simulate('click');
+      wrapper.find('p').at(1).simulate('click');
+      wrapper.find('p').at(1).simulate('click');
       expect(warn).toHaveBeenCalledWith(
         '当前路由组件正在执行reloadInitialProps函数，请等待执行完毕！'
       );
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise((resolve) => setTimeout(resolve, 20));
       expect((window as any).jestRouterMock).toHaveBeenCalledTimes(5);
       done();
     });
     require('@/fixtures/basic-router/routeUpdateProps/main/b');
   });
 
-  it('测试路由props updateProps', done => {
+  it('测试路由props updateProps', (done) => {
     (window as any).jestRouterMock = jest.fn();
     history.replaceState({}, '', '/about/2');
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 20));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><p>hello about</p>');
       done();
@@ -87,15 +81,15 @@ describe('award-router', () => {
     require('@/fixtures/basic-router/routeUpdateProps/main/b');
   });
 
-  it('测试路由props updateProps false ssr', done => {
+  it('测试路由props updateProps false ssr', (done) => {
     (window as any).jestRouterMock = jest.fn();
     const URL = document.createElement('div');
     URL.id = '__URL__';
     URL.setAttribute('data-loadable', '1');
     document.body.appendChild(URL);
     history.replaceState({}, '', '/about/2');
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 20));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><p>hello about</p>');
       done();
@@ -103,15 +97,15 @@ describe('award-router', () => {
     require('@/fixtures/basic-router/routeUpdateProps/main/b');
   });
 
-  it('测试路由props updateProps true ssr', done => {
+  it('测试路由props updateProps true ssr', (done) => {
     (window as any).jestRouterMock = jest.fn();
     const URL = document.createElement('div');
     URL.id = '__URL__';
     URL.setAttribute('data-loadable', '1');
     document.body.appendChild(URL);
     history.replaceState({}, '', '/about/3');
-    mountStart(async wrapper => {
-      await new Promise(resolve => setTimeout(resolve, 20));
+    mountStart(async (wrapper) => {
+      await new Promise((resolve) => setTimeout(resolve, 20));
       wrapper.update();
       expect(wrapper.html()).toBe('<p>hello routes</p><p>hello about</p>');
       done();

@@ -18,7 +18,7 @@ const cwd = process.cwd();
  * 执行导出包的编译
  */
 const start = (options: any, port?: number) => {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve) => {
     clearConsole();
     const config = getAwardConfig();
     let assetPrefixs = config.assetPrefixs;
@@ -51,7 +51,7 @@ export default async (options: any) => {
     await start(options, port1);
 
     if (options.browser) {
-      await new Promise(resolve => {
+      await new Promise((resolve) => {
         new WS(port1, port2)
           .start()
           .then(() => {
