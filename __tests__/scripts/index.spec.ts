@@ -22,9 +22,12 @@ describe('测试Award项目的开发启动服务', () => {
     const app = new Server();
     app.listen(12909, (mylisten: any) => {
       // 表示正常启动
-      console.log(333, process.env.CHILDPROCESS_COMPILER_URL);
+      console.log(333, process.env.CHILDPROCESS_COMPILER_URL, mylisten);
       // expect(process.env.CHILDPROCESS_COMPILER_URL).toBeDefined();
-      mylisten.close(done);
+      mylisten.close(() => {
+        console.log('close');
+        done();
+      });
     });
   });
 });
