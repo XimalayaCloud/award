@@ -15,11 +15,7 @@ const exec = (command, args) => {
   return execFileSync(command, args, options);
 };
 
-const execGitCmd = args =>
-  exec('git', args)
-    .trim()
-    .toString()
-    .split('\n');
+const execGitCmd = (args) => exec('git', args).trim().toString().split('\n');
 
 const diffPackages = () => {
   const branch = execGitCmd(['symbolic-ref', '--short', '-q', 'HEAD'])[0];
