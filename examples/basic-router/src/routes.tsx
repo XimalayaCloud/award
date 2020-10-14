@@ -26,7 +26,7 @@ export default () => (
     <Route path="/search/:keyworld" component={() => <span>搜索页面</span>} />
     <Route
       path="/about"
-      component={props => (
+      component={(props) => (
         <>
           <h3>this is about page</h3>
           {props.children}
