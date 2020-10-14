@@ -14,6 +14,34 @@ export default (nextRoutes: Array<MatchedRoute<{}>>, nextSearch: string, callbac
   if (!preRoutes) {
     res = nextRoutes;
   } else {
+    /**
+     * 特殊情况路由path
+     *        /home
+     *        /home/:id?
+     *
+     * /home/10 => /home
+     *
+     * 会同时匹配这两个path，需要已第一个匹配的为基准，判断条件为存在相同的match.url
+     *
+     * 筛选出存在多个相同的match.url
+     */
+    const ignore = [];
+    const newNextRoutes = [];
+    for (let j = 0; j < nextRoutes.length; j++) {
+      if (ignore.indexOf(j) !== -1) {
+        // 当前重复，忽略本次循环，进行下次循环
+        continue;
+      }
+      for (let s = j + 1; s < nextRoutes.length; s++) {
+        if (nextRoutes[j].match.url === nextRoutes[s].match.url) {
+          ignore.push(s);
+        }
+      }
+      newNextRoutes.push({ ...nextRoutes[j] });
+    }
+
+    nextRoutes = newNextRoutes;
+
     let i;
     for (i = 0; i < nextRoutes.length; i++) {
       const item = nextRoutes[i];
