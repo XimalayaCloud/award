@@ -61,7 +61,7 @@ class Plugin {
           }
           if (reasons) {
             const myModule = reasons[0].module;
-            if (myModule) {
+            if (myModule?.resource) {
               const name = myModule.resource.replace(cwd, '');
               depAll[name] = [...(depAll[name] || []), ...dep];
             }
