@@ -135,22 +135,27 @@ export class Server extends Base {
       // 整理核心中间件之前的中间件
       const beforeCoreMiddlewareCallback = async () => {
         const middlewares: any = [];
+        const config = this.config.toJS();
         await nodePlugin.hooks.beforeCoreMiddlewares({
           middlewares,
-          config: this.config.toJS(),
+          config,
           dev: this.dev,
           port: this.port
         });
         this.beforeCoreMiddlewares.forEach((middleware: any) => {
-          if (typeof middleware === 'function') {
-            middlewares.push(middleware);
+          if (Array.isArray(middleware)) {
+            middlewares.push((middleware as any)[0](this.app, config));
           } else {
-            if (typeof middleware === 'string') {
-              this.loadMiddleware(middleware, middlewares);
-            } else if (Array.isArray(middleware)) {
-              middleware.forEach((item) => {
-                this.loadMiddleware(item, middlewares);
-              });
+            if (typeof middleware === 'function') {
+              middlewares.push(middleware);
+            } else {
+              if (typeof middleware === 'string') {
+                this.loadMiddleware(middleware, middlewares);
+              } else if (Array.isArray(middleware)) {
+                middleware.forEach((item) => {
+                  this.loadMiddleware(item, middlewares);
+                });
+              }
             }
           }
         });
@@ -160,22 +165,27 @@ export class Server extends Base {
       // 整理核心中间件之后的中间件
       const afterCoreMiddlewareCallback = async () => {
         const middlewares: any = [];
+        const config = this.config.toJS();
         await nodePlugin.hooks.afterCoreMiddlewares({
           middlewares,
-          config: this.config.toJS(),
+          config,
           dev: this.dev,
           port: this.port
         });
         this.afterCoreMiddlewares.forEach((middleware: any) => {
-          if (typeof middleware === 'function') {
-            middlewares.push(middleware);
+          if (Array.isArray(middleware)) {
+            middlewares.push((middleware as any)[0](this.app, config));
           } else {
-            if (typeof middleware === 'string') {
-              this.loadMiddleware(middleware, middlewares);
-            } else if (Array.isArray(middleware)) {
-              middleware.forEach((item) => {
-                this.loadMiddleware(item, middlewares);
-              });
+            if (typeof middleware === 'function') {
+              middlewares.push(middleware);
+            } else {
+              if (typeof middleware === 'string') {
+                this.loadMiddleware(middleware, middlewares);
+              } else if (Array.isArray(middleware)) {
+                middleware.forEach((item) => {
+                  this.loadMiddleware(item, middlewares);
+                });
+              }
             }
           }
         });
