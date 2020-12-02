@@ -9,6 +9,7 @@ declare module 'koa-websocket';
 declare namespace NodeJS {
   export interface ProcessEnv {
     NODE_ENV: 'development' | 'production' | 'test' | undefined;
+    BUILD_UMD: '1' | undefined;
     RUN_ENV: 'web' | 'node';
     WEB_TYPE: 'WEB_SPA' | 'WEB_SSR';
     Browser: string;

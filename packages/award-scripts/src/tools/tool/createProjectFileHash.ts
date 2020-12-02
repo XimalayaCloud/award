@@ -74,7 +74,15 @@ const mapFilepath = path.join(cwd, '.map');
  *
  * 即这些文件夹不参与任何award项目的编译
  */
-const ignoreReg = /(\.dll|\.award|dist|node_modules|\.git)/;
+let ignoreReg = /(\.dll|\.award|dist|node_modules|\.git)/;
+
+if (/node_modules/.test(cwd)) {
+  // 如果当前主目录在node_modules内，就不忽略当前node_modules内的内容
+  const filePath = cwd.replace(/(.*)node_modules\//, '');
+  ignoreReg = new RegExp(
+    `(\\.dll|\\.award|dist|node_modules\\/(?!${filePath.replace(/\//, '\\/')})|\\.git)`
+  );
+}
 
 const readMapToJson = () => {
   // 读写map

@@ -4,6 +4,7 @@ import dev from './dev';
 import start from './start';
 import exportProject from './export';
 import info from './info';
+import umd from './umd';
 
 export default () => {
   const pkg = require('../../package.json');
@@ -12,7 +13,7 @@ export default () => {
 
   const defaultOptParser = (val: any) => val;
 
-  [dev, build, start, exportProject, info].forEach((command: any) => {
+  [dev, build, start, exportProject, info, umd].forEach((command: any) => {
     const options = command.options || [];
     const ons = command.ons || [];
 

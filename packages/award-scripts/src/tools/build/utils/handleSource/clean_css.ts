@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 import * as CleanCSS from 'clean-css';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -32,9 +33,15 @@ export default (map: any, dest: any) => {
         for (let key in map['moduleStyles']) {
           if (Object.prototype.hasOwnProperty.call(map['moduleStyles'], key)) {
             const item = map['moduleStyles'][key];
-            item.forEach((value: any) => {
-              run(dest, value);
-            });
+            if (item) {
+              if (Array.isArray(item)) {
+                item.forEach((value: any) => {
+                  run(dest, value);
+                });
+              } else {
+                run(dest, item);
+              }
+            }
           }
         }
       }
