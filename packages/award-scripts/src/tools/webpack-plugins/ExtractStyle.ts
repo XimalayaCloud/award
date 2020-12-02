@@ -380,6 +380,7 @@ class Plugin {
 
       // 写入css资源id到webpack入口文件中
       mainTemplate.hooks.localVars.tap(pluginName, (source: any, chunk: any) => {
+        console.log(123, MyChunks);
         if (Object.keys(MyChunks).length > 0) {
           return Template.asString([
             source,
@@ -405,6 +406,7 @@ class Plugin {
             }
           }
         }
+        console.log(chunkMap);
         if (Object.keys(chunkMap).length > 0) {
           return Template.asString([
             source,
@@ -510,7 +512,11 @@ class Plugin {
       // 生成公共样式文件
       if (CommonStyle !== '') {
         const _style = cleanStyle(CommonStyle);
-        const _file = md5(_style).substr(0, 5) + '.css';
+        let name = 'main';
+        if (!process.env.BUILD_UMD) {
+          name = md5(_style).substr(0, 5);
+        }
+        const _file = name + '.css';
         map[0] = _file;
         compilation.assets['styles/' + _file] = {
           source() {
@@ -524,6 +530,7 @@ class Plugin {
 
       // 生成提供服务器使用的css文件的map
       map = JSON.stringify(map);
+      console.log(22, map);
       compilation.assets['map.json'] = {
         source() {
           return map;

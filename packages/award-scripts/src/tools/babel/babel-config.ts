@@ -97,7 +97,7 @@ export default function getBabelConfig({
   ];
 
   // 异步加载处理插件
-  if (!isServer) {
+  if (!isServer && !process.env.BUILD_UMD) {
     plugins.push([
       'babel-plugin-import',
       {

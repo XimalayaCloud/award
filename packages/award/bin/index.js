@@ -2,12 +2,12 @@
 
 require('./install')();
 const reset = '\x1B[0m';
-const boldGreenBright = str => {
-  return '\x1B[1m' + '\x1B[92m' + str + reset + reset;
+const boldGreenBright = (str) => {
+  return '\x1B[1m\x1B[92m' + str + reset + reset;
 };
 
 const argvs = process.argv.slice(2);
-const commanders = ['dev', 'build', 'export', 'info', 'start'];
+const commanders = ['dev', 'build', 'export', 'info', 'start', 'umd'];
 if (commanders.indexOf(argvs[0]) === -1) {
   console.log(`${boldGreenBright('award ' + argvs[0])} 命令不存在`);
   process.exit(-1);

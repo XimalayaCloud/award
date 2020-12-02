@@ -3,21 +3,15 @@
  */
 import * as webpack from 'webpack';
 import chalk = require('chalk');
-import * as fs from 'fs-extra';
-import * as path from 'path';
 
 let time = Number(new Date());
 
-const exist = fs.existsSync(path.join(process.cwd(), 'node_modules', 'award'));
-
 export default class HmrTimePlugin {
   private startHmr: boolean;
-  private isFirst: boolean;
   private hmrTime: Array<any> = [];
 
   public constructor() {
     this.startHmr = true;
-    this.isFirst = true;
     this.hmrTime = [];
   }
 
@@ -69,7 +63,6 @@ export default class HmrTimePlugin {
     }).apply(compiler);
 
     compiler.hooks.done.tap('done', () => {
-      this.isFirst = false;
       this.startHmr = true;
       if (this.hmrTime.length) {
         console.info(chalk.yellow('当前项目编译耗时最慢的三个阶段\n'));
@@ -82,17 +75,5 @@ export default class HmrTimePlugin {
       }
       this.hmrTime = [];
     });
-
-    if (!exist) {
-      compiler.hooks.compilation.tap('HmrTimePlugin', (compilation: any) => {
-        if (!this.isFirst) {
-          compilation.hooks.buildModule.tap('HmrTimePlugin', (moduleInfo: any) => {
-            const ident = moduleInfo.identifier();
-            console.info(ident);
-            console.info();
-          });
-        }
-      });
-    }
   }
 }
