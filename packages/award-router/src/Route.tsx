@@ -14,6 +14,7 @@ import * as PropTypes from 'prop-types';
     exact={布尔值，表示路由是否是严格匹配}
     loading={react组件，表示当前组件数据加载前展示的loading}
     client={布尔值，表示当前路由对应的组件只在客户端渲染}
+    cache={布尔值，表示当前路由数据是否缓存，默认为true}
   />
 ```
 ## Route组件接收如下5种组合的props
@@ -32,6 +33,7 @@ export default class Route extends React.Component<{
   exact?: boolean;
   loading?: any;
   client?: boolean;
+  cache?: boolean;
   /** 支持其他任意的字段 */
   [key: string]: any;
 }> {
@@ -42,7 +44,8 @@ export default class Route extends React.Component<{
     component: PropTypes.any,
     exact: PropTypes.bool,
     loading: PropTypes.any,
-    client: PropTypes.bool
+    client: PropTypes.bool,
+    cache: PropTypes.bool
   };
 
   public render() {

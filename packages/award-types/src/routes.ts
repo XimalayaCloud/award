@@ -20,6 +20,7 @@ export interface Route extends RouteConfig {
   /** 组件是否异步加载过 */
   componentLoaded?: boolean;
   client?: boolean;
+  cache?: boolean;
 }
 
 export interface Routes extends Array<Route> {}

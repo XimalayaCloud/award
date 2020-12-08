@@ -33,7 +33,7 @@ export default () => (
         </>
       )}
     >
-      <Route path="/about/:id" component={About} client loading={<p>loading...</p>} />
+      <Route path="/about/:id" component={About} client loading={<p>loading...</p>} cache={false} />
     </Route>
     <Route path="/custom" component={Custom} exact />
     <Route path="/custom/:id" component={CustomDetail} redirect="/custom/:id/more">
