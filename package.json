@@ -54,7 +54,7 @@
     "shelljs": "0.8.3",
     "supertest": "4.0.2",
     "ts-jest": "24.1.0",
-    "node-notifier": "6.0.0"
+    "node-notifier": "8.0.1"
   },
   "devDependencies": {
     "@types/react-test-renderer": "16.9.1",
