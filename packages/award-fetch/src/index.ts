@@ -145,7 +145,6 @@ async function awardFetch(
   options = reduce(
     _interceptors.request,
     (req, interceptor): IOpt1 => {
-      console.log(2222, this);
       const result = interceptor.func(req, this, log);
       if (result) {
         return result;

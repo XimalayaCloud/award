@@ -1,6 +1,6 @@
-import Plugin from 'award-plugin';
+import Plugin from 'award-plugin/lib/client/plugin';
 
-export default class extends Plugin.Client {
+export default class extends Plugin {
   public apply() {
     this.basic((hooks) => {
       hooks.modifyInitialPropsCtx((params) => {

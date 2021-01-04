@@ -5,6 +5,8 @@ import { IConfig, IAwardConfig } from 'award-types';
 
 const cache = new Map();
 
+const officialName = 'award-plugin-official';
+
 const defaultConfig = {
   entry: './index', // 入口
   basename: '', // 路由前缀
@@ -152,7 +154,7 @@ export function getAwardConfig(dir = process.cwd(), refresh = false): IConfig {
     global.__AWARD__PLUGINS__ = {};
   }
 
-  global.__AWARD__PLUGINS__['award-plugin-official'] = {
+  global.__AWARD__PLUGINS__[officialName] = {
     name: 'official',
     default: null
   };
@@ -171,6 +173,31 @@ export function getAwardConfig(dir = process.cwd(), refresh = false): IConfig {
 
   /**  award export 导出的代码输出目录 */
   config.export_dist = 'dist';
+
+  if (!config.plugins) {
+    config.plugins = [];
+  }
+
+  let existOfficial = false;
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
+  for (let i = 0; i < config.plugins.length; i++) {
+    const pl = config.plugins[i];
+    if (Array.isArray(pl)) {
+      if (pl[0] === officialName) {
+        existOfficial = true;
+        break;
+      }
+    } else {
+      if (pl === officialName) {
+        existOfficial = true;
+        break;
+      }
+    }
+  }
+
+  if (!existOfficial) {
+    config.plugins.unshift(officialName);
+  }
 
   return config;
 }

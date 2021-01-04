@@ -7,7 +7,7 @@ import './common.scss!';
 import './app.scss';
 
 fetch.interceptors.request.use((request, context, log) => {
-  console.log(2, request, context);
+  // console.log(2, request, context);
 });
 
 fetch.interceptors.response.use((data, response, log) => {
