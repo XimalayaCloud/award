@@ -13,10 +13,10 @@ export default {
   // mode: 'client',
   fetch: {
     domainMap: {
-      '/api': 'http://127.0.0.1:1234'
+      '/api': 'http://127.0.0.1:1236'
     }
   },
-  app: middlewares => {
+  app: (middlewares) => {
     middlewares.splice(0, 0, middleware);
   }
 };

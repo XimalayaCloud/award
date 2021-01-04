@@ -6,6 +6,10 @@ import About from './about';
 import './common.scss!';
 import './app.scss';
 
+fetch.interceptors.request.use((request, context, log) => {
+  console.log(2, request, context);
+});
+
 fetch.interceptors.response.use((data, response, log) => {
   log.error('发生错误了', 'interceptors response');
   console.error('[response.status]', response.status);
@@ -40,7 +44,7 @@ function app(props) {
       </h1>
       <About />
       <Consumer>
-        {award => {
+        {(award) => {
           return <p onClick={props.reloadInitialProps}> 点击试试看: {award.num} </p>;
         }}
       </Consumer>
@@ -63,15 +67,16 @@ function app(props) {
   );
 }
 
-app.getInitialProps = ctx => {
+app.getInitialProps = (ctx) => {
   const result = [
-    fetch('/api/list')
-      .then(async data => {
+    ctx
+      .fetch('/api/list')
+      .then(async (data) => {
         ctx.setAward({
           num: data.num
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       })
   ];

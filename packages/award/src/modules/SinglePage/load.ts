@@ -5,6 +5,8 @@ import { IinitState, AComponentType } from 'award-types';
 import Exception from 'award-utils/Exception';
 import { queryObj } from 'award-utils/search';
 import clientPlugin from 'award-plugin/client';
+import fetch from 'award-fetch';
+
 import setAward from '../../setAward';
 
 export default async (Component: AComponentType, INITIAL_STATE: IinitState) => {
@@ -19,7 +21,8 @@ export default async (Component: AComponentType, INITIAL_STATE: IinitState) => {
         query: queryObj(),
         setAward,
         routes: [],
-        route: null
+        route: null,
+        fetch
       };
       await clientPlugin.hooks.modifyInitialPropsCtx({
         params: initialPropsParams

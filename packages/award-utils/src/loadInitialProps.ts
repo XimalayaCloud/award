@@ -1,5 +1,7 @@
 import { MatchedRoute, IAny, ITextObj } from 'award-types';
 import { Request } from 'koa';
+import fetch from 'award-fetch';
+
 /**
  * 主要用来初始化所有和当前路由关联的page级别组件的getInitialProps方法
  * match_routes 经过路由diff计算后的路由集合
@@ -15,6 +17,7 @@ export default (
     location?: IAny;
     query: ITextObj;
     setAward: (obj: Object) => void;
+    fetch?: any;
   },
   new_match_routes?: Array<MatchedRoute<{}>>,
   errorPath?: any
@@ -32,7 +35,8 @@ export default (
               ...context,
               routes: new_match_routes || match_routes,
               route: item.route,
-              match: item.match
+              match: item.match,
+              fetch: context.fetch || fetch
             };
 
             // 针对 {a: promise, b: promise}

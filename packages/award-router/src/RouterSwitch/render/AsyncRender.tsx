@@ -9,6 +9,7 @@ import {
   queryObj
 } from 'award-utils';
 import clientPlugin from 'award-plugin/client';
+import fetch from 'award-fetch';
 
 const isObj = (obj: any) => typeof obj === 'object';
 const isPromise = (obj: any) =>
@@ -220,7 +221,8 @@ export default class AsyncRender extends React.Component<
         routes: this.props.routes,
         match: renderProps.match,
         query: queryObj(renderProps.location.search.replace(/^\?/, '')),
-        setAward: setAward.get()
+        setAward: setAward.get(),
+        fetch
       };
       await clientPlugin.hooks.modifyInitialPropsCtx({
         params: initalProps

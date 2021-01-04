@@ -1,0 +1,13 @@
+{
+  "name": "award-plugin-official",
+  "version": "1.0.17",
+  "description": "官方内置插件",
+  "types": "index.d.ts",
+  "bugs": "https://github.com/XimalayaCloud/award/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XimalayaCloud/award.git",
+    "directory": "packages/award-plugin-official"
+  },
+  "license": "MIT"
+}

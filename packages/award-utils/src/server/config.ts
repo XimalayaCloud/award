@@ -152,6 +152,11 @@ export function getAwardConfig(dir = process.cwd(), refresh = false): IConfig {
     global.__AWARD__PLUGINS__ = {};
   }
 
+  global.__AWARD__PLUGINS__['award-plugin-official'] = {
+    name: 'official',
+    default: null
+  };
+
   // 强制刷新获取最新的配置信息，一般是开发环境使用
   if (refresh || (!refresh && !cache.has(dir))) {
     cache.set(dir, entry(dir, loadConfig(dir)));
