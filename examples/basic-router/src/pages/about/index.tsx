@@ -2,7 +2,8 @@ import fetch from 'award-fetch';
 import '@/src/pages/about/index.scss';
 import ting from '@/src/pages/about/ting.png';
 
-const about = props => {
+const about = (props) => {
+  console.log(3);
   return (
     <div>
       <p>about --- {props.id}</p>
@@ -13,7 +14,8 @@ const about = props => {
   );
 };
 
-about.getInitialProps = async ctx => {
+about.getInitialProps = async (ctx) => {
+  console.log(1);
   let num;
   try {
     const data = await fetch('/api/list');

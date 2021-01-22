@@ -4,6 +4,7 @@
 import { queryObj, Exception, search } from 'award-utils';
 import { IinitState, ITextObj } from 'award-types';
 import clientPlugin from 'award-plugin/client';
+
 import setAward from '../../../../setAward';
 
 export default async (getInitialProps: Function, INITIAL_STATE: IinitState, routes: any) => {

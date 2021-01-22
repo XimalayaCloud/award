@@ -380,7 +380,6 @@ class Plugin {
 
       // 写入css资源id到webpack入口文件中
       mainTemplate.hooks.localVars.tap(pluginName, (source: any, chunk: any) => {
-        console.log(123, MyChunks);
         if (Object.keys(MyChunks).length > 0) {
           return Template.asString([
             source,
@@ -406,7 +405,6 @@ class Plugin {
             }
           }
         }
-        console.log(chunkMap);
         if (Object.keys(chunkMap).length > 0) {
           return Template.asString([
             source,
@@ -530,7 +528,6 @@ class Plugin {
 
       // 生成提供服务器使用的css文件的map
       map = JSON.stringify(map);
-      console.log(22, map);
       compilation.assets['map.json'] = {
         source() {
           return map;

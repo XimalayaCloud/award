@@ -4,7 +4,7 @@ const Server = require('award/server');
 const app = new Server();
 
 app.use(async (ctx, next) => {
-  if (ctx.path == '/api/error') {
+  if (ctx.path === '/api/error') {
     ctx.status = 500;
     ctx.body = 'hello';
     return;

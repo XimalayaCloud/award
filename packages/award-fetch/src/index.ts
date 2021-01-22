@@ -12,7 +12,12 @@ export interface Log {
 
 const interceptors = {
   request: {
-    use: (func: (response: Request, log: Log) => Request) => {
+    /**
+     * context 服务端如果使用了getInitialProps提供的fetch
+     *
+     * 那么这里的context将不为null
+     */
+    use: (func: (request: Request, context: any | null, log: Log) => Request) => {
       let sourceFile = null;
       if (process.env.NODE_ENV === 'development' && process.env.RUN_ENV === 'node') {
         try {
@@ -43,7 +48,7 @@ const interceptors = {
      *
      * @log 输出日志，log.error
      */
-    use: (func: (data: any, response: Response, log: Log) => Response) => {
+    use: (func: (data: any, response: Response, log: Log) => Response | Promise<Response>) => {
       let sourceFile = null;
       if (process.env.NODE_ENV === 'development' && process.env.RUN_ENV === 'node') {
         try {
@@ -117,7 +122,11 @@ const interceptors = {
  * source.cancel();
  * ```
  */
-async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase): Promise<any> {
+async function awardFetch(
+  this: any,
+  options: string | IOpt1,
+  otherOptions?: IOptUserBase
+): Promise<any> {
   if (isString(options)) {
     options = {
       url: options
@@ -136,7 +145,7 @@ async function awardFetch(options: string | IOpt1, otherOptions?: IOptUserBase):
   options = reduce(
     _interceptors.request,
     (req, interceptor): IOpt1 => {
-      const result = interceptor.func(req, log);
+      const result = interceptor.func(req, this, log);
       if (result) {
         return result;
       } else {

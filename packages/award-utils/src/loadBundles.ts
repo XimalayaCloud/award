@@ -28,6 +28,10 @@ export default (routes: Array<MatchedRoute<{}>>, search: string, award_initialSt
         route.needInitiProps = false;
       }
 
+      if (typeof route.cache === 'boolean' && !route.cache) {
+        route.needInitiProps = true;
+      }
+
       if (!route.sync) {
         // 非同步组件，加载bundle，同时更新路由组件
         const cmt = route.component as Function;

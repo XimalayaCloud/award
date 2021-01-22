@@ -29,7 +29,9 @@ export interface INdidFetch {
 export type didFetch = (callback: (params: INdidFetch) => void) => void;
 
 export interface INmodifyInitialPropsCtx {
-  params: any;
+  params: {
+    [key: string]: any;
+  };
   context: IContext;
 }
 export type modifyInitialPropsCtx = (callback: (params: INmodifyInitialPropsCtx) => void) => void;

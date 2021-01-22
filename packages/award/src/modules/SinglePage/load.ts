@@ -5,6 +5,7 @@ import { IinitState, AComponentType } from 'award-types';
 import Exception from 'award-utils/Exception';
 import { queryObj } from 'award-utils/search';
 import clientPlugin from 'award-plugin/client';
+
 import setAward from '../../setAward';
 
 export default async (Component: AComponentType, INITIAL_STATE: IinitState) => {
