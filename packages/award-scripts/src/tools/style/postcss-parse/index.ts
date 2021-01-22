@@ -201,7 +201,7 @@ export default (state: any) => {
   let styleId = jsxStyle ? getHashByReference(reference) : 0;
 
   if (styleId) {
-    if (dev()) {
+    if (dev() || config.randomScope) {
       // 在开发阶段，为了防止热更新时样式不生效，需要带上随机的hash码
       styleId = styleId + DefaultHashString(jsxStyle);
     }

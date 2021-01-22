@@ -3,7 +3,8 @@ import * as fs from 'fs-extra';
 
 const defaultConfig = {
   plugins: [],
-  limit: null
+  limit: null,
+  randomScope: false
 };
 
 export default () => {

@@ -1,10 +1,11 @@
-import Plugin from 'award-plugin/lib/client/plugin';
+import Plugin from 'award-plugin/client-plugin';
+import fetch from 'award-fetch';
 
 export default class extends Plugin {
   public apply() {
     this.basic((hooks) => {
       hooks.modifyInitialPropsCtx((params) => {
-        console.log(444, params);
+        params.params.fetch = fetch;
       });
     });
   }

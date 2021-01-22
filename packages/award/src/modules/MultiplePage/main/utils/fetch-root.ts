@@ -4,7 +4,6 @@
 import { queryObj, Exception, search } from 'award-utils';
 import { IinitState, ITextObj } from 'award-types';
 import clientPlugin from 'award-plugin/client';
-import fetch from 'award-fetch';
 
 import setAward from '../../../../setAward';
 
@@ -22,8 +21,7 @@ export default async (getInitialProps: Function, INITIAL_STATE: IinitState, rout
         setAward,
         routes,
         route: null,
-        match: null,
-        fetch
+        match: null
       };
       await clientPlugin.hooks.modifyInitialPropsCtx({
         params: initialPropsParams

@@ -3,7 +3,6 @@
  */
 import { queryObj, loadInitialProps, Exception, search, loadParams } from 'award-utils';
 import { AComponentType, IinitState, ITextObj, MatchedRoute } from 'award-types';
-import fetch from 'award-fetch';
 import clientPlugin from 'award-plugin/client';
 import setAward from '../../../../setAward';
 
@@ -31,8 +30,7 @@ export default async (
         setAward,
         routes: match_routes,
         route: null,
-        match: null,
-        fetch
+        match: null
       };
       await clientPlugin.hooks.modifyInitialPropsCtx({
         params: initialPropsParams

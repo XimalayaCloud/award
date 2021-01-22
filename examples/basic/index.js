@@ -11,8 +11,6 @@ fetch.interceptors.request.use((request, context, log) => {
 });
 
 fetch.interceptors.response.use((data, response, log) => {
-  log.error('发生错误了', 'interceptors response');
-  console.error('[response.status]', response.status);
   if (!response.ok) {
     return { num: Math.random() };
   }

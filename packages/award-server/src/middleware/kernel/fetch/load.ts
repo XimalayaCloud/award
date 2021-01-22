@@ -1,5 +1,4 @@
 import { IContext, IAny } from 'award-types';
-import fetch from 'award-fetch';
 import { loadInitialProps } from 'award-utils';
 import nodePlugin from 'award-plugin/node';
 
@@ -24,8 +23,6 @@ export default async (ctx: IContext) => {
           }
         };
 
-        const newFetch = fetch.bind(ctx);
-
         // 初始化参数
         const initialPropsParams = {
           query: ctx.request.query,
@@ -33,8 +30,7 @@ export default async (ctx: IContext) => {
           setAward,
           routes: ctx.award.match_routes,
           route: null,
-          match: null,
-          fetch: newFetch
+          match: null
         };
         await nodePlugin.hooks.modifyInitialPropsCtx({
           params: initialPropsParams,
