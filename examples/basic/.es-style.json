@@ -1,3 +1,4 @@
 {
-  "randomScope": true
+  "randomScope": true,
+  "scopePosition": "head"
 }
