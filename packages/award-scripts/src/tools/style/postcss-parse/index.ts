@@ -206,7 +206,12 @@ export default (state: any) => {
       styleId = styleId + DefaultHashString(jsxStyle);
     }
     // 拼接scopeId
-    jsxStyle = postcss([postcssSelector(styleId)]).process(jsxStyle, {
+    jsxStyle = postcss([
+      postcssSelector({
+        styleId,
+        scopePosition: config.scopePosition
+      })
+    ]).process(jsxStyle, {
       from: undefined
     }).css;
   }
