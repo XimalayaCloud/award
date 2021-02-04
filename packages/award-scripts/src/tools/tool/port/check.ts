@@ -31,11 +31,11 @@ const findAvailablePort = async (port: string) => {
           } else {
             receive = true;
           }
-          _resolve();
+          _resolve(undefined);
         });
       });
     }
-    resolve();
+    resolve(undefined);
   });
   return currentPort;
 };
@@ -52,7 +52,7 @@ const findAvailablePort = async (port: string) => {
     })
     .then(async (answers: any) => {
       if (answers.target) {
-        fs.writeFileSync(portFile, newPort);
+        fs.writeFileSync(portFile, String(newPort));
         process.exit(1);
       } else {
         inquirer

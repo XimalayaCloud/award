@@ -58,7 +58,7 @@ const startWeb = async (Component: AComponentType, hot: Function | null = null) 
   } else {
     // 延迟执行-预加载
     await new Promise((resolve) => {
-      resolve();
+      resolve(null);
     });
     createIntialState();
     await Loadable.preloadAll();

@@ -10,6 +10,10 @@ fetch.interceptors.request.use((request, context, log) => {
   // console.log(2, request, context);
 });
 
+let a = 2;
+
+a === 3 ? (a = <h1>123</h1>) : (a = <h1>abc</h1>);
+
 fetch.interceptors.response.use((data, response, log) => {
   if (!response.ok) {
     return { num: Math.random() };
@@ -32,6 +36,7 @@ function app(props) {
         <title>basic</title>
         <meta name="keywords" content="award" />
       </Head>
+      {a}
       <p>basename：{basename()}</p>
       <h1
         onClick={() => {
@@ -39,7 +44,7 @@ function app(props) {
         }}
       >
         Hello {info.name}
-        <span>123</span>
+        <span>12345</span>
       </h1>
       <About />
       <Consumer>

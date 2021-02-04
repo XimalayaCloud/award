@@ -15,7 +15,7 @@
     "fs-extra": "8.1.0",
     "http-proxy-middleware": "0.20.0",
     "immutable": "3.8.2",
-    "koa": "2.13.0",
+    "koa": "2.13.1",
     "koa-mount": "4.0.0",
     "koa-router": "9.4.0",
     "koa-sslify": "4.0.3",

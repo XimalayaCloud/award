@@ -51,7 +51,7 @@ module.exports = function (app: Koa) {
       // watch监听样式文件
       watch(compiler, app);
 
-      resolve();
+      resolve(null);
     } catch (err) {
       console.error(chalk.red('Failed to compile.'));
       reject(err);

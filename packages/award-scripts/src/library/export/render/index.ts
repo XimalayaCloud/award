@@ -26,7 +26,7 @@ export default (assetPrefixs: string, port?: number) =>
 
     child.on('exit', (code) => {
       if (code === 0) {
-        resolve();
+        resolve(null);
       } else {
         process.exit(-1);
       }

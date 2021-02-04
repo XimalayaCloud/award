@@ -38,7 +38,7 @@ export default function (this: IServer) {
       }
 
       this.RootDocumentComponent = Component;
-      resolve();
+      resolve(undefined);
     } catch (error) {
       reject(error);
     }
