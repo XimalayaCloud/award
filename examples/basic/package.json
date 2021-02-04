@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "award dev",
+    "dev": "award dev -p 1236",
     "dev_build": "NODE_ENV=test award build"
   },
   "external": {

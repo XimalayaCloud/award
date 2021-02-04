@@ -26,10 +26,10 @@ function app(props) {
   const [info, setInfo] = useState({
     name: 'Award'
   });
+  const [count, setCount] = useState(0);
   if (process.env.RUN_ENV === 'node') {
     const a = 2;
   }
-  console.log('render');
   return (
     <>
       <Head>
@@ -37,6 +37,7 @@ function app(props) {
         <meta name="keywords" content="award" />
       </Head>
       {a}
+      <h1 onClick={() => setCount(count + 1)}>{count}</h1>
       <p>basename：{basename()}</p>
       <h1
         onClick={() => {
