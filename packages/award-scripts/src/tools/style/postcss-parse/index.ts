@@ -2,6 +2,11 @@ import { spawn } from 'child_process';
 import * as path from 'path';
 import { loopWhile } from 'deasync';
 import { getHashByReference } from '../../tool/createProjectFileHash';
+import { memoryFile } from '../../help';
+import { watchImagesPath } from '../utils/constant';
+import * as fs from 'fs-extra';
+
+const sprites = path.join(process.cwd(), '.es-sprites');
 
 export default (state: any) => {
   let wait = true;
@@ -21,6 +26,28 @@ export default (state: any) => {
             data: getHashByReference(result.data)
           })
         );
+      }
+      if (result.type === 'images') {
+        if (!new RegExp(`^${sprites}`).test(result.src)) {
+          let map: any = {};
+          if (memoryFile.existsSync(watchImagesPath)) {
+            const filemap = memoryFile.readFileSync(watchImagesPath, 'utf-8');
+            map = JSON.parse(filemap);
+          }
+          if (map[result.src]) {
+            map[result.src].push(result.reference);
+          } else {
+            map[result.src] = [result.reference];
+          }
+          memoryFile.writeFileSync(watchImagesPath, JSON.stringify(map));
+        }
+
+        if (!memoryFile.existsSync(result.new_dir)) {
+          memoryFile.mkdirpSync(result.new_dir);
+        }
+
+        const data = fs.readFileSync(result.src);
+        memoryFile.writeFileSync(result.outputFile, data);
       }
       return;
     }

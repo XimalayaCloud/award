@@ -269,6 +269,7 @@ process.on('message', (data) => {
     delete store[name];
     return;
   }
+  (global as any).childProcess = true;
   global.staticSource = globalInfo;
   start(state);
 });
