@@ -9,7 +9,6 @@ const moduleHot = (tpl: any) =>
     module.hot.accept();
     module.hot.addStatusHandler((status)=>{
       if(status === 'apply'){
-        console.log("热更新...");
         window.award_hmr = true;
       }
     });

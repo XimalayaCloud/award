@@ -29,8 +29,7 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
   const ts = /\.tsx?$/.test(entry);
   const hotReactDOM = path.join(cwd, 'node_modules', '@hot-loader/react-dom');
   const config: webpack.Configuration = {
-    // devtool: 'cheap-module-eval-source-map',
-    devtool: 'source-map',
+    devtool: 'cheap-module-eval-source-map',
     entry: [
       path.join(__dirname, '..', 'utils', 'style-hmr'),
       'react-hot-loader/patch',
