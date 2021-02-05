@@ -20,12 +20,27 @@ import {
  */
 export default postcss.plugin('postcss-sprites', (options = {}) => {
   return (css: any) => {
+    /* sprite */
     if (css.nodes.length) {
       if (css.nodes[0].type !== 'comment') {
         return;
       } else {
-        if (css.nodes[0].text !== 'sprite') {
-          return;
+        const text = css.nodes[0].text;
+        const textA = text.split(',');
+        if (textA[0] === 'head') {
+          (options as any).scopePosition.position = 'head';
+        }
+        if (textA[0] === 'tail') {
+          (options as any).scopePosition.position = 'tail';
+        }
+        if ((options as any).scopePosition.position) {
+          if (textA[1] !== 'sprite') {
+            return;
+          }
+        } else {
+          if (textA[0] !== 'sprite') {
+            return;
+          }
         }
       }
     }
@@ -42,17 +57,23 @@ export default postcss.plugin('postcss-sprites', (options = {}) => {
 
     // Process it
     return extractImages(css, opts)
-      .spread((opts: any, images: any) => applyFilterBy(opts, images))
+      .spread((opts: any, images: any) => {
+        return applyFilterBy(opts, images);
+      })
 
-      .spread((opts: any, images: any) => applyGroupBy(opts, images))
+      .spread((opts: any, images: any) => {
+        return applyGroupBy(opts, images);
+      })
 
       .spread((opts: any, images: any) => setTokens(css, opts, images))
 
-      .spread((root: any, opts: any, images: any) => runSpritesmith(opts, images))
+      .spread((root: any, opts: any, images: any) => {
+        return runSpritesmith(opts, images);
+      })
 
-      .spread((opts: any, images: any, spritesheets: any) =>
-        saveSpritesheets(opts, images, spritesheets)
-      )
+      .spread((opts: any, images: any, spritesheets: any) => {
+        return saveSpritesheets(opts, images, spritesheets);
+      })
 
       .spread((opts: any, images: any, spritesheets: any) =>
         mapSpritesheetProps(opts, images, spritesheets)
@@ -70,6 +91,7 @@ export default postcss.plugin('postcss-sprites', (options = {}) => {
         );
       })
       .catch((err: any) => {
+        console.log(err);
         throw err;
       });
   };

@@ -81,6 +81,7 @@ export default (cache: any, state: any) => {
         globalStyle = result.globalStyle;
         JsxStyle = result.JsxStyle;
         styleId = result.styleId;
+
         state.elementSelectors = result.elementSelectors;
 
         // 创建文件夹
@@ -112,7 +113,7 @@ export default (cache: any, state: any) => {
           fs.mkdirSync(cacheDir);
         }
         // 解析样式资源
-        const result = postcssParse(state);
+        const result: any = postcssParse(state);
         globalStyle = result.global;
         JsxStyle = result.jsx;
         styleId = result.styleId;

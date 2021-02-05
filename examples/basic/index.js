@@ -45,7 +45,7 @@ function app(props) {
         }}
       >
         Hello {info.name}
-        <span>12345</span>
+        <span>1234</span>
       </h1>
       <About />
       <Consumer>

@@ -1,224 +1,62 @@
-/* eslint-disable complexity */
-/* eslint-disable array-callback-return */
-import * as postcss from 'postcss';
-import * as CleanCSS from 'clean-css';
-import * as del from 'del';
-import { join, parse } from 'path';
-import DefaultHashString = require('string-hash');
-
-import Config from '../utils/config';
-import { dev } from '../utils';
+import { spawn } from 'child_process';
+import * as path from 'path';
+import { loopWhile } from 'deasync';
 import { getHashByReference } from '../../tool/createProjectFileHash';
 
-// postcss插件
-import postcssSprites from './postcss-sprites';
-import postcssSelector from './postcss-selector';
-import postcssImages from './postcss-images';
-import postcssFont from './postcss-font';
-
-// 存储全局的样式的hashString，保证唯一性
-const StoreGlobalStyle: any = [];
-const plugins: any[] = [];
-const config = Config();
-const cwd = process.cwd();
-
-// 通过node-sass解析并获取style字符串
-const contentByFilePath = (filepath: any) => {
-  const dir = parse(filepath).dir;
-  return require('node-sass')
-    .renderSync({ file: filepath, includePaths: [dir] })
-    .css.toString();
-};
-
-const contentByString = (str: any, filepath: any) => {
-  const dir = parse(filepath).dir;
-  return require('node-sass')
-    .renderSync({ data: str, includePaths: [dir] })
-    .css.toString();
-};
-
-// postcss批量处理
-const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
-  let styleSheet = '';
-  if (styles.length) {
-    styles.map((item: any) => {
-      try {
-        if (item.css) {
-          // 解析css样式
-          const css = postcss(_plugins).process(item.css, {
-            from: item.from
-          }).css;
-          // 压缩css文件
-          const output = new CleanCSS({}).minify(css);
-          if (isGlobal && !dev()) {
-            const globalId = DefaultHashString(output.styles);
-            // 筛选出重复的全局样式引用
-            if (StoreGlobalStyle.indexOf(globalId) === -1) {
-              StoreGlobalStyle.push(globalId);
-              styleSheet += output.styles;
-            }
-          } else {
-            styleSheet += output.styles;
-          }
-        }
-      } catch (error) {
-        console.error(error);
-        process.exit(-1);
-      }
-    });
-  }
-  return styleSheet;
-};
-
-/**
- * 分析插件
- */
-(() => {
-  const sprites: any = config.plugins.filter((item: any) => item[0] === 'postcss-sprites').pop();
-
-  if (sprites) {
-    const spritesOptions = sprites[1];
-    if (spritesOptions.spritePath) {
-      // 删掉存放雪碧图的目录
-      if (spritesOptions.spritePath === '.es-style') {
-        throw new Error('spritePath 不能设置为 .es-style');
-      }
-      del(join(cwd, spritesOptions.spritePath), { force: true });
-    }
-  }
-
-  const config_autoprefixer = config.plugins
-    .filter((item: any) => item[0] === 'autoprefixer')
-    .pop();
-  const config_postcssSprites = config.plugins
-    .filter((item: any) => item[0] === 'postcss-sprites')
-    .pop();
-
-  let autoprefixerOptions = {};
-  let postcssSpritesOptions = {};
-
-  if (config_autoprefixer) {
-    autoprefixerOptions = config_autoprefixer[1];
-  }
-
-  if (config_postcssSprites) {
-    postcssSpritesOptions = config_postcssSprites[1];
-  }
-
-  plugins.push(
-    postcssSprites({
-      spritePath: `.es-sprites`,
-      hooks: {
-        onSaveSpritesheet: (opts: any, { extension, image }: any) => {
-          return join(
-            opts.spritePath,
-            ['sprite_' + DefaultHashString(image.toString()), extension].join('.')
-          );
-        }
-      },
-      ...postcssSpritesOptions
-    }),
-    require('autoprefixer')({
-      overrideBrowserslist: 'last 4 version',
-      ...autoprefixerOptions
-    })
-  );
-
-  // 过滤不需要进行处理的插件
-  const _plugins = config.plugins.filter(
-    (item: any) =>
-      ['cssnano', 'postcss-modules', 'postcss-sprites', 'autoprefixer'].indexOf(item[0]) === -1
-  );
-
-  // 保存新的plugins,并且防止多次引用,
-  let _tmpPlugin: any = [];
-  if (_plugins.length) {
-    _plugins.map(
-      (item: any) =>
-        _tmpPlugin.indexOf(item[0]) === -1 &&
-        _tmpPlugin.push(item[0]) &&
-        plugins.push(require(item[0])(item[1]))
-    );
-  }
-})();
-
-// 将css字符串经过postcss插件进行二次操作
 export default (state: any) => {
-  const reference = state?.file?.opts.filename;
-  let imageOptions = state?.opts?.imageOptions;
-  let fontOptions = state?.opts?.fontOptions;
-  const publicPath = state?.opts?.publicPath || '/';
-  const publicEntry = state?.opts?.publicEntry || './dist';
-  const write = state?.opts?.write || false;
-
-  if (typeof imageOptions === 'undefined') {
-    imageOptions = {};
-  }
-
-  if (typeof fontOptions === 'undefined') {
-    fontOptions = {};
-  }
-
-  if (config.limit) {
-    imageOptions.limit = config.limit;
-  }
-
-  const _plugins = [
-    ...plugins,
-    postcssImages({
-      write,
-      imageOptions,
-      publicEntry,
-      publicPath,
-      elementSelectors: state.elementSelectors,
-      state
-    }),
-    postcssFont({
-      write,
-      fontOptions,
-      publicEntry,
-      publicPath,
-      state
-    })
-  ];
-
-  // sass读取样式资源文件内容，并重新赋值state.styles的属性
-  state.styles.jsx.map((item: any, index: number) => {
-    state.styles.jsx[index].css = !/\.(j|t)sx?$/.test(item.from)
-      ? contentByFilePath(item.from)
-      : contentByString(state.scopeCSS, item.from);
+  let wait = true;
+  let result = null;
+  const child = spawn('node', [path.join(__dirname, './start.js')], {
+    stdio: ['inherit', 'inherit', 'inherit', 'ipc']
   });
 
-  state.styles.global.map((item: any, index: number) => {
-    state.styles.global[index].css = !/\.(j|t)sx?$/.test(item.from)
-      ? contentByFilePath(item.from)
-      : contentByString(state.globalCSS, item.from);
-  });
-
-  // 需要对全局样式的选择器进行过滤识别处理，即不能携带和scope一致的选择器
-  const globalStyle = handleStyleByPostcss(state.styles.global, _plugins, true);
-  let jsxStyle: any = handleStyleByPostcss(state.styles.jsx, _plugins, false);
-  let styleId = jsxStyle ? getHashByReference(reference) : 0;
-
-  if (styleId) {
-    if (dev() || config.randomScope) {
-      // 在开发阶段，为了防止热更新时样式不生效，需要带上随机的hash码
-      styleId = styleId + DefaultHashString(jsxStyle);
+  child.on('message', (d) => {
+    result = JSON.parse(d);
+    if (result.type) {
+      if (result.type === 'getHashByReference') {
+        child.send(
+          JSON.stringify({
+            type: 'bridge',
+            name: result.name,
+            data: getHashByReference(result.data)
+          })
+        );
+      }
+      return;
     }
-    // 拼接scopeId
-    jsxStyle = postcss([
-      postcssSelector({
-        styleId,
-        scopePosition: config.scopePosition
-      })
-    ]).process(jsxStyle, {
-      from: undefined
-    }).css;
-  }
+    const { globalInfo, ...rests } = result.data;
+    global.staticSource = globalInfo;
 
-  return {
-    global: globalStyle,
-    jsx: jsxStyle,
-    styleId
-  };
+    state.elementSelectors = result.state.elementSelectors;
+    state.fonts = result.state.fonts;
+    state.images = result.state.images;
+
+    result = rests;
+
+    wait = false;
+  });
+
+  child.send(
+    JSON.stringify({
+      opts: state.opts,
+      styles: state.styles,
+      styleSourceMap: state.styleSourceMap,
+      elementSelectors: state.elementSelectors,
+      css: state.css,
+      scopeCSS: state.scopeCSS,
+      globalCSS: state.globalCSS,
+      styleId: state.styleId,
+      globalId: state.globalId,
+      fonts: state.fonts,
+      images: state.images,
+      styleCache: state.styleCache,
+      file: {
+        opts: state?.file?.opts
+      },
+      globalInfo: global.staticSource
+    })
+  );
+  loopWhile(() => wait);
+
+  return result;
 };
