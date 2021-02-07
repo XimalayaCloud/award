@@ -151,7 +151,7 @@ const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
 })();
 
 // 将css字符串经过postcss插件进行二次操作
-const start = async (state: any) => {
+const start = async (state: any, fromId: any) => {
   const reference = state?.file?.opts.filename;
   let imageOptions = state?.opts?.imageOptions;
   let fontOptions = state?.opts?.fontOptions;
@@ -224,7 +224,9 @@ const start = async (state: any) => {
 
   // 需要对全局样式的选择器进行过滤识别处理，即不能携带和scope一致的选择器
   const globalStyle = await handleStyleByPostcss(state.styles.global, _plugins, true);
+
   let jsxStyle: any = await handleStyleByPostcss(state.styles.jsx, _plugins, false);
+
   let styleId = 0;
   if (jsxStyle) {
     styleId = await new Promise((resolve) => {
@@ -249,6 +251,7 @@ const start = async (state: any) => {
 
   (process as any).send(
     JSON.stringify({
+      fromId,
       data: {
         global: globalStyle,
         jsx: jsxStyle,
@@ -258,11 +261,10 @@ const start = async (state: any) => {
       state
     })
   );
-  // process.disconnect();
 };
 
 process.on('message', (data) => {
-  const { globalInfo, ...state } = JSON.parse(data);
+  const { globalInfo, fromId, ...state } = JSON.parse(data);
   if (state.type === 'bridge') {
     const name = state.name;
     store[name](state.data);
@@ -271,5 +273,5 @@ process.on('message', (data) => {
   }
   (global as any).childProcess = true;
   global.staticSource = globalInfo;
-  start(state);
+  start(state, fromId);
 });

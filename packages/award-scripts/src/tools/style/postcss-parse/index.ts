@@ -12,6 +12,9 @@ const handleStyle = spawn('node', [path.join(__dirname, './start.js')], {
   stdio: ['inherit', 'inherit', 'inherit', 'ipc']
 });
 
+let id = 0;
+let store: any = {};
+
 handleStyle.on('message', (d) => {
   const result = JSON.parse(d);
   if (result.type) {
@@ -48,6 +51,10 @@ handleStyle.on('message', (d) => {
       const data = fs.readFileSync(result.src);
       memoryFile.writeFileSync(result.outputFile, data);
     }
+  } else {
+    if (store[result.fromId]) {
+      store[result.fromId](result, result.fromId);
+    }
   }
 });
 
@@ -55,20 +62,20 @@ export default (state: any) => {
   let wait = true;
   let result = null;
 
-  handleStyle.on('message', (d) => {
-    result = JSON.parse(d);
-    if (!result.type) {
-      const { globalInfo, ...rests } = result.data;
-      global.staticSource = globalInfo;
+  id++;
 
-      state.elementSelectors = result.state.elementSelectors;
-      state.fonts = result.state.fonts;
-      state.images = result.state.images;
+  store[id] = (responseStore: any, fromId: any) => {
+    const { globalInfo, ...rests } = responseStore.data;
+    global.staticSource = globalInfo;
 
-      result = rests;
-      wait = false;
-    }
-  });
+    state.elementSelectors = responseStore.state.elementSelectors;
+    state.fonts = responseStore.state.fonts;
+    state.images = responseStore.state.images;
+
+    result = rests;
+    delete store[fromId];
+    wait = false;
+  };
 
   handleStyle.send(
     JSON.stringify({
@@ -87,9 +94,11 @@ export default (state: any) => {
       file: {
         opts: state?.file?.opts
       },
-      globalInfo: global.staticSource
+      globalInfo: global.staticSource,
+      fromId: id
     })
   );
+
   loopWhile(() => wait);
 
   return result;
