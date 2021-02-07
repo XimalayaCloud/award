@@ -31,8 +31,10 @@ export default function (this: IServer): Middleware<any, IContext> {
             const end = ctx.res.end;
             let isEnd = false;
             ctx.res.end = function (...args: any[]) {
+              if (!isEnd) {
+                end.apply(ctx.res, args);
+              }
               isEnd = true;
-              end.apply(ctx.res, args);
             };
             ctx.res.write = function (...args: any[]) {
               if (!isEnd) {
@@ -51,8 +53,10 @@ export default function (this: IServer): Middleware<any, IContext> {
           const end = ctx.res.end;
           let isEnd = false;
           ctx.res.end = function (...args: any[]) {
+            if (!isEnd) {
+              end.apply(ctx.res, args);
+            }
             isEnd = true;
-            end.apply(ctx.res, args);
           };
           ctx.res.write = function (...args: any[]) {
             if (!isEnd) {
