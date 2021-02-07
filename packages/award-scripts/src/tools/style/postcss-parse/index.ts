@@ -8,62 +8,69 @@ import * as fs from 'fs-extra';
 
 const sprites = path.join(process.cwd(), '.es-sprites');
 
+const handleStyle = spawn('node', [path.join(__dirname, './start.js')], {
+  stdio: ['inherit', 'inherit', 'inherit', 'ipc']
+});
+
+handleStyle.on('message', (d) => {
+  const result = JSON.parse(d);
+  if (result.type) {
+    // 获取styledId
+    if (result.type === 'getHashByReference') {
+      handleStyle.send(
+        JSON.stringify({
+          type: 'bridge',
+          name: result.name,
+          data: getHashByReference(result.data)
+        })
+      );
+    }
+    // 内存写入图片
+    if (result.type === 'images') {
+      if (!new RegExp(`^${sprites}`).test(result.src)) {
+        let map: any = {};
+        if (memoryFile.existsSync(watchImagesPath)) {
+          const filemap = memoryFile.readFileSync(watchImagesPath, 'utf-8');
+          map = JSON.parse(filemap);
+        }
+        if (map[result.src]) {
+          map[result.src].push(result.reference);
+        } else {
+          map[result.src] = [result.reference];
+        }
+        memoryFile.writeFileSync(watchImagesPath, JSON.stringify(map));
+      }
+
+      if (!memoryFile.existsSync(result.new_dir)) {
+        memoryFile.mkdirpSync(result.new_dir);
+      }
+
+      const data = fs.readFileSync(result.src);
+      memoryFile.writeFileSync(result.outputFile, data);
+    }
+  }
+});
+
 export default (state: any) => {
   let wait = true;
   let result = null;
-  const child = spawn('node', [path.join(__dirname, './start.js')], {
-    stdio: ['inherit', 'inherit', 'inherit', 'ipc']
-  });
 
-  child.on('message', (d) => {
+  handleStyle.on('message', (d) => {
     result = JSON.parse(d);
-    if (result.type) {
-      if (result.type === 'getHashByReference') {
-        child.send(
-          JSON.stringify({
-            type: 'bridge',
-            name: result.name,
-            data: getHashByReference(result.data)
-          })
-        );
-      }
-      if (result.type === 'images') {
-        if (!new RegExp(`^${sprites}`).test(result.src)) {
-          let map: any = {};
-          if (memoryFile.existsSync(watchImagesPath)) {
-            const filemap = memoryFile.readFileSync(watchImagesPath, 'utf-8');
-            map = JSON.parse(filemap);
-          }
-          if (map[result.src]) {
-            map[result.src].push(result.reference);
-          } else {
-            map[result.src] = [result.reference];
-          }
-          memoryFile.writeFileSync(watchImagesPath, JSON.stringify(map));
-        }
+    if (!result.type) {
+      const { globalInfo, ...rests } = result.data;
+      global.staticSource = globalInfo;
 
-        if (!memoryFile.existsSync(result.new_dir)) {
-          memoryFile.mkdirpSync(result.new_dir);
-        }
+      state.elementSelectors = result.state.elementSelectors;
+      state.fonts = result.state.fonts;
+      state.images = result.state.images;
 
-        const data = fs.readFileSync(result.src);
-        memoryFile.writeFileSync(result.outputFile, data);
-      }
-      return;
+      result = rests;
+      wait = false;
     }
-    const { globalInfo, ...rests } = result.data;
-    global.staticSource = globalInfo;
-
-    state.elementSelectors = result.state.elementSelectors;
-    state.fonts = result.state.fonts;
-    state.images = result.state.images;
-
-    result = rests;
-
-    wait = false;
   });
 
-  child.send(
+  handleStyle.send(
     JSON.stringify({
       opts: state.opts,
       styles: state.styles,
