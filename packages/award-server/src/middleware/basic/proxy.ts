@@ -27,6 +27,18 @@ export default function (this: IServer): Middleware<any, IContext> {
           const custom = customs[i];
           if (typeof custom.filter === 'function' && typeof custom.options === 'object') {
             proxy = true;
+            const write = ctx.res.write;
+            const end = ctx.res.end;
+            let isEnd = false;
+            ctx.res.end = function (...args: any[]) {
+              isEnd = true;
+              end.apply(ctx.res, args);
+            };
+            ctx.res.write = function (...args: any[]) {
+              if (!isEnd) {
+                write.apply(ctx.res, args);
+              }
+            };
             await k2c(httpProxy(custom.filter, custom.options))(ctx, next);
           }
           i++;
@@ -35,6 +47,18 @@ export default function (this: IServer): Middleware<any, IContext> {
       for (const route in rests) {
         if (regxp.pathToRegexp(route).test(path) || new RegExp(`^${route}`).test(path)) {
           proxy = true;
+          const write = ctx.res.write;
+          const end = ctx.res.end;
+          let isEnd = false;
+          ctx.res.end = function (...args: any[]) {
+            isEnd = true;
+            end.apply(ctx.res, args);
+          };
+          ctx.res.write = function (...args: any[]) {
+            if (!isEnd) {
+              write.apply(ctx.res, args);
+            }
+          };
           await k2c(httpProxy(path, rests[route]))(ctx, next);
           break;
         }
