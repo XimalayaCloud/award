@@ -250,6 +250,9 @@ export default function (babel: any) {
           const isServer = state?.opts?.isServer;
           state.path = _path;
           let exitRoutes = false;
+          if (!state.import) {
+            state.import = {};
+          }
           _path.traverse({
             ImportDeclaration(path) {
               const specifiers = path.node.specifiers;
@@ -260,10 +263,6 @@ export default function (babel: any) {
                 t.isImportDefaultSpecifier(specifiers[0])
               ) {
                 const name = specifiers[0].local.name;
-
-                if (!state.import) {
-                  state.import = {};
-                }
 
                 state.import[name] = path;
               }

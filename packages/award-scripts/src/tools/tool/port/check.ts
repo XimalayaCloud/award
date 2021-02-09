@@ -9,7 +9,12 @@ import * as path from 'path';
 
 const port = process.argv.slice(2)[0];
 const pid: any[] = [];
-const portFile = path.join(process.cwd(), 'node_modules', '.port');
+const node_modules = path.join(process.cwd(), 'node_modules');
+if (!fs.existsSync(node_modules)) {
+  fs.mkdirSync(node_modules);
+}
+
+const portFile = path.join(node_modules, '.port');
 
 const findAvailablePort = async (port: string) => {
   let currentPort = Number(port) + 1;

@@ -33,7 +33,13 @@ export default (nextRoutes: Array<MatchedRoute<{}>>, nextSearch: string, callbac
         continue;
       }
       for (let s = j + 1; s < nextRoutes.length; s++) {
-        if (nextRoutes[j].match.url === nextRoutes[s].match.url) {
+        /**
+         * 匹配到的url相同，但是params不同，需要筛选出有效的匹配
+         */
+        if (
+          nextRoutes[j].match.url === nextRoutes[s].match.url &&
+          JSON.stringify(nextRoutes[j].match.params) !== JSON.stringify(nextRoutes[s].match.params)
+        ) {
           ignore.push(s);
         }
       }
