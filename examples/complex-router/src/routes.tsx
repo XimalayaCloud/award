@@ -40,8 +40,40 @@ TingSubCategoryPage.getInitialProps = (ctx) => {
   };
 };
 
+const Home1 = (props) => {
+  return (
+    <>
+      <h1>hello home</h1>
+      <Link to="/home">/home</Link>
+      <br />
+      <Link to="/home/abc">/home/abc</Link>
+      <br />
+      <Link to="/home/efg">/home/efg</Link>
+      <br />
+      <Link to="/home/hij">/home/hij</Link>
+      <br />
+      <Link to="/home/klm">/home/klm</Link>
+      <br />
+      {props.children}
+    </>
+  );
+};
+
+const Home2 = (props) => {
+  return <h1>hello home2 - {props.id}</h1>;
+};
+
+Home2.getInitialProps = (ctx) => {
+  return {
+    id: ctx.match.params.id
+  };
+};
+
 const Routes = () => (
   <RouterSwitch>
+    <Route path="/home" component={Home1}>
+      <Route path="/home/:id?" component={Home2} />
+    </Route>
     <Route
       loading={List}
       exact
