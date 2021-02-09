@@ -27,6 +27,7 @@ export default (nextRoutes: Array<MatchedRoute<{}>>, nextSearch: string, callbac
      */
     const ignore = [];
     const newNextRoutes = [];
+
     for (let j = 0; j < nextRoutes.length; j++) {
       if (ignore.indexOf(j) !== -1) {
         // 当前重复，忽略本次循环，进行下次循环
@@ -36,9 +37,14 @@ export default (nextRoutes: Array<MatchedRoute<{}>>, nextSearch: string, callbac
         /**
          * 匹配到的url相同，但是params不同，需要筛选出有效的匹配
          */
+        const match_i = nextRoutes[j].match;
+        const match_s = nextRoutes[s].match;
+
         if (
-          nextRoutes[j].match.url === nextRoutes[s].match.url &&
-          JSON.stringify(nextRoutes[j].match.params) !== JSON.stringify(nextRoutes[s].match.params)
+          !match_i.isExact &&
+          !match_s.isExact &&
+          match_i.url === match_s.url &&
+          JSON.stringify(match_i.params) !== JSON.stringify(match_s.params)
         ) {
           ignore.push(s);
         }

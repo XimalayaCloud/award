@@ -9,6 +9,10 @@ const List = () => {
 const TingPage = (props) => {
   return (
     <div>
+      {/* <NavLink to="/ting/">NavLink:/ting/</NavLink> */}
+      <br />
+      <Link to="/ting/">link:/ting/</Link>
+      <br />
       <Link to="/ting/abc">/ting/abc</Link>
       <br />
       <Link to="/ting/efg">/ting/efg</Link>
@@ -26,8 +30,15 @@ TingPage.getInitialProps = (ctx) => {
   console.log('TingPage', ctx);
 };
 
-const TingSubContentPage = () => {
-  return <h1>hello ting</h1>;
+const TingSubContentPage = (props) => {
+  return <h1>hello ting - {props.a}</h1>;
+};
+
+TingSubContentPage.getInitialProps = (ctx) => {
+  console.log('TingSubContentPage', ctx);
+  return {
+    a: Math.random()
+  };
 };
 
 const TingSubCategoryPage = (props) => {
@@ -36,7 +47,7 @@ const TingSubCategoryPage = (props) => {
 
 TingSubCategoryPage.getInitialProps = (ctx) => {
   return {
-    category: ctx.match.params.category
+    category: ctx.match.params.category + Math.random()
   };
 };
 
