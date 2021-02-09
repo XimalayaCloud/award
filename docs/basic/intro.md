@@ -7,7 +7,7 @@ sidebar_label: 快速入门
 
 **项目依赖安装，推荐使用[`yarn`](https://yarnpkg.com/zh-Hans/docs)**
 
-**推荐使用[v12的Node版本](https://nodejs.org/en/)，提升开发体验**
+**推荐使用[v12、v14的Node版本](https://nodejs.org/en/)，提升开发体验**
 
 ## 快速体验
 
