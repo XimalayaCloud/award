@@ -22,7 +22,7 @@ describe('测试award-fetch web xhr', () => {
       ctx.body = { name: 'hello ' + ctx.query.name };
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         data: {
           name: 'world'
@@ -42,7 +42,7 @@ describe('测试award-fetch web xhr', () => {
       ctx.status = 500;
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         data: {
           name: 'world'
@@ -57,7 +57,7 @@ describe('测试award-fetch web xhr', () => {
 
   it('通用测试 network Error', async () => {
     const fetch = require('award-fetch').default;
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('/', {
         data: {
           name: 'world'
@@ -74,7 +74,7 @@ describe('测试award-fetch web xhr', () => {
     const fetch = require('award-fetch').default;
 
     server.use(async (ctx) => {
-      await new Promise((resolve) => {
+      await new Promise<void>((resolve) => {
         setTimeout(() => {
           resolve();
         }, 500);
@@ -82,7 +82,7 @@ describe('测试award-fetch web xhr', () => {
       ctx.body = '';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         data: {
           name: 'world'
@@ -103,7 +103,7 @@ describe('测试award-fetch web xhr', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         data: {
@@ -128,7 +128,7 @@ describe('测试award-fetch web xhr', () => {
     const fetch = require('award-fetch').default;
     const info = jest.fn();
     server.use(async (ctx) => {
-      await new Promise((resolve) => {
+      await new Promise<void>((resolve) => {
         setTimeout(() => {
           resolve();
         }, 500);
@@ -136,7 +136,7 @@ describe('测试award-fetch web xhr', () => {
       ctx.body = { name: 'hello world' };
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       const source = fetch.source();
       fetch(server.url, {
         method: 'POST',
@@ -166,7 +166,7 @@ describe('测试award-fetch web xhr', () => {
     const fetch = require('award-fetch').default;
     const info = jest.fn();
     server.use(async (ctx) => {
-      await new Promise((resolve) => {
+      await new Promise<void>((resolve) => {
         setTimeout(() => {
           resolve();
         }, 500);
@@ -174,7 +174,7 @@ describe('测试award-fetch web xhr', () => {
       ctx.body = { name: 'hello world' };
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       const source = fetch.source();
       fetch(server.url, {
         method: 'POST',
@@ -209,7 +209,7 @@ describe('测试award-fetch web xhr', () => {
     // formdata
     const data = new FormData();
     data.append('id', '1');
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         params: {
@@ -231,7 +231,7 @@ describe('测试award-fetch web xhr', () => {
       ctx.body = { name: 'hello ' + ctx.request.body.name };
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         data: 'name=world&id=1',
@@ -242,7 +242,7 @@ describe('测试award-fetch web xhr', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         data: 'name=world&id=1',
@@ -254,7 +254,7 @@ describe('测试award-fetch web xhr', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         data: { name: 'world', id: null },
@@ -276,7 +276,7 @@ describe('测试award-fetch web xhr', () => {
       ctx.body = { name: 'hello ' + data.name };
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         data: { name: 'world' },
@@ -288,7 +288,7 @@ describe('测试award-fetch web xhr', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         data: 'name=world&id=1',
@@ -300,7 +300,7 @@ describe('测试award-fetch web xhr', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         dataType: 'object',

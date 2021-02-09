@@ -32,7 +32,7 @@ describe('测试award-fetch  node', () => {
       ctx.body = { name: 'hello ' + ctx.query.name };
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         data: {
           name: 'world'
@@ -43,7 +43,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         params: {
           name: 'world'
@@ -54,7 +54,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         body: {
           name: 'world'
@@ -73,7 +73,7 @@ describe('测试award-fetch  node', () => {
       ctx.body = { name: 'hello ' + ctx.query.name + ctx.request.body.id };
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         params: {
@@ -88,7 +88,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         params: {
@@ -103,7 +103,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         body: {
