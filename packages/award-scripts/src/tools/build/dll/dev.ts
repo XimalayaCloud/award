@@ -19,7 +19,7 @@ import { countDllPkgHash } from './utils';
 
 export default (configWebpack: Function | undefined, dir: string, assetPrefixs: string) => {
   if (!fs.existsSync(path.join(dir, 'node_modules/award/package.json'))) {
-    return Promise.resolve();
+    return Promise.resolve(null);
   }
   const dllDir = path.join(dir, 'node_modules', '.award_dll');
   const pkg = path.join(dir, 'package.json');
@@ -103,7 +103,7 @@ export default (configWebpack: Function | undefined, dir: string, assetPrefixs: 
         const oldLock = fs.readFileSync(dllLockFile, 'utf-8');
         if (currentLock === oldLock) {
           console.info(chalk.green(`检测发现当前dll资源未发生变更，将不再编译`));
-          resolve();
+          resolve(null);
           return;
         }
       }
@@ -137,7 +137,7 @@ export default (configWebpack: Function | undefined, dir: string, assetPrefixs: 
         );
         fs.writeFileSync(dllLockFile, currentLock);
       }
-      resolve();
+      resolve(null);
     } catch (error) {
       reject(error);
     }

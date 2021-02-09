@@ -133,7 +133,7 @@ export default class DevServer extends Server {
           const time = setInterval(() => {
             if (fs.existsSync(done)) {
               clearInterval(time);
-              resolve();
+              resolve(undefined);
             }
           }, 100);
         });

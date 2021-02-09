@@ -10,6 +10,10 @@ fetch.interceptors.request.use((request, context, log) => {
   // console.log(2, request, context);
 });
 
+let a = 2;
+
+a === 3 ? (a = <h1>123</h1>) : (a = <h1>abc</h1>);
+
 fetch.interceptors.response.use((data, response, log) => {
   if (!response.ok) {
     return { num: Math.random() };
@@ -22,16 +26,18 @@ function app(props) {
   const [info, setInfo] = useState({
     name: 'Award'
   });
+  const [count, setCount] = useState(0);
   if (process.env.RUN_ENV === 'node') {
     const a = 2;
   }
-  console.log('render');
   return (
     <>
       <Head>
         <title>basic</title>
         <meta name="keywords" content="award" />
       </Head>
+      {a}
+      <h1 onClick={() => setCount(count + 1)}>{count}</h1>
       <p>basename：{basename()}</p>
       <h1
         onClick={() => {
@@ -39,7 +45,7 @@ function app(props) {
         }}
       >
         Hello {info.name}
-        <span>123</span>
+        <span>1234</span>
       </h1>
       <About />
       <Consumer>

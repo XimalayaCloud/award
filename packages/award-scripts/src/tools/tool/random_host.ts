@@ -53,17 +53,17 @@ module.exports = () => {
           } else {
             receive = true;
           }
-          _resolve();
+          _resolve(undefined);
         });
       });
     }
-    resolve();
+    resolve(undefined);
   }).then(() => {
     wait = false;
   });
 
   loopWhile(() => wait);
-  fs.writeFileSync(cachePort, port);
+  fs.writeFileSync(cachePort, String(port));
   process.env.CHILDPROCESS_COMPILER_PORT = String(port);
   process.env.CHILDPROCESS_COMPILER_URL = url + String(port);
 };

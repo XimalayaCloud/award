@@ -12,9 +12,9 @@ export { default as setAward } from './setAward';
 export { default as removeAward } from './removeAward';
 
 if (process.env.RUN_ENV === 'web') {
-  const basename = '';
+  let webBasename = '';
   ('<$>__AWARD__BASENAME__<$>');
-  loadParams.set({ basename });
+  loadParams.set({ basename: webBasename });
 }
 
 export const basename = () => {

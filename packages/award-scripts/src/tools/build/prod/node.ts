@@ -28,7 +28,7 @@ function Compiler(compiler: webpack.Compiler): Promise<undefined> {
       callback();
     });
     compiler.hooks.afterEmit.tapAsync(name, () => {
-      resolve();
+      resolve(undefined);
     });
     // 开始执行编译
     compiler.run(() => {});

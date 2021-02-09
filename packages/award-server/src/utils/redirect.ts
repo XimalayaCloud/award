@@ -15,7 +15,7 @@ export default async (match_routes: Array<MatchedRoute<{}>>, matchLength: number
     if (typeof redirect === 'function') {
       redirectUrl = await redirect(url, match);
     } else if (typeof redirect === 'string') {
-      redirectUrl = generatePath(redirect, match.params);
+      redirectUrl = generatePath(redirect, match.params as any);
     }
     if (redirectUrl && redirectUrl !== url) {
       return redirectUrl;

@@ -21,7 +21,7 @@ export default function (compiler: webpack.Compiler): Promise<undefined> {
         reject();
       }
       process.nextTick(() => {
-        resolve();
+        resolve(undefined);
       });
     });
   });

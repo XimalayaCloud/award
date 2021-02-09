@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 import * as fs from 'fs-extra';
 import { requireResolve, memoryFile } from '../../help';
 import * as mime from 'mime';
@@ -70,27 +71,39 @@ export default ({
       if (dev()) {
         // 开发模式，文件写入到内存中
         const new_dir = '/static/' + imageOptions.path;
-
-        if (!new RegExp(`^${sprites}`).test(src)) {
-          let map: any = {};
-          if (memoryFile.existsSync(watchImagesPath)) {
-            const filemap = memoryFile.readFileSync(watchImagesPath, 'utf-8');
-            map = JSON.parse(filemap);
-          }
-          if (map[src]) {
-            map[src].push(reference);
-          } else {
-            map[src] = [reference];
-          }
-          memoryFile.writeFileSync(watchImagesPath, JSON.stringify(map));
-        }
-
-        if (!memoryFile.existsSync(new_dir)) {
-          memoryFile.mkdirpSync(new_dir);
-        }
-
         outputFile = new_dir + _filename;
-        memoryFile.writeFileSync(outputFile, data);
+
+        if ((global as any).childProcess) {
+          (process as any).send(
+            JSON.stringify({
+              type: 'images',
+              src,
+              reference,
+              new_dir,
+              outputFile
+            })
+          );
+        } else {
+          if (!new RegExp(`^${sprites}`).test(src)) {
+            let map: any = {};
+            if (memoryFile.existsSync(watchImagesPath)) {
+              const filemap = memoryFile.readFileSync(watchImagesPath, 'utf-8');
+              map = JSON.parse(filemap);
+            }
+            if (map[src]) {
+              map[src].push(reference);
+            } else {
+              map[src] = [reference];
+            }
+            memoryFile.writeFileSync(watchImagesPath, JSON.stringify(map));
+          }
+
+          if (!memoryFile.existsSync(new_dir)) {
+            memoryFile.mkdirpSync(new_dir);
+          }
+
+          memoryFile.writeFileSync(outputFile, data);
+        }
         state.images[outputFile] = src;
         new_src = '/award_dev_static' + outputFile;
       } else {

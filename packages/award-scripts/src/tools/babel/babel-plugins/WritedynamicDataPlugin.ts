@@ -83,7 +83,7 @@ export default function (babel: any) {
           if (value === '<$>__AWARD__BASENAME__<$>') {
             if (basename) {
               spath.replaceWith(
-                tpl(`basename = BASENAME`)({
+                tpl(`webBasename = BASENAME`)({
                   BASENAME: t.stringLiteral(basename)
                 })
               );

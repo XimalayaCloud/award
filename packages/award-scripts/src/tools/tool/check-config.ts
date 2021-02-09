@@ -6,6 +6,8 @@ import chalk = require('chalk');
 import clearConsole from './clearConsole';
 import { getAwardConfig } from 'award-utils/server';
 
+const dir = process.cwd();
+
 const example = () => {
   console.info(`🤗  配置文件示例`);
   console.info(chalk.yellow('module.exports = {'));
@@ -16,7 +18,6 @@ const example = () => {
 
 // eslint-disable-next-line complexity
 const judgeEntry = () => {
-  const dir = process.cwd();
   const defaultEntryjs = join(dir, 'index.js');
   const defaultEntryjsx = join(dir, 'index.jsx');
   const defaultEntryts = join(dir, 'index.ts');
@@ -195,6 +196,18 @@ export default (clear = true) => {
 
   if (!/\/$/.test(config.assetPrefixs)) {
     console.info(`⚠️  配置文件中，assetPrefixs必须已斜杠结束`);
+    console.info();
+    process.exit(-1);
+  }
+
+  const ts = /\.tsx?$/.test(config.entry);
+  const tsConfig = join(dir, 'tsconfig.json');
+
+  if (ts && !fs.existsSync(tsConfig)) {
+    console.info('TypeScript项目的配置文件【tsconfig.json】不存在');
+    console.info(
+      `请点击查看award项目的TS基础配置 https://ximalayacloud.github.io/award/docs/more/tools#tsconfigjson%E9%85%8D%E7%BD%AE`
+    );
     console.info();
     process.exit(-1);
   }

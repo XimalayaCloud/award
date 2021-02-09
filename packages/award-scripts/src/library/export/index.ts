@@ -31,7 +31,7 @@ const start = (options: any, port?: number) => {
       process.env.NODE_ENV || (options.browser || options.local ? 'test' : 'production');
     await web_spa(assetPrefixs);
     await render(assetPrefixs, port);
-    resolve();
+    resolve(null);
   });
 };
 
@@ -57,7 +57,7 @@ export default async (options: any) => {
           .then(() => {
             clearConsole();
             console.log('单页应用本地预览模式启动成功...');
-            resolve();
+            resolve(null);
           })
           .catch((err: any) => {
             console.error(err);
