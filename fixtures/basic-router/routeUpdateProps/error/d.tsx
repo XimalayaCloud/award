@@ -9,7 +9,7 @@ const ErrorLoading = withRouter((props: any) => {
 class ErrorComponent extends React.Component<ErrorProps> {
   public static async getInitialProps(ctx: any) {
     ctx.loading = <ErrorLoading />;
-    await new Promise(resolve => {
+    await new Promise<void>((resolve) => {
       setTimeout(() => {
         resolve();
       }, 300);

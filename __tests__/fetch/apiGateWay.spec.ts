@@ -34,7 +34,7 @@ describe('测试award-fetch  node apiGateWay', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -53,7 +53,7 @@ describe('测试award-fetch  node apiGateWay', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'

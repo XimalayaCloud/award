@@ -12,7 +12,7 @@ class ErrorComponent extends React.Component<ErrorProps> {
     } else {
       ctx.loading = <p>loading...{ctx.pathname}</p>;
     }
-    await new Promise(resolve => {
+    await new Promise<void>((resolve) => {
       setTimeout(() => {
         resolve();
       }, 300);

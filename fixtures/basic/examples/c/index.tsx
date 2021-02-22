@@ -26,7 +26,7 @@ class App extends React.Component<any> {
 class ErrorComponent extends React.Component<ErrorProps> {
   public static async getInitialProps(ctx: any) {
     ctx.loading = <p>loading...</p>;
-    await new Promise(resolve => {
+    await new Promise<void>((resolve) => {
       setTimeout(() => {
         resolve();
       }, 100);

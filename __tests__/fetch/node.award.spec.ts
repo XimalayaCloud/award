@@ -32,7 +32,7 @@ describe('测试award-fetch  node', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('//example.com/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -56,7 +56,7 @@ describe('测试award-fetch  node', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -66,7 +66,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('/api/detail', {
         method: 'POST',
         dataType: 'text'
@@ -76,7 +76,7 @@ describe('测试award-fetch  node', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('/api/music', {
         method: 'POST',
         dataType: 'text'
@@ -106,7 +106,7 @@ describe('测试award-fetch  node', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -134,7 +134,7 @@ describe('测试award-fetch  node', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('/api/list', {
         method: 'POST',
         dataType: 'text'
@@ -154,7 +154,7 @@ describe('测试award-fetch  node', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         dataType: 'text'
@@ -168,7 +168,7 @@ describe('测试award-fetch  node', () => {
 
   it('错误请求未知尝试', async () => {
     const fetch = require('award-fetch').default;
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch('http://a.b.c.com/a', {
         method: 'POST'
       }).catch((e: any) => {

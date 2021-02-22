@@ -37,7 +37,7 @@ describe('测试thrift', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         thrift: true,
         method: 'POST',
@@ -56,7 +56,7 @@ describe('测试thrift', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         thrift: true,
         method: 'POST',
@@ -93,7 +93,7 @@ describe('测试thrift', () => {
       ctx.body = 'hello world';
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         thriftMethod: 'list',
         thrift: true,
@@ -105,7 +105,7 @@ describe('测试thrift', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         thriftMethod: 'listError',
         thrift: true,
@@ -117,7 +117,7 @@ describe('测试thrift', () => {
       });
     });
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       fetch(server.url, {
         thriftMethod: 'listError',
         thrift: true,
