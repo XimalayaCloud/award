@@ -111,7 +111,7 @@ module.exports = class CustomServer {
     if (typeof port === 'string' || typeof port === 'number') {
       arguments[0] = this.init.port;
     }
-    this.values.map(item => {
+    this.values.forEach((item) => {
       switch (item.name) {
         case 'use':
           app.use.apply(app, item.arguments);

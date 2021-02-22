@@ -207,18 +207,18 @@ describe('测试award-fetch web xhr', () => {
     });
 
     // formdata
-    const data = new FormData();
-    data.append('id', '1');
+    // const data = new FormData();
+    // data.append('id', '1');
     await new Promise<void>((resolve) => {
       fetch(server.url, {
         method: 'POST',
         params: {
           name: 'world'
         },
-        data,
+        // data,
         xhr: true
-      }).then((data: any) => {
-        expect(data.name).toBe(`hello world`);
+      }).then((result: any) => {
+        expect(result.name).toBe(`hello world`);
         resolve();
       });
     });

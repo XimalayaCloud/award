@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn, ChildProcess } from 'child_process';
 import * as path from 'path';
 import { loopWhile } from 'deasync';
 import { getHashByReference } from '../../tool/createProjectFileHash';
@@ -7,58 +7,71 @@ import { watchImagesPath } from '../utils/constant';
 import * as fs from 'fs-extra';
 
 const sprites = path.join(process.cwd(), '.es-sprites');
-
-const handleStyle = spawn('node', [path.join(__dirname, './start.js')], {
-  stdio: ['inherit', 'inherit', 'inherit', 'ipc']
-});
+const start = path.join(__dirname, './start.js');
 
 let id = 0;
 let store: any = {};
+let handleStyle: ChildProcess | null = null;
 
-handleStyle.on('message', (d) => {
-  const result = JSON.parse(d);
-  if (result.type) {
-    // 获取styledId
-    if (result.type === 'getHashByReference') {
-      handleStyle.send(
-        JSON.stringify({
-          type: 'bridge',
-          name: result.name,
-          data: getHashByReference(result.data)
-        })
-      );
-    }
-    // 内存写入图片
-    if (result.type === 'images') {
-      if (!new RegExp(`^${sprites}`).test(result.src)) {
-        let map: any = {};
-        if (memoryFile.existsSync(watchImagesPath)) {
-          const filemap = memoryFile.readFileSync(watchImagesPath, 'utf-8');
-          map = JSON.parse(filemap);
+if (fs.existsSync(start)) {
+  handleStyle = spawn('node', [start], {
+    stdio: ['inherit', 'inherit', 'inherit', 'ipc']
+  });
+
+  handleStyle.on('message', (d) => {
+    const result = JSON.parse(d);
+    if (result.type) {
+      // 获取styledId
+      if (result.type === 'getHashByReference') {
+        if (handleStyle) {
+          handleStyle.send(
+            JSON.stringify({
+              type: 'bridge',
+              name: result.name,
+              data: getHashByReference(result.data)
+            })
+          );
         }
-        if (map[result.src]) {
-          map[result.src].push(result.reference);
-        } else {
-          map[result.src] = [result.reference];
+      }
+      // 内存写入图片
+      if (result.type === 'images') {
+        if (!new RegExp(`^${sprites}`).test(result.src)) {
+          let map: any = {};
+          if (memoryFile.existsSync(watchImagesPath)) {
+            const filemap = memoryFile.readFileSync(watchImagesPath, 'utf-8');
+            map = JSON.parse(filemap);
+          }
+          if (map[result.src]) {
+            map[result.src].push(result.reference);
+          } else {
+            map[result.src] = [result.reference];
+          }
+          memoryFile.writeFileSync(watchImagesPath, JSON.stringify(map));
         }
-        memoryFile.writeFileSync(watchImagesPath, JSON.stringify(map));
-      }
 
-      if (!memoryFile.existsSync(result.new_dir)) {
-        memoryFile.mkdirpSync(result.new_dir);
-      }
+        if (!memoryFile.existsSync(result.new_dir)) {
+          memoryFile.mkdirpSync(result.new_dir);
+        }
 
-      const data = fs.readFileSync(result.src);
-      memoryFile.writeFileSync(result.outputFile, data);
+        const data = fs.readFileSync(result.src);
+        memoryFile.writeFileSync(result.outputFile, data);
+      }
+    } else {
+      if (store[result.fromId]) {
+        store[result.fromId](result, result.fromId);
+      }
     }
-  } else {
-    if (store[result.fromId]) {
-      store[result.fromId](result, result.fromId);
-    }
-  }
-});
+  });
+
+  global.EventEmitter.on('close_compiler_process', () => {
+    handleStyle?.disconnect();
+  });
+}
 
 export default (state: any) => {
+  if (!handleStyle) {
+    return null;
+  }
   let wait = true;
   let result = null;
 

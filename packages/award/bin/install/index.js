@@ -2,15 +2,15 @@
 
 const reset = '\x1B[0m';
 
-const yellow = str => {
+const yellow = (str) => {
   return '\x1B[33m' + str + reset;
 };
 
-const green = str => {
+const green = (str) => {
   return '\x1B[32m' + str + reset;
 };
 
-const grey = str => {
+const grey = (str) => {
   return '\x1B[90m' + str + reset;
 };
 
@@ -25,7 +25,7 @@ module.exports = () => {
         )} `
       };
     } else {
-      var vs = rv.split('.');
+      let vs = rv.split('.');
       if (vs[0] < 17 && vs[1] < 3) {
         throw {
           message: ` ${yellow(`react@${rv}`)} 和 ${yellow(`react-dom@${rdV}`)} 的版本号必须 ${green(

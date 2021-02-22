@@ -11,11 +11,7 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        <p>{this.props.name}</p>
-      </>
-    );
+    return <p>{this.props.name}</p>;
   }
 }
 
