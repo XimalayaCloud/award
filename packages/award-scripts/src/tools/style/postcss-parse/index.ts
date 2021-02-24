@@ -13,7 +13,7 @@ let id = 0;
 let store: any = {};
 let handleStyle: ChildProcess | null = null;
 
-if (fs.existsSync(start)) {
+if (fs.existsSync(start) && global.EventEmitter) {
   handleStyle = spawn('node', [start], {
     stdio: ['inherit', 'inherit', 'inherit', 'ipc']
   });
