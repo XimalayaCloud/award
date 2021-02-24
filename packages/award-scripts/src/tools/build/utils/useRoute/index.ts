@@ -24,9 +24,15 @@ export default (): Promise<boolean> =>
       }
     });
 
+    parseRoute.stderr.on('data', (data) => {
+      isError = true;
+      console.error(data.toString());
+      process.exit(-1);
+    });
+
     parseRoute.stdout.on('data', (data) => {
       const content = data.toString().replace(/\s$/, '');
-      if (/error/.test(content) || isError) {
+      if (/error/i.test(content) || isError) {
         isError = true;
         console.error(content);
       } else {
