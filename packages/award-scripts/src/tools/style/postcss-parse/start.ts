@@ -264,12 +264,15 @@ const start = async (state: any, fromId: any) => {
 };
 
 process.on('message', (data) => {
-  const { globalInfo, fromId, ...state } = JSON.parse(data);
+  const { globalInfo, fromId, NODE_ENV, ...state } = JSON.parse(data);
   if (state.type === 'bridge') {
     const name = state.name;
     store[name](state.data);
     delete store[name];
     return;
+  }
+  if (NODE_ENV) {
+    process.env.NODE_ENV = NODE_ENV;
   }
   (global as any).childProcess = true;
   global.staticSource = globalInfo;

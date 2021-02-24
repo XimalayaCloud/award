@@ -108,6 +108,7 @@ export default (state: any) => {
         opts: state?.file?.opts
       },
       globalInfo: global.staticSource,
+      NODE_ENV: process.env.NODE_ENV,
       fromId: id
     })
   );
