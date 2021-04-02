@@ -69,6 +69,8 @@ function needXHR(opt: IOpt1 | IOpt2) {
 }
 
 function mergeOptions(_options: IOpt1, defaultOpt?: IOptdefault): IOpt2 {
+  const existContentType = _options?.headers?.['Content-Type'];
+
   const options: IOpt2 = defaultsDeep(_options, defaultOpt);
   const { method, body, params, data, transformRequest: transform, dataType } = options;
 
@@ -84,11 +86,14 @@ function mergeOptions(_options: IOpt1, defaultOpt?: IOptdefault): IOpt2 {
     options.params = temp ? `?${temp}` : '';
     options.body = transform(data || body, dataType);
 
-    if (!isString(options.body)) {
-      // 文件等默认识别content-type
-      delete options.headers['Content-Type'];
-    } else if (dataType === 'json') {
-      options.headers['Content-Type'] = 'application/json';
+    if (!existContentType) {
+      // 如果开发者没有指定contentType，那么走逻辑默认的
+      if (!isString(options.body)) {
+        // 文件等默认识别content-type
+        delete options.headers['Content-Type'];
+      } else if (dataType === 'json') {
+        options.headers['Content-Type'] = 'application/json';
+      }
     }
   }
 

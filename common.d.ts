@@ -30,7 +30,7 @@ declare namespace NodeJS {
       };
     };
     __AWARD__INIT__ROUTES__: Array<any>;
-    EventEmitter: EventEmitter;
+    EventEmitter: global.EventEmitter;
 
     style_cache_tip: boolean;
     style_hmr_tip: boolean;
