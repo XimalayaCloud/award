@@ -16,7 +16,7 @@ export default () => {
     eventStream.handler(req, res);
   };
 
-  global.EventEmitter.on('hmrStyle', (info) => {
+  global.EventEmitter.on('hmrStyle', (info: any) => {
     eventStream.publish(info);
   });
 
