@@ -122,7 +122,8 @@ async function RouteEntry(
           to: {
             match_routes,
             location: {
-              pathname: locationInfo
+              pathname: locationInfo,
+              search: window.location.search
             }
           },
           from: {},

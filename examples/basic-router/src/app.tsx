@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import { useState } from 'react';
 import { Consumer } from 'award';
 import fetch from 'award-fetch';
@@ -17,7 +19,7 @@ function app(props) {
         Hello {info.name}
       </h1>
       <Consumer>
-        {award => {
+        {(award) => {
           return <p onClick={props.reloadInitialProps}>点击试试看: {award.num}</p>;
         }}
       </Consumer>
@@ -40,10 +42,10 @@ function app(props) {
   );
 }
 
-app.getInitialProps = ctx => {
+app.getInitialProps = (ctx) => {
   console.log(ctx.routes);
   const result = [
-    fetch('/api/list').then(data => {
+    fetch('/api/list').then((data) => {
       ctx.setAward({
         num: data.num
       });
@@ -55,6 +57,42 @@ app.getInitialProps = ctx => {
       num: Math.random()
     });
   });
+};
+
+app.routerWillUpdate = (to, from, next) => {
+  let debugInfo = '';
+  let hasDebug = false;
+  let toSearch = [];
+  if (from && from.location && from.location.search) {
+    const search = from.location.search.replace(/^\?/, '');
+    search.split('&').map((item) => {
+      if (/^LEGO_DEBUG/i.test(item)) {
+        debugInfo = item;
+      }
+    });
+  }
+  if (to.location.search) {
+    const search = to.location.search.replace(/^\?/, '');
+    search.split('&').map((item) => {
+      if (item !== '') {
+        if (/^LEGO_DEBUG/i.test(item)) {
+          hasDebug = true;
+        } else {
+          toSearch.push(item);
+        }
+      }
+    });
+  }
+  if (hasDebug) {
+    next();
+  } else {
+    let currentSearch = '';
+    if (debugInfo) {
+      toSearch.push(debugInfo);
+      currentSearch = toSearch.join('&');
+    }
+    next({ pathname: to.location.pathname, search: currentSearch ? '?' + currentSearch : '' });
+  }
 };
 
 app.routerDidUpdate = () => {
