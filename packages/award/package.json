@@ -1,6 +1,6 @@
 {
   "name": "award",
-  "version": "1.1.3",
+  "version": "1.1.5",
   "description": "渐进式的web应用框架 (支持服务端渲染&单页应用)",
   "homepage": "http://ximalayacloud.github.io/award/",
   "bugs": "https://github.com/XimalayaCloud/award/issues",
@@ -39,14 +39,14 @@
     "react-dom": ">=16.3.0"
   },
   "dependencies": {
-    "award-fetch": "1.1.3",
-    "award-plugin": "1.1.3",
-    "award-plugin-official": "1.1.3",
-    "award-render": "1.1.3",
-    "award-router": "1.1.3",
-    "award-server": "1.1.3",
-    "award-types": "1.1.3",
-    "award-utils": "1.1.3",
+    "award-fetch": "1.1.5",
+    "award-plugin": "1.1.5",
+    "award-plugin-official": "1.1.5",
+    "award-render": "1.1.5",
+    "award-router": "1.1.5",
+    "award-server": "1.1.5",
+    "award-types": "1.1.5",
+    "award-utils": "1.1.5",
     "lodash": "4.17.20",
     "react-helmet": "5.2.1",
     "react-loadable": "5.5.0"
