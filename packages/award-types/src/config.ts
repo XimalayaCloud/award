@@ -9,6 +9,8 @@ export interface IAwardConfig {
   basename: string;
   /** 静态资源前缀 */
   assetPrefixs: string;
+  /** 本地开发时，静态资源地址前缀是否添加ip+port，默认不添加，以斜杠开头 */
+  assetOrigin: boolean;
   /** crossOrigin */
   crossOrigin: boolean;
   /** 自由扩展中间件 */

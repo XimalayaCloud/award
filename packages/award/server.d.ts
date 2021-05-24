@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /**
  * Server初始化构造函数之参数说明
  *

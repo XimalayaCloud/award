@@ -11,6 +11,7 @@ const middleware = async (ctx, next) => {
 export default {
   basename: '/abc',
   // mode: 'client',
+  assetOrigin: true,
   fetch: {
     domainMap: {
       '/api': 'http://127.0.0.1:1236'

@@ -105,7 +105,7 @@ export default ({
           memoryFile.writeFileSync(outputFile, data);
         }
         state.images[outputFile] = src;
-        new_src = '/award_dev_static' + outputFile;
+        new_src = publicPath + outputFile.replace(/^\//, '');
       } else {
         new_src = [publicPath, imageOptions.path, _filename].join('');
         // 当前可写资源

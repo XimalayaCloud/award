@@ -14,6 +14,7 @@ const defaultConfig = {
   router: 'browser', // 配置路由类型，只针对export导出时生效，其他时候都是默认的browser类型  ['hash','browser']
   hashName: true, // 当前入口静态资源是否使用hashName
   assetPrefixs: '/static/', // 静态资源地址
+  assetOrigin: false, // 本地开发时，静态资源地址前缀是否添加ip+port，默认不添加，以斜杠开头
   crossOrigin: true, // 设置crossOrigin
   app: () => {
     // middlewares.push(<your middleware>);

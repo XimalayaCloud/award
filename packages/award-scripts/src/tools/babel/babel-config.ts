@@ -148,10 +148,10 @@ export default function getBabelConfig({
           ...(handleStyle && !dev
             ? {
                 write, // 当前编译过程是写文件，写样式、写图片、写字体等静态资源
-                publicPath: assetPrefixs, // 资源前缀，一般设置cdn
                 publicEntry: resolve(join(dir, exportPath)) // 资源存放入口
               }
             : {}),
+          publicPath: assetPrefixs, // 资源前缀，一般设置cdn
           imageOptions: {
             path: 'images/',
             limit: 50

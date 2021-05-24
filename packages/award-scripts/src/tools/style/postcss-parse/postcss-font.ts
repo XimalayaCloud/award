@@ -93,7 +93,8 @@ export default postcss.plugin(
                     memoryFile.writeFileSync(outputFile, data);
                     state.fonts[outputFile] = src;
 
-                    new_src = '/award_dev_static' + outputFile;
+                    new_src =
+                      publicPath === './' ? '../' : publicPath + outputFile.replace(/^\//, '');
                   } else {
                     new_src = [
                       publicPath === './' ? '../' : publicPath,

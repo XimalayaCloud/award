@@ -14,15 +14,20 @@ let start = false;
 
 global.EventEmitter = new Event();
 
+/**
+ * 既对主进程逻辑进行初始化注册
+ *
+ * 也对编译进程逻辑进程初始化注册，但是编译进程逻辑，不需要处理port
+ */
 export default (register = true, showInfo = true, port?: number) => {
   try {
-    let newPort = null;
     if (port) {
       // 判断端口是否冲突
-      newPort = portIsOccupied(port);
+      const newPort = portIsOccupied(port);
       if (newPort) {
         port = newPort;
       }
+      process.env.MAIN_PORT = String(port);
     }
 
     // 创建cache文件夹
@@ -86,7 +91,7 @@ export default (register = true, showInfo = true, port?: number) => {
       require('award-utils/server').registerPlugin();
       createProjectFileHash();
     }
-    return newPort;
+    return port;
   } catch (error) {
     console.error(error);
     process.exit(-1);
