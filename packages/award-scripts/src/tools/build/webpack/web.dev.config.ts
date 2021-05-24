@@ -30,7 +30,7 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
   const hotReactDOM = path.join(cwd, 'node_modules', '@hot-loader/react-dom');
 
   const config: webpack.Configuration = {
-    devtool: 'source-map',
+    devtool: 'cheap-module-eval-source-map',
     entry: [
       path.join(__dirname, '..', 'utils', 'style-hmr') +
         `?publicPath=${assetPrefixs}&path=${assetPrefixs}_award/style-hmr`,
