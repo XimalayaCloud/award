@@ -2,11 +2,12 @@
 @import './mixin.scss';
 
 .h1{
-  color:salmon;
+  color:lightcoral;
 
 }
 
 h1{
+  display: flex;
   span{
     color:red;
   }

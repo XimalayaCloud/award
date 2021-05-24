@@ -6,6 +6,8 @@ declare module 'schema-utils';
 declare module 'x-path';
 declare module 'koa-websocket';
 
+declare let __resourceQuery: string;
+
 declare namespace NodeJS {
   export interface ProcessEnv {
     NODE_ENV: 'development' | 'production' | 'test' | undefined;
@@ -16,6 +18,7 @@ declare namespace NodeJS {
     ROUTER: string;
     CHILDPROCESS_COMPILER_URL: string;
     CHILDPROCESS_COMPILER_PORT: string;
+    MAIN_PORT: string;
     EXPORTRUNHTML: string;
     USE_ROUTE: string;
   }

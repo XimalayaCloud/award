@@ -2,7 +2,7 @@ import chalk = require('chalk');
 import Koa = require('koa');
 import { join } from 'path';
 import * as fs from 'fs-extra';
-import { getAwardConfig } from 'award-utils/server';
+import { getAwardConfig, getIPAdress } from 'award-utils/server';
 import watch from '../../style/watch';
 import web from '../webpack/web.dev.config';
 import WebpackMiddleware from './webpack-middleware';
@@ -17,7 +17,14 @@ module.exports = function (app: Koa) {
   const config = getAwardConfig();
 
   process.env.ROUTER = config.router;
-  config.assetPrefixs = '/award_dev_static/';
+
+  if (config.assetOrigin) {
+    const ip = getIPAdress();
+    config.assetPrefixs = `http://${ip}:${process.env.MAIN_PORT}/award_dev_static/`;
+  } else {
+    config.assetPrefixs = '/award_dev_static/';
+  }
+
   const doneFile = join(dir, 'node_modules', 'compiler.done');
 
   // 清空缓存
