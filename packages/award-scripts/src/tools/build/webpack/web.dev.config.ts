@@ -30,7 +30,7 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
   const hotReactDOM = path.join(cwd, 'node_modules', '@hot-loader/react-dom');
 
   const config: webpack.Configuration = {
-    devtool: 'source-map',
+    devtool: 'cheap-module-eval-source-map',
     entry: [
       path.join(__dirname, '..', 'utils', 'style-hmr') +
         `?publicPath=${assetPrefixs}&path=${assetPrefixs}_award/style-hmr`,
@@ -74,13 +74,14 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
         width: 60
       }),
       new FriendlyErrorsWebpackPlugin({
-        onErrors: function (severity, errors) {
+        onErrors: function(severity, errors) {
           if (severity !== 'error') {
             return;
           }
           const error: any = errors[0];
           if (error) {
             if (!error.module) {
+              // eslint-disable-next-line no-use-before-define
               const message = error.webpackError?.message ? error.webpackError.message : error.name;
               console.info(message);
             }

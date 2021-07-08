@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable complexity */
 /**
  * 检测import内容,同时通过sass获取style内容

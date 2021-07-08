@@ -1,8 +1,17 @@
 import BabelConfig from './babel-config';
-import { getAwardConfig } from 'award-utils/server';
+import { getAwardConfig, getIPAdress } from 'award-utils/server';
 
 export default () => {
-  const { entry, assetPrefixs } = getAwardConfig();
+  let { entry, assetPrefixs, assetOrigin } = getAwardConfig();
+  /**
+   * 需要特殊注入
+   */
+  if (assetOrigin) {
+    const ip = getIPAdress();
+    assetPrefixs = `http://${ip}:${process.env.MAIN_PORT}/award_dev_static/`;
+  } else {
+    assetPrefixs = '/award_dev_static/';
+  }
   require('@babel/register')({
     ...BabelConfig({
       write: false,

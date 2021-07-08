@@ -12,7 +12,7 @@ import { memoryFile } from '../../help';
 import dllDev from '../dll/dev';
 
 // 编译客户端文件
-module.exports = function (app: Koa) {
+module.exports = function(app: Koa) {
   const dir = process.cwd();
   const config = getAwardConfig();
 
