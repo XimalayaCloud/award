@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { spawn, ChildProcess } from 'child_process';
 import * as path from 'path';
 import { loopWhile } from 'deasync';
@@ -18,7 +19,7 @@ if (fs.existsSync(start) && global.EventEmitter) {
     stdio: ['inherit', 'inherit', 'inherit', 'ipc']
   });
 
-  handleStyle.on('message', (d) => {
+  handleStyle.on('message', d => {
     const result = JSON.parse(d);
     if (result.type) {
       // 获取styledId

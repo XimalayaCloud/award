@@ -74,13 +74,14 @@ export default (entry: string, assetPrefixs: string): webpack.Configuration => {
         width: 60
       }),
       new FriendlyErrorsWebpackPlugin({
-        onErrors: function (severity, errors) {
+        onErrors: function(severity, errors) {
           if (severity !== 'error') {
             return;
           }
           const error: any = errors[0];
           if (error) {
             if (!error.module) {
+              // eslint-disable-next-line no-use-before-define
               const message = error.webpackError?.message ? error.webpackError.message : error.name;
               console.info(message);
             }

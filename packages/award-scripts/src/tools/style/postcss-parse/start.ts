@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable complexity */
 /* eslint-disable array-callback-return */
 import * as postcss from 'postcss';
@@ -50,7 +51,7 @@ const contentByString = (str: any, filepath: any) => {
 
 // postcss批量处理
 const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     if (styles.length) {
       let styleSheet = '';
       Promise.all(
@@ -229,7 +230,7 @@ const start = async (state: any, fromId: any) => {
 
   let styleId = 0;
   if (jsxStyle) {
-    styleId = await new Promise((resolve) => {
+    styleId = await new Promise(resolve => {
       bridge('getHashByReference', resolve, reference);
     });
   }
@@ -263,7 +264,7 @@ const start = async (state: any, fromId: any) => {
   );
 };
 
-process.on('message', (data) => {
+process.on('message', data => {
   const { globalInfo, fromId, NODE_ENV, ...state } = JSON.parse(data);
   if (state.type === 'bridge') {
     const name = state.name;
