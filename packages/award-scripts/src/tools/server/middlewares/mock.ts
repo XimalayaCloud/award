@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as url from 'url';
 import { Context } from 'koa';
-import * as randomMock from 'mockjs';
+import * as faker from 'faker';
 import { getAwardConfig } from 'award-utils/server';
 import { IContext } from 'award-types';
 
@@ -43,13 +43,13 @@ const handler = (ctx: IContext, filename: string, urlObj: any) => {
         try {
           // create mock function from mock file
           // eslint-disable-next-line no-new-func
-          const mock = new Function('ctx', 'mock', 'next', file.toString());
+          const mock = new Function('ctx', 'faker', 'next', file.toString());
 
           // add query object to req
           (ctx.req as any).query = urlObj.query;
 
           // run mock
-          mock(ctx, randomMock, async (_err: any, data: any) => {
+          mock(ctx, faker, async (_err: any, data: any) => {
             if (!_err && data !== null) {
               if (typeof data === 'function') {
                 resolve(JSON.stringify(await data()));
@@ -83,7 +83,7 @@ export default function mockMidd() {
 
     const apiKeys = Object.keys(domainMap);
     const keys: any[] = [];
-    apiKeys.forEach((key) => {
+    apiKeys.forEach(key => {
       if (/^\//.test(key)) {
         keys.push(key.replace(/^\//, ''));
       } else {
@@ -110,7 +110,7 @@ export default function mockMidd() {
     console.info('[cgi-mock] %s %s', req.method, req.url);
     if (req.headers.mock) {
       try {
-        ctx.body = randomMock.mock(JSON.parse((req.headers as any).mock));
+        ctx.body = faker.fake((req.headers as any).mock);
       } catch (e) {
         ctx.body = e;
       }

@@ -69,19 +69,23 @@ export default {
 
 `/mock/api/info.js` mock 文件编写示例:
 
+> mock工具基于`faker`
+>
+> 相关API可以点击[https://github.com/Marak/Faker.js](https://github.com/Marak/Faker.js)查看
+
 ```js
-// 在这个环境可以获取到 ctx, mock, next!
+// 在这个环境可以获取到 ctx, mock, faker!
 // next(err, data)
 // 如果有 err, 那么会返回 error, 可以用来测试 error
-// 这里还可以使用到 mockjs 的 api, 这里使用参考 http://mockjs.com/examples.html
+// 这里还可以使用到 fakerjs 的 api, 这里使用参考 https://github.com/marak/faker.js
 next(null, {
   msg: 'success',
   ret: 0,
   data: [
     { name: 'cat', age: '1', sex: 'male' },
     { name: 'dog', age: '2', sex: 'female' },
-    // 使用 mockjs 的 api 生成随机数据
-    { name: 'fish', age: mock.Random.integer(0, 10), sex: 'male' },
+    // 使用 fakerjs 的 api 生成随机数据
+    { name: 'fish', age: faker.datatype.number(), sex: 'male' },
   ],
 });
 

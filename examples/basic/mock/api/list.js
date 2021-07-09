@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 next(null, {
-  num: Math.random()
+  num: faker.name.findName()
 });
