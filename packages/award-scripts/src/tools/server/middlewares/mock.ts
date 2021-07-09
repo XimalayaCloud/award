@@ -83,7 +83,7 @@ export default function mockMidd() {
 
     const apiKeys = Object.keys(domainMap);
     const keys: any[] = [];
-    apiKeys.forEach(key => {
+    apiKeys.forEach((key) => {
       if (/^\//.test(key)) {
         keys.push(key.replace(/^\//, ''));
       } else {
