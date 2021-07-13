@@ -59,41 +59,42 @@ app.getInitialProps = (ctx) => {
   });
 };
 
-app.routerWillUpdate = (to, from, next) => {
-  let debugInfo = '';
-  let hasDebug = false;
-  let toSearch = [];
-  if (from && from.location && from.location.search) {
-    const search = from.location.search.replace(/^\?/, '');
-    search.split('&').map((item) => {
-      if (/^LEGO_DEBUG/i.test(item)) {
-        debugInfo = item;
-      }
-    });
-  }
-  if (to.location.search) {
-    const search = to.location.search.replace(/^\?/, '');
-    search.split('&').map((item) => {
-      if (item !== '') {
-        if (/^LEGO_DEBUG/i.test(item)) {
-          hasDebug = true;
-        } else {
-          toSearch.push(item);
-        }
-      }
-    });
-  }
-  if (hasDebug) {
-    next();
-  } else {
-    let currentSearch = '';
-    if (debugInfo) {
-      toSearch.push(debugInfo);
-      currentSearch = toSearch.join('&');
-    }
-    next({ pathname: to.location.pathname, search: currentSearch ? '?' + currentSearch : '' });
-  }
-};
+// app.routerWillUpdate = (to, from, next) => {
+//   let debugInfo = '';
+//   let hasDebug = false;
+//   let toSearch = [];
+//   if (from && from.location && from.location.search) {
+//     const search = from.location.search.replace(/^\?/, '');
+//     search.split('&').map((item) => {
+//       if (/^LEGO_DEBUG/i.test(item)) {
+//         debugInfo = item;
+//       }
+//     });
+//   }
+//   if (to.location.search) {
+//     const search = to.location.search.replace(/^\?/, '');
+//     search.split('&').map((item) => {
+//       if (item !== '') {
+//         if (/^LEGO_DEBUG/i.test(item)) {
+//           hasDebug = true;
+//         } else {
+//           toSearch.push(item);
+//         }
+//       }
+//     });
+//   }
+//   console.log('hasDebug', hasDebug);
+//   if (hasDebug) {
+//     next();
+//   } else {
+//     let currentSearch = '';
+//     if (debugInfo) {
+//       toSearch.push(debugInfo);
+//       currentSearch = toSearch.join('&');
+//     }
+//     next({ pathname: to.location.pathname, search: currentSearch ? '?' + currentSearch : '' });
+//   }
+// };
 
 app.routerDidUpdate = () => {
   console.log(1, 'routerDidUpdate');

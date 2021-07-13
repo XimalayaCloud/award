@@ -16,7 +16,7 @@ import CustomMoreDetail from './pages/custom/more-detail';
 
 export default () => (
   <RouterSwitch>
-    <Route path="/" component={() => <h1>hello world</h1>} />
+    <Route path="/" component={() => <h1>hello world</h1>} exact />
     <Route
       path="/home"
       component={Home}

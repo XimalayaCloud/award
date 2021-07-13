@@ -14,6 +14,9 @@ export { default as removeAward } from './removeAward';
 if (process.env.RUN_ENV === 'web') {
   let webBasename = '';
   ('<$>__AWARD__BASENAME__<$>');
+  if (window.awardBasename) {
+    webBasename = window.awardBasename;
+  }
   loadParams.set({ basename: webBasename });
 }
 
