@@ -110,4 +110,5 @@ interface Window {
   };
   ActiveXObject: any;
   jestMock: any;
+  awardBasename?: string;
 }
