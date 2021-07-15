@@ -63,7 +63,7 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
       if (name === 'award-style') {
         // 判断是否是global
         let isGlobal = false;
-        _path.node.openingElement.attributes.forEach(item => {
+        _path.node.openingElement.attributes.forEach((item) => {
           if (t.isJSXAttribute(item) && t.isJSXIdentifier(item.name)) {
             if (item.name.name === 'global') {
               // 全局
@@ -71,7 +71,7 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
             }
           }
         });
-        _path.node.children.forEach(child => {
+        _path.node.children.forEach((child) => {
           if (t.isJSXExpressionContainer(child) && t.isTemplateLiteral(child.expression)) {
             const quasis = child.expression.quasis;
             if (quasis.length > 1) {
@@ -140,6 +140,10 @@ export default (cache: any) => (path: NodePath<t.Program>, state: any) => {
 
   // 解析并处理当前组件全部的样式资源
   handleStyles(cache, state);
+
+  if (state.parserStyleError) {
+    return;
+  }
 
   // 注入styleId，变更js文件名称
   if (state.styleId) {

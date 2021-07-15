@@ -19,7 +19,7 @@ if (fs.existsSync(start) && global.EventEmitter) {
     stdio: ['inherit', 'inherit', 'inherit', 'ipc']
   });
 
-  handleStyle.on('message', d => {
+  handleStyle.on('message', (d) => {
     const result = JSON.parse(d);
     if (result.type) {
       // 获取styledId
@@ -57,6 +57,22 @@ if (fs.existsSync(start) && global.EventEmitter) {
         const data = fs.readFileSync(result.src);
         memoryFile.writeFileSync(result.outputFile, data);
       }
+
+      // 内存写入字体
+      if (result.type === 'fonts') {
+        if (!memoryFile.existsSync(result.new_dir)) {
+          memoryFile.mkdirpSync(result.new_dir);
+        }
+
+        const data = fs.readFileSync(result.src);
+        if (!memoryFile.existsSync(result.outputFile)) {
+          memoryFile.writeFileSync(result.outputFile, data);
+        }
+      }
+
+      if (result.type === 'error') {
+        store[result.fromId](null, result.fromId);
+      }
     } else {
       if (store[result.fromId]) {
         store[result.fromId](result, result.fromId);
@@ -79,16 +95,21 @@ export default (state: any) => {
   id++;
 
   store[id] = (responseStore: any, fromId: any) => {
-    const { globalInfo, ...rests } = responseStore.data;
-    global.staticSource = globalInfo;
+    if (!responseStore) {
+      delete store[fromId];
+      wait = false;
+    } else {
+      const { globalInfo, ...rests } = responseStore.data;
+      global.staticSource = globalInfo;
 
-    state.elementSelectors = responseStore.state.elementSelectors;
-    state.fonts = responseStore.state.fonts;
-    state.images = responseStore.state.images;
+      state.elementSelectors = responseStore.state.elementSelectors;
+      state.fonts = responseStore.state.fonts;
+      state.images = responseStore.state.images;
 
-    result = rests;
-    delete store[fromId];
-    wait = false;
+      result = rests;
+      delete store[fromId];
+      wait = false;
+    }
   };
 
   handleStyle.send(

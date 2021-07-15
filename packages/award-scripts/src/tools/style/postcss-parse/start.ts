@@ -51,7 +51,7 @@ const contentByString = (str: any, filepath: any) => {
 
 // postcss批量处理
 const handleStyleByPostcss = (styles: any, _plugins: any, isGlobal: any) => {
-  return new Promise(resolve => {
+  return new Promise<string>((resolve) => {
     if (styles.length) {
       let styleSheet = '';
       Promise.all(
@@ -211,17 +211,23 @@ const start = async (state: any, fromId: any) => {
   ];
 
   // sass读取样式资源文件内容，并重新赋值state.styles的属性
-  state.styles.jsx.map((item: any, index: number) => {
-    state.styles.jsx[index].css = !/\.(j|t)sx?$/.test(item.from)
-      ? contentByFilePath(item.from)
-      : contentByString(state.scopeCSS, item.from);
-  });
+  try {
+    state.styles.jsx.map((item: any, index: number) => {
+      state.styles.jsx[index].css = !/\.(j|t)sx?$/.test(item.from)
+        ? contentByFilePath(item.from)
+        : contentByString(state.scopeCSS, item.from);
+    });
 
-  state.styles.global.map((item: any, index: number) => {
-    state.styles.global[index].css = !/\.(j|t)sx?$/.test(item.from)
-      ? contentByFilePath(item.from)
-      : contentByString(state.globalCSS, item.from);
-  });
+    state.styles.global.map((item: any, index: number) => {
+      state.styles.global[index].css = !/\.(j|t)sx?$/.test(item.from)
+        ? contentByFilePath(item.from)
+        : contentByString(state.globalCSS, item.from);
+    });
+  } catch (error) {
+    console.error(error);
+    (process as any).send(JSON.stringify({ type: 'error', fromId }));
+    return;
+  }
 
   // 需要对全局样式的选择器进行过滤识别处理，即不能携带和scope一致的选择器
   const globalStyle = await handleStyleByPostcss(state.styles.global, _plugins, true);
@@ -230,7 +236,7 @@ const start = async (state: any, fromId: any) => {
 
   let styleId = 0;
   if (jsxStyle) {
-    styleId = await new Promise(resolve => {
+    styleId = await new Promise((resolve) => {
       bridge('getHashByReference', resolve, reference);
     });
   }
@@ -264,7 +270,7 @@ const start = async (state: any, fromId: any) => {
   );
 };
 
-process.on('message', data => {
+process.on('message', (data) => {
   const { globalInfo, fromId, NODE_ENV, ...state } = JSON.parse(data);
   if (state.type === 'bridge') {
     const name = state.name;

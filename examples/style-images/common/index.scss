@@ -1,6 +1,21 @@
 /* sprite */
 h1 {
-  color: salmon;
+  color: salmon
+}
+
+.logo{
+	width: 160px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: FZHanZhenGuangBiao;
+	font-size: 40px;
+	color: rgb(30, 144, 255);
+	font-style: normal;
+	letter-spacing: 0px;
+	line-height: 48px;
+	text-decoration: none;
+	cursor: default;
 }
 
 i {
