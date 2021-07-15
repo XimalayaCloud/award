@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 /* eslint-disable array-callback-return */
 /**
  * 生成jsx的style对象，同时插入转译的样式资源
@@ -71,11 +72,16 @@ export default (cache: any, state: any) => {
       }
       const filepath = path.join(cacheDir, cacheId + '-' + newFileName);
 
+      // 设置读取缓存标识
+      let readCache = false;
+      let paserError = false;
+
       if (
         fs.existsSync(filepath) &&
         !global.style_hmr &&
         (dev() || process.env.WEB_TYPE === 'WEB_SPA')
       ) {
+        readCache = true;
         // 编译读取缓存
         const result = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
         globalStyle = result.globalStyle;
@@ -98,123 +104,146 @@ export default (cache: any, state: any) => {
         for (const new_src in result.fonts) {
           if (Object.prototype.hasOwnProperty.call(result.fonts, new_src)) {
             const src = result.fonts[new_src];
-            memoryFile.writeFileSync(new_src, fs.readFileSync(src));
+            if (fs.existsSync(src)) {
+              memoryFile.writeFileSync(new_src, fs.readFileSync(src));
+            } else {
+              readCache = false;
+            }
           }
         }
         for (const new_src in result.images) {
           if (Object.prototype.hasOwnProperty.call(result.images, new_src)) {
             const src = result.images[new_src];
-            memoryFile.writeFileSync(new_src, fs.readFileSync(src));
+            if (fs.existsSync(src)) {
+              memoryFile.writeFileSync(new_src, fs.readFileSync(src));
+            } else {
+              readCache = false;
+            }
           }
         }
-      } else {
+      }
+
+      // 发现读取缓存失败，或者不需要读取缓存，则走正常解析
+      if (!readCache) {
         if (fs.existsSync(cacheDir) && dev()) {
           clean(cacheDir);
           fs.mkdirSync(cacheDir);
         }
         // 解析样式资源
         const result: any = postcssParse(state);
-        globalStyle = result.global;
-        JsxStyle = result.jsx;
-        styleId = result.styleId;
-
-        if (dev()) {
-          fs.writeFileSync(
-            filepath,
-            JSON.stringify({
-              globalStyle,
-              JsxStyle,
-              styleId,
-              elementSelectors: state.elementSelectors,
-              fonts: state.fonts,
-              images: state.images
-            })
-          );
+        if (result) {
+          globalStyle = result.global;
+          JsxStyle = result.jsx;
+          styleId = result.styleId;
+          if (dev()) {
+            fs.writeFileSync(
+              filepath,
+              JSON.stringify({
+                globalStyle,
+                JsxStyle,
+                styleId,
+                elementSelectors: state.elementSelectors,
+                fonts: state.fonts,
+                images: state.images
+              })
+            );
+          }
+        } else {
+          paserError = true;
         }
       }
 
-      state.hasParseStyle = true;
-      state.styleId = styleId;
-      state.globalId = globalStyle === '' ? '0' : hashString(globalStyle);
-      state.css = globalStyle + JsxStyle;
-      // 生产环境，存储资源内容，供award-style的webpack插件调取
-      if (!dev()) {
-        let _esHash;
-        let _styleHash;
-        const relateReference = reference.replace(cwd, '');
+      if (!paserError) {
+        state.parserStyleError = false;
+        state.hasParseStyle = true;
+        state.styleId = styleId;
+        state.globalId = globalStyle === '' ? '0' : hashString(globalStyle);
+        state.css = globalStyle + JsxStyle;
+        // 生产环境，存储资源内容，供award-style的webpack插件调取
+        if (!dev()) {
+          let _esHash;
+          let _styleHash;
+          const relateReference = reference.replace(cwd, '');
 
-        const jsxhashFrom: any = [hashString(relateReference)];
-        state.styles.jsx.map((item: any) => {
-          const from = item.from.replace(cwd, '');
-          jsxhashFrom.push(hashString(from));
-        });
+          const jsxhashFrom: any = [hashString(relateReference)];
+          state.styles.jsx.map((item: any) => {
+            const from = item.from.replace(cwd, '');
+            jsxhashFrom.push(hashString(from));
+          });
 
-        const stylehashFrom: any = [hashString(relateReference)];
-        state.styles.global.map((item: any) => {
-          const from = item.from.replace(cwd, '');
-          stylehashFrom.push(hashString(from));
-        });
+          const stylehashFrom: any = [hashString(relateReference)];
+          state.styles.global.map((item: any) => {
+            const from = item.from.replace(cwd, '');
+            stylehashFrom.push(hashString(from));
+          });
 
-        const uniqueJsxID = Array.from(new Set(quickSort(jsxhashFrom))).join('');
-        const uniqueStyleID = Array.from(new Set(quickSort(stylehashFrom))).join('');
+          const uniqueJsxID = Array.from(new Set(quickSort(jsxhashFrom))).join('');
+          const uniqueStyleID = Array.from(new Set(quickSort(stylehashFrom))).join('');
 
-        // 资源hash内容 + 引用排序
-        _esHash = hashString(JsxStyle + uniqueJsxID);
-        _styleHash = hashString(globalStyle + uniqueStyleID);
+          // 资源hash内容 + 引用排序
+          _esHash = hashString(JsxStyle + uniqueJsxID);
+          _styleHash = hashString(globalStyle + uniqueStyleID);
 
-        // 存放文件引用对应的styleHash值
-        // 局部
-        global['es-style'].es[relateReference] = '';
-        global['es-style'].relation.es.file[relateReference] = _esHash;
-        if (!global['es-style'].relation.es.hash[_esHash]) {
-          global['es-style'].relation.es.hash[_esHash] = [];
-        }
-        // 存放es中hash对应的多文件
-        global['es-style'].relation.es.hash[_esHash].push(relateReference);
+          // 存放文件引用对应的styleHash值
+          // 局部
+          global['es-style'].es[relateReference] = '';
+          global['es-style'].relation.es.file[relateReference] = _esHash;
+          if (!global['es-style'].relation.es.hash[_esHash]) {
+            global['es-style'].relation.es.hash[_esHash] = [];
+          }
+          // 存放es中hash对应的多文件
+          global['es-style'].relation.es.hash[_esHash].push(relateReference);
 
-        // 全局
-        global['es-style'].style[relateReference] = '';
-        global['es-style'].relation.style.file[relateReference] = _styleHash;
-        if (!global['es-style'].relation.style.hash[_styleHash]) {
-          global['es-style'].relation.style.hash[_styleHash] = [];
-        }
-        // 存放style中hash对应的多文件
-        global['es-style'].relation.style.hash[_styleHash].push(relateReference);
+          // 全局
+          global['es-style'].style[relateReference] = '';
+          global['es-style'].relation.style.file[relateReference] = _styleHash;
+          if (!global['es-style'].relation.style.hash[_styleHash]) {
+            global['es-style'].relation.style.hash[_styleHash] = [];
+          }
+          // 存放style中hash对应的多文件
+          global['es-style'].relation.style.hash[_styleHash].push(relateReference);
 
-        if (styleIds.indexOf(uniqueJsxID) === -1) {
-          // 没有重复的局部样式
-          styleIds.push(uniqueJsxID);
-          global['es-style'].es[relateReference] = JsxStyle;
-        }
+          if (styleIds.indexOf(uniqueJsxID) === -1) {
+            // 没有重复的局部样式
+            styleIds.push(uniqueJsxID);
+            global['es-style'].es[relateReference] = JsxStyle;
+          }
 
-        if (state.globalId !== 0 && globalIds.indexOf(uniqueStyleID) === -1) {
-          // 没有重复的全局样式
-          globalIds.push(uniqueStyleID);
-          global['es-style'].style[relateReference] = globalStyle;
+          if (state.globalId !== 0 && globalIds.indexOf(uniqueStyleID) === -1) {
+            // 没有重复的全局样式
+            globalIds.push(uniqueStyleID);
+            global['es-style'].style[relateReference] = globalStyle;
+          }
+        } else {
+          // 写入缓存资源信息
+          // 分析引用的css资源地址
+          const dep: any = {};
+          state.styles.jsx.map((item: any) => {
+            dep[item.from] = fs.statSync(item.from).mtime.getTime();
+          });
+
+          state.styles.global.map((item: any) => {
+            dep[item.from] = fs.statSync(item.from).mtime.getTime();
+          });
+
+          // 表示需要进行hmr
+          global.style_change_hmr = true;
+          cache[reference] = {
+            css: state.css,
+            _scopeId: hashString(state.scopeCSS),
+            _globalId: hashString(state.globalCSS),
+            styleId: state.styleId,
+            globalId: state.globalId,
+            elementSelectors: state.elementSelectors,
+            dep
+          };
         }
       } else {
-        // 写入缓存资源信息
-        // 分析引用的css资源地址
-        const dep: any = {};
-        state.styles.jsx.map((item: any) => {
-          dep[item.from] = fs.statSync(item.from).mtime.getTime();
-        });
-
-        state.styles.global.map((item: any) => {
-          dep[item.from] = fs.statSync(item.from).mtime.getTime();
-        });
-
-        // 表示需要进行hmr
-        global.style_change_hmr = true;
-        cache[reference] = {
-          css: state.css,
-          _scopeId: hashString(state.scopeCSS),
-          _globalId: hashString(state.globalCSS),
-          styleId: state.styleId,
-          globalId: state.globalId,
-          elementSelectors: state.elementSelectors,
-          dep
-        };
+        if (cache[reference]) {
+          const { styleId } = cache[reference];
+          state.styleId = styleId;
+        }
+        state.parserStyleError = true;
       }
     }
   }

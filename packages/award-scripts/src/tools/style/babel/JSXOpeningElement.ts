@@ -12,6 +12,7 @@ export default (path: NodePath<t.JSXOpeningElement>, state: any) => {
   if (t.isJSXIdentifier(path.node.name) && path.node.name.name === 'es-style') {
     return path.parentPath.remove();
   }
+
   const styleId = state.styleId;
   let isExistclassName = false;
   let isExistId = false;

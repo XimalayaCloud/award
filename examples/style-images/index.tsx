@@ -27,6 +27,7 @@ class App extends React.Component<IProps> {
         <Head>
           <title>{this.props.name}</title>
         </Head>
+        <div className="logo">Award</div>
         <i />
         <b />
         <em />

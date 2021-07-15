@@ -10,6 +10,13 @@ $fontURL: 'https://at.alicdn.com/t/font_881332_pabjeeioqzd';
   url('#{$fontURL}.svg#iconfont') format('svg');
 }
 
+@font-face {
+  font-style: normal;
+  font-family: 'FZHanZhenGuangBiao';
+  font-weight: 400;
+  src: local('FZHanZhenGuangBiaoS-GB'), url('./fonts/FZHZGBJW.woff2') format('woff2'), url('./fonts/FZHZGBJW.woff2') format('woff');
+}
+
 .#{$fontName} {
   font-style: normal;
   vertical-align: baseline;

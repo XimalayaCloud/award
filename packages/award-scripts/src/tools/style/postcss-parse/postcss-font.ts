@@ -85,14 +85,28 @@ export default postcss.plugin(
                   if (dev()) {
                     // 开发模式 memory 内存文件类型
                     const new_dir = '/static/' + fontOptions.path;
-                    if (!memoryFile.existsSync(new_dir)) {
-                      memoryFile.mkdirpSync(new_dir);
-                    }
 
                     outputFile = new_dir + filename;
-                    memoryFile.writeFileSync(outputFile, data);
-                    state.fonts[outputFile] = src;
 
+                    if ((global as any).childProcess) {
+                      (process as any).send(
+                        JSON.stringify({
+                          type: 'fonts',
+                          src,
+                          new_dir,
+                          outputFile
+                        })
+                      );
+                    } else {
+                      if (!memoryFile.existsSync(new_dir)) {
+                        memoryFile.mkdirpSync(new_dir);
+                      }
+
+                      if (!fs.existsSync(outputFile)) {
+                        memoryFile.writeFileSync(outputFile, data);
+                      }
+                    }
+                    state.fonts[outputFile] = src;
                     new_src =
                       publicPath === './' ? '../' : publicPath + outputFile.replace(/^\//, '');
                   } else {
