@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import find = require('find-process');
-import { getIPAdress } from 'award-utils/server';
+import { getAwardConfig } from 'award-utils/server';
 import { loopWhile } from 'deasync';
 import clean from './clean';
 import constant from './constant';
@@ -14,7 +14,8 @@ const pid: any[] = [];
 
 module.exports = () => {
   // 获取ip
-  const ip = getIPAdress();
+  const config = getAwardConfig();
+  const ip = config.ip;
   let url = 'http://127.0.0.1:';
   if (!_.isUndefined(ip) && ip) {
     url = 'http://' + ip + ':';

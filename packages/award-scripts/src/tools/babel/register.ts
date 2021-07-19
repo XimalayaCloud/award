@@ -1,13 +1,12 @@
 import BabelConfig from './babel-config';
-import { getAwardConfig, getIPAdress } from 'award-utils/server';
+import { getAwardConfig } from 'award-utils/server';
 
 export default () => {
-  let { entry, assetPrefixs, assetOrigin } = getAwardConfig();
+  let { entry, assetPrefixs, assetOrigin, ip } = getAwardConfig();
   /**
    * 需要特殊注入
    */
   if (assetOrigin) {
-    const ip = getIPAdress();
     assetPrefixs = `http://${ip}:${process.env.MAIN_PORT}/award_dev_static/`;
   } else {
     assetPrefixs = '/award_dev_static/';
