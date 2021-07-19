@@ -111,6 +111,11 @@ const loadConfig = (dir: string): IConfig => {
     config.assetPrefixs = config.basename + config.assetPrefixs;
   }
 
+  // ip为空，默认读取本地ip地址
+  if (!config.ip) {
+    config.ip = getIPAdress();
+  }
+
   return config;
 };
 

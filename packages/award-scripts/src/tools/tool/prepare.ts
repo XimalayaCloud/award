@@ -74,6 +74,9 @@ export default (register = true, showInfo = true, port?: number) => {
       process.env.NODE_ENV = process.env.NODE_ENV || 'development';
       start = true;
     }
+    // 入口的babel-register，支持配置文件es6
+    require('../babel').EntryRegister();
+
     if (start) {
       if (!process.env.CHILDPROCESS_COMPILER_URL) {
         require('./random_host')();
@@ -81,8 +84,6 @@ export default (register = true, showInfo = true, port?: number) => {
       compiler();
     }
 
-    // 入口的babel-register，支持配置文件es6
-    require('../babel').EntryRegister();
     // check配置是否正确
     require('../tool').checkConfig(false);
 
