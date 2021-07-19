@@ -2,6 +2,7 @@ import * as findUp from 'find-up';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import { IConfig, IAwardConfig } from 'award-types';
+import getIPAdress from './getIPAdress';
 
 const cache = new Map();
 
@@ -51,7 +52,8 @@ const defaultConfig = {
       // api: 'http://localhost:1234'
     },
     apiGateway: {}
-  }
+  },
+  ip: getIPAdress()
 };
 
 const loadConfig = (dir: string): IConfig => {

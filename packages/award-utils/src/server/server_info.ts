@@ -2,7 +2,7 @@
 import { join } from 'path';
 import * as _ from 'lodash';
 import { IServer, IAny } from 'award-types';
-import getIPAdress from './getIPAdress';
+import { getAwardConfig } from './config';
 
 const reset = '\x1B[0m';
 
@@ -15,7 +15,8 @@ const cyan = (str: string) => {
 };
 
 export default function (this: IServer, show = true) {
-  const ip = getIPAdress();
+  const config = getAwardConfig();
+  const ip = config.ip;
   show = this.apiServer || !show ? false : true;
   const projectPkg: IAny & { name: string } = require(join(this.dir, 'package.json'));
   const http = this.port === '443' ? 'https' : 'http';

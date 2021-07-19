@@ -113,7 +113,7 @@ export default (configWebpack: Function | undefined, dir: string, assetPrefixs: 
         await webpackCompiler(configWebpack, config, {
           isServer: false,
           isAward: false,
-          dev: false,
+          dev: true,
           dir,
           dll: true
         })

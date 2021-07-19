@@ -4,7 +4,7 @@
   "eslint.validate": ["javascript", "javascriptreact"],
   "eslint.alwaysShowStatus": true,
   "eslint.lintTask.enable": true,
-  "debug.javascript.autoAttachFilter": "always",
+  "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "files.exclude": {
     "packages/*/lib": true
   },

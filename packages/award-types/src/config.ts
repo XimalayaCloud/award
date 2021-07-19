@@ -40,6 +40,7 @@ export interface IAwardConfig {
     apiGateway?: ITextObj;
   };
   plugins: Array<any>;
+  ip: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
