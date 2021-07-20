@@ -2,7 +2,7 @@
  * 初始化中间件
  */
 import { IContext, IServer, IConfig } from 'award-types';
-import { getAwardConfig, getIPAdress } from 'award-utils/server';
+import { getAwardConfig } from 'award-utils/server';
 import removeModule = require('../../remove');
 import { Seq } from 'immutable';
 import { Middleware } from 'koa';
@@ -19,8 +19,7 @@ export default function hmrConfigSource(this: IServer): Middleware<any, IContext
     const config: IConfig = getAwardConfig(self.dir, true);
     if (self.dev && !self.apiServer) {
       if (config.assetOrigin) {
-        const ip = getIPAdress();
-        config.assetPrefixs = `http://${ip}:${process.env.MAIN_PORT}/award_dev_static/`;
+        config.assetPrefixs = `http://${config.ip}:${process.env.MAIN_PORT}/award_dev_static/`;
       } else {
         config.assetPrefixs = '/award_dev_static/';
       }
