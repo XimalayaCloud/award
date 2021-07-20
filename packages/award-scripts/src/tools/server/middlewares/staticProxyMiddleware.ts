@@ -10,7 +10,7 @@ export default function (this: IServer): Middleware<any, IContext> {
       // eslint-disable-next-line no-return-await
       return await k2c(
         httpProxy(ctx.path, {
-          target: process.env.CHILDPROCESS_COMPILER_URL,
+          target: `http://127.0.0.1:${process.env.CHILDPROCESS_COMPILER_PORT}`,
           pathRewrite: {
             '^/award_dev_static': '/'
           },
