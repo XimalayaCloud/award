@@ -8,7 +8,7 @@
 // See https://docusaurus.io/docs/site-config for all the possible
 // site configuration options.
 
-const times = '?v=' + +new Date();
+const times = '?v=' + Number(new Date());
 
 // List of projects/orgs using your project for the users page
 const siteConfig = {

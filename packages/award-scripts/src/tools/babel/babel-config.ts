@@ -7,7 +7,6 @@ import AwardStyleBabel from '../style/babel';
 import WritedynamicDataPlugin from './babel-plugins/WritedynamicDataPlugin';
 import Hmr from './babel-plugins/hmr';
 import CodeSplitting from './babel-plugins/CodeSplitting';
-import DropConsole from './babel-plugins/drop_console';
 import StartExtend from './babel-plugins/start';
 import useRoute from './babel-plugins/useRoute';
 
@@ -123,10 +122,6 @@ export default function getBabelConfig({
     }
 
     plugins.push('lodash');
-
-    if (isServer) {
-      plugins.push(DropConsole);
-    }
   }
 
   // 公共资源

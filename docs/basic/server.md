@@ -22,7 +22,7 @@ const app = new Server({
 app.listen(3000);
 ```
 
-### 开发
+### 开发 `node server.js dev`
 
 >需添加`dev`参数
 
@@ -31,7 +31,7 @@ app.listen(3000);
 $ node server.js dev
 ```
 
-### 断点调试
+### 断点调试 `node server.js debug`
 > **⚠️ `vscode`需要进行如下设置**
 
 1. 项目根目录创建`.vscode`文件夹，这个是vscode的配置文件所在的文件夹
@@ -40,16 +40,16 @@ $ node server.js dev
    ```json
    // settings.json文件内容
    {
-     "debug.node.autoAttach": "on",
+     "debug.javascript.autoAttachFilter": "onlyWithFlag",
    }
    ```
-3. 比如执行`award-debug dev`命令，即可开启`vscode`的断点调试了
+3. 可以进行如下操作，开启`vscode`的断点调试了
+  
+    - **命令行启动：**执行`award-debug dev`命令
 
-```sh
-$ node server.js debug
-```
+    - **Api启动：**执行`node server.js debug`
 
-### 生产启动
+### 编译后，部署启动
 
 ```sh
 $ node server.js
@@ -103,25 +103,30 @@ module.exports = mid1;
 ...
 ```
 
-## 日志过滤
+## 日志处理
 
-> `award`在编译服务端资源时，会移除所有的console代码
+### 禁用`console.log`
+
+
+> 为了提升服务端运行性能，`award`禁用了服务端的所有`console.log`的执行
 >
-> 这里的服务端资源编译的入口只有两个`项目入口文件`和`award.config.js`
+> 不过`console`的其他函数可以执行，**请慎用，防止出现性能问题**
 >
-> 也就是说，这里的日志过滤只针对未编译的代码，那么也就是当前`server.js`及其依赖
+
+### 正常使用`console.log`
+
+> Award提供了日志打印过滤器，仅在生产环境生效
+>
+> 通过日志打印过滤器，过滤出需要打印的日志
+>
 
 ```js
 
 ...
 
-// 过滤器，仅在生产环境生效
-// 通过过滤器，过滤出需要打印的日志
-// 最后一个参数是option对象，表示该过滤的关键词是否需要打印出来
-// 设置为false，就不会打印出来，默认是true
-app.logFilter('show', 'test', {
-  test: false,
-});
+// 那么console.log的第一个参数是 
+// show或者test的都将在终端进行console.log打印
+app.logFilter('show', 'test');
 
 app.use(async (ctx, next) => {
   await next();
