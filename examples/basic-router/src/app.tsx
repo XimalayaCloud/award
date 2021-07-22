@@ -1,11 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 import { useState } from 'react';
-import { Consumer } from 'award';
+import * as Award from 'award';
 import fetch from 'award-fetch';
 import { Link } from 'react-router-dom';
 import Routes from './routes';
 import './app.scss';
+
+console.log(Award);
 
 function app(props) {
   const [info, setInfo] = useState({ name: 'Award' });
@@ -16,13 +18,13 @@ function app(props) {
           setInfo(null);
         }}
       >
-        Hello {info.name}
+        Hello {info.name} {(Award as any).my.test}
       </h1>
-      <Consumer>
+      <Award.Consumer>
         {(award) => {
           return <p onClick={props.reloadInitialProps}>点击试试看: {award.num}</p>;
         }}
-      </Consumer>
+      </Award.Consumer>
       <ul>
         <li>
           <Link to="/home">home页面</Link>

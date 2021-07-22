@@ -50,7 +50,6 @@ export default (configWebpack: Function | undefined, dir: string, assetPrefixs: 
         ...new Set([
           'react',
           'react-dom',
-          'award-plugin',
           'award-router',
           'award-fetch',
           'award-utils',

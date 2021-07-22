@@ -15,12 +15,14 @@ import {
   IafterRender,
   IbabelConfig,
   Idocument,
-  Isource
+  Isource,
+  IBeforeRun
 } from '../../types/node';
 
 // 在这里定义node端的插件时机的名称
 
 const serverName = [
+  'sync beforeRun',
   'modifyContextAward',
   'modifyInitialPropsCtx',
   'willCache',
@@ -41,6 +43,9 @@ const compilerName = ['webpackCompiler'];
 const names = [...serverName, ...renderName, ...buildName, ...configName, ...compilerName];
 
 const hooks: {
+  /** node服务启动前 该钩子只支持同步 */
+  beforeRun: (params: IBeforeRun) => void;
+
   /** 修改ctx.award的变量结构，原则上只允许添加，不允许删除 */
   modifyContextAward: (params: INmodifyContextAward) => Promise<any>;
   /** 修改服务端运行时`getInitialProps`函数接收的参数 */

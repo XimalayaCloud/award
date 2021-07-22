@@ -15,12 +15,25 @@ import {
   webpackCompiler,
   document,
   source,
-  babelInclude
+  babelInclude,
+  beforeRun
 } from '../../types/node';
 import Node from './';
 import { parseAsync } from '../utils';
 
 export interface ServerHooks {
+  /**
+   *
+   * node服务启动前的插件钩子，仅支持同步逻辑
+   * 
+  | 参数        | 说明                             | 类型    |
+  | ----------- | -------------------------------- | ------- |
+  | app         | 当前node服务的Koa示例            | Koa   |
+  | config      | 当前项目的award配置              | object  |
+  | dev         | 当前配置运行环境，开发、生产     | boolean |
+   */
+  beforeRun: beforeRun;
+
   /**
    * 在award内部的核心中间件之前注入中间件的hook函数
 

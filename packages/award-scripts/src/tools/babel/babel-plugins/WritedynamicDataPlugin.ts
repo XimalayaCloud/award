@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 /**
  * 通过babel识别award库的模板代码，替换为插件引用
  */
@@ -43,27 +44,46 @@ export default function (babel: any) {
                   tpl(`let MODULENAME,CLIENTMODULENAME`)({
                     MODULENAME: t.identifier(moduleName),
                     CLIENTMODULENAME: t.identifier(clientModuleName)
-                  }),
-                  // try{}catch(e){} api依赖 require('award-plugin-example')
-                  t.tryStatement(
-                    t.blockStatement([
-                      tpl(`MODULENAME = require(LIBRARYNAME)`)({
-                        MODULENAME: t.identifier(moduleName),
-                        LIBRARYNAME: t.stringLiteral(plugin)
-                      })
-                    ]),
-                    t.catchClause(t.identifier('e'), t.blockStatement([]))
-                  ),
-                  // try{}catch(e){} client依赖 require('award-plugin-example/client')
-                  t.tryStatement(
-                    t.blockStatement([
-                      tpl(`CLIENTMODULENAME = require(CLIENTLIBRARYNAME)`)({
-                        CLIENTMODULENAME: t.identifier(clientModuleName),
-                        CLIENTLIBRARYNAME: t.stringLiteral(clientLibrayName)
-                      })
-                    ]),
-                    t.catchClause(t.identifier('e'), t.blockStatement([]))
-                  ),
+                  })
+                );
+
+                // lib/index.js
+                try {
+                  if (fs.existsSync(require.resolve(plugin))) {
+                    element.push(
+                      // try{}catch(e){} api依赖 require('award-plugin-example')
+                      t.tryStatement(
+                        t.blockStatement([
+                          tpl(`MODULENAME = require(LIBRARYNAME)`)({
+                            MODULENAME: t.identifier(moduleName),
+                            LIBRARYNAME: t.stringLiteral(plugin)
+                          })
+                        ]),
+                        t.catchClause(t.identifier('e'), t.blockStatement([]))
+                      )
+                    );
+                  }
+                } catch (error) {}
+
+                // lib/client
+                try {
+                  if (fs.existsSync(require.resolve(clientLibrayName))) {
+                    element.push(
+                      // try{}catch(e){} client依赖 require('award-plugin-example/client')
+                      t.tryStatement(
+                        t.blockStatement([
+                          tpl(`CLIENTMODULENAME = require(CLIENTLIBRARYNAME)`)({
+                            CLIENTMODULENAME: t.identifier(clientModuleName),
+                            CLIENTLIBRARYNAME: t.stringLiteral(clientLibrayName)
+                          })
+                        ]),
+                        t.catchClause(t.identifier('e'), t.blockStatement([]))
+                      )
+                    );
+                  }
+                } catch (error) {}
+
+                element.push(
                   tpl(`_award_plugins_[LIBRARYNAME] = {
                   name: NAME,
                   default: MODULENAME,
