@@ -1,9 +1,17 @@
 import { MatchedRoutes, AComponentType, IContext, IConfig } from 'award-types';
 import { Compiler, Configuration } from 'webpack';
-
+import * as Koa from 'koa';
 export interface DVAComponentType extends AComponentType {
   createDva: Function;
 }
+
+export interface IBeforeRun {
+  app: Koa;
+  config: IConfig;
+  dev: boolean;
+}
+
+export type beforeRun = (callback: (params: IBeforeRun) => void) => void;
 
 export interface INwillFetch {
   match_routes: MatchedRoutes<{}>;
@@ -156,6 +164,7 @@ export type source = (callback: (params: Isource) => void) => void;
 /** 判断babel插件是否需要处理该文件，类似webpack include用法，该钩子只支持同步 */
 export type babelInclude = (callback: (filePath: string) => any) => void;
 export interface NodeHooks {
+  beforeRun: beforeRun;
   modifyContextAward: modifyContextAward;
   modifyInitialPropsCtx: modifyInitialPropsCtx;
   didFetch: didFetch;

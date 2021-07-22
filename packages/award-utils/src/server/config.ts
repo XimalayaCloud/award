@@ -84,17 +84,22 @@ const loadConfig = (dir: string): IConfig => {
           }
           // 插件名称中间包含award-plugin
           if (/^(.*)award-plugin-(.*)/.test(name)) {
-            const pluginDefault = require(name);
-            const defaultName = name
-              .replace(/^(.*)award-plugin-/, '')
-              .split('-')
-              .map((item: any, index: number) => {
-                if (index > 0) {
-                  return item.charAt(0).toUpperCase() + item.substr(1);
-                }
-                return item;
-              })
-              .join('');
+            let defaultName = '';
+            let pluginDefault = null;
+            try {
+              defaultName = name
+                .replace(/^(.*)award-plugin-/, '')
+                .split('-')
+                .map((item: any, index: number) => {
+                  if (index > 0) {
+                    return item.charAt(0).toUpperCase() + item.substr(1);
+                  }
+                  return item;
+                })
+                .join('');
+              pluginDefault = require(name);
+            } catch (error) {}
+
             global.__AWARD__PLUGINS__[name] = {
               name: defaultName,
               default: pluginDefault

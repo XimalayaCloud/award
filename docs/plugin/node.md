@@ -45,6 +45,16 @@ sidebar_label: Node端Hook
 
 ## server
 
+### beforeRun `>=1.1.17` 
+修改ctx.award的变量结构，原则上只允许添加，不允许删除
+
+| 参数    | 说明                      | 类型   |
+| ------- | ------------------------- | ------ |
+| app | 服务端的`koa`的实例 | Koa |
+| config      | 当前项目的award配置              | object  |
+| dev         | 当前配置运行环境，开发、生产     | boolean |
+
+
 ### modifyContextAward 
 修改ctx.award的变量结构，原则上只允许添加，不允许删除
 

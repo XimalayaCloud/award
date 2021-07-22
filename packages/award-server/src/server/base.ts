@@ -137,6 +137,8 @@ export default class Base {
       nodePlugin.register(config.plugins);
     }
 
+    nodePlugin.hooks.beforeRun({ app: this.app, config, dev: this.dev });
+
     // 处理basename中间件
     this.app.use(async (ctx, next) => {
       ctx.awardConfig = config;

@@ -17,15 +17,17 @@ const asyncStart = async (hookName: string, params: any) => {
     while (i < nameL) {
       const { fn, name } = storeApis[hookName][i];
       try {
-        content = await fn.call(
-          {
-            content
-          },
-          params
-        );
-        if (typeof content === 'boolean' && !content) {
-          // 一旦其中某个插件执行结果是false，那么针对布尔类型的返回值都将是false
-          result = false;
+        if (fn) {
+          content = await fn.call(
+            {
+              content
+            },
+            params
+          );
+          if (typeof content === 'boolean' && !content) {
+            // 一旦其中某个插件执行结果是false，那么针对布尔类型的返回值都将是false
+            result = false;
+          }
         }
         i++;
       } catch (error) {
@@ -50,16 +52,19 @@ const syncStart = (hookName: string, params: any) => {
     while (i < nameL) {
       const { fn, name } = storeApis[hookName][i];
       try {
-        content = fn.call(
-          {
-            content
-          },
-          params
-        );
-        if (typeof content === 'boolean' && !content) {
-          // 一旦其中某个插件执行结果是false，那么针对布尔类型的返回值都将是false
-          result = false;
+        if (fn) {
+          content = fn.call(
+            {
+              content
+            },
+            params
+          );
+          if (typeof content === 'boolean' && !content) {
+            // 一旦其中某个插件执行结果是false，那么针对布尔类型的返回值都将是false
+            result = false;
+          }
         }
+
         i++;
       } catch (error) {
         throw new Error(
@@ -94,7 +99,9 @@ export const register = (plugins: Array<any>) => {
           if (Run.prototype?.apply) {
             new Run(defaultApis, options, name).apply();
           } else {
-            Run(defaultApis, options);
+            if (typeof Run === 'function') {
+              Run(defaultApis, options);
+            }
           }
         } catch (error) {
           // 插件注册出错
