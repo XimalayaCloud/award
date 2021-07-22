@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 export default class extends React.Component<any> {
   public static getInitialProps(ctx) {
+    console.log('show', ctx);
+    console.log('12333');
     return {
       id: ctx.match.params.id
     };
