@@ -103,11 +103,11 @@ export const register = (plugins: Array<any>) => {
               Run(defaultApis, options);
             }
           }
-        } catch (error) {
-          // 插件注册出错
-          console.error(`[ plugin-name: ${name} ] Node端注册插件时发生错误\n${error}`);
-        }
-      } catch (error) {}
+        } catch (error) {}
+      } catch (error) {
+        // 插件注册出错
+        console.error(`[ plugin-name: ${name} ] Node端注册插件时发生错误\n${error}`);
+      }
     }
   });
 };
