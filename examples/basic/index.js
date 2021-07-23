@@ -49,7 +49,7 @@ function app(props) {
       </h1>
       <About />
       <Consumer>
-        {award => {
+        {(award) => {
           return <p onClick={props.reloadInitialProps}> 点击试试看: {award.num} </p>;
         }}
       </Consumer>
@@ -72,16 +72,16 @@ function app(props) {
   );
 }
 
-app.getInitialProps = ctx => {
+app.getInitialProps = (ctx) => {
   const result = [
     ctx
       .fetch('/api/list')
-      .then(async data => {
+      .then(async (data) => {
         ctx.setAward({
           num: data.num
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       })
   ];
