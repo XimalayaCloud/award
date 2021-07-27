@@ -108,7 +108,9 @@ export const register = (plugins: Array<any>) => {
           // 插件注册出错
           console.error(`[ plugin-name: ${name} ] Node端注册插件时发生错误\n${error}`);
         }
-      } catch (error) {}
+      } catch (error) {
+        // 有些插件没有node
+      }
     }
   });
 };
