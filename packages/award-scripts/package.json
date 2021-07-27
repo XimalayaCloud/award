@@ -1,6 +1,6 @@
 {
   "name": "award-scripts",
-  "version": "1.1.17",
+  "version": "1.1.18",
   "description": "Award项目开发、构建工具库",
   "main": "lib/index.js",
   "types": "lib",
@@ -13,9 +13,9 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "7.14.8",
-    "@babel/plugin-proposal-private-methods": "7.14.5",
     "@babel/plugin-proposal-class-properties": "7.14.5",
     "@babel/plugin-proposal-decorators": "7.14.5",
+    "@babel/plugin-proposal-private-methods": "7.14.5",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/plugin-transform-modules-commonjs": "7.14.5",
     "@babel/plugin-transform-runtime": "7.14.5",
