@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 /**
  * 客户端插件处理，包括插件注册、插件钩子存储、插件执行
  */
@@ -97,20 +98,25 @@ export const register = (plugins: Array<any>) => {
     if (/^(.*)award-plugin-(.*)/.test(name) && _award_plugins_[name]) {
       // 客户端环境需要依赖babel的代码注入
       const client = _award_plugins_[name].client;
-      const Run = client.default || client;
-      currentName = name;
       try {
-        if (Run.prototype?.apply) {
-          new Run(defaultApis, options, name).apply();
-        } else {
-          if (typeof Run === 'function') {
-            Run(defaultApis, options);
+        if (client) {
+          // 有些插件没有client
+          const Run = client.default || client;
+          currentName = name;
+          try {
+            if (Run.prototype?.apply) {
+              new Run(defaultApis, options, name).apply();
+            } else {
+              if (typeof Run === 'function') {
+                Run(defaultApis, options);
+              }
+            }
+          } catch (error) {
+            // 插件注册出错
+            console.error(`[ plugin-name: ${name} ] 客户端注册插件时发生错误\n${error}`);
           }
         }
-      } catch (error) {
-        // 插件注册出错
-        console.error(`[ plugin-name: ${name} ] 客户端注册插件时发生错误\n${error}`);
-      }
+      } catch (error) {}
     }
   });
 };
