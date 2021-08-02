@@ -67,8 +67,19 @@ export default async ({ dir, publicPath, assetPrefixs, mapDir }: any) => {
         : '') + fs.readFileSync(join(dir, publicPath, 'scripts/main.js'), 'utf-8')
     );
 
-    clean(join(dir, publicPath, 'scripts'));
-    clean(join(dir, publicPath, 'styles'));
+    const scripts = join(dir, publicPath, 'scripts');
+    const styles = join(dir, publicPath, 'styles');
+
+    if (fs.readdirSync(scripts).length > 1) {
+      clean(join(scripts, 'main.js'));
+    } else {
+      clean(scripts);
+    }
+    if (fs.readdirSync(styles).length > 1) {
+      clean(join(styles, 'main.css'));
+    } else {
+      clean(styles);
+    }
   } catch (e) {
     if (e) {
       console.error(e);
