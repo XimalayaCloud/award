@@ -2,7 +2,6 @@ export default {
   assetPrefixs: './dist/',
   mode: 'client',
   webpack(config) {
-    config.output.library = 'a;window.abc';
     config.externals = [
       function (context, request, callback) {
         if (request === 'react') {

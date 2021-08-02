@@ -29,7 +29,7 @@ export default function webConfig({
       path: outPath,
       filename: process.env.HASHNAME === '1' ? '[name].js' : 'scripts/[name].js',
       chunkFilename: 'scripts/[chunkhash:6].js',
-      library: ';window.__award___',
+      library: process.env.UMD_NAME ? `a;window['${process.env.UMD_NAME}']` : ';window.__award___',
       publicPath: assetPrefixs
     },
     performance: {

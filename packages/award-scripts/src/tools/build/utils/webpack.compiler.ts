@@ -14,6 +14,7 @@ export default async (
     dir: string;
     dev: boolean;
     dll?: boolean;
+    isUmd?: boolean;
   }
 ) => {
   let newConfig = moduleStyleConfig(wpConfig, options);
