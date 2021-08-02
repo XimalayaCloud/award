@@ -44,6 +44,7 @@ export default async ({ dir, publicPath, assetPrefixs, mapDir }: any) => {
         {
           isServer: false,
           isAward: true,
+          isUmd: true,
           dev: false,
           dir
         }
