@@ -60,18 +60,20 @@ export default async ({ dir, publicPath, assetPrefixs, mapDir }: any) => {
 
     let styleCss = '';
 
-    // 处理module开头的css
-    fs.readdirSync(stylesDir).forEach((item) => {
-      const filePath = join(stylesDir, item);
-      if (item === 'main.css') {
-        styleCss += fs.readFileSync(filePath, 'utf-8');
-        clean(filePath);
-      }
-      if (item === 'module.css') {
-        styleCss = fs.readFileSync(filePath, 'utf-8') + styleCss;
-        clean(filePath);
-      }
-    });
+    if (fs.existsSync(stylesDir)) {
+      // 处理module开头的css
+      fs.readdirSync(stylesDir).forEach((item) => {
+        const filePath = join(stylesDir, item);
+        if (item === 'main.css') {
+          styleCss += fs.readFileSync(filePath, 'utf-8');
+          clean(filePath);
+        }
+        if (item === 'module.css') {
+          styleCss = fs.readFileSync(filePath, 'utf-8') + styleCss;
+          clean(filePath);
+        }
+      });
+    }
 
     fs.writeFileSync(
       join(dir, publicPath, 'index.js'),
@@ -85,8 +87,11 @@ export default async ({ dir, publicPath, assetPrefixs, mapDir }: any) => {
     } else {
       clean(scriptsDir);
     }
-    if (fs.readdirSync(stylesDir).length === 0) {
-      clean(stylesDir);
+
+    if (fs.existsSync(stylesDir)) {
+      if (fs.readdirSync(stylesDir).length === 0) {
+        clean(stylesDir);
+      }
     }
   } catch (e) {
     if (e) {
