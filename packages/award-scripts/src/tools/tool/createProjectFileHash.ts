@@ -65,7 +65,6 @@ const ch = [
 ];
 
 const storeReference: any = {};
-const immerRandoms: any[] = [];
 const cwd = process.cwd();
 const mapFilepath = path.join(cwd, '.map');
 
@@ -158,24 +157,27 @@ export default () => {
     isNeedMap = pkg.map || false;
   }
 
+  const hasScope = [...Object.values(maps), ...scope];
+
   // l * l 个随机两位字符
   const randoms: any[] = [];
   for (let i = 0; i < l; i++) {
     for (let j = 0; j < l; j++) {
       const left = ch[i];
       const right = ch[j];
-      let result = '';
-      if (left > right) {
-        // 小写大写
-        result = left + right + '_';
-      } else if (left < right) {
-        result = '_' + left + right;
-      } else {
-        result = left + '_' + right;
+
+      const result1 = left + right + '_';
+      const result2 = '_' + left + right;
+      const result3 = left + '_' + right;
+
+      if (hasScope.indexOf(result1) === -1) {
+        randoms.push(result1);
       }
-      if (scope.indexOf(result) === -1) {
-        randoms.push(result);
-        immerRandoms.push(result);
+      if (hasScope.indexOf(result2) === -1) {
+        randoms.push(result2);
+      }
+      if (hasScope.indexOf(result3) === -1) {
+        randoms.push(result3);
       }
     }
   }
@@ -184,21 +186,19 @@ export default () => {
 
   const start = (filePath: string) => {
     // 取余得到序位
-    const hash = Number(stringHash(filePath.replace(cwd, '').replace(/(\/|\\)/g, '')));
-    let index: any = null;
+    const newfileFilePath = filePath.replace(cwd, '').replace(/(\/|\\)/g, '');
+    const hash = Number(stringHash(newfileFilePath));
     let value: any = null;
     if (maps[hash]) {
       // 从缓存中取出固定随机数的值
       value = maps[hash];
-      index = randoms.indexOf(value);
     } else {
       // 缓存没有，则通过取余的形式来获取
-      index = hash % rl;
+      const index = hash % rl;
       value = randoms[index];
+      // 同时需要将原数据的位置从数组中移除
+      randoms.splice(index, 1);
     }
-
-    // 同时需要将原数据的位置从数组中移除
-    randoms.splice(index, 1);
 
     // 存储
     maps[hash] = value;
