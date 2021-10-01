@@ -3,7 +3,7 @@ import nodePlugin from 'award-plugin/node';
 import chalk = require('chalk');
 import { prod } from '../../tools/build';
 
-export default async () => {
+export default async (all = false) => {
   console.info(chalk.green('Start Web Compiling...'));
   const config = getAwardConfig();
   const cwd = process.cwd();
@@ -20,7 +20,7 @@ export default async () => {
     dir: cwd,
     publicPath: config.client_dist,
     assetPrefixs: config.assetPrefixs,
-    mapDir: config.server_dist + '/.awardConfig'
+    mapDir: (all ? config.client_dist : config.server_dist) + '/.awardConfig'
   });
 
   await nodePlugin.hooks.afterBuild({
