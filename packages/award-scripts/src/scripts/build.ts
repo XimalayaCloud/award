@@ -59,6 +59,7 @@ export default {
       clean(distConfig);
     }
 
+    clearConsole();
     console.info(
       chalk.bgGreenBright.black('【编译耗时】'),
       chalk.yellowBright(
