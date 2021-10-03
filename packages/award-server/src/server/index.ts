@@ -61,7 +61,7 @@ export class Server extends Base {
       // eslint-disable-next-line no-param-reassign
       cb = port;
     }
-    this.startListen(cb);
+    await this.startListen(cb);
   }
 
   /**

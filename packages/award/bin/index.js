@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+process.env.AWARD_START_TIME = Number(new Date());
+
 require('./install')();
 const reset = '\x1B[0m';
 const boldGreenBright = (str) => {

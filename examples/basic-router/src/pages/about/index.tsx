@@ -6,7 +6,7 @@ const about = (props) => {
   console.log(3);
   return (
     <div>
-      <p>about --- {props.id}</p>
+      <p>about1 --- {props.id}</p>
       <hr />
       <em>{props.num}</em>
       <img src={ting} className="em" />

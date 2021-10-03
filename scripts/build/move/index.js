@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 /**
  * tsc编译到dist
  * 移到每个packages下面
@@ -9,7 +10,7 @@ const { spawn } = require('child_process');
 const clean = require('../../shared/clean');
 
 const run = (shellInfo, cwd = process.cwd()) =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     const _shellInfo = shellInfo.split(' ');
     const scriptProcess = spawn(_shellInfo.shift(), _shellInfo, {
       stdio: 'inherit',
@@ -20,8 +21,8 @@ const run = (shellInfo, cwd = process.cwd()) =>
     });
   });
 
-const childProcessPrettier = file =>
-  new Promise(resolve => {
+const childProcessPrettier = (file) =>
+  new Promise((resolve) => {
     const pre = spawn('node', [path.join(__dirname, 'start.js')], {
       stdio: [null, null, null, 'ipc']
     });
@@ -36,7 +37,7 @@ const enabled = stream && stream.isTTY;
 
 const noMove = ['award-types', 'eslint-config-award'];
 
-const move = async name => {
+const move = async (name) => {
   const distPkgs = path.join(__dirname, '..', '..', '..', 'dist', name);
   if (fs.existsSync(distPkgs)) {
     const pkgs = fs.readdirSync(distPkgs);
@@ -54,7 +55,7 @@ const move = async name => {
             const total = 28;
             const min = total - curT.length;
             const start = `${curT}${Array.from(Array(min < 1 ? 1 : min))
-              .map(item => ' ')
+              .map((item) => ' ')
               .join('')}`;
             stream.write(start);
             time = setInterval(() => {
