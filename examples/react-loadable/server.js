@@ -5,4 +5,4 @@ const Server = require('award/server');
 const app = new Server();
 
 // 监听端口
-app.listen(3000);
+app.listenddd(3000);

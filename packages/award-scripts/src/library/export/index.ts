@@ -97,6 +97,13 @@ export default async (options: any) => {
     fs.moveSync(tmpDest, out);
     clean(tmpDest);
     if (!options.browser) {
+      console.info(
+        chalk.bgGreenBright.black('【编译耗时】'),
+        chalk.yellowBright(
+          ((Number(new Date()) - Number(process.env.AWARD_START_TIME)) / 1000).toFixed(2) + 's'
+        ),
+        '\n'
+      );
       process.exit(0);
     }
   } catch (error) {

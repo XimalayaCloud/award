@@ -106,7 +106,7 @@ module.exports = class CustomServer {
       arguments: arguments
     });
   }
-  listen(port, cb) {
+  async listen(port, cb) {
     if (typeof port === 'string' || typeof port === 'number') {
       this.init['port'] = port;
     }
@@ -139,6 +139,7 @@ module.exports = class CustomServer {
           break;
       }
     });
-    app.listen.apply(app, arguments);
+
+    await app.listen.apply(app, arguments);
   }
 };

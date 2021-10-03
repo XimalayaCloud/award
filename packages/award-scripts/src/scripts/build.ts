@@ -58,6 +58,15 @@ export default {
       });
       clean(distConfig);
     }
+
+    console.info(
+      chalk.bgGreenBright.black('【编译耗时】'),
+      chalk.yellowBright(
+        ((Number(new Date()) - Number(process.env.AWARD_START_TIME)) / 1000).toFixed(2) + 's'
+      ),
+      '\n'
+    );
+
     // 执行结束。立即中断node程序
     process.exit(0);
   }
