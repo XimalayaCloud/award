@@ -14,54 +14,57 @@ class DebugServer {
   router() {}
 }
 
-let Server = null;
-// 表示开发环境
-if (argvs[0] === 'dev' || argvs[0] === 'debug') {
-  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-  try {
-    require('./bin/install')();
+const getServer = () => {
+  let Server = null;
+  // 表示开发环境
+  if (argvs[0] === 'dev' || argvs[0] === 'debug') {
+    process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+    try {
+      require('./bin/install')();
 
-    if (argvs[0] === 'dev') {
-      // 准备工作
-      const DevServer = require('award-scripts').Server;
-      class AwardServer extends DevServer {
-        constructor(params = {}) {
-          let port = Number(params.port || 1234);
-          const newPort = require('award-scripts/prepare')(true, true, port);
-          if (newPort) {
-            params.port = newPort;
-            port = newPort;
+      if (argvs[0] === 'dev') {
+        // 准备工作
+        const DevServer = require('award-scripts').Server;
+        class AwardServer extends DevServer {
+          constructor(params = {}) {
+            let port = Number(params.port || 1234);
+            const newPort = require('award-scripts/prepare')(true, true, port);
+            if (newPort) {
+              params.port = newPort;
+              port = newPort;
+            }
+            super({
+              isProxy: Boolean(params.isProxy),
+              port,
+              ignore: Boolean(params.ignore)
+            });
           }
-          super({
-            isProxy: Boolean(params.isProxy),
-            port,
-            ignore: Boolean(params.ignore)
-          });
         }
+        Server = AwardServer;
       }
-      Server = AwardServer;
-    }
 
-    if (argvs[0] === 'debug') {
-      const { spawn } = require('child_process');
-      process.env.AWARD_DEBUG = 1;
-      spawn('node', ['--inspect', process.argv[1], 'dev'], { stdio: 'inherit' });
-      Server = DebugServer;
+      if (argvs[0] === 'debug') {
+        const { spawn } = require('child_process');
+        process.env.AWARD_DEBUG = 1;
+        spawn('node', ['--inspect', process.argv[1], 'dev'], { stdio: 'inherit' });
+        Server = DebugServer;
+      }
+    } catch (error) {}
+  } else {
+    process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+    const ProdServer = require('award-server').Server;
+    class AwardServer extends ProdServer {
+      constructor(params = {}) {
+        super({
+          isProxy: Boolean(params.isProxy),
+          port: params.port || 1234
+        });
+      }
     }
-  } catch (error) {}
-} else {
-  process.env.NODE_ENV = process.env.NODE_ENV || 'production';
-  const ProdServer = require('award-server').Server;
-  class AwardServer extends ProdServer {
-    constructor(params = {}) {
-      super({
-        isProxy: Boolean(params.isProxy),
-        port: params.port || 1234
-      });
-    }
+    Server = AwardServer;
   }
-  Server = AwardServer;
-}
+  return Server;
+};
 
 module.exports = class CustomServer {
   constructor(params = {}) {
@@ -107,6 +110,7 @@ module.exports = class CustomServer {
     if (typeof port === 'string' || typeof port === 'number') {
       this.init['port'] = port;
     }
+    const Server = getServer();
     const app = new Server(this.init);
     if (typeof port === 'string' || typeof port === 'number') {
       arguments[0] = this.init.port;
