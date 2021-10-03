@@ -43,8 +43,6 @@ export default {
       // 并发编译
       await Promise.all([web_ssr(true), web_server()]);
 
-      process.exit(0);
-
       // 整理dist里面的.awardConfig资源
       const config = getAwardConfig();
       const cwd = process.cwd();
