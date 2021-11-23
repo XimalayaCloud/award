@@ -1,0 +1,7 @@
+{
+  "name": "qiankun",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "award-config": { "mode": "client" }
+}

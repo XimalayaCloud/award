@@ -53,73 +53,82 @@ const parseComponent = (Component: AComponentType): Promise<AComponentType> => {
 })([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
 
 const startWeb = async (Component: AComponentType, hot: Function | null = null) => {
-  if (!document.getElementById('award')) {
-    document.body.innerHTML = '不存在名称为【award】的id选择器';
-  } else {
-    // 延迟执行-预加载
-    await new Promise((resolve) => {
-      resolve(null);
-    });
-    createIntialState();
-    await Loadable.preloadAll();
-    /**
-     * 服务端渲染会存在id 为 __URL__的选择器
-     */
-    const __URL__ = document.getElementById('__URL__');
-    let ssr = false;
-    let render = ReactDOM.render;
-    if (__URL__) {
-      ssr = true;
-      const value = __URL__.getAttribute('data-loadable');
-      if (value && Number(value) === 0) {
-        render = ReactDOM.hydrate;
-      }
-      if (process.env.NODE_ENV !== 'development') {
-        __URL__.remove();
-      }
-    }
-
-    // 读取路由数据
-    routes = window.__AWARD__INIT__ROUTES__ || [];
-
-    // 存储全局变量
-    loadParams.set({
-      firstRender: true,
-      ssr,
-      routes
-    });
-
-    // 生产环境清除全局变量标记
-    if (process.env.NODE_ENV !== 'development') {
-      delete (window as any).__AWARD__INIT__ROUTES__;
-      delete window.__INITIAL_STATE__;
-    }
-
-    // 渲染组件
-    const ComponentType = await parseComponent(Component);
-
-    // 如果发现有路由需要客户端渲染，那么需要使用ReactDOM.render
-    if (ComponentType.needClient) {
-      render = ReactDOM.render;
-    }
-
-    const RootComponent = createContext({
-      Component: ComponentType,
-      INITIAL_STATE
-    });
-
-    if (process.env.NODE_ENV === 'development') {
-      hot?.(ComponentType);
-      hot?.(RootComponent);
-    }
-
-    render(<RootComponent />, document.getElementById('award'), () => {
-      loadParams.set({ firstRender: false });
-      clientPlugin.hooks.rendered({
-        Component
-      });
-    });
+  let customDom = null;
+  const __URL__ = document.getElementById('__URL__');
+  let ssr = false;
+  if (__URL__) {
+    ssr = true;
   }
+
+  if (!ssr) {
+    customDom = clientPlugin.hooks.mount();
+  }
+
+  if (!document.getElementById('award') && !customDom) {
+    document.body.innerHTML = '不存在名称为【award】的id选择器';
+    return;
+  }
+
+  // 延迟执行-预加载
+  await new Promise((resolve) => {
+    resolve(null);
+  });
+  createIntialState();
+  await Loadable.preloadAll();
+  /**
+   * 服务端渲染会存在id 为 __URL__的选择器
+   */
+  let render = ReactDOM.render;
+  if (__URL__) {
+    const value = __URL__.getAttribute('data-loadable');
+    if (value && Number(value) === 0) {
+      render = ReactDOM.hydrate;
+    }
+    if (process.env.NODE_ENV !== 'development') {
+      __URL__.remove();
+    }
+  }
+
+  // 读取路由数据
+  routes = window.__AWARD__INIT__ROUTES__ || [];
+
+  // 存储全局变量
+  loadParams.set({
+    firstRender: true,
+    ssr,
+    routes
+  });
+
+  // 生产环境清除全局变量标记
+  if (process.env.NODE_ENV !== 'development') {
+    delete (window as any).__AWARD__INIT__ROUTES__;
+    delete window.__INITIAL_STATE__;
+  }
+
+  // 渲染组件
+  const ComponentType = await parseComponent(Component);
+
+  // 如果发现有路由需要客户端渲染，那么需要使用ReactDOM.render
+  if (ComponentType.needClient) {
+    render = ReactDOM.render;
+  }
+
+  const RootComponent = createContext({
+    Component: ComponentType,
+    INITIAL_STATE
+  });
+
+  if (process.env.NODE_ENV === 'development') {
+    hot?.(ComponentType);
+    hot?.(RootComponent);
+  }
+
+  render(<RootComponent />, customDom || document.getElementById('award'), () => {
+    loadParams.set({ firstRender: false });
+    clientPlugin.hooks.rendered({
+      Component
+    });
+  });
 };
 
 module.exports = startWeb;

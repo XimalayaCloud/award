@@ -8,10 +8,13 @@ import {
 } from '../../types/client';
 
 // 在这里定义客户端的插件时机的名称
-const basicnames = ['init', 'modifyInitialPropsCtx', 'rendered', 'catchError'];
+const basicnames = ['sync mount', 'init', 'modifyInitialPropsCtx', 'rendered', 'catchError'];
 const routernames = ['routeChangeBeforeLoadInitialProps'];
 
 const hooks: {
+  /** mount挂载dom设置 */
+  mount: () => HTMLElement;
+
   /** 客户端初始化时，触发该方法，此后将不再触发了 */
   init: (params: Iinit) => Promise<any>;
   /** 修改客户端`getInitialProps`函数接收的参数 */

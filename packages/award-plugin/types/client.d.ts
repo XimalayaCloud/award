@@ -10,6 +10,9 @@ export interface Iinit {
   /** 根组件、即入口组件 */
   Component: AComponentType;
 }
+
+export type mount = (callback: () => HTMLElement) => void;
+
 export type init = (callback: (this: { config: any }, params: Iinit) => void) => void;
 
 export interface IrouteChangeBeforeLoadInitialProps {
