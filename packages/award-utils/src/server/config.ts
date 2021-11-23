@@ -2,6 +2,7 @@ import * as findUp from 'find-up';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import { IConfig, IAwardConfig } from 'award-types';
+import nodePlugin from 'award-plugin/node';
 import getIPAdress from './getIPAdress';
 
 const root = process.cwd();
@@ -109,11 +110,12 @@ const loadConfig = (dir: string): IConfig => {
               return item;
             })
             .join('');
-          if (/^\.\//.test(name)) {
+          let requireLibPath = name;
+          if (/^\.\//.test(requireLibPath)) {
             // 如果以./开头，则需要处理下路径
-            name = join(root, name);
+            requireLibPath = join(root, requireLibPath);
           }
-          pluginDefault = require(name);
+          pluginDefault = require(requireLibPath);
         } catch (error) {
           if (process.env.NODE_ENV === 'development') {
             console.error('', error);
@@ -229,6 +231,8 @@ export function getAwardConfig(dir = process.cwd(), refresh = false): IConfig {
   if (!existOfficial) {
     config.plugins.unshift(officialName);
   }
+
+  nodePlugin.hooks.awardConfig(config);
 
   return config;
 }

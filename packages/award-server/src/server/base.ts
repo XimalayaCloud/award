@@ -128,14 +128,15 @@ export default class Base {
     this.app = new Koa();
 
     /** 设置获取的数据不可变 */
+    const pluginConfig: IConfig = getAwardConfig(this.dir);
+    if (pluginConfig.plugins?.length) {
+      nodePlugin.unregister();
+      nodePlugin.register(pluginConfig.plugins);
+    }
+
     const config: IConfig = getAwardConfig(this.dir);
 
     loadParams.set({ basename: config.basename });
-
-    if (config.plugins?.length) {
-      nodePlugin.unregister();
-      nodePlugin.register(config.plugins);
-    }
 
     nodePlugin.hooks.beforeRun({ app: this.app, config, dev: this.dev });
 

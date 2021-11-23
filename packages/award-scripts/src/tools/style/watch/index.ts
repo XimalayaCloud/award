@@ -135,7 +135,7 @@ export default (compiler: any, app: any) => {
       });
     }
     const extraFile = stats.extraFile;
-    if (extraFile.length) {
+    if (extraFile?.length) {
       stats.extraFile = [];
       global.EventEmitter.emit('hmrStyle', {
         name: 'node_modules_style_hmr',

@@ -6,6 +6,11 @@ const root = process.cwd();
 module.exports = class extends Plugin.Node {
   apply() {
     this.config((hooks) => {
+      hooks.awardConfig((params) => {
+        params.mode = 'client';
+        params.assetOrigin = true;
+      });
+
       hooks.webpackConfig((params) => {
         if (params.dll) {
           params.config.output.library = `a;window.award_[hash:5]`;

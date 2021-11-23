@@ -11,6 +11,7 @@ import * as os from 'os';
 
 let awardReg = /\/award\/lib\//;
 let awardPlguinReg = /\/award-plugin\/lib\//;
+const root = process.cwd();
 
 if (os.type() === 'Windows_NT') {
   awardReg = /\\award\\lib\\/;
@@ -37,7 +38,12 @@ export default function (babel: any) {
             for (const plugin in global.__AWARD__PLUGINS__) {
               if (Object.prototype.hasOwnProperty.call(global.__AWARD__PLUGINS__, plugin)) {
                 const item = global.__AWARD__PLUGINS__[plugin];
-                const clientLibrayName = plugin + '/client';
+                let pluginName = plugin;
+                if (/^\.\//.test(pluginName)) {
+                  // 相对路径开头
+                  pluginName = path.join(root, pluginName);
+                }
+                const clientLibrayName = pluginName + '/client';
                 const moduleName = '_' + item.name;
                 const clientModuleName = '_' + item.name + '_client';
                 element.push(
@@ -49,14 +55,14 @@ export default function (babel: any) {
 
                 // lib/index.js
                 try {
-                  if (fs.existsSync(require.resolve(plugin))) {
+                  if (fs.existsSync(require.resolve(pluginName))) {
                     element.push(
                       // try{}catch(e){} api依赖 require('award-plugin-example')
                       t.tryStatement(
                         t.blockStatement([
                           tpl(`MODULENAME = require(LIBRARYNAME)`)({
                             MODULENAME: t.identifier(moduleName),
-                            LIBRARYNAME: t.stringLiteral(plugin)
+                            LIBRARYNAME: t.stringLiteral(pluginName)
                           })
                         ]),
                         t.catchClause(t.identifier('e'), t.blockStatement([]))
@@ -82,6 +88,8 @@ export default function (babel: any) {
                     );
                   }
                 } catch (error) {}
+
+                console.log(3333, plugin);
 
                 element.push(
                   tpl(`_award_plugins_[LIBRARYNAME] = {

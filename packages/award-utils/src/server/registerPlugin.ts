@@ -2,10 +2,11 @@ import { getAwardConfig } from './config';
 import nodePlugin from 'award-plugin/node';
 
 export default () => {
-  const config = getAwardConfig();
+  const pluginConfig = getAwardConfig();
 
-  if (config.plugins?.length) {
+  if (pluginConfig.plugins?.length) {
     nodePlugin.unregister();
-    nodePlugin.register(config.plugins);
+    nodePlugin.register(pluginConfig.plugins);
   }
+  getAwardConfig();
 };
