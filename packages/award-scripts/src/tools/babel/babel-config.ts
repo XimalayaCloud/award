@@ -181,7 +181,6 @@ export default function getBabelConfig({
       dev
     });
   }
-  nodePlugin.hooks.babelConfig({ config, isServer, dev, awardConfig });
 
   if (dev && !isServer && !dll) {
     config.plugins.push(
@@ -203,6 +202,8 @@ export default function getBabelConfig({
   } else {
     config.plugins.unshift('dynamic-import-node');
   }
+
+  nodePlugin.hooks.babelConfig({ config, isServer, dev, awardConfig });
 
   return config;
 }
