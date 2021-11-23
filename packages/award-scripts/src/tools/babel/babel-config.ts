@@ -174,14 +174,6 @@ export default function getBabelConfig({
     plugins
   };
 
-  if (fs.existsSync(awardBabel)) {
-    require(awardBabel)({
-      config,
-      isServer,
-      dev
-    });
-  }
-
   if (dev && !isServer && !dll) {
     config.plugins.push(
       [
@@ -204,6 +196,14 @@ export default function getBabelConfig({
   }
 
   nodePlugin.hooks.babelConfig({ config, isServer, dev, awardConfig });
+
+  if (fs.existsSync(awardBabel)) {
+    require(awardBabel)({
+      config,
+      isServer,
+      dev
+    });
+  }
 
   return config;
 }
