@@ -1,6 +1,6 @@
 {
   "name": "award-router",
-  "version": "1.1.22",
+  "version": "1.1.23",
   "description": "整合了react-router路由，提供了数据同步和缓存等功能",
   "main": "lib/index.js",
   "types": "index.d.ts",
