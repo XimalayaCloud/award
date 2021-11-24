@@ -29,6 +29,19 @@ module.exports = class extends Plugin.Node {
           }
         }
       });
+
+      hooks.babelConfig((params) => {
+        let key = 0;
+        params.config.plugins.forEach((item, index) => {
+          if (item === 'react-hot-loader/babel') {
+            key = index;
+          }
+        });
+        if (key !== 0) {
+          params.config.plugins.splice(key - 1, 1);
+          params.config.plugins.splice(key - 1, 1);
+        }
+      });
     });
   }
 };
