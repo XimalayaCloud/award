@@ -59,6 +59,9 @@ export interface IwebpackConfig {
   /** 表示当前项目的Award配置 */
   awardConfig: IConfig;
 }
+
+export type awardConfig = (callback: (params: IConfig) => void) => void;
+
 export type webpackConfig = (callback: (params: IwebpackConfig) => void) => void;
 
 export interface IwebpackCompiler {

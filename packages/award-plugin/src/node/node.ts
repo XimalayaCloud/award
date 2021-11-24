@@ -3,10 +3,12 @@
  * node端插件处理，包括插件注册、插件钩子存储、插件执行
  */
 import { parseAsync } from '../utils';
+import { join } from 'path';
 
 const storeApis: any = {};
 const defaultApis: any = {};
 const hooks: any = {};
+const root = process.cwd();
 let currentName: any = null;
 
 const asyncStart = async (hookName: string, params: any) => {
@@ -92,6 +94,9 @@ export const register = (plugins: Array<any>) => {
     }
     if (/^(.*)award-plugin-(.*)/.test(name)) {
       try {
+        if (/^\.\//.test(name)) {
+          name = join(root, name);
+        }
         // node环境可以直接require引用依赖
         const node = require(`${name}/node`);
         const Run = node.default || node;

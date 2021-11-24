@@ -2,8 +2,10 @@ import * as findUp from 'find-up';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import { IConfig, IAwardConfig } from 'award-types';
+import nodePlugin from 'award-plugin/node';
 import getIPAdress from './getIPAdress';
 
+const root = process.cwd();
 const cache = new Map();
 
 const officialName = 'award-plugin-official';
@@ -72,43 +74,61 @@ const loadConfig = (dir: string): IConfig => {
   if (configPath) {
     const userConfigModule = require(configPath);
     userConfig = userConfigModule.default || userConfigModule;
-    userConfig.configOrigin = configPath;
-    // 筛选出支持默认导出API的插件，即该插件提供API给项目使用
-    // 需要在award包中对API进行注册
-    if (userConfig.plugins) {
-      userConfig.plugins.forEach((plugin: any) => {
-        try {
-          let name = plugin;
-          if (Array.isArray(plugin)) {
-            name = plugin[0];
-          }
-          // 插件名称中间包含award-plugin
-          if (/^(.*)award-plugin-(.*)/.test(name)) {
-            let defaultName = '';
-            let pluginDefault = null;
-            try {
-              defaultName = name
-                .replace(/^(.*)award-plugin-/, '')
-                .split('-')
-                .map((item: any, index: number) => {
-                  if (index > 0) {
-                    return item.charAt(0).toUpperCase() + item.substr(1);
-                  }
-                  return item;
-                })
-                .join('');
-              pluginDefault = require(name);
-            } catch (error) {}
+  }
 
-            global.__AWARD__PLUGINS__[name] = {
-              name: defaultName,
-              default: pluginDefault
-            };
-          }
-        } catch (error) {}
-      });
+  userConfig.configOrigin = configPath;
+
+  // 插件读取package.json
+  const pkgFile = join(root, 'package.json');
+  if (fs.existsSync(pkgFile)) {
+    const pkg = require(pkgFile);
+    if (pkg['award-config']) {
+      userConfig = { ...pkg['award-config'], ...userConfig };
     }
   }
+
+  // 筛选出支持默认导出API的插件，即该插件提供API给项目使用
+  // 需要在award包中对API进行注册
+  userConfig.plugins.forEach((plugin: any) => {
+    try {
+      let name = plugin;
+      if (Array.isArray(plugin)) {
+        name = plugin[0];
+      }
+      // 插件名称中间包含award-plugin
+      if (/^(.*)award-plugin-(.*)/.test(name)) {
+        let defaultName = '';
+        let pluginDefault = null;
+        try {
+          defaultName = name
+            .replace(/^(.*)award-plugin-/, '')
+            .split('-')
+            .map((item: any, index: number) => {
+              if (index > 0) {
+                return item.charAt(0).toUpperCase() + item.substr(1);
+              }
+              return item;
+            })
+            .join('');
+          let requireLibPath = name;
+          if (/^\.\//.test(requireLibPath)) {
+            // 如果以./开头，则需要处理下路径
+            requireLibPath = join(root, requireLibPath);
+          }
+          pluginDefault = require(requireLibPath);
+        } catch (error) {
+          if (process.env.NODE_ENV === 'development') {
+            console.error('', error);
+          }
+        }
+
+        global.__AWARD__PLUGINS__[name] = {
+          name: defaultName,
+          default: pluginDefault
+        };
+      }
+    } catch (error) {}
+  });
 
   const config = { ...defaultConfig, ...userConfig };
 
@@ -211,6 +231,8 @@ export function getAwardConfig(dir = process.cwd(), refresh = false): IConfig {
   if (!existOfficial) {
     config.plugins.unshift(officialName);
   }
+
+  nodePlugin.hooks.awardConfig(config);
 
   return config;
 }

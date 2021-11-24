@@ -18,6 +18,7 @@ import {
   Isource,
   IBeforeRun
 } from '../../types/node';
+import { IConfig } from 'packages/award-types/src';
 
 // 在这里定义node端的插件时机的名称
 
@@ -36,7 +37,7 @@ const renderName = ['beforeRender', 'render', 'document', 'afterRender'];
 
 const buildName = ['beforeBuild', 'source', 'afterBuild', 'sync babelInclude'];
 
-const configName = ['webpackConfig', 'sync babelConfig'];
+const configName = ['sync awardConfig', 'webpackConfig', 'sync babelConfig'];
 
 const compilerName = ['webpackCompiler'];
 
@@ -82,6 +83,9 @@ const hooks: {
 
   /** award在服务端渲染之后，即在执行`renderToString`函数之后一行 */
   afterRender: (params: IafterRender) => Promise<any>;
+
+  /** 修改awardConfig */
+  awardConfig: (params: IConfig) => void;
 
   /** 添加新的babel配置，该钩子只支持同步 */
   babelConfig: (params: IbabelConfig) => void;

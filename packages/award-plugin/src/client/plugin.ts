@@ -1,4 +1,5 @@
 import {
+  mount,
   init,
   modifyInitialPropsCtx,
   routeChangeBeforeLoadInitialProps,
@@ -9,6 +10,10 @@ import Client from './';
 import { parseAsync } from '../utils';
 
 export interface BasicHook {
+  /**
+   * 非ssr应用生效
+   */
+  mount: mount;
   init: init;
   rendered: rendered;
   modifyInitialPropsCtx: modifyInitialPropsCtx;
@@ -53,6 +58,8 @@ class Plugin {
   /**
    * 执行客户端运行阶段的钩子函数
    *
+   * `mount`
+   *
    * `init`
    *
    * `rendered`
@@ -62,7 +69,7 @@ class Plugin {
    * `catchError`
    */
   public basic(callback: (hooks: BasicHook) => void) {
-    this.method(callback, 'basic');
+    return this.method(callback, 'basic');
   }
 
   /**
@@ -72,7 +79,7 @@ class Plugin {
    *
    */
   public router(callback: (hooks: RouterHook) => void) {
-    this.method(callback, 'router');
+    return this.method(callback, 'router');
   }
 }
 
