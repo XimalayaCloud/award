@@ -73,6 +73,10 @@ class HttpClient {
     }
   }
   private async getApiGatewayUri(url: string) {
+    // 如 是http开头，直接返回url
+    if (/^http(s)?:/.test(url)) {
+      return url;
+    }
     const apiGatewayServerIP = await instance.getApiServer();
     return `http://${apiGatewayServerIP}${url}`;
   }
