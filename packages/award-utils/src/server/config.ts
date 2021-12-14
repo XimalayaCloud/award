@@ -89,46 +89,48 @@ const loadConfig = (dir: string): IConfig => {
 
   // 筛选出支持默认导出API的插件，即该插件提供API给项目使用
   // 需要在award包中对API进行注册
-  userConfig.plugins.forEach((plugin: any) => {
-    try {
-      let name = plugin;
-      if (Array.isArray(plugin)) {
-        name = plugin[0];
-      }
-      // 插件名称中间包含award-plugin
-      if (/^(.*)award-plugin-(.*)/.test(name)) {
-        let defaultName = '';
-        let pluginDefault = null;
-        try {
-          defaultName = name
-            .replace(/^(.*)award-plugin-/, '')
-            .split('-')
-            .map((item: any, index: number) => {
-              if (index > 0) {
-                return item.charAt(0).toUpperCase() + item.substr(1);
-              }
-              return item;
-            })
-            .join('');
-          let requireLibPath = name;
-          if (/^\.\//.test(requireLibPath)) {
-            // 如果以./开头，则需要处理下路径
-            requireLibPath = join(root, requireLibPath);
-          }
-          pluginDefault = require(requireLibPath);
-        } catch (error) {
-          if (process.env.NODE_ENV === 'development') {
-            console.error('', error);
-          }
+  if (userConfig.plugins && Array.isArray(userConfig.plugins)) {
+    userConfig.plugins.forEach((plugin: any) => {
+      try {
+        let name = plugin;
+        if (Array.isArray(plugin)) {
+          name = plugin[0];
         }
+        // 插件名称中间包含award-plugin
+        if (/^(.*)award-plugin-(.*)/.test(name)) {
+          let defaultName = '';
+          let pluginDefault = null;
+          try {
+            defaultName = name
+              .replace(/^(.*)award-plugin-/, '')
+              .split('-')
+              .map((item: any, index: number) => {
+                if (index > 0) {
+                  return item.charAt(0).toUpperCase() + item.substr(1);
+                }
+                return item;
+              })
+              .join('');
+            let requireLibPath = name;
+            if (/^\.\//.test(requireLibPath)) {
+              // 如果以./开头，则需要处理下路径
+              requireLibPath = join(root, requireLibPath);
+            }
+            pluginDefault = require(requireLibPath);
+          } catch (error) {
+            if (process.env.NODE_ENV === 'development') {
+              console.error('', error);
+            }
+          }
 
-        global.__AWARD__PLUGINS__[name] = {
-          name: defaultName,
-          default: pluginDefault
-        };
-      }
-    } catch (error) {}
-  });
+          global.__AWARD__PLUGINS__[name] = {
+            name: defaultName,
+            default: pluginDefault
+          };
+        }
+      } catch (error) {}
+    });
+  }
 
   const config = { ...defaultConfig, ...userConfig };
 

@@ -89,8 +89,6 @@ export default function (babel: any) {
                   }
                 } catch (error) {}
 
-                console.log(3333, plugin);
-
                 element.push(
                   tpl(`_award_plugins_[LIBRARYNAME] = {
                   name: NAME,
