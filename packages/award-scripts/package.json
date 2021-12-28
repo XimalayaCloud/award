@@ -1,6 +1,6 @@
 {
   "name": "award-scripts",
-  "version": "1.1.25",
+  "version": "1.1.26",
   "description": "Award项目开发、构建工具库",
   "main": "lib/index.js",
   "types": "lib",
