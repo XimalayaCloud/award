@@ -100,7 +100,9 @@ const loadConfig = (dir: string): IConfig => {
         if (/^(.*)award-plugin-(.*)/.test(name)) {
           let defaultName = '';
           let pluginDefault = null;
+          let requireLibPath = name;
           try {
+            // 获取插件名称和路径
             defaultName = name
               .replace(/^(.*)award-plugin-/, '')
               .split('-')
@@ -111,17 +113,19 @@ const loadConfig = (dir: string): IConfig => {
                 return item;
               })
               .join('');
-            let requireLibPath = name;
             if (/^\.\//.test(requireLibPath)) {
               // 如果以./开头，则需要处理下路径
               requireLibPath = join(root, requireLibPath);
             }
-            pluginDefault = require(requireLibPath);
           } catch (error) {
             if (process.env.NODE_ENV === 'development') {
               console.error('', error);
             }
           }
+          // 检测插件是否存在默认导出组件
+          try {
+            pluginDefault = require(requireLibPath);
+          } catch (error) {}
 
           global.__AWARD__PLUGINS__[name] = {
             name: defaultName,
