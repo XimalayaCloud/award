@@ -38,14 +38,29 @@ function app(props) {
       </Head>
       {a}
       <h1 onClick={() => setCount(count + 1)}>{count}</h1>
-      <p>basename：{basename()}</p>
+      <p>
+        basename：{basename()}
+        <div>
+          <span>3434</span>
+        </div>
+      </p>
       <h1
         onClick={() => {
           setInfo(null);
         }}
       >
         Hello {info.name}
-        <span>1234</span>
+        <span>
+          1234<p>....</p>
+        </span>
+        <p>
+          abcd
+          <div />
+          <span>333</span>
+          <span>333</span>
+          <span>333</span>
+          <span>333</span>
+        </p>
       </h1>
       <About />
       <Consumer>
