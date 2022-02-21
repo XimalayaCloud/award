@@ -19,6 +19,36 @@ export default postcss.plugin(
 
         const selectors = rule.selector.split(',');
 
+        const handleSpecialSelector = (selector: string) => {
+          if (scopePosition === 'head') {
+            let selectorSplit = '';
+            let newSelector: string[] = [];
+            if (/>/.test(selector)) {
+              newSelector = selector.split('>');
+              selectorSplit = '>';
+              if (/\+/.test(newSelector[0])) {
+                // 如果大于里面有+，那就直接找加即可
+                newSelector = selector.split('+');
+                selectorSplit = '+';
+              }
+            } else {
+              if (/\+/.test(selector)) {
+                newSelector = selector.split('+');
+                selectorSplit = '+';
+                if (/>/.test(newSelector[0])) {
+                  newSelector = selector.split('>');
+                  selectorSplit = '>';
+                }
+              }
+            }
+            if (selectorSplit && newSelector.length) {
+              newSelector[0] = newSelector[0] + uniqueInfo;
+              return newSelector.join(selectorSplit);
+            }
+          }
+          return selector;
+        };
+
         selectors.map((item: any, index: any) => {
           const selector = item.split(' ').filter((item: string) => item !== '');
           let scopeSelector =
@@ -30,33 +60,23 @@ export default postcss.plugin(
 
             if (match !== null) {
               // 最后一个选择器是伪类
-              scopeSelector = scopeSelector.replace(match[0], `${uniqueInfo}${match[0]}`);
+              const newScopeSelector = handleSpecialSelector(scopeSelector);
+              if (newScopeSelector === scopeSelector) {
+                scopeSelector = scopeSelector.replace(match[0], `${uniqueInfo}${match[0]}`);
+              } else {
+                scopeSelector = newScopeSelector;
+              }
             } else {
               scopeSelector = scopeSelector + uniqueInfo;
             }
-          } else if (/>/.test(scopeSelector) && scopePosition === 'head') {
-            const newSelector = scopeSelector.split('>');
-            if (/\+/.test(newSelector[0])) {
-              const tmpNewSelector = newSelector[0].split('+');
-              tmpNewSelector[0] = tmpNewSelector[0] + uniqueInfo;
-              newSelector[0] = tmpNewSelector.join('+');
-            } else {
-              newSelector[0] = newSelector[0] + uniqueInfo;
-            }
-            scopeSelector = newSelector.join('>');
-          } else if (/\+/.test(scopeSelector) && scopePosition === 'head') {
-            const newSelector = scopeSelector.split('+');
-            if (/>/.test(newSelector[0])) {
-              const tmpNewSelector = newSelector[0].split('>');
-              tmpNewSelector[0] = tmpNewSelector[0] + uniqueInfo;
-              newSelector[0] = tmpNewSelector.join('>');
-            } else {
-              newSelector[0] = newSelector[0] + uniqueInfo;
-            }
-            scopeSelector = newSelector.join('+');
           } else {
             if (['body', 'html'].indexOf(scopeSelector) === -1) {
-              scopeSelector = scopeSelector + uniqueInfo;
+              const newScopeSelector = handleSpecialSelector(scopeSelector);
+              if (newScopeSelector === scopeSelector) {
+                scopeSelector = scopeSelector + uniqueInfo;
+              } else {
+                scopeSelector = newScopeSelector;
+              }
             }
           }
 
