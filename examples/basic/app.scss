@@ -1,4 +1,3 @@
-/* head */
 @import './mixin.scss';
 
 .h1{
@@ -9,6 +8,17 @@
 h1{
   display: flex;
   span{
-    color:red;
+    color:red;    
+  }
+  > p{
+    color: saddlebrown;
+    div + span{
+      color: salmon;
+    }
+  }
+  +p {
+    div > span{
+      color: darkcyan;
+    }
   }
 }

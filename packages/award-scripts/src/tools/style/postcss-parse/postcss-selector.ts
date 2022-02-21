@@ -34,6 +34,26 @@ export default postcss.plugin(
             } else {
               scopeSelector = scopeSelector + uniqueInfo;
             }
+          } else if (/>/.test(scopeSelector) && scopePosition === 'head') {
+            const newSelector = scopeSelector.split('>');
+            if (/\+/.test(newSelector[0])) {
+              const tmpNewSelector = newSelector[0].split('+');
+              tmpNewSelector[0] = tmpNewSelector[0] + uniqueInfo;
+              newSelector[0] = tmpNewSelector.join('+');
+            } else {
+              newSelector[0] = newSelector[0] + uniqueInfo;
+            }
+            scopeSelector = newSelector.join('>');
+          } else if (/\+/.test(scopeSelector) && scopePosition === 'head') {
+            const newSelector = scopeSelector.split('+');
+            if (/>/.test(newSelector[0])) {
+              const tmpNewSelector = newSelector[0].split('>');
+              tmpNewSelector[0] = tmpNewSelector[0] + uniqueInfo;
+              newSelector[0] = tmpNewSelector.join('>');
+            } else {
+              newSelector[0] = newSelector[0] + uniqueInfo;
+            }
+            scopeSelector = newSelector.join('+');
           } else {
             if (['body', 'html'].indexOf(scopeSelector) === -1) {
               scopeSelector = scopeSelector + uniqueInfo;
